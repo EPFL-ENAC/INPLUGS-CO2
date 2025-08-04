@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ locale or 'en' }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or site.name or 'INPLUGS CO2' }}</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    <link rel="stylesheet" href="/src/styles/tokens.css" />
+    <link rel="stylesheet" href="/src/styles/navbar.css" />
+    {% if not allowIndexing %}
+      <meta name="robots" content="noindex,nofollow">
+    {% else %}
+      <link rel="canonical" href="{{ hostname }}{{ pagePath }}">
+      {% for alt in alternates %}
+        <link rel="alternate" href="{{ alt.href }}" hreflang="{{ alt.hreflang }}">
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body>
+    <h1>{{ title or site.name or 'INPLUGS CO2' }}</h1>
+    {% include 'src/components/nav.njk' %}
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+    {% include 'src/components/footer.njk' %}
+    <img src="/src/assets/logo.png" width="400" style="margin-top: 1.5rem">
+    <script type="module" src="/public/js/nav-active-lang.js"></script>
+  </body>
+</html>

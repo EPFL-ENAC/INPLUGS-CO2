@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite'
-import { resolve, sep } from 'node:path'
+import { resolve } from 'node:path'
 import fs from 'node:fs'
 import nunjucks from 'nunjucks'
 import nunjucksPlugin from 'vite-plugin-nunjucks'
 import ssinc from 'vite-plugin-ssinc'
-import Sitemap from 'vite-plugin-sitemap'
-import Critical from 'rollup-plugin-critical'
 
 // ---------- env ----------
 const ALLOW = process.env.VITE_ALLOW_INDEXING === 'true'
@@ -14,7 +12,7 @@ const HOSTNAME = process.env.VITE_SITE_HOSTNAME || 'https://app.mydomain.com'
 // ---------- catalogs ----------
 const catalogs = {
   en: JSON.parse(fs.readFileSync('./i18n/en.json', 'utf8')),
-  fr: JSON.parse(fs.readFileSync('./i18n/fr.json', 'utf8')),
+  fr: JSON.parse(fs.readFileSync('./i18n/fr.json', 'utf8'))
 }
 const get = (obj, path) => path.split('.').reduce((o, k) => (o || {})[k], obj)
 
@@ -26,87 +24,62 @@ const locales = routesCfg.locales
 const byLocaleKey = {}
 for (const loc of locales) {
   byLocaleKey[loc] = {}
-  for (const r of routesCfg.routes[loc]) byLocaleKey[loc][r.key] = { path: r.path, title: r.title }
+  for (const route of routesCfg.routes[loc]) {
+    byLocaleKey[loc][route.key] = { path: route.path, title: route.title }
+  }
 }
 
-// ---------- inputs (MPA) ----------
-const inputs = {
-  root: 'index.html',
-  enHome: 'en/index.html',
-  frHome: 'fr/index.html',
-  enGcs: 'en/gcs/index.html',
-  frGcs: 'fr/gcs/index.html',
-  enData: 'en/data/index.html',
-  frData: 'fr/data/index.html',
-  enEdu: 'en/education/index.html',
-  frEdu: 'fr/education/index.html',
-  enDict: 'en/dictionary/index.html',
-  frDict: 'fr/dictionnaire/index.html',
-  enLinks: 'en/useful-links/index.html',
-  frLinks: 'fr/liens-utiles/index.html',
-  enAbout: 'en/about/index.html',
-  frAbout: 'fr/a-propos/index.html',
-  enContact: 'en/contact/index.html',
-  frContact: 'fr/contact/index.html',
-}
-
-const fileToPath = (f) => {
-  if (f === 'index.html') return '/'
-  const p = '/' + f.replace(/\\/g, '/').replace(/index\.html$/, '')
-  return p.endsWith('/') ? p : p + '/'
-}
-
-// Find route key for a given (locale, path) by scanning manifest once
-const pathToKey = {}
-for (const loc of locales) {
-  for (const r of routesCfg.routes[loc]) pathToKey[`${loc}:${r.path}`] = r.key
-}
-
-// Per-entry variables for Nunjucks (locale, catalog, pagePath, alternates, allowIndexing, hostname)
+// ---------- Variables for each page/locale combo ----------
 const variables = Object.fromEntries(
-  Object.values(inputs).map((file) => {
-    const path = fileToPath(file)
-    // infer locale from path
-    const isFr = path.startsWith('/fr/')
-    const isEn = path.startsWith('/en/') || path === '/'
-    const locale = isFr ? 'fr' : 'en'
-    const key = pathToKey[`${locale}:${path}`] || 'home'
-    // alternates array across locales (prod hostname)
-    const alternates = locales
-      .filter((l) => byLocaleKey[l][key])
-      .map((l) => ({ hreflang: l, href: `${HOSTNAME}${byLocaleKey[l][key].path}` }))
-    // add x-default pointing to default locale
-    alternates.push({
-      hreflang: 'x-default',
-      href: `${HOSTNAME}${byLocaleKey['en'][key]?.path || '/en/'}`,
-    })
-    return [
-      file,
-      {
-        locale,
-        catalog: catalogs[locale],
-        pagePath: path,
-        alternates,
-        allowIndexing: ALLOW,
+  locales.flatMap(locale =>
+    routesCfg.routes[locale].map(({ path, key }) => {
+      // Convert /en/about/ to en_about.html for file naming
+      const sanitizedPath = path.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '_')
+      const fileName = (sanitizedPath || `${locale}_index`) + '.html'
+      
+      // alternates array across locales (prod hostname)
+      const alternates = locales
+        .filter(l => byLocaleKey[l][key])
+        .map(l => ({ hreflang: l, href: `${HOSTNAME}${byLocaleKey[l][key].path}` }))
+      // add x-default pointing to default locale
+      alternates.push({ hreflang: 'x-default', href: `${HOSTNAME}${byLocaleKey['en'][key]?.path || '/en/'}` })
+      
+      return [fileName, { 
+        locale, 
+        catalog: catalogs[locale], 
+        pagePath: path, 
+        alternates, 
+        allowIndexing: ALLOW, 
         hostname: HOSTNAME,
-      },
-    ]
-  })
+        // Add individual catalog values for easier access
+        ...catalogs[locale]
+      }]
+    })
+  )
 )
 
 // ---------- Nunjucks env with t() ----------
-const env = new nunjucks.Environment(
-  new nunjucks.FileSystemLoader([
-    resolve(process.cwd()),
-    resolve(process.cwd(), 'html'),
-    resolve(process.cwd(), 'public'),
-  ]),
-  { noCache: true }
-)
+const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('./'), { noCache: true })
 env.addGlobal('t', function (key) {
   const { catalog } = this.getVariables()
   return get(catalog, key) ?? `⟦${key}⟧`
 })
+
+// ---------- Build inputs for locale pages ----------
+const buildInput = Object.fromEntries(
+  locales.flatMap(locale =>
+    routesCfg.routes[locale].map(({ path, key }) => {
+      // Convert /en/about/ to en_about for file naming
+      const sanitizedPath = path.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '_')
+      const outputName = sanitizedPath || `${locale}_index`
+      
+      // Map to the template that corresponds to this route
+      const templateFile = `templates/${key}.html`
+      
+      return [outputName, resolve(process.cwd(), templateFile)]
+    })
+  )
+)
 
 export default defineConfig({
   plugins: [
@@ -114,38 +87,39 @@ export default defineConfig({
       templatesDir: resolve(process.cwd()),
       variables,
       nunjucksEnvironment: env,
+      nunjucksOptions: { noCache: true }
     }),
-    ssinc({ includeExtensions: ['html', 'shtml'] }),
-    ...(ALLOW
-      ? [
-          Sitemap({
-            hostname: HOSTNAME,
-            i18n: { defaultLanguage: 'en', languages: ['en', 'fr'], strategy: 'prefix' },
-            generateRobotsTxt: true,
-            readable: true,
-          }),
-        ]
-      : []),
-    Critical({
-      criticalBase: 'dist/',
-      criticalPages: [
-        { uri: '', template: 'index' },
-        { uri: 'en/', template: 'en/index' },
-        { uri: 'fr/', template: 'fr/index' },
-        { uri: 'en/gcs/', template: 'en/gcs/index' },
-        { uri: 'fr/gcs/', template: 'fr/gcs/index' },
-        { uri: 'en/education/', template: 'en/education/index' },
-        { uri: 'fr/education/', template: 'fr/education/index' },
-      ],
-      criticalConfig: { width: 1200, height: 900 },
-    }),
-  ],
+    ssinc()
+  ].filter(Boolean),
   build: {
     rollupOptions: {
-      input: Object.fromEntries(Object.entries(inputs).map(([k, v]) => [k, resolve(__dirname, v)])),
-    },
+      input: buildInput,
+      output: {
+        entryFileNames: (chunkInfo) => {
+          // Extract locale and page from the chunk name
+          const name = chunkInfo.name
+          
+          if (name === 'en') {
+            return 'en/index.html'
+          } else if (name.startsWith('en_')) {
+            const pageName = name.replace('en_', '')
+            return `en/${pageName}.html`
+          } else if (name === 'fr') {
+            return 'fr/index.html'
+          } else if (name.startsWith('fr_')) {
+            const pageName = name.replace('fr_', '')
+            return `fr/${pageName}.html`
+          }
+          
+          return '[name].html'
+        }
+      }
+    }
   },
+  // Exclude root HTML files from automatic entry point detection
   server: {
-    watch: { paths: ['public/partials/**', 'css/**', 'i18n/**', 'routes/**', 'public/js/**'] },
-  },
+    fs: {
+      strict: false
+    }
+  }
 })

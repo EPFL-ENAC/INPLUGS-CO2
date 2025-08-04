@@ -1,0 +1,19 @@
+<nav class="main-nav">
+    <ul id="navigation">
+        {% set currentLocale = locale or 'en' %}
+        <li><a href="/{{ currentLocale }}/">{{ nav.home or 'Home' }}</a></li>
+        <li><a href="/{{ currentLocale }}/about/">{{ nav.about or 'About' }}</a></li>
+        <li><a href="/{{ currentLocale }}/contact/">{{ nav.contact or 'Contact' }}</a></li>
+        <li><a href="/{{ currentLocale }}/data/">{{ nav.data or 'Data' }}</a></li>
+        <li><a href="/{{ currentLocale }}/dictionary/">{{ nav.dictionary or 'Dictionary' }}</a></li>
+        <li><a href="/{{ currentLocale }}/education/">{{ nav.education or 'Education' }}</a></li>
+        <li><a href="/{{ currentLocale }}/gcs/">{{ nav.gcs or 'GCS' }}</a></li>
+        <li><a href="/{{ currentLocale }}/links/">{{ nav.links or 'Links' }}</a></li>
+    </ul>
+    
+    <div class="lang-switch">
+        {% for lang in locales %}
+            <a data-lang="{{ lang }}" href="/{{ lang }}/" aria-label="Switch to {{ lang | upper }}" class="{{ 'active' if currentLocale == lang }}">{{ lang | upper }}</a>
+        {% endfor %}
+    </div>
+</nav>

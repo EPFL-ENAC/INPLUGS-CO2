@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ t('site.name') }}</title>
+    <link rel="stylesheet" href="/css/tokens.css" />
+    {% if not allowIndexing %}
+      <meta name="robots" content="noindex,nofollow">
+    {% else %}
+      <link rel="canonical" href="{{ hostname }}{{ pagePath }}">
+      {% for alt in alternates %}
+        <link rel="alternate" href="{{ alt.href }}" hreflang="{{ alt.hreflang }}">
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body>
+    {% include "public/partials/header.njk" %}
+    <main class="container">
+      <h1>{{ t('home.title') }}</h1>
+      <p>{{ t('home.description') or 'Welcome to our platform for carbon storage and removal research.' }}</p>
+    </main>
+    {% include "public/partials/footer.html" %}
+    <script type="module" src="/public/js/nav-active-lang.js"></script>
+  </body>
+</html>

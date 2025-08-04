@@ -1,0 +1,36 @@
+<site-header>
+  <template shadowrootmode="open">
+    <link rel="stylesheet" href="/src/styles/navbar.css">
+    <header class="nav">
+      <h1><slot name="title">{{ catalogs[locale or 'en']['site.name'] if catalogs else 'INPLUGS CO2' }}</slot></h1>
+      <nav>
+        <a href="/{{ locale or 'en' }}/">{{ catalogs[locale or 'en']['nav.home'] if catalogs else 'Home' }}</a>
+        <a href="/{{ locale or 'en' }}/gcs/">{{ catalogs[locale or 'en']['nav.gcs'] if catalogs else 'GCS' }}</a>
+        <a href="/{{ locale or 'en' }}/data/">{{ catalogs[locale or 'en']['nav.data'] if catalogs else 'Data' }}</a>
+        <a href="/{{ locale or 'en' }}/education/">{{ catalogs[locale or 'en']['nav.education'] if catalogs else 'Education' }}</a>
+        <a href="/{{ locale or 'en' }}/dictionary/">{{ catalogs[locale or 'en']['nav.dictionary'] if catalogs else 'Dictionary' }}</a>
+        <a href="/{{ locale or 'en' }}/useful-links/">{{ catalogs[locale or 'en']['nav.links'] if catalogs else 'Links' }}</a>
+        <a href="/{{ locale or 'en' }}/about/">{{ catalogs[locale or 'en']['nav.about'] if catalogs else 'About' }}</a>
+        <a href="/{{ locale or 'en' }}/contact/">{{ catalogs[locale or 'en']['nav.contact'] if catalogs else 'Contact' }}</a>
+      </nav>
+      <div class="lang">
+        <!-- hrefs are placeholders; script rewrites to the matching path in the other locale -->
+        <a data-lang="en" href="/en/" aria-label="Switch to English">EN</a>
+        <a data-lang="fr" href="/fr/" aria-label="Passer en français">FR</a>
+      </div>
+    </header>
+  </template>
+</site-header>
+
+<script type="speculationrules">
+{
+  "prerender": [{
+    "urls": ["/{{ locale or 'en' }}/gcs/", "/{{ locale or 'en' }}/data/", "/{{ locale or 'en' }}/education/"],
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "selector_matches": "nav a", "href_matches": "/{{ locale or 'en' }}/.+" },
+    "eagerness": "conservative"
+  }]
+}
+</script>

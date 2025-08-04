@@ -4,9 +4,10 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && node scripts/postbuild.mjs && node scripts/generate-html-sitemap.mjs",
+    "dev": "vite dev",
+    "build": "vite build",
     "preview": "vite preview",
+    "serve": "vite preview --outDir dist",
     "format": "prettier -w .",
     "lint:commit": "commitlint --edit"
   },
@@ -14,12 +15,16 @@
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@evilmartians/lefthook": "^1.5.0",
+    "@vituum/vite-plugin-nunjucks": "^1.1.0",
     "nunjucks": "^3.2.4",
     "prettier": "^3.5.3",
-    "rollup-plugin-critical": "^2.0.0",
+    "rollup-plugin-critical": "^1.0.15",
     "vite": "^6.0.0",
-    "vite-plugin-nunjucks": "^0.2.0",
     "vite-plugin-sitemap": "^0.8.2",
-    "vite-plugin-ssinc": "^1.0.11"
+    "vite-plugin-ssinc": "^1.0.11",
+    "vituum": "^1.2.0"
+  },
+  "dependencies": {
+    "vite-plugin-nunjucks": "^0.2.0"
   }
 }

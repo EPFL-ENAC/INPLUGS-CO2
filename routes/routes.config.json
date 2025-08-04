@@ -3,7 +3,7 @@
   "locales": ["en", "fr"],
   "routes": {
     "en": [
-      { "key": "home", "path": "/en/", "title": "Home" },
+      { "key": "index", "path": "/en/", "title": "Home" },
       {
         "key": "gcs",
         "path": "/en/gcs/",
@@ -32,7 +32,7 @@
       { "key": "contact", "path": "/en/contact/", "title": "Contact" }
     ],
     "fr": [
-      { "key": "home", "path": "/fr/", "title": "Accueil" },
+      { "key": "index", "path": "/fr/", "title": "Accueil" },
       {
         "key": "gcs",
         "path": "/fr/gcs/",
