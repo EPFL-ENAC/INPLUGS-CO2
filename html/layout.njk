@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="{{ locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ t('site.name') }}{% endblock %}</title>
+    <link rel="stylesheet" href="/css/tokens.css" />
+    {% if not allowIndexing %}
+      <meta name="robots" content="noindex,nofollow">
+    {% else %}
+      <link rel="canonical" href="{{ hostname }}{{ pagePath }}">
+      {% for alt in alternates %}
+        <link rel="alternate" href="{{ alt.href }}" hreflang="{{ alt.hreflang }}">
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body>
+    {% include "public/partials/header.njk" %}
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+    {% include "public/partials/footer.html" %}
+    <script type="module" src="/js/nav-active-lang.js"></script>
+  </body>
+</html>

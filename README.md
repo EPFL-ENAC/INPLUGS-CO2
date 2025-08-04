@@ -1,125 +1,220 @@
-# INPLUGS-CO2
+# GCS MPA — Vite + Nunjucks + i18n (+ Critical CSS, Sitemaps, hreflang in head)
 
-Noone talks about Carbon storage - carbon removal is necessary, but we need to go all the way in the chain, including Carbon storage !
+This project is a comprehensive multi-page application (MPA) built with Vite, Nunjucks, and includes advanced internationalization (i18n) support with SEO optimization features.
 
-**Access the platform here:**
+## Environments
 
-**dev url: [https://INPLUGS-CO2-dev.inplugs-co2/](https://INPLUGS-CO2-dev.inplugs-co2/)**  
-**prod url: [https://INPLUGS-CO2.inplugs-co2/](https://INPLUGS-CO2.inplugs-co2/)**
+The application supports different deployment environments with specific SEO configurations:
 
-## Contributors
+- **Production**: `VITE_SITE_HOSTNAME=https://app.mydomain.com` + `VITE_ALLOW_INDEXING=true`
+- **Staging/dev host**: `VITE_SITE_HOSTNAME=https://app-dev.mydomain.com` + `VITE_ALLOW_INDEXING=false`
 
-- EPFL - (Research & Data): eleni
-- EPFL - ENAC-IT4R (Implementation):
-- EPFL - ENAC-IT4R (Project Management):
-- EPFL - ENAC-IT4R (Contributors):
+## Build Commands
 
-## Tech Stack
+### Production Build
 
-### Frontend
+```bash
+VITE_SITE_HOSTNAME=https://app.mydomain.com VITE_ALLOW_INDEXING=true npm run build
+```
 
-- [Vue.js 3](https://vuejs.org/) - Progressive JavaScript Framework
-- [Quasar](https://quasar.dev/) - Vue.js Framework
-- [OpenLayers](https://openlayers.org/) - Mapping Library
-- [ECharts](https://echarts.apache.org/) - Data Visualization
-- [nginx](https://nginx.org/) - Web Server
+### Staging Build
 
-### Backend
+```bash
+VITE_SITE_HOSTNAME=https://app-dev.mydomain.com VITE_ALLOW_INDEXING=false npm run build
+```
 
-- [Python](https://www.python.org/) with FastAPI
-- [PostgreSQL](https://www.postgresql.org/) - Database
+### Development
 
-### Infrastructure
+```bash
+npm run dev
+```
 
-- [Docker](https://www.docker.com/) - Containerization
-- [Traefik](https://traefik.io/) - Edge Router
+## SEO Features
 
-_Note: Update this section with your actual tech stack_
+The layout template (`html/layout.njk`) automatically handles SEO based on the environment:
 
-## Development
+- **Production builds** (`allowIndexing=true`):
+
+  - Adds `<link rel="canonical">` with proper hostname
+  - Includes all `<link rel="alternate" hreflang="...">` tags for multilingual SEO
+  - Generates `sitemap.xml` and proper `robots.txt`
+
+- **Staging builds** (`allowIndexing=false`):
+  - Adds `<meta name="robots" content="noindex,nofollow">`
+  - Writes `robots.txt` with `Disallow: /` for all crawlers
+  - Skips sitemap generation
+
+## Technology Stack
+
+- **Vite MPA** - Multi-page application build tool
+- **Nunjucks templates** with JSON translation catalogs
+- **Declarative Shadow DOM navbar** with integrated language switcher
+- **Current-link highlighting** + locale switch mapping (`public/js/nav-active-lang.js`)
+- **Speculation Rules** for prefetch/prerender optimization
+- **XML sitemap + robots.txt** via `vite-plugin-sitemap` (production only)
+- **HTML sitemap** via `scripts/generate-html-sitemap.mjs`
+- **Critical CSS** extraction via `rollup-plugin-critical`
+- **Code quality tools**: Prettier, Commitlint, Lefthook
+
+## Project Structure
+
+```
+├── css/                           # Stylesheets
+│   ├── navbar.css                # Navigation component styles
+│   └── tokens.css                # Design tokens and utilities
+├── en/                           # English pages
+├── fr/                           # French pages
+├── html/                         # Nunjucks templates
+│   └── layout.njk               # Base layout with hreflang support
+├── i18n/                         # Translation catalogs
+│   ├── en.json                  # English translations
+│   └── fr.json                  # French translations
+├── public/                       # Static assets
+│   ├── partials/                # Reusable template components
+│   │   ├── header.njk          # Navigation with language switcher
+│   │   └── footer.html         # Footer component
+│   └── js/                      # Client-side JavaScript
+│       └── nav-active-lang.js   # Navigation highlighting & lang switching
+├── routes/                       # Route configuration
+│   └── routes.config.json       # Route manifest with stable keys
+├── scripts/                      # Build scripts
+│   ├── postbuild.mjs           # Post-build processing (robots.txt)
+│   └── generate-html-sitemap.mjs # HTML sitemap generation
+├── .env.production              # Production environment variables
+├── .env.staging                 # Staging environment variables
+├── index.html                   # Root page (language redirect)
+├── vite.config.js              # Enhanced Vite configuration
+└── package.json                # Dependencies and scripts
+```
+
+## Getting Started
 
 ### Prerequisites
 
-- Node.js (v22+)
-- npm
-- Python 3
-- Docker
+- Node.js (version 18 or higher)
+- npm or yarn
 
-### Setup & Usage
+### Installation
 
-You can use Make with the following commands:
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd INPLUGS-CO2
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Install git hooks:
+   ```bash
+   npx lefthook install
+   ```
+
+### Development
+
+Start the development server:
 
 ```bash
-make install
-make clean
-make uninstall
-make lint
-make format
+npm run dev
 ```
 
-_Note: Update these commands based on your project's actual build system_
+The application will be available at `http://localhost:5173` with automatic language detection and redirection.
 
-### Development Environment
+## Route Management
 
-The development environment includes:
+The `routes/routes.config.json` file defines the complete site structure with stable `key`s per route, enabling reliable hreflang alternate generation across locales.
 
-- Frontend at http://localhost:9000
-- Backend API at https://localhost:8060
-- Traefik Dashboard at http://localhost:8080
+### Adding New Pages
 
-## Data Management
+1. **Add route entries** to `routes/routes.config.json` for both locales
+2. **Create page files** in both `en/` and `fr/` directories
+3. **Update Vite inputs** in `vite.config.js`
+4. **Update language mapping** in `nav-active-lang.js` if slugs differ between locales
+5. **Add navigation links** to `public/partials/header.njk`
 
-Data for the platform is organized the following way:
+### Route Key System
 
-### Application Data
+Each route has a stable `key` that maps equivalent pages across locales:
 
-- Location: `./`
-- Contains:
-  - Application-specific data
+```json
+{
+  "en": [{ "key": "about", "path": "/en/about/", "title": "About" }],
+  "fr": [{ "key": "about", "path": "/fr/a-propos/", "title": "À propos" }]
+}
+```
 
-Data is version-controlled and regularly updated to reflect the latest research findings
+This enables automatic hreflang alternate generation even when URL slugs differ between languages.
 
 ## Internationalization
 
-The platform supports multiple languages including English, French, and Arabic. Translations are managed through i18n files located in `frontend/src/i18n/`. based on `frontend/src/assets/i18n`
+### Language Support
+
+- **English (`en`)**: Primary language at `/en/`
+- **French (`fr`)**: Secondary language at `/fr/`
+
+### Adding Translations
+
+1. Add new keys to both `i18n/en.json` and `i18n/fr.json`
+2. Use in templates: `{{ t('your.nested.key') }}`
+3. Missing keys display as `⟦key.name⟧` for easy debugging
+
+### Language Switcher
+
+The navigation automatically:
+
+- Highlights current language
+- Maps equivalent pages between locales
+- Preserves URL fragments (#anchors) when switching
+- Falls back to home page if no equivalent exists
+
+## SEO Optimization
+
+### Hreflang Implementation
+
+- Automatic `<link rel="alternate" hreflang="...">` generation
+- `x-default` points to English version
+- Only included in production builds
+
+### Sitemap Generation
+
+- **XML sitemap**: Auto-generated for production builds
+- **HTML sitemap**: Human-readable version at `/sitemap.html`
+- **Robots.txt**: Environment-specific generation
+
+### Critical CSS
+
+Automatically extracts above-the-fold CSS for key pages:
+
+- Home pages (EN/FR)
+- GCS pages (EN/FR)
+- Education pages (EN/FR)
+
+## Build Process
+
+1. **Vite build** - Compiles and optimizes all assets
+2. **Post-build script** - Handles environment-specific robots.txt
+3. **HTML sitemap generation** - Creates human-readable sitemap
+4. **Critical CSS extraction** - Optimizes loading performance
+
+## Notes
+
+- The routes manifest includes stable `key`s for reliable cross-locale mapping
+- Environment variables control SEO behavior (indexing, canonical URLs)
+- Language switcher uses shadow DOM for encapsulation
+- Speculation rules enable intelligent prefetching
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## Status
-
-Under active development. [Report bugs here](https://github.com/EPFL-ENAC/INPLUGS-CO2/issues).
+1. Follow existing code patterns and structure
+2. Update route manifest when adding/changing pages
+3. Ensure translations exist in both languages
+4. Test builds in both production and staging modes
+5. Use conventional commit messages
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](LICENSE) - see the LICENSE file for details.
-
-This is free software: you can redistribute it and/or modify it under the terms of the GPL-3.0 as published by the Free Software Foundation.
-
-# Setup Checklist Completed
-
-The following items from the original setup checklist have been automatically completed:
-
-- [x] Replace `{ YOUR-REPO-NAME }` in all files by the name of your repo
-- [x] Replace `{ YOUR-LAB-NAME }` in all files by the name of your lab
-- [x] Replace `{ DESCRIPTION }` with project description
-- [x] Replace assignees: githubusernameassignee by the github handle of your assignee
-- [x] Handle CITATION.cff file (kept/removed based on preference)
-- [x] Handle release-please workflow (kept/removed based on preference)
-- [x] Configure project-specific settings
-
-## Remaining Manual Tasks
-
-Please complete these tasks manually:
-
-- [ ] Add token for the github action secrets called: MY_RELEASE_PLEASE_TOKEN (since you kept the release-please workflow)
-- [ ] Check if you need all the labels: https://github.com/EPFL-ENAC/INPLUGS-CO2/labels
-- [ ] Create your first milestone: https://github.com/EPFL-ENAC/INPLUGS-CO2/milestones
-- [ ] Protect your branch if you're a pro user: https://github.com/EPFL-ENAC/INPLUGS-CO2/settings/branches
-- [ ] [Activate discussion](https://github.com/EPFL-ENAC/INPLUGS-CO2/settings)
-
-## Helpful links
-
-- [How to format citations ?](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
-- [Learn how to use github template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+[Add your license information here]

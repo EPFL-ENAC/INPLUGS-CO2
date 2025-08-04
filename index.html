@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GCS</title>
+    <link rel="stylesheet" href="/css/tokens.css" />
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <script>
+      const lang = (navigator.language || 'en').toLowerCase()
+      if (!location.pathname.startsWith('/en') && !location.pathname.startsWith('/fr')) {
+        location.replace(lang.startsWith('fr') ? '/fr/' : '/en/')
+      }
+    </script>
+  </head>
+  <body>
+    <p class="container">Choose: <a href="/en/">English</a> | <a href="/fr/">Français</a></p>
+  </body>
+</html>

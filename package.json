@@ -1,10 +1,25 @@
 {
+  "name": "gcs-mpa-i18n-njk",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/postbuild.mjs && node scripts/generate-html-sitemap.mjs",
+    "preview": "vite preview",
+    "format": "prettier -w .",
+    "lint:commit": "commitlint --edit"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "@evilmartians/lefthook": "^1.5.0"
-  },
-  "dependencies": {
-    "prettier": "^3.5.3"
+    "@evilmartians/lefthook": "^1.5.0",
+    "nunjucks": "^3.2.4",
+    "prettier": "^3.5.3",
+    "rollup-plugin-critical": "^2.0.0",
+    "vite": "^6.0.0",
+    "vite-plugin-nunjucks": "^0.2.0",
+    "vite-plugin-sitemap": "^0.8.2",
+    "vite-plugin-ssinc": "^1.0.11"
   }
 }

@@ -1,0 +1,36 @@
+<site-header>
+  <template shadowrootmode="open">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <header class="nav">
+      <h1><slot name="title">{{ t('site.name') }}</slot></h1>
+      <nav>
+        <a href="/{{ locale }}/">{{ t('nav.home') }}</a>
+        <a href="/{{ locale }}/gcs/">{{ t('nav.gcs') }}</a>
+        <a href="/{{ locale }}/data/">{{ t('nav.data') }}</a>
+        <a href="/{{ locale }}/education/">{{ t('nav.education') }}</a>
+        <a href="/{{ locale }}/dictionary/">{{ t('nav.dictionary') }}</a>
+        <a href="/{{ locale }}/useful-links/">{{ t('nav.links') }}</a>
+        <a href="/{{ locale }}/about/">{{ t('nav.about') }}</a>
+        <a href="/{{ locale }}/contact/">{{ t('nav.contact') }}</a>
+      </nav>
+      <div class="lang">
+        <!-- hrefs are placeholders; script rewrites to the matching path in the other locale -->
+        <a data-lang="en" href="/en/" aria-label="Switch to English">EN</a>
+        <a data-lang="fr" href="/fr/" aria-label="Passer en français">FR</a>
+      </div>
+    </header>
+  </template>
+</site-header>
+
+<script type="speculationrules">
+{
+  "prerender": [{
+    "urls": ["/{{ locale }}/gcs/", "/{{ locale }}/data/", "/{{ locale }}/education/"],
+    "eagerness": "moderate"
+  }],
+  "prefetch": [{
+    "where": { "selector_matches": "nav a", "href_matches": "/{{ locale }}/.+" },
+    "eagerness": "conservative"
+  }]
+}
+</script>
