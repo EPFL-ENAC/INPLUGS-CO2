@@ -134,6 +134,7 @@ export function multiLocalePlugin(options = {}) {
   const env = nunjucks.configure([srcDir, layoutsDir, partialsDir], {
     autoescape: true,
     watch: false, // We handle watching ourselves
+    noCache: true, // Disable template caching for development
   })
 
   // Add Nunjucks globals and filters
