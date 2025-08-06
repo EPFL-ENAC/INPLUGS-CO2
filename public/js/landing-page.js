@@ -1,14 +1,15 @@
 /**
- * Landing Page State Toggle
- * Handles the transition between hero state and explore state
+ * Landing Page Navigation Controller
+ * Handles the transition between landing page and full page using View Transitions
+ * Progressive enhancement: links work normally, enhanced with View Transitions when supported
  */
 
 class LandingPageController {
   constructor() {
-    this.heroSection = document.querySelector('.landing_page');
+    this.landingPageSection = document.querySelector('.landing_page');
     this.ctaButton = document.querySelector('.btn-cta');
-    this.closeButton = null;
-    this.isState2 = false;
+    this.backButton = document.querySelector('.btn-back');
+    this.isFullPage = false;
     
     // Check for View Transition API support
     this.supportsViewTransitions = 'startViewTransition' in document;
@@ -20,90 +21,66 @@ class LandingPageController {
   }
 
   init() {
-    if (!this.heroSection || !this.ctaButton) return;
+    if (!this.landingPageSection) return;
     
-    // Bind event listeners
-    this.ctaButton.addEventListener('click', this.handleCTAClick.bind(this));
+    // Determine current page
+    this.isFullPage = window.location.pathname.includes('landing_page_full');
     
-    // Listen for escape key to close state 2
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    // Enhance CTA button with View Transitions if on landing page
+    if (this.ctaButton && !this.isFullPage) {
+      this.ctaButton.addEventListener('click', this.handleCTAClick.bind(this));
+    }
     
-    // Create close button for state 2 (initially hidden)
-    this.createCloseButton();
-  }
-
-  createCloseButton() {
-    this.closeButton = document.createElement('button');
-    this.closeButton.className = 'btn-close';
-    this.closeButton.textContent = '✕ Close';
-    this.closeButton.setAttribute('aria-label', 'Close and return to welcome');
-    this.closeButton.style.display = 'none';
+    // Enhance back button with View Transitions if on full page
+    if (this.backButton && this.isFullPage) {
+      this.backButton.addEventListener('click', this.handleBackClick.bind(this));
+    }
     
-    this.closeButton.addEventListener('click', this.handleCloseClick.bind(this));
-    
-    // Insert close button into the hero section
-    this.heroSection.appendChild(this.closeButton);
+    // Listen for escape key to go back to landing page
+    if (this.isFullPage) {
+      document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    }
   }
 
   handleCTAClick(event) {
-    event.preventDefault();
-    this.transitionToState2();
+    // Only enhance with View Transitions if supported and motion allowed
+    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
+      event.preventDefault();
+      this.navigateToFullPage();
+    }
+    // Otherwise, let the regular link navigation happen
   }
 
-  handleCloseClick(event) {
-    event.preventDefault();
-    this.transitionToState1();
+  handleBackClick(event) {
+    // Only enhance with View Transitions if supported and motion allowed
+    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
+      event.preventDefault();
+      this.navigateToLandingPage();
+    }
+    // Otherwise, let the regular link navigation happen
   }
 
   handleKeyDown(event) {
-    // Close state 2 on Escape key
-    if (event.key === 'Escape' && this.isState2) {
-      this.transitionToState1();
+    // Go back to landing page on Escape key when on full page
+    if (event.key === 'Escape' && this.isFullPage) {
+      this.navigateToLandingPage();
     }
   }
 
-  transitionToState2() {
-    if (this.isState2) return;
-    
-    const transition = () => {
-      this.heroSection.classList.add('is-state2');
-      this.isState2 = true;
-      
-      // Show close button and manage focus
-      setTimeout(() => {
-        this.closeButton.style.display = 'block';
-        this.closeButton.focus();
-      }, 300); // After transition starts
+  navigateToFullPage() {
+    const navigation = () => {
+      window.location.href = '/landing_page_full';
     };
 
-    // Use View Transition API if supported and motion is allowed
-    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
-      document.startViewTransition(transition);
-    } else {
-      transition();
-    }
+    document.startViewTransition(navigation);
   }
 
-  transitionToState1() {
-    if (!this.isState2) return;
-    
-    const transition = () => {
-      this.heroSection.classList.remove('is-state2');
-      this.isState2 = false;
-      
-      // Hide close button and restore focus to CTA
-      this.closeButton.style.display = 'none';
-      setTimeout(() => {
-        this.ctaButton.focus();
-      }, 300); // After transition completes
+  navigateToLandingPage() {
+    const navigation = () => {
+      window.location.href = '/landing_page';
     };
 
-    // Use View Transition API if supported and motion is allowed
-    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
-      document.startViewTransition(transition);
-    } else {
-      transition();
-    }
+    document.startViewTransition(navigation);
   }
 }
 
