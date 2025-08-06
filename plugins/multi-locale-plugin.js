@@ -427,10 +427,12 @@ export function multiLocalePlugin(options = {}) {
         
         // Serve shared assets from /assets/ - prevent locale prefixing
         if (url.startsWith('/assets/')) {
-          const assetPath = join(currentOutputDir, url)
+          // Decode URL to handle spaces and special characters in filenames
+          const decodedUrl = decodeURIComponent(url)
+          const assetPath = join(currentOutputDir, decodedUrl)
           if (existsSync(assetPath)) {
             const content = readFileSync(assetPath)
-            const ext = extname(url)
+            const ext = extname(decodedUrl)
             const mimeTypes = {
               '.css': 'text/css',
               '.js': 'text/javascript',
@@ -514,10 +516,12 @@ export function multiLocalePlugin(options = {}) {
         
         // Serve shared assets from /assets/ - prevent locale prefixing
         if (url.startsWith('/assets/')) {
-          const assetPath = join(currentOutputDir, url)
+          // Decode URL to handle spaces and special characters in filenames
+          const decodedUrl = decodeURIComponent(url)
+          const assetPath = join(currentOutputDir, decodedUrl)
           if (existsSync(assetPath)) {
             const content = readFileSync(assetPath)
-            const ext = extname(url)
+            const ext = extname(decodedUrl)
             const mimeTypes = {
               '.css': 'text/css',
               '.js': 'text/javascript',
