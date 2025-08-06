@@ -10,7 +10,10 @@
     "about": "About",
     "contact": "Contact"
   },
-  "home": { "title": "Welcome to GCS" },
+  "homepage": {
+    "title": "L’Interactive Platform for Understanding Geological Storage of CO2 t’aide à comprendre l’enfouissement du CO2",
+    "button": "Learn more"
+  },
   "gcs": {
     "title": "GCS • What & Why",
     "why": "Why is GCS?",

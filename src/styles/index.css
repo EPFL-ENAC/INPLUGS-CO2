@@ -1,0 +1,38 @@
+@layer components {
+  :host {
+    display: block;
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    font:
+      500 16px/1.4 system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      sans-serif;
+    box-shadow: var(--shadow);
+  }
+  h2 {
+    color: var(--blanc-cass, #F4F0EB);
+    text-shadow: 7px 7px 13px rgba(0, 0, 0, 0.25);
+
+    /* h2 */
+    font-family: Archivo;
+    font-size: 4.375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 4.375rem; /* 100% */
+    letter-spacing: -0.13125rem;
+  }
+
+  span {
+    color: var(--canard, #1A586C);
+
+    /* h2 */
+    font-family: Archivo;
+    font-size: 4.375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 4.375rem;
+    letter-spacing: -0.13125rem;
+  }
+}

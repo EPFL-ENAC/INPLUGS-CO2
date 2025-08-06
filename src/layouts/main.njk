@@ -33,12 +33,12 @@
     <main class="container">
       {% block content %}{% endblock %}
     </main>
-    {% include "footer.njk" %}
-    {% if isProduction and imgHash %}
+    {# {% include "footer.njk" %} #}
+    {# {% if isProduction and imgHash %}
     <img src="/assets/images/logo.{{ imgHash }}.svg" width="400" style="margin-top: 1.5rem">
     {% else %}
     <img src="/assets/images/logo.svg" width="400" style="margin-top: 1.5rem">
-    {% endif %}
+    {% endif %} #}
     {% if isProduction and jsHash %}
     <script type="module" src="/assets/js/nav-active-lang.{{ jsHash }}.js"></script>
     {% else %}

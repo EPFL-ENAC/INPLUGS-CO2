@@ -2,9 +2,19 @@
 
 {% block content %}
 
-<h1>{{ t("homepage.title") }}</h1>
-<h2>{{ t("homepage.subtitle") }}</h2>
-<p>{{ t("homepage.greeting", { name: "User" }) }}</p>
+<index-content>
+  <template shadowrootmode="open">
+    {% if isProduction and cssHash %}
+    <link rel="stylesheet" href="/assets/styles/index.{{ cssHash }}.css">
+    {% else %}
+    <link rel="stylesheet" href="/assets/styles/index.css">
+    {% endif %}
+    
+    <h1>{{ t("homepage.title") }}</h1>
+    <button>{{ t("homepage.button") }}</button>
 
+
+  </template>
+</index-content>
 
 {% endblock %}

@@ -1,7 +1,26 @@
 import { join, dirname, basename, extname } from 'path'
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from 'fs'
+import { glob } from 'glob'
 import { generateHash } from './locale-utils.js'
 
+/**
+ * AssetProcessor - A flexible asset processing utility using glob patterns
+ * 
+ * Features:
+ * - Dynamic file discovery using configurable glob patterns
+ * - CSS/JS minification and cache-busting hashes in production
+ * - Image optimization with WebP generation
+ * - Configurable source directories and patterns
+ * 
+ * Usage:
+ * const processor = new AssetProcessor({
+ *   srcDir: 'src',
+ *   outputDir: 'dist', 
+ *   cssPattern: 'src/styles/*.css',        // Find all CSS files
+ *   jsPattern: 'public/js/*.js',           // Find all JS files  
+ *   imagePattern: 'src/assets/*.{svg,png,jpg,jpeg,webp,gif}' // Find all images
+ * })
+ */
 export class AssetProcessor {
   constructor(options = {}) {
     this.srcDir = options.srcDir || 'src'
@@ -9,6 +28,13 @@ export class AssetProcessor {
     this.copyPublic = options.copyPublic !== false
     this.isProduction = false
     this.assetHashes = {}
+    
+    // Configurable glob patterns
+    this.patterns = {
+      css: options.cssPattern || join(this.srcDir, 'styles', '*.css'),
+      js: options.jsPattern || 'public/js/*.js',
+      images: options.imagePattern || join(this.srcDir, 'assets', '*.{svg,png,jpg,jpeg,webp,gif}')
+    }
   }
 
   setProduction(isProduction) {
@@ -251,16 +277,22 @@ export class AssetProcessor {
     const cssDir = join(assetsDir, 'styles')
     if (!existsSync(cssDir)) mkdirSync(cssDir, { recursive: true })
     
-    const cssFiles = ['main.css', 'tokens.css', 'navbar.css']
+    // Use configurable glob pattern to find CSS files
+    const cssFiles = await glob(this.patterns.css)
+    
+    if (cssFiles.length === 0) {
+      console.log(`  ℹ️  No CSS files found matching pattern: ${this.patterns.css}`)
+      return
+    }
+    
     let combinedCssContent = ''
     let totalOriginalSize = 0
     let totalMinifiedSize = 0
     
     // First pass: read all CSS content to create a combined hash
-    for (const file of cssFiles) {
-      const srcPath = join(this.srcDir, 'styles', file)
-      if (existsSync(srcPath)) {
-        const content = readFileSync(srcPath, 'utf8')
+    for (const filePath of cssFiles) {
+      if (existsSync(filePath)) {
+        const content = readFileSync(filePath, 'utf8')
         combinedCssContent += content
         totalOriginalSize += content.length
       }
@@ -272,24 +304,24 @@ export class AssetProcessor {
     if (cssHash) this.assetHashes.cssHash = cssHash
     
     // Second pass: process and copy files with the combined hash
-    for (const file of cssFiles) {
-      const srcPath = join(this.srcDir, 'styles', file)
-      if (existsSync(srcPath)) {
-        const content = readFileSync(srcPath, 'utf8')
+    for (const filePath of cssFiles) {
+      if (existsSync(filePath)) {
+        const fileName = basename(filePath)
+        const content = readFileSync(filePath, 'utf8')
         const processedContent = await this.minifyCSS(content)
         totalMinifiedSize += processedContent.length
         
-        const fileName = this.isProduction ? 
-          file.replace('.css', `.${cssHash}.css`) : 
-          file
+        const outputFileName = this.isProduction ? 
+          fileName.replace('.css', `.${cssHash}.css`) : 
+          fileName
         
-        writeFileSync(join(cssDir, fileName), processedContent)
+        writeFileSync(join(cssDir, outputFileName), processedContent)
         
         if (this.isProduction) {
           const savings = ((content.length - processedContent.length) / content.length * 100).toFixed(1)
-          console.log(`  🎨 ${file} → assets/styles/${fileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`)
+          console.log(`  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`)
         } else {
-          console.log(`  ✓ ${file} → assets/styles/${fileName}`)
+          console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`)
         }
       }
     }
@@ -304,24 +336,42 @@ export class AssetProcessor {
     const jsDir = join(assetsDir, 'js')
     if (!existsSync(jsDir)) mkdirSync(jsDir, { recursive: true })
     
-    const jsPath = 'public/js/nav-active-lang.js'
-    if (existsSync(jsPath)) {
-      const content = readFileSync(jsPath, 'utf8')
-      const minifiedContent = await this.minifyJS(content)
-      const hash = generateHash(minifiedContent)
-      this.assetHashes.jsHash = hash
-      
-      const fileName = this.isProduction ? 
-        `nav-active-lang.${hash}.js` : 
-        'nav-active-lang.js'
-      
-      writeFileSync(join(jsDir, fileName), minifiedContent)
-      
-      if (this.isProduction) {
-        const savings = ((content.length - minifiedContent.length) / content.length * 100).toFixed(1)
-        console.log(`  ⚡ nav-active-lang.js → assets/js/${fileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`)
-      } else {
-        console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}`)
+    // Use configurable glob pattern to find JS files
+    const jsFiles = await glob(this.patterns.js)
+    
+    if (jsFiles.length === 0) {
+      console.log(`  ℹ️  No JS files found matching pattern: ${this.patterns.js}`)
+      return
+    }
+    
+    for (const jsPath of jsFiles) {
+      if (existsSync(jsPath)) {
+        const fileName = basename(jsPath)
+        const content = readFileSync(jsPath, 'utf8')
+        const minifiedContent = await this.minifyJS(content)
+        const hash = generateHash(minifiedContent)
+        
+        // Store hash with file-specific key (in case there are multiple JS files)
+        const hashKey = fileName.replace('.js', 'Hash')
+        this.assetHashes[hashKey] = hash
+        
+        // For backwards compatibility, also store as jsHash if this is nav-active-lang.js
+        if (fileName === 'nav-active-lang.js') {
+          this.assetHashes.jsHash = hash
+        }
+        
+        const outputFileName = this.isProduction ? 
+          fileName.replace('.js', `.${hash}.js`) : 
+          fileName
+        
+        writeFileSync(join(jsDir, outputFileName), minifiedContent)
+        
+        if (this.isProduction) {
+          const savings = ((content.length - minifiedContent.length) / content.length * 100).toFixed(1)
+          console.log(`  ⚡ ${fileName} → assets/js/${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`)
+        } else {
+          console.log(`  ✓ ${fileName} → assets/js/${outputFileName}`)
+        }
       }
     }
   }
@@ -330,25 +380,45 @@ export class AssetProcessor {
     const imgDir = join(assetsDir, 'images')
     if (!existsSync(imgDir)) mkdirSync(imgDir, { recursive: true })
     
-    const logoPath = join(this.srcDir, 'assets/logo.svg')
-    if (existsSync(logoPath)) {
-      const content = readFileSync(logoPath)
-      const hash = generateHash(content)
-      this.assetHashes.imgHash = hash
-      
-      const fileName = this.isProduction ? 
-        `logo.${hash}.svg` : 
-        'logo.svg'
-      
-      const outputPath = join(imgDir, fileName)
-      const result = await this.optimizeImage(logoPath, outputPath)
-      
-      if (this.isProduction && result.originalSize > 0) {
-        const savings = result.originalSize !== result.optimizedSize ? 
-          ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)` : ''
-        console.log(`  🖼️  logo.svg → assets/images/${fileName} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`)
-      } else {
-        console.log(`  ✓ logo.svg → assets/images/${fileName}`)
+    // Use configurable glob pattern to find image files
+    const imageFiles = await glob(this.patterns.images)
+    
+    if (imageFiles.length === 0) {
+      console.log(`  ℹ️  No image files found matching pattern: ${this.patterns.images}`)
+      return
+    }
+    
+    for (const imagePath of imageFiles) {
+      if (existsSync(imagePath)) {
+        const fileName = basename(imagePath)
+        const content = readFileSync(imagePath)
+        const hash = generateHash(content)
+        
+        // Store hash with file-specific key
+        const name = basename(fileName, extname(fileName))
+        const hashKey = `${name}Hash`
+        this.assetHashes[hashKey] = hash
+        
+        // For backwards compatibility, also store as imgHash if this is logo.svg
+        if (fileName === 'logo.svg') {
+          this.assetHashes.imgHash = hash
+        }
+        
+        const ext = extname(fileName)
+        const outputFileName = this.isProduction ? 
+          `${name}.${hash}${ext}` : 
+          fileName
+        
+        const outputPath = join(imgDir, outputFileName)
+        const result = await this.optimizeImage(imagePath, outputPath)
+        
+        if (this.isProduction && result.originalSize > 0) {
+          const savings = result.originalSize !== result.optimizedSize ? 
+            ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)` : ''
+          console.log(`  🖼️  ${fileName} → assets/images/${outputFileName} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`)
+        } else {
+          console.log(`  ✓ ${fileName} → assets/images/${outputFileName}`)
+        }
       }
     }
   }
