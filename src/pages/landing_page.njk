@@ -5,14 +5,20 @@
 <index-content>
   <template shadowrootmode="open">
     {% if isProduction and cssHash %}
-    <link rel="stylesheet" href="/assets/styles/index.{{ cssHash }}.css">
+    <link rel="stylesheet" href="/assets/styles/landing_page.{{ cssHash }}.css">
     {% else %}
-    <link rel="stylesheet" href="/assets/styles/index.css">
+    <link rel="stylesheet" href="/assets/styles/landing_page.css">
     {% endif %}
     
-    <h1>{{ t("homepage.title") }}</h1>
-    <button>{{ t("homepage.button") }}</button>
+    <section class="landing_page">
+        <div class="landing_page__content">
+            <h1>{{ t("homepage.title") }}</h1>
 
+            <button class="btn-cta">{{ t("homepage.button") }}</button>
+        </div>
+
+        <div class="landing_page__visual">
+            
     <picture>
     <!-- WEBP source -->
     <source
@@ -37,11 +43,15 @@
     <!-- Ultimate fallback -->
     <img
       src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
-      alt="INPLUG_illustration_cylindre_sansechelle"
+      alt="{{ t("homepage.image_alt") }}"
       loading="lazy"
       decoding="async"
     >
     </picture>
+
+    </section>
+
+    <script type="module" src="/assets/js/landing-page.js"></script>
 
   </template>
 </index-content>

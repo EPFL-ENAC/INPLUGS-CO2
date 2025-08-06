@@ -3,7 +3,8 @@
   "locales": ["en", "fr"],
   "routes": {
     "en": [
-      { "key": "index", "path": "/en/", "title": "Home" },
+      { "key": "landing_page", "path": "/en/", "title": "Home" },
+      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full" },
       {
         "key": "gcs",
         "path": "/en/gcs",
