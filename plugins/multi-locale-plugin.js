@@ -1,10 +1,47 @@
+/**
+ * Multi-Locale Vite Plugin
+ * 
+ * A comprehensive static site generator with internationalization support.
+ * Refactored into modular components for better maintainability:
+ * 
+ * Utils:
+ * - locale-utils.js: Core locale utilities and functions
+ * - asset-processor.js: Handles CSS, JS, and image assets with cache busting
+ * - page-renderer.js: Template rendering and page generation
+ * 
+ * Generators (using Nunjucks templates from plugins/templates/):
+ * - sitemap-generator.js: XML sitemap generation
+ * - notfound-generator.js: 404 page generation
+ * - webmanifest-generator.js: Localized PWA manifests
+ * - root-redirect-generator.js: Root index.html with language detection
+ * 
+ * Templates:
+ * - sitemap.xml.njk: Sitemap template with hreflang support
+ * - sitemap-index.xml.njk: Sitemap index template
+ * - 404.html.njk: 404 error page template
+ * - manifest.json.njk: PWA manifest template
+ * - root-redirect.html.njk: Root redirect page template
+ */
+
 import { resolve, join, dirname, basename, extname } from 'path'
-import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, copyFileSync, readdirSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'fs'
 import { glob } from 'glob'
 import nunjucks from 'nunjucks'
 import chokidar from 'chokidar'
-import { minify } from 'html-minifier-terser'
-import { createHash } from 'crypto'
+
+// Import refactored modules
+import { AssetProcessor } from './utils/asset-processor.js'
+import { PageRenderer } from './utils/page-renderer.js'
+import { SitemapGenerator } from './generators/sitemap-generator.js'
+import { NotFoundGenerator } from './generators/notfound-generator.js'
+import { WebmanifestGenerator } from './generators/webmanifest-generator.js'
+import { RootRedirectGenerator } from './generators/root-redirect-generator.js'
+import { 
+  LOCALE_RE, 
+  loadRoutesConfig, 
+  loadLocaleData, 
+  loadMetaData 
+} from './utils/locale-utils.js'
 
 export function multiLocalePlugin(options = {}) {
   const {
@@ -44,13 +81,54 @@ export function multiLocalePlugin(options = {}) {
   let isServing = false
   let server = null
   let isProduction = false
-  let assetHashes = {} // Store asset hashes for cache busting
+  
+  // Initialize component modules
+  const assetProcessor = new AssetProcessor({ 
+    srcDir, 
+    outputDir, 
+    copyPublic 
+  })
+  
+  const pageRenderer = new PageRenderer({
+    outputDir,
+    pagesDir,
+    dataDir,
+    locales,
+    defaultLocale,
+    localesMeta,
+    linkRewrite
+  })
+  
+  const sitemapGenerator = new SitemapGenerator({
+    outputDir,
+    siteUrl,
+    locales
+  })
+  
+  const notFoundGenerator = new NotFoundGenerator({
+    outputDir,
+    pagesDir,
+    dataDir,
+    locales,
+    defaultLocale,
+    localesMeta
+  })
+  
+  const webmanifestGenerator = new WebmanifestGenerator({
+    outputDir,
+    locales,
+    defaultLocale,
+    localesMeta
+  })
+  
+  const rootRedirectGenerator = new RootRedirectGenerator({
+    outputDir,
+    locales,
+    defaultLocale
+  })
   
   // Track file modification times for incremental rebuilds
   const fileMTime = new Map()
-  
-  // Locale regex for co-located variants
-  const LOCALE_RE = /\.([a-z]{2})\.njk$/
   
   // Configure Nunjucks
   const env = nunjucks.configure([srcDir, layoutsDir, partialsDir], {
@@ -90,224 +168,13 @@ export function multiLocalePlugin(options = {}) {
   })
   
   // Global translator - will be set per render
-  let currentTranslator = null
   env.addGlobal('t', function(key, params) {
     return currentTranslator ? currentTranslator(key, params) : key
   })
 
-  // Load routes configuration
-  function loadRoutesConfig() {
-    try {
-      const routesData = JSON.parse(readFileSync('routes.config.json', 'utf8'))
-      return routesData
-    } catch (err) {
-      console.warn('Could not load routes.config.json:', err.message)
-      return { routes: {} }
-    }
-  }
-
-  // Load locale data
-  function loadLocaleData() {
-    const localeData = {}
-    for (const locale of locales) {
-      try {
-        const data = JSON.parse(readFileSync(`${dataDir}/${locale}.json`, 'utf8'))
-        localeData[locale] = data
-      } catch (err) {
-        console.warn(`Could not load locale data for ${locale}:`, err.message)
-        localeData[locale] = {}
-      }
-    }
-    return localeData
-  }
-
-  // Load meta data
-  function loadMetaData() {
-    try {
-      const metaData = JSON.parse(readFileSync(`${dataDir}/meta.json`, 'utf8'))
-      return metaData
-    } catch (err) {
-      console.warn('Could not load meta.json:', err.message)
-      return {}
-    }
-  }
-
-  // Helper function to get route path for a page key and locale
-  function getRoutePath(pageKey, locale, routesConfig) {
-    const routes = routesConfig.routes || {}
-    const localeRoutes = routes[locale] || []
-    const route = localeRoutes.find(r => r.key === pageKey)
-    return route ? route.path : null
-  }
-
-  // Helper function to get page key from filename
-  function getPageKey(filename) {
-    // Remove extension and locale suffix
-    const base = filename.replace(/\.njk$/, '').replace(/\.[a-z]{2}$/, '')
-    return base
-  }
-
-  // Helper function to get all route paths for a page key across all locales
-  function getAllRoutePaths(pageKey, routesConfig) {
-    const paths = {}
-    const routes = routesConfig.routes || {}
-    
-    for (const locale of locales) {
-      const localeRoutes = routes[locale] || []
-      const route = localeRoutes.find(r => r.key === pageKey)
-      if (route) {
-        paths[locale] = route.path
-      }
-    }
-    return paths
-  }
-
-  // Create real t() function with fallback and params - now supports nested keys
-  function makeTranslator(localeData, locale, defaultLocale) {
-    const L = localeData[locale] || {}
-    const D = localeData[defaultLocale] || {}
-    
-    return (key, params = {}) => {
-      // Support nested keys like "homepage.title"
-      let s = getNestedValue(L, key) ?? getNestedValue(D, key) ?? key
-      
-      // Handle parameter interpolation
-      for (const [k, v] of Object.entries(params)) {
-        s = s.replaceAll(`{{${k}}}`, String(v))
-      }
-      return s
-    }
-  }
-  
-  // Helper function to get nested object values
-  function getNestedValue(obj, path) {
-    return path.split('.').reduce((current, key) => current?.[key], obj)
-  }
-
-  // Generate content hash for cache busting
-  function generateHash(content) {
-    return createHash('md5').update(content).digest('hex').slice(0, 8)
-  }
-
-  // Copy public directory contents to dist, excluding files that will be processed separately
-  function copyPublicAssets() {
-    const publicDir = 'public'
-    
-    if (!existsSync(publicDir)) {
-      console.warn('Public directory not found, skipping public assets copy')
-      return
-    }
-
-    // Files/paths to exclude from public copy (will be processed separately)
-    const excludePatterns = [
-      'js/nav-active-lang.js', // This gets processed with hash
-      'site.webmanifest', // This gets localized per locale
-    ]
-
-    function shouldExclude(relativePath) {
-      return excludePatterns.some(pattern => relativePath.includes(pattern))
-    }
-
-    function copyRecursively(sourceDir, targetDir, basePath = '') {
-      if (!existsSync(targetDir)) {
-        mkdirSync(targetDir, { recursive: true })
-      }
-
-      const items = readdirSync(sourceDir, { withFileTypes: true })
-      
-      for (const item of items) {
-        const sourcePath = join(sourceDir, item.name)
-        const targetPath = join(targetDir, item.name)
-        const relativePath = join(basePath, item.name).replace(/\\/g, '/') // Normalize for Windows
-        
-        if (item.isDirectory()) {
-          copyRecursively(sourcePath, targetPath, relativePath)
-        } else if (item.isFile() && !shouldExclude(relativePath)) {
-          copyFileSync(sourcePath, targetPath)
-          console.log(`  ✓ ${relativePath} → ${relativePath}`)
-        }
-      }
-    }
-
-    copyRecursively(publicDir, outputDir)
-  }
-
-  // Copy assets to /assets/ directory (dev: no hash, prod: with hash)
-  function processAssets() {
-    if (copyPublic) {
-      console.log('📁 Copying public directory...')
-      copyPublicAssets()
-    }
-    
-    console.log('🎨 Processing styled assets...')
-    const assetsDir = join(outputDir, 'assets')
-    if (!existsSync(assetsDir)) mkdirSync(assetsDir, { recursive: true })
-    
-    // Reset hashes for this build
-    assetHashes = {}
-    
-    // Process CSS files
-    const cssDir = join(assetsDir, 'styles')
-    if (!existsSync(cssDir)) mkdirSync(cssDir, { recursive: true })
-    
-    const cssFiles = ['main.css', 'tokens.css', 'navbar.css']
-    let combinedCssContent = ''
-    
-    // First pass: read all CSS content to create a combined hash
-    cssFiles.forEach(file => {
-      const srcPath = join(srcDir, 'styles', file)
-      if (existsSync(srcPath)) {
-        combinedCssContent += readFileSync(srcPath, 'utf8')
-      }
-    })
-    
-    const cssHash = combinedCssContent ? generateHash(combinedCssContent) : ''
-    if (cssHash) assetHashes.cssHash = cssHash
-    
-    // Second pass: copy files with the combined hash
-    cssFiles.forEach(file => {
-      const srcPath = join(srcDir, 'styles', file)
-      if (existsSync(srcPath)) {
-        const fileName = isProduction ? 
-          file.replace('.css', `.${cssHash}.css`) : 
-          file
-        copyFileSync(srcPath, join(cssDir, fileName))
-        console.log(`  ✓ ${file} → assets/styles/${fileName}`)
-      }
-    })
-    
-    // Process JS files  
-    const jsDir = join(assetsDir, 'js')
-    if (!existsSync(jsDir)) mkdirSync(jsDir, { recursive: true })
-    
-    const jsPath = 'public/js/nav-active-lang.js'
-    if (existsSync(jsPath)) {
-      const content = readFileSync(jsPath, 'utf8')
-      const hash = generateHash(content)
-      assetHashes.jsHash = hash
-      const fileName = isProduction ? 
-        `nav-active-lang.${hash}.js` : 
-        'nav-active-lang.js'
-      copyFileSync(jsPath, join(jsDir, fileName))
-      console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}`)
-    }
-    
-    // Process images
-    const imgDir = join(assetsDir, 'images')
-    if (!existsSync(imgDir)) mkdirSync(imgDir, { recursive: true })
-    
-    const logoPath = join(srcDir, 'assets/logo.svg')
-    if (existsSync(logoPath)) {
-      const content = readFileSync(logoPath)
-      const hash = generateHash(content)
-      assetHashes.imgHash = hash
-      const fileName = isProduction ? 
-        `logo.${hash}.svg` : 
-        'logo.svg'
-      copyFileSync(logoPath, join(imgDir, fileName))
-      console.log(`  ✓ logo.svg → assets/images/${fileName}`)
-    }
-  }
+  // Set Nunjucks environment for all components that need it
+  pageRenderer.setNunjucksEnv(env)
+  notFoundGenerator.setNunjucksEnv(env)
 
   // Check if file is stale for incremental rebuilds
   function isStale(file) {
@@ -318,398 +185,11 @@ export function multiLocalePlugin(options = {}) {
     return prev !== m
   }
 
-  // Rewrite root-relative links to be locale-aware using routes configuration
-  function rewriteLinksWithRoutes(html, locale, routesConfig) {
-    if (linkRewrite === 'off') return html
-    
-    // First, try to match page keys in links and convert them to proper routes
-    return html.replace(/href="([^"]*?)"/g, (match, href) => {
-      // Skip external links, anchors, mailto, tel, and assets
-      if (href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || 
-          href.startsWith('tel:') || href.startsWith('/assets/')) {
-        return match
-      }
-      
-      // If it's already a properly formatted route path, leave it
-      if (href.startsWith('/en/') || href.startsWith('/fr/') || href === '/en' || href === '/fr') {
-        return match
-      }
-      
-      // Try to parse as page key (e.g., "about", "contact")
-      const pageKey = href.replace(/^\//, '').replace(/\.html$/, '')
-      const routePath = getRoutePath(pageKey, locale, routesConfig)
-      
-      if (routePath) {
-        return `href="${routePath}"`
-      }
-      
-      // Fallback to original behavior for unknown links
-      const cleanHref = href.replace(/^\/+/, '')
-      return `href="/${locale}/${cleanHref}"`
-    }).replace(/src="([^"]*?)"/g, (match, src) => {
-      // Handle src attributes (images, scripts, etc.)
-      if (src.startsWith('http') || src.startsWith('/assets/') || src.startsWith('data:')) {
-        return match
-      }
-      
-      const cleanSrc = src.replace(/^\/+/, '')
-      return `src="/${locale}/${cleanSrc}"`
-    })
-  }
-
-  // Render one page for a specific locale
-  async function renderOne({ relTemplate, baseRel, locale, availableLocales, localeData, routesConfig, metaData }) {
-    const templateName = 'pages/' + relTemplate
-    const pageKey = getPageKey(baseRel)
-    
-    // Get the route path for this page and locale
-    const routePath = getRoutePath(pageKey, locale, routesConfig)
-    if (!routePath) {
-      console.warn(`No route found for page key "${pageKey}" in locale "${locale}"`)
-      return
-    }
-    
-    // Convert route path to file path (remove leading slash, ensure .html extension)
-    let filePath = routePath.replace(/^\//, '').replace(/\/$/, '')
-    if (!filePath) filePath = 'index'
-    
-    // For index routes, place them in the locale directory structure
-    if (filePath === 'en' || filePath === 'fr') {
-      filePath = filePath + '/index'
-    }
-    
-    if (!filePath.endsWith('.html')) filePath += '.html'
-    
-    // Get all route paths for this page across locales for navigation
-    const allRoutePaths = getAllRoutePaths(pageKey, routesConfig)
-    
-    // Include all configured locales in alternates for navigation
-    const alternates = [...locales]
-    const meta = localesMeta[locale] || {}
-    
-    // Create translator for this locale
-    const translator = makeTranslator(localeData, locale, defaultLocale)
-    
-    // Set the global translator for this render
-    currentTranslator = translator
-    
-    try {
-      // Get navigation items from routes config for current locale
-      const navItems = (routesConfig.routes?.[locale] || []).map(route => ({
-        key: route.key,
-        title: route.title,
-        path: route.path
-      }))
-      
-      let html = env.render(templateName, {
-        locale,
-        locales,
-        alternates,             // for hreflang UI
-        defaultLocale,
-        rtl: meta.rtl || ['ar','he','fa','ur'].includes(locale),
-        isProduction,           // Add production flag for template
-        ...assetHashes,         // Add asset hashes (cssHash, jsHash, imgHash)
-        t: translator,          // Function access: t("homepage.title") 
-        // Also provide object access for backward compatibility
-        ...Object.fromEntries(
-          Object.entries(localeData[locale] || localeData[defaultLocale] || {})
-        ),
-        navItems,               // Navigation items from routes config
-        meta: metaData,         // Meta data from meta.json
-        currentPage: routePath,
-        page: { 
-          slug: pageKey,
-          key: pageKey,
-          path: routePath,
-          url: routePath,        // Add url property for templates that expect it
-          routes: allRoutePaths  // All localized paths for this page
-        },
-        // Add eleventy-like object for compatibility
-        eleventy: {
-          generator: 'Multi-locale Static Site Generator v1.0'
-        },
-        isCurrentLocale: l => l === locale,
-        getLocalizedUrl: (pageKeyOrPath, targetLocale = locale) => {
-          // If it's a page key, look up the route
-          const targetRoute = getRoutePath(pageKeyOrPath, targetLocale, routesConfig)
-          if (targetRoute) return targetRoute
-          
-          // Otherwise try to convert existing path
-          const cleanPath = pageKeyOrPath.replace(/^\/([a-z]{2})\//,'')
-          return `/${targetLocale}/${cleanPath.startsWith('/') ? cleanPath.slice(1) : cleanPath}`
-        },
-        // Helper function to get route for a specific page key and locale
-        getRouteUrl: (pageKey, targetLocale = locale) => {
-          return getRoutePath(pageKey, targetLocale, routesConfig) || '#'
-        }
-      })
-      
-      // Update link rewriting to be aware of routes
-      html = rewriteLinksWithRoutes(html, locale, routesConfig)
-      
-      // Minify HTML in production
-      if (isProduction) {
-        html = await minify(html, {
-          removeComments: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          sortClassName: true,
-          useShortDoctype: true,
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          preserveLineBreaks: false,
-          minifyCSS: true,
-          minifyJS: true
-        })
-      }
-      
-      // Create output directory structure based on route path
-      const outputPath = join(outputDir, dirname(filePath))
-      if (!existsSync(outputPath)) {
-        mkdirSync(outputPath, { recursive: true })
-      }
-      
-      // Write the file
-      const outputFile = join(outputDir, filePath)
-      writeFileSync(outputFile, html)
-      console.log(`  ✓ ${routePath} → ${filePath}`)
-      
-    } catch (err) {
-      console.error(`  ✗ Error rendering ${routePath}:`, err.message)
-    } finally {
-      // Reset global translator
-      currentTranslator = null
-    }
-  }
-
-  // Generate localized sitemaps
-  function buildSitemaps(routesConfig) {
-    const urlsets = new Map() // locale => Set(paths)
-    for (const locale of locales) urlsets.set(locale, new Set())
-    
-    // Use routes configuration to build sitemap URLs
-    const routes = routesConfig.routes || {}
-    for (const locale of locales) {
-      const localeRoutes = routes[locale] || []
-      for (const route of localeRoutes) {
-        let url = `${siteUrl}${route.path}`
-        if (!url.endsWith('/')) url += '/'
-        urlsets.get(locale).add(url)
-      }
-    }
-
-    // per-locale sitemaps
-    for (const [locale, set] of urlsets) {
-      const urls = [...set].sort().map(u => `  <url><loc>${u}</loc></url>`).join('\n')
-      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>`
-      writeFileSync(join(outputDir, `sitemap-${locale}.xml`), sitemap)
-      console.log(`  ✓ sitemap-${locale}.xml`)
-    }
-
-    // index
-    const items = locales.map(l =>
-      `  <sitemap><loc>${siteUrl}/sitemap-${l}.xml</loc></sitemap>`).join('\n')
-    const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${items}
-</sitemapindex>`
-    writeFileSync(join(outputDir, `sitemap-index.xml`), sitemapIndex)
-    console.log(`  ✓ sitemap-index.xml`)
-  }
-
-  // Generate localized 404 pages using routes
-  async function write404s(routesConfig) {
-    for (const locale of locales) {
-      const meta = localesMeta[locale] || {}
-      
-      // Try to use a 404 template if available, otherwise use default
-      let html
-      const custom404Path = `${pagesDir}/404.njk`
-      const custom404LocalePath = `${pagesDir}/404.${locale}.njk`
-      
-      if (existsSync(custom404LocalePath) || existsSync(custom404Path)) {
-        // Use template system
-        const localeData = loadLocaleData()
-        const translator = makeTranslator(localeData, locale, defaultLocale)
-        currentTranslator = translator
-        
-        try {
-          const templateFile = existsSync(custom404LocalePath) ? '404.' + locale + '.njk' : '404.njk'
-          html = env.render('pages/' + templateFile, {
-            locale,
-            locales,
-            alternates: [locale], // Only current locale for 404
-            defaultLocale,
-            rtl: meta.rtl || ['ar','he','fa','ur'].includes(locale),
-            t: translator,
-            ...Object.fromEntries(
-              Object.entries(localeData[locale] || localeData[defaultLocale] || {})
-            ),
-            currentPage: '/404.html',
-            page: { slug: '404' },
-            isCurrentLocale: l => l === locale,
-            getLocalizedUrl: (pageKeyOrPath, targetLocale = locale) => {
-              const targetRoute = getRoutePath(pageKeyOrPath, targetLocale, routesConfig)
-              if (targetRoute) return targetRoute
-              
-              const cleanPath = pageKeyOrPath.replace(/^\/([a-z]{2})\//,'')
-              return `/${targetLocale}/${cleanPath.startsWith('/') ? cleanPath.slice(1) : cleanPath}`
-            },
-            getRouteUrl: (pageKey, targetLocale = locale) => {
-              return getRoutePath(pageKey, targetLocale, routesConfig) || '#'
-            }
-          })
-        } catch (err) {
-          console.warn(`Could not render 404 template for ${locale}, using default:`, err.message)
-          html = null
-        } finally {
-          currentTranslator = null
-        }
-      }
-      
-      // Fallback to basic 404 page
-      if (!html) {
-        const homeRoute = getRoutePath('index', locale, routesConfig) || `/${locale}/`
-        html = `<!DOCTYPE html>
-<html lang="${locale}" dir="${meta.rtl ? 'rtl' : 'ltr'}">
-<head>
-  <meta charset="utf-8">
-  <title>404 - Page Not Found</title>
-</head>
-<body>
-  <h1>404 - Page Not Found</h1>
-  <p>The page you are looking for could not be found.</p>
-  <a href="${homeRoute}">Go Home</a>
-</body>
-</html>`
-      }
-
-      if (isProduction) {
-        html = await minify(html, {
-          removeComments: true,
-          collapseWhitespace: true,
-          minifyCSS: true,
-          minifyJS: true
-        })
-      }
-
-      // Write 404 to the locale-specific directory structure from routes
-      const localeRoutes = routesConfig.routes?.[locale] || []
-      const indexRoute = localeRoutes.find(r => r.key === 'index')
-      const localeDir = indexRoute ? dirname(indexRoute.path.replace(/^\//, '')) : locale
-      
-      const out = join(outputDir, localeDir, '404.html')
-      if (!existsSync(dirname(out))) mkdirSync(dirname(out), { recursive: true })
-      writeFileSync(out, html)
-      console.log(`  ✓ ${localeDir}/404.html`)
-    }
-  }
-
-  // Generate localized site.webmanifest files
-  async function generateWebManifests(routesConfig, localeData) {
-    const manifestPath = 'public/site.webmanifest'
-    if (!existsSync(manifestPath)) {
-      console.warn('site.webmanifest not found in public directory, skipping manifest generation')
-      return
-    }
-
-    try {
-      const baseManifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
-      
-      for (const locale of locales) {
-        const meta = localesMeta[locale] || {}
-        const translator = makeTranslator(localeData, locale, defaultLocale)
-        
-        // Get the home route for this locale as start_url
-        const homeRoute = getRoutePath('index', locale, routesConfig) || `/${locale}/`
-        
-        // Create localized manifest
-        const localizedManifest = {
-          ...baseManifest,
-          lang: locale,
-          dir: meta.rtl || ['ar','he','fa','ur'].includes(locale) ? 'rtl' : 'ltr',
-          start_url: homeRoute
-        }
-
-        // Try to localize name and short_name if translations exist
-        const localizedName = translator('site.name') || translator('meta.title')
-        const localizedShortName = translator('site.short_name') || translator('meta.short_title')
-        
-        if (localizedName && localizedName !== 'site.name' && localizedName !== 'meta.title') {
-          localizedManifest.name = localizedName
-        }
-        if (localizedShortName && localizedShortName !== 'site.short_name' && localizedShortName !== 'meta.short_title') {
-          localizedManifest.short_name = localizedShortName
-        }
-
-        // Determine output path based on locale directory structure
-        const localeRoutes = routesConfig.routes?.[locale] || []
-        const indexRoute = localeRoutes.find(r => r.key === 'index')
-        // For paths like "/en/" or "/fr/", extract the locale part
-        let localeDir = locale // fallback
-        if (indexRoute) {
-          const pathParts = indexRoute.path.split('/').filter(p => p) // Remove empty parts
-          localeDir = pathParts[0] || locale
-        }
-        
-        const outputPath = join(outputDir, localeDir)
-        if (!existsSync(outputPath)) {
-          mkdirSync(outputPath, { recursive: true })
-        }
-        
-        const outputFile = join(outputPath, 'site.webmanifest')
-        writeFileSync(outputFile, JSON.stringify(localizedManifest, null, 2))
-        console.log(`  ✓ ${localeDir}/site.webmanifest`)
-      }
-    } catch (err) {
-      console.error('Error generating webmanifests:', err.message)
-    }
-  }
-
-  // Rebuild specific base page for incremental builds
-  async function rebuildBase(base, localeData, routesConfig, metaData) {
-    const byBase = new Map()
-    const allFiles = glob.sync(`${pagesDir}/**/*.njk`)
-    
-    for (const f of allFiles) {
-      const rel = f.replace(`${pagesDir}/`, '')
-      const m = rel.match(LOCALE_RE)
-      const baseName = m ? rel.replace(LOCALE_RE, '.njk') : rel
-      if (baseName === base) {
-        const entry = byBase.get(base) || { default: null, variants: {} }
-        if (m) entry.variants[m[1]] = rel
-        else entry.default = rel
-        byBase.set(base, entry)
-      }
-    }
-    
-    const entry = byBase.get(base)
-    if (entry) {
-      for (const locale of locales) {
-        const relTemplate = entry.variants[locale] || entry.default
-        if (!relTemplate) continue
-        await renderOne({ 
-          relTemplate, 
-          baseRel: base, 
-          locale, 
-          availableLocales: Object.keys(entry.variants), 
-          localeData,
-          routesConfig,
-          metaData
-        })
-      }
-    }
-  }
-
   // Generate all pages for all locales
   async function generatePages() {
-    const localeData = loadLocaleData()
+    const localeData = loadLocaleData(locales, dataDir)
     const routesConfig = loadRoutesConfig()
-    const metaData = loadMetaData()
+    const metaData = loadMetaData(dataDir)
     
     console.log(`🌍 Generating pages for locales: ${locales.join(', ')}`)
     
@@ -727,12 +207,17 @@ ${items}
       byBase.set(base, entry)
     }
 
+    // Update all components with current state
+    const assetHashes = assetProcessor.getAssetHashes()
+    pageRenderer.setAssetHashes(assetHashes)
+    notFoundGenerator.setAssetHashes(assetHashes)
+
     // Render pages
     for (const [baseRel, entry] of byBase) {
       for (const locale of locales) {
         const relTemplate = entry.variants[locale] || entry.default // fallback
         if (!relTemplate) continue // no default: skip
-        await renderOne({ 
+        await pageRenderer.renderOne({ 
           relTemplate, 
           baseRel, 
           locale, 
@@ -744,70 +229,21 @@ ${items}
       }
     }
     
-    // Generate improved root index.html with cookie support
-    let rootIndex = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirect</title>
-  <script>
-    const qs = new URLSearchParams(location.search);
-    const forced = qs.get('lang');
-    const supported = ${JSON.stringify(locales)};
-    const COOKIE = 'lang=';
-    const getCookie = () => document.cookie.split('; ').find(c => c.startsWith(COOKIE))?.slice(COOKIE.length);
-
-    let lang = forced || getCookie() || (navigator.language||'').toLowerCase().slice(0,2);
-    if (!supported.includes(lang)) lang = '${defaultLocale}';
-    document.cookie = \`lang=\${lang}; path=/; max-age=\${60*60*24*365}\`;
-    
-    // Redirect to the home page route for the selected language
-    const routes = ${JSON.stringify(routesConfig.routes || {})};
-    const localeRoutes = routes[lang] || [];
-    const homeRoute = localeRoutes.find(r => r.key === 'index');
-    const homePath = homeRoute ? homeRoute.path : '/' + lang + '/';
-    location.replace(homePath);
-  </script>
-</head>
-<body>
-  <noscript>
-    <p><a href="${getRoutePath('index', defaultLocale, routesConfig) || `/${defaultLocale}/`}">Continue</a></p>
-  </noscript>
-</body>
-</html>`
-    
-    // Minify root index in production
-    if (isProduction) {
-      rootIndex = await minify(rootIndex, {
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        sortClassName: true,
-        useShortDoctype: true,
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true
-      })
-    }
-    
-    writeFileSync(`${outputDir}/index.html`, rootIndex)
-    console.log(`  ✓ Root redirect page`)
+    // Generate root redirect page
+    await rootRedirectGenerator.generateRootRedirect(routesConfig)
     
     // Generate sitemaps if enabled
     if (emitSitemaps) {
-      buildSitemaps(routesConfig)
+      sitemapGenerator.buildSitemaps(routesConfig)
     }
     
     // Generate 404 pages if enabled
     if (emit404s) {
-      await write404s(routesConfig)
+      await notFoundGenerator.write404s(routesConfig)
     }
     
     // Generate localized webmanifests
-    await generateWebManifests(routesConfig, localeData)
+    await webmanifestGenerator.generateWebManifests(routesConfig, localeData)
   }
 
   // Setup file watcher for development with incremental rebuilds
@@ -828,15 +264,29 @@ ${items}
       if (!isStale(path)) return
       
       console.log(`📝 File changed: ${path}`)
-      const localeData = loadLocaleData()
+      const localeData = loadLocaleData(locales, dataDir)
       const routesConfig = loadRoutesConfig()
-      const metaData = loadMetaData()
+      const metaData = loadMetaData(dataDir)
+      
+      // Discover pages with co-located variants for incremental rebuild
+      const allFiles = glob.sync(`${pagesDir}/**/*.njk`)
+      const byBase = new Map()
+      
+      for (const f of allFiles) {
+        const rel = f.replace(`${pagesDir}/`, '')
+        const m = rel.match(LOCALE_RE)
+        const baseName = m ? rel.replace(LOCALE_RE, '.njk') : rel
+        const entry = byBase.get(baseName) || { default: null, variants: {} }
+        if (m) entry.variants[m[1]] = rel
+        else entry.default = rel
+        byBase.set(baseName, entry)
+      }
       
       // If a page changed: rebuild that base page for all locales
       if (path.startsWith(pagesDir)) {
         const rel = path.replace(`${pagesDir}/`, '')
         const base = rel.replace(LOCALE_RE, '.njk')
-        await rebuildBase(base, localeData, routesConfig, metaData)
+        await pageRenderer.rebuildBase(base, localeData, routesConfig, metaData, byBase)
       } else {
         // layout/partials/data: rebuild all
         await generatePages()
@@ -863,6 +313,12 @@ ${items}
       // Detect production mode
       isProduction = config.command === 'build'
       
+      // Update production state in all components
+      assetProcessor.setProduction(isProduction)
+      pageRenderer.setProduction(isProduction)
+      notFoundGenerator.setProduction(isProduction)
+      rootRedirectGenerator.setProduction(isProduction)
+      
       // Update paths based on Vite config
       if (config.root) {
         // Adjust paths to be relative to Vite root
@@ -874,7 +330,7 @@ ${items}
       server = devServer
       
       // Generate initial pages and assets
-      processAssets()
+      assetProcessor.processAssets()
       generatePages().catch(console.error)
       
       // Setup file watcher
@@ -1093,7 +549,7 @@ ${items}
           mkdirSync(outputDir, { recursive: true })
         }
         // Process assets for both dev and production
-        processAssets()
+        assetProcessor.processAssets()
         await generatePages()
       }
     },
