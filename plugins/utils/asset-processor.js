@@ -64,7 +64,7 @@ export class AssetProcessor {
   async optimizeImage(inputPath, outputPath) {
     if (!this.isProduction) {
       copyFileSync(inputPath, outputPath)
-      return { originalSize: 0, optimizedSize: 0 }
+      return { originalSize: 0, optimizedSize: 0, format: 'copied' }
     }
 
     try {
@@ -74,38 +74,72 @@ export class AssetProcessor {
       const originalSize = originalBuffer.length
       
       let optimizedBuffer
+      let outputFormat = ext.slice(1) // Remove the dot
       
       if (ext === '.svg') {
         // For SVG, just copy for now (could use SVGO here)
         optimizedBuffer = originalBuffer
-      } else if (['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
-        // Optimize with Sharp
+        outputFormat = 'svg (copied)'
+      } else if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+        // Convert PNG/JPG to WebP for better compression
+        const webpPath = outputPath.replace(ext, '.webp')
         optimizedBuffer = await sharp(originalBuffer)
-          .resize({ withoutEnlargement: true })
-          .jpeg({ quality: 85, progressive: true })
-          .png({ quality: 85, compressionLevel: 9 })
-          .webp({ quality: 85 })
+          .webp({ quality: 85, effort: 6 })
           .toBuffer()
+        
+        // Write the WebP version
+        writeFileSync(webpPath, optimizedBuffer)
+        outputFormat = 'webp'
+        
+        // Also keep the original format but optimized
+        let originalOptimized
+        if (ext === '.png') {
+          originalOptimized = await sharp(originalBuffer)
+            .png({ quality: 85, compressionLevel: 9, effort: 10 })
+            .toBuffer()
+        } else {
+          originalOptimized = await sharp(originalBuffer)
+            .jpeg({ quality: 85, progressive: true, mozjpeg: true })
+            .toBuffer()
+        }
+        
+        writeFileSync(outputPath, originalOptimized)
+        
+        return {
+          originalSize,
+          optimizedSize: originalOptimized.length,
+          webpSize: optimizedBuffer.length,
+          format: `${outputFormat} + optimized ${ext.slice(1)}`,
+          webpPath: basename(webpPath)
+        }
+      } else if (ext === '.webp') {
+        // Already WebP, just optimize
+        optimizedBuffer = await sharp(originalBuffer)
+          .webp({ quality: 85, effort: 6 })
+          .toBuffer()
+        outputFormat = 'webp (optimized)'
       } else {
         // Unknown format, just copy
         optimizedBuffer = originalBuffer
+        outputFormat = 'copied'
       }
       
       writeFileSync(outputPath, optimizedBuffer)
       
       return {
         originalSize,
-        optimizedSize: optimizedBuffer.length
+        optimizedSize: optimizedBuffer.length,
+        format: outputFormat
       }
     } catch (error) {
-      console.warn(`Image optimization failed for ${inputPath}:`, error.message)
+      console.warn(`⚠️  Image optimization failed for ${inputPath}:`, error.message)
       copyFileSync(inputPath, outputPath)
-      return { originalSize: 0, optimizedSize: 0 }
+      return { originalSize: 0, optimizedSize: 0, format: 'error (copied)' }
     }
   }
 
   // Copy public directory contents to dist, excluding files that will be processed separately
-  copyPublicAssets() {
+  async copyPublicAssets() {
     const publicDir = 'public'
     
     if (!existsSync(publicDir)) {
@@ -119,11 +153,17 @@ export class AssetProcessor {
       'site.webmanifest', // This gets localized per locale
     ]
 
+    // Track optimization stats
+    let totalOptimizations = 0
+    let totalOriginalSize = 0
+    let totalOptimizedSize = 0
+    let totalWebpSavings = 0
+
     function shouldExclude(relativePath) {
       return excludePatterns.some(pattern => relativePath.includes(pattern))
     }
 
-    function copyRecursively(sourceDir, targetDir, basePath = '') {
+    const copyRecursively = async (sourceDir, targetDir, basePath = '') => {
       if (!existsSync(targetDir)) {
         mkdirSync(targetDir, { recursive: true })
       }
@@ -136,22 +176,58 @@ export class AssetProcessor {
         const relativePath = join(basePath, item.name).replace(/\\/g, '/') // Normalize for Windows
         
         if (item.isDirectory()) {
-          copyRecursively(sourcePath, targetPath, relativePath)
+          await copyRecursively(sourcePath, targetPath, relativePath)
         } else if (item.isFile() && !shouldExclude(relativePath)) {
-          copyFileSync(sourcePath, targetPath)
-          console.log(`  ✓ ${relativePath} → ${relativePath}`)
+          const ext = extname(item.name).toLowerCase()
+          const isImage = ['.png', '.jpg', '.jpeg', '.webp', '.svg'].includes(ext)
+          
+          if (isImage && this.isProduction) {
+            // Optimize images in production
+            const result = await this.optimizeImage(sourcePath, targetPath)
+            totalOptimizations++
+            totalOriginalSize += result.originalSize || 0
+            totalOptimizedSize += result.optimizedSize || 0
+            
+            let sizeInfo = ''
+            if (result.originalSize > 0) {
+              const savings = ((result.originalSize - result.optimizedSize) / result.originalSize * 100).toFixed(1)
+              sizeInfo = ` (${result.originalSize}B → ${result.optimizedSize}B, -${savings}%)`
+              
+              if (result.webpSize) {
+                const webpSavings = ((result.originalSize - result.webpSize) / result.originalSize * 100).toFixed(1)
+                sizeInfo += ` + ${result.webpPath} (-${webpSavings}%)`
+                totalWebpSavings += result.originalSize - result.webpSize
+              }
+            }
+            
+            console.log(`  🖼️  ${relativePath} → ${relativePath} [${result.format}]${sizeInfo}`)
+          } else {
+            // Copy non-images or in development mode
+            copyFileSync(sourcePath, targetPath)
+            console.log(`  ✓ ${relativePath} → ${relativePath}`)
+          }
         }
       }
     }
 
-    copyRecursively(publicDir, this.outputDir)
+    await copyRecursively(publicDir, this.outputDir)
+    
+    // Show optimization summary
+    if (this.isProduction && totalOptimizations > 0) {
+      const totalSavings = totalOriginalSize - totalOptimizedSize
+      const percentSavings = ((totalSavings / totalOriginalSize) * 100).toFixed(1)
+      console.log(`📊 Image optimization summary: ${totalOptimizations} images, ${totalOriginalSize}B → ${totalOptimizedSize}B (-${percentSavings}%)`)
+      if (totalWebpSavings > 0) {
+        console.log(`📊 Additional WebP savings: ${totalWebpSavings}B`)
+      }
+    }
   }
 
   // Copy assets to /assets/ directory (dev: no hash, prod: with hash)
   async processAssets() {
     if (this.copyPublic) {
       console.log('📁 Copying public directory...')
-      this.copyPublicAssets()
+      await this.copyPublicAssets()
     }
     
     console.log('🎨 Processing styled assets...')
@@ -177,6 +253,8 @@ export class AssetProcessor {
     
     const cssFiles = ['main.css', 'tokens.css', 'navbar.css']
     let combinedCssContent = ''
+    let totalOriginalSize = 0
+    let totalMinifiedSize = 0
     
     // First pass: read all CSS content to create a combined hash
     for (const file of cssFiles) {
@@ -184,6 +262,7 @@ export class AssetProcessor {
       if (existsSync(srcPath)) {
         const content = readFileSync(srcPath, 'utf8')
         combinedCssContent += content
+        totalOriginalSize += content.length
       }
     }
     
@@ -198,16 +277,26 @@ export class AssetProcessor {
       if (existsSync(srcPath)) {
         const content = readFileSync(srcPath, 'utf8')
         const processedContent = await this.minifyCSS(content)
+        totalMinifiedSize += processedContent.length
         
         const fileName = this.isProduction ? 
           file.replace('.css', `.${cssHash}.css`) : 
           file
         
         writeFileSync(join(cssDir, fileName), processedContent)
-        const sizeInfo = this.isProduction ? 
-          ` (${content.length}B → ${processedContent.length}B)` : ''
-        console.log(`  ✓ ${file} → assets/styles/${fileName}${sizeInfo}`)
+        
+        if (this.isProduction) {
+          const savings = ((content.length - processedContent.length) / content.length * 100).toFixed(1)
+          console.log(`  🎨 ${file} → assets/styles/${fileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`)
+        } else {
+          console.log(`  ✓ ${file} → assets/styles/${fileName}`)
+        }
       }
+    }
+    
+    if (this.isProduction && totalOriginalSize > 0) {
+      const totalSavings = ((totalOriginalSize - totalMinifiedSize) / totalOriginalSize * 100).toFixed(1)
+      console.log(`📊 CSS optimization summary: ${totalOriginalSize}B → ${totalMinifiedSize}B (-${totalSavings}%)`)
     }
   }
 
@@ -227,9 +316,13 @@ export class AssetProcessor {
         'nav-active-lang.js'
       
       writeFileSync(join(jsDir, fileName), minifiedContent)
-      const sizeInfo = this.isProduction ? 
-        ` (${content.length}B → ${minifiedContent.length}B)` : ''
-      console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}${sizeInfo}`)
+      
+      if (this.isProduction) {
+        const savings = ((content.length - minifiedContent.length) / content.length * 100).toFixed(1)
+        console.log(`  ⚡ nav-active-lang.js → assets/js/${fileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`)
+      } else {
+        console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}`)
+      }
     }
   }
 
@@ -248,11 +341,15 @@ export class AssetProcessor {
         'logo.svg'
       
       const outputPath = join(imgDir, fileName)
-      const { originalSize, optimizedSize } = await this.optimizeImage(logoPath, outputPath)
+      const result = await this.optimizeImage(logoPath, outputPath)
       
-      const sizeInfo = this.isProduction && originalSize > 0 ? 
-        ` (${originalSize}B → ${optimizedSize}B)` : ''
-      console.log(`  ✓ logo.svg → assets/images/${fileName}${sizeInfo}`)
+      if (this.isProduction && result.originalSize > 0) {
+        const savings = result.originalSize !== result.optimizedSize ? 
+          ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)` : ''
+        console.log(`  🖼️  logo.svg → assets/images/${fileName} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`)
+      } else {
+        console.log(`  ✓ logo.svg → assets/images/${fileName}`)
+      }
     }
   }
 }
