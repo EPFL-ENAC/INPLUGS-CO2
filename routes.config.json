@@ -3,12 +3,13 @@
   "locales": ["en", "fr"],
   "routes": {
     "en": [
-      { "key": "landing_page", "path": "/en/", "title": "Home" },
-      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full", "hidden": true },
+      { "key": "landing_page", "path": "/en/", "title": "Home", "themeColor": "#00aad8" },
+      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full", "hidden": true, "themeColor": "#00aad8" },
       {
         "key": "gcs",
         "path": "/en/gcs",
         "title": "GCS",
+        "themeColor": "#5bad91",
         "anchors": [
           { "id": "why", "title": "Why is GCS?" },
           { "id": "what", "title": "What is GCS?" },
@@ -16,29 +17,31 @@
           { "id": "switzerland", "title": "GCS in Switzerland" }
         ]
       },
-      { "key": "data", "path": "/en/data", "title": "Data" },
+      { "key": "data", "path": "/en/data", "title": "Data", "themeColor": "#1a586c" },
       {
         "key": "education",
         "path": "/en/education",
         "title": "Education",
+        "themeColor": "#90e036",
         "anchors": [
           { "id": "carbon-team", "title": "Carbon team" },
           { "id": "workshops", "title": "Workshops" },
           { "id": "visits", "title": "Visits" }
         ]
       },
-      { "key": "dictionary", "path": "/en/dictionary", "title": "Dictionary" },
-      { "key": "links", "path": "/en/useful-links", "title": "Useful links" },
-      { "key": "about", "path": "/en/about", "title": "About" },
-      { "key": "contact", "path": "/en/contact", "title": "Contact" }
+      { "key": "dictionary", "path": "/en/dictionary", "title": "Dictionary", "themeColor": "#087065" },
+      { "key": "links", "path": "/en/useful-links", "title": "Useful links", "themeColor": "#3dd0ff" },
+      { "key": "about", "path": "/en/about", "title": "About", "themeColor": "#f97316" },
+      { "key": "contact", "path": "/en/contact", "title": "Contact", "themeColor": "#aaf954" }
     ],
     "fr": [
-      { "key": "landing_page", "path": "/fr/", "title": "Accueil" },
-      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Page d'accueil complète", "hidden": true },
+      { "key": "landing_page", "path": "/fr/", "title": "Accueil", "themeColor": "#00aad8" },
+      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Page d'accueil complète", "hidden": true, "themeColor": "#00aad8" },
       {
         "key": "gcs",
         "path": "/fr/gcs",
         "title": "GCS",
+        "themeColor": "#5bad91",
         "anchors": [
           { "id": "why", "title": "Pourquoi le GCS ?" },
           { "id": "what", "title": "Qu'est-ce que le GCS ?" },
@@ -46,11 +49,12 @@
           { "id": "switzerland", "title": "Le GCS en Suisse" }
         ]
       },
-      { "key": "data", "path": "/fr/data", "title": "Données" },
+      { "key": "data", "path": "/fr/data", "title": "Données", "themeColor": "#1a586c" },
       {
         "key": "education",
         "path": "/fr/education",
         "title": "Éducation",
+        "themeColor": "#90e036",
         "anchors": [
           { "id": "carbon-team", "title": "Équipe carbone" },
           { "id": "workshops", "title": "Ateliers" },
@@ -60,11 +64,12 @@
       {
         "key": "dictionary",
         "path": "/fr/dictionnaire",
-        "title": "Dictionnaire"
+        "title": "Dictionnaire",
+        "themeColor": "#087065"
       },
-      { "key": "links", "path": "/fr/liens-utiles", "title": "Liens utiles" },
-      { "key": "about", "path": "/fr/a-propos", "title": "À propos" },
-      { "key": "contact", "path": "/fr/contact", "title": "Contact" }
+      { "key": "links", "path": "/fr/liens-utiles", "title": "Liens utiles", "themeColor": "#3dd0ff" },
+      { "key": "about", "path": "/fr/a-propos", "title": "À propos", "themeColor": "#f97316" },
+      { "key": "contact", "path": "/fr/contact", "title": "Contact", "themeColor": "#aaf954" }
     ]
   }
 }

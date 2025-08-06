@@ -67,6 +67,12 @@ export class PageRenderer {
       return
     }
     
+    // Get route data to access theme color
+    const routes = routesConfig.routes || {}
+    const localeRoutes = routes[locale] || []
+    const currentRoute = localeRoutes.find(r => r.key === pageKey)
+    const themeColor = currentRoute?.themeColor
+    
     // Convert route path to file path (remove leading slash, ensure .html extension)
     let filePath = routePath.replace(/^\//, '').replace(/\/$/, '')
     if (!filePath) filePath = 'index'
@@ -117,6 +123,7 @@ export class PageRenderer {
         navItems,               // Navigation items from routes config
         meta: metaData,         // Meta data from meta.json
         currentPage: routePath,
+        themeColor,             // Page-specific theme color
         page: { 
           slug: pageKey,
           key: pageKey,

@@ -9,7 +9,7 @@
       Segoe UI,
       Roboto,
       sans-serif;
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
   }
 
   /* ---------- Grid layout ---------- */
@@ -19,7 +19,7 @@
     gap: 3rem;
     min-height: 100vh; /* full-screen feel */
     padding: 3rem 5vw;
-    background: #00a9e0; /* your cyan background */
+    background: var(--landing-page-blue); 
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -48,7 +48,7 @@
     color: #000;
     border-radius: 0.25rem;
     text-decoration: none;
-    transition: transform 0.2s ease;
+    transition: tr.ansform 0.2s ease;
   }
 
   .btn-cta:hover,

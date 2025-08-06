@@ -27,7 +27,7 @@
       <link rel="alternate" hreflang="x-default" href="{{ getLocalizedUrl(currentPage, defaultLocale) }}">
     {% endif %}
   </head>
-  <body>
+  <body{% if themeColor %} style="--page-theme-color: {{ themeColor }};"{% endif %}>
     {# <h1>{{ t("title") or title or 'INPLUGS CO2' }}</h1> #}
     {% include "header.njk" %}
     <main class="container">

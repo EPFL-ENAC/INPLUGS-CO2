@@ -33,12 +33,14 @@
 
     --emerald: #087065;
     --lime: #90e036;
+    --vert-turquoise: #5bad91;
     --sage: #5bad91;
     --cyan: #3dd0ff;
     --black: #000000;
     --white: #ffffff;
     --gray-light: #d9d9d9;
     --blue-bright: #00aad8;
+    --landing-page-blue: #00aad8;
     --lime-bright: #aaf954;
 
     /* Figma Colors with Opacity */
@@ -48,6 +50,8 @@
     --black-70: #000000b2;
     --lime-70: #90e036b2;
     --lime-bright-70: #aaf954b2;
+    --navbar-bg: rgba(244, 240, 235, 0.40);
+    --navbar-fg: var(--brand-fg);
 
     color-scheme: light dark;
   }

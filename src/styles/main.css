@@ -2,6 +2,7 @@
 
 body {
   padding: 1.5rem;
+  background-color: var(--page-theme-color, var(--cream, #f4f0eb));
 }
 
 ul {

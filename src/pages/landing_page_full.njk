@@ -1,79 +1,69 @@
-{% extends "main.njk" %}
-
-{% block content %}
+{% extends "main.njk" %} {% block content %}
 
 <index-content>
   <template shadowrootmode="open">
     {% if isProduction and cssHash %}
-    <link rel="stylesheet" href="/assets/styles/landing_page.{{ cssHash }}.css">
+    <link
+      rel="stylesheet"
+      href="/assets/styles/landing_page.{{ cssHash }}.css"
+    />
     {% else %}
-    <link rel="stylesheet" href="/assets/styles/landing_page.css">
+    <link rel="stylesheet" href="/assets/styles/landing_page.css" />
     {% endif %}
-    
-    <section class="landing_page">
-        <div class="landing_page__content">
-            <h1>{{ t("homepage.title") }}</h1>
 
-            <a href="/landing_page" class="btn-back" aria-label="Go back to landing page">{{ t("homepage.back_button", "← Back") }}</a>
+    <section class="landing_page is-full-page">
+
+      <div class="landing_page__visual">
+        <picture>
+          <!-- WEBP source -->
+          <source
+            type="image/webp"
+            srcset="
+              /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp  800w,
+              /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w
+            "
+            sizes="(min-width: 800px) 800px, 100vw"
+          />
+
+          <!-- PNG source -->
+          <source
+            type="image/png"
+            srcset="
+              /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png  800w,
+              /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
+            "
+            sizes="(min-width: 800px) 800px, 100vw"
+          />
+
+          <!-- Ultimate fallback -->
+          <img
+          src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
+          alt="{{ t("homepage.image_alt") }}" loading="lazy" decoding="async" />
+        </picture>
+      </div>
+
+      <!-- Info boxes for State 2 (explore mode) -->
+      <div class="info-boxes">
+        <div class="info-box">
+          <h3>{{ t("homepage.info_boxes.injection.title") }}</h3>
+          <p>{{ t("homepage.info_boxes.injection.description") }}</p>
         </div>
-
-        <div class="landing_page__visual">
-            
-    <picture>
-    <!-- WEBP source -->
-    <source
-        type="image/webp"
-        srcset="
-            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
-            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w
-        "
-        sizes="(min-width: 800px) 800px, 100vw"
-    >
-
-    <!-- PNG source -->
-    <source
-      type="image/png"
-      srcset="
-        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
-        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
-      "
-      sizes="(min-width: 800px) 800px, 100vw"
-    >
-    
-    <!-- Ultimate fallback -->
-    <img
-      src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
-      alt="{{ t("homepage.image_alt") }}"
-      loading="lazy"
-      decoding="async"
-    >
-    </picture>
-
+        <div class="info-box">
+          <h3>{{ t("homepage.info_boxes.formations.title") }}</h3>
+          <p>{{ t("homepage.info_boxes.formations.description") }}</p>
         </div>
-
-        <!-- Info boxes for State 2 (explore mode) -->
-        <div class="info-boxes">
-            <div class="info-box">
-                <h3>{{ t("homepage.info_boxes.injection.title") }}</h3>
-                <p>{{ t("homepage.info_boxes.injection.description") }}</p>
-            </div>
-            <div class="info-box">
-                <h3>{{ t("homepage.info_boxes.formations.title") }}</h3>
-                <p>{{ t("homepage.info_boxes.formations.description") }}</p>
-            </div>
-            <div class="info-box">
-                <h3>{{ t("homepage.info_boxes.monitoring.title") }}</h3>
-                <p>{{ t("homepage.info_boxes.monitoring.description") }}</p>
-            </div>
-            <div class="info-box">
-                <h3>{{ t("homepage.info_boxes.safety.title") }}</h3>
-                <p>{{ t("homepage.info_boxes.safety.description") }}</p>
-            </div>
+        <div class="info-box">
+          <h3>{{ t("homepage.info_boxes.monitoring.title") }}</h3>
+          <p>{{ t("homepage.info_boxes.monitoring.description") }}</p>
         </div>
+        <div class="info-box">
+          <h3>{{ t("homepage.info_boxes.safety.title") }}</h3>
+          <p>{{ t("homepage.info_boxes.safety.description") }}</p>
+        </div>
+      </div>
     </section>
 
     <script type="module" src="/assets/js/landing-page.js"></script>
-
   </template>
 </index-content>
 
