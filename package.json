@@ -48,11 +48,17 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "concurrently": "^9.2.0",
+    "cssnano": "^7.1.0",
     "html-minifier-terser": "^7.2.0",
     "lighthouse": "^12.8.1",
     "prettier": "^3.6.2",
+    "sharp": "^0.34.3",
+    "svgo": "^4.0.0",
+    "terser": "^5.43.1",
     "vite": "^5.0.0",
+    "vite-plugin-image-optimizer": "^2.0.2",
     "wait-on": "^8.0.4"
   }
 }

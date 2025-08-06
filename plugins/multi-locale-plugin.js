@@ -379,9 +379,11 @@ export function multiLocalePlugin(options = {}) {
         setupCleanup()
       }
       
-      // Generate initial pages and assets
-      assetProcessor.processAssets()
-      generatePages().catch(console.error)
+      // Generate initial pages and assets (async)
+      ;(async () => {
+        await assetProcessor.processAssets()
+        await generatePages()
+      })().catch(console.error)
       
       // Setup file watcher
       const watcher = setupWatcher()
@@ -600,7 +602,7 @@ export function multiLocalePlugin(options = {}) {
           mkdirSync(currentOutputDir, { recursive: true })
         }
         // Process assets for both dev and production
-        assetProcessor.processAssets()
+        await assetProcessor.processAssets()
         await generatePages()
       }
     },

@@ -19,6 +19,91 @@ export class AssetProcessor {
     return this.assetHashes
   }
 
+  // Minify CSS content
+  async minifyCSS(cssContent) {
+    if (!this.isProduction) return cssContent
+    
+    try {
+      // Basic CSS minification - remove comments, whitespace, etc.
+      return cssContent
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .replace(/;\s*}/g, '}') // Remove last semicolon before }
+        .replace(/{\s*/g, '{') // Remove space after {
+        .replace(/;\s*/g, ';') // Remove space after ;
+        .replace(/,\s*/g, ',') // Remove space after ,
+        .replace(/:\s*/g, ':') // Remove space after :
+        .trim()
+    } catch (error) {
+      console.warn('CSS minification failed:', error.message)
+      return cssContent
+    }
+  }
+
+  // Minify JS content  
+  async minifyJS(jsContent) {
+    if (!this.isProduction) return jsContent
+    
+    try {
+      // Basic JS minification - remove comments and unnecessary whitespace
+      return jsContent
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove block comments
+        .replace(/\/\/.*$/gm, '') // Remove line comments
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .replace(/;\s*}/g, ';}') // Clean up semicolons
+        .replace(/{\s*/g, '{') // Remove space after {
+        .replace(/}\s*/g, '}') // Remove space after }
+        .trim()
+    } catch (error) {
+      console.warn('JS minification failed:', error.message)
+      return jsContent
+    }
+  }
+
+  // Optimize images using Sharp
+  async optimizeImage(inputPath, outputPath) {
+    if (!this.isProduction) {
+      copyFileSync(inputPath, outputPath)
+      return { originalSize: 0, optimizedSize: 0 }
+    }
+
+    try {
+      const sharp = (await import('sharp')).default
+      const ext = extname(inputPath).toLowerCase()
+      const originalBuffer = readFileSync(inputPath)
+      const originalSize = originalBuffer.length
+      
+      let optimizedBuffer
+      
+      if (ext === '.svg') {
+        // For SVG, just copy for now (could use SVGO here)
+        optimizedBuffer = originalBuffer
+      } else if (['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
+        // Optimize with Sharp
+        optimizedBuffer = await sharp(originalBuffer)
+          .resize({ withoutEnlargement: true })
+          .jpeg({ quality: 85, progressive: true })
+          .png({ quality: 85, compressionLevel: 9 })
+          .webp({ quality: 85 })
+          .toBuffer()
+      } else {
+        // Unknown format, just copy
+        optimizedBuffer = originalBuffer
+      }
+      
+      writeFileSync(outputPath, optimizedBuffer)
+      
+      return {
+        originalSize,
+        optimizedSize: optimizedBuffer.length
+      }
+    } catch (error) {
+      console.warn(`Image optimization failed for ${inputPath}:`, error.message)
+      copyFileSync(inputPath, outputPath)
+      return { originalSize: 0, optimizedSize: 0 }
+    }
+  }
+
   // Copy public directory contents to dist, excluding files that will be processed separately
   copyPublicAssets() {
     const publicDir = 'public'
@@ -63,7 +148,7 @@ export class AssetProcessor {
   }
 
   // Copy assets to /assets/ directory (dev: no hash, prod: with hash)
-  processAssets() {
+  async processAssets() {
     if (this.copyPublic) {
       console.log('📁 Copying public directory...')
       this.copyPublicAssets()
@@ -77,16 +162,16 @@ export class AssetProcessor {
     this.assetHashes = {}
     
     // Process CSS files
-    this.processCSSFiles(assetsDir)
+    await this.processCSSFiles(assetsDir)
     
     // Process JS files  
-    this.processJSFiles(assetsDir)
+    await this.processJSFiles(assetsDir)
     
     // Process images
-    this.processImages(assetsDir)
+    await this.processImages(assetsDir)
   }
 
-  processCSSFiles(assetsDir) {
+  async processCSSFiles(assetsDir) {
     const cssDir = join(assetsDir, 'styles')
     if (!existsSync(cssDir)) mkdirSync(cssDir, { recursive: true })
     
@@ -94,47 +179,61 @@ export class AssetProcessor {
     let combinedCssContent = ''
     
     // First pass: read all CSS content to create a combined hash
-    cssFiles.forEach(file => {
+    for (const file of cssFiles) {
       const srcPath = join(this.srcDir, 'styles', file)
       if (existsSync(srcPath)) {
-        combinedCssContent += readFileSync(srcPath, 'utf8')
+        const content = readFileSync(srcPath, 'utf8')
+        combinedCssContent += content
       }
-    })
+    }
     
-    const cssHash = combinedCssContent ? generateHash(combinedCssContent) : ''
+    // Minify combined content for production
+    const minifiedCombinedContent = await this.minifyCSS(combinedCssContent)
+    const cssHash = minifiedCombinedContent ? generateHash(minifiedCombinedContent) : ''
     if (cssHash) this.assetHashes.cssHash = cssHash
     
-    // Second pass: copy files with the combined hash
-    cssFiles.forEach(file => {
+    // Second pass: process and copy files with the combined hash
+    for (const file of cssFiles) {
       const srcPath = join(this.srcDir, 'styles', file)
       if (existsSync(srcPath)) {
+        const content = readFileSync(srcPath, 'utf8')
+        const processedContent = await this.minifyCSS(content)
+        
         const fileName = this.isProduction ? 
           file.replace('.css', `.${cssHash}.css`) : 
           file
-        copyFileSync(srcPath, join(cssDir, fileName))
-        console.log(`  ✓ ${file} → assets/styles/${fileName}`)
+        
+        writeFileSync(join(cssDir, fileName), processedContent)
+        const sizeInfo = this.isProduction ? 
+          ` (${content.length}B → ${processedContent.length}B)` : ''
+        console.log(`  ✓ ${file} → assets/styles/${fileName}${sizeInfo}`)
       }
-    })
+    }
   }
 
-  processJSFiles(assetsDir) {
+  async processJSFiles(assetsDir) {
     const jsDir = join(assetsDir, 'js')
     if (!existsSync(jsDir)) mkdirSync(jsDir, { recursive: true })
     
     const jsPath = 'public/js/nav-active-lang.js'
     if (existsSync(jsPath)) {
       const content = readFileSync(jsPath, 'utf8')
-      const hash = generateHash(content)
+      const minifiedContent = await this.minifyJS(content)
+      const hash = generateHash(minifiedContent)
       this.assetHashes.jsHash = hash
+      
       const fileName = this.isProduction ? 
         `nav-active-lang.${hash}.js` : 
         'nav-active-lang.js'
-      copyFileSync(jsPath, join(jsDir, fileName))
-      console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}`)
+      
+      writeFileSync(join(jsDir, fileName), minifiedContent)
+      const sizeInfo = this.isProduction ? 
+        ` (${content.length}B → ${minifiedContent.length}B)` : ''
+      console.log(`  ✓ nav-active-lang.js → assets/js/${fileName}${sizeInfo}`)
     }
   }
 
-  processImages(assetsDir) {
+  async processImages(assetsDir) {
     const imgDir = join(assetsDir, 'images')
     if (!existsSync(imgDir)) mkdirSync(imgDir, { recursive: true })
     
@@ -143,11 +242,17 @@ export class AssetProcessor {
       const content = readFileSync(logoPath)
       const hash = generateHash(content)
       this.assetHashes.imgHash = hash
+      
       const fileName = this.isProduction ? 
         `logo.${hash}.svg` : 
         'logo.svg'
-      copyFileSync(logoPath, join(imgDir, fileName))
-      console.log(`  ✓ logo.svg → assets/images/${fileName}`)
+      
+      const outputPath = join(imgDir, fileName)
+      const { originalSize, optimizedSize } = await this.optimizeImage(logoPath, outputPath)
+      
+      const sizeInfo = this.isProduction && originalSize > 0 ? 
+        ` (${originalSize}B → ${optimizedSize}B)` : ''
+      console.log(`  ✓ logo.svg → assets/images/${fileName}${sizeInfo}`)
     }
   }
 }
