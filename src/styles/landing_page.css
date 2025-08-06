@@ -101,6 +101,8 @@
     grid-template-columns: 1fr;
     position: relative;
     min-height: auto;
+    width: 100%;
+    overflow-x: auto;
   }
 
   .landing_page.is-full-page .landing_page__content {
@@ -111,16 +113,18 @@
 
   .landing_page.is-full-page .landing_page__visual {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: auto;
     z-index: 1;
+    overflow-x: auto;
   }
 
   .landing_page.is-full-page .landing_page__visual img {
-    width: 100vw;
+    width: auto;
     height: auto;
+    max-width: none;
     display: block;
-    object-fit: contain;
+    object-fit: none;
     object-position: center;
   }
 
