@@ -13,9 +13,6 @@
   }
 }
 
-
-
-
 @layer tokens {
   :root {
     --brand-bg: #1f2937; /* slate-800 */
@@ -26,28 +23,28 @@
     --space-3: 1rem;
     --radius: 12px;
     --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-    
+
     /* Figma Colors */
-    --teal-dark: #1A586C;
-    --cream: #F4F0EB;
+    --teal-dark: #1a586c;
+    --cream: #f4f0eb;
     --emerald: #087065;
-    --lime: #90E036;
-    --sage: #5BAD91;
-    --cyan: #3DD0FF;
+    --lime: #90e036;
+    --sage: #5bad91;
+    --cyan: #3dd0ff;
     --black: #000000;
-    --white: #FFFFFF;
-    --gray-light: #D9D9D9;
-    --blue-bright: #00AAD8;
-    --lime-bright: #AAF954;
-    
+    --white: #ffffff;
+    --gray-light: #d9d9d9;
+    --blue-bright: #00aad8;
+    --lime-bright: #aaf954;
+
     /* Figma Colors with Opacity */
-    --cream-40: #F4F0EB66;
-    --teal-dark-50: #1A586C80;
-    --sage-50: #5BAD9180;
-    --black-70: #000000B2;
-    --lime-70: #90E036B2;
-    --lime-bright-70: #AAF954B2;
-    
+    --cream-40: #f4f0eb66;
+    --teal-dark-50: #1a586c80;
+    --sage-50: #5bad9180;
+    --black-70: #000000b2;
+    --lime-70: #90e036b2;
+    --lime-bright-70: #aaf954b2;
+
     color-scheme: light dark;
   }
   @view-transition {

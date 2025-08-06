@@ -1,6 +1,9 @@
-{% include 'layouts/main.njk' %}
+{% extends 'layouts/main.njk' %}
 
 {% block content %}
-<h2>{{ catalogs[locale or 'en']['gcs.title'] if catalogs else 'GCS' }}</h2>
-<p>Geological Carbon Storage information and resources.</p>
+<h2>{{ t('gcs.title') }}</h2>
+<p>{{ t('gcs.why') }}</p>
+<h3>{{ t('gcs.what') }}</h3>
+<p>{{ t('gcs.world') }}</p>
+<p>{{ t('gcs.ch') }}</p>
 {% endblock %}

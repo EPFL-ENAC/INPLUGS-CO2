@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic#readme",
   "scripts": {
+    "preinstall": "lefthook install",
     "test": "npm run build && node -e \"console.log('✅ Build test passed!')\"",
     "start": "vite",
     "dev": "vite dev",
@@ -48,10 +49,11 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
-    "html-minifier-terser": "^7.2.0",
-    "vite": "^5.0.0",
     "concurrently": "^9.2.0",
+    "html-minifier-terser": "^7.2.0",
     "lighthouse": "^12.8.1",
+    "prettier": "^3.6.2",
+    "vite": "^5.0.0",
     "wait-on": "^8.0.4"
   }
 }

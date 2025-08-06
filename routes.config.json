@@ -55,7 +55,11 @@
           { "id": "visits", "title": "Visites" }
         ]
       },
-      { "key": "dictionary", "path": "/fr/dictionnaire", "title": "Dictionnaire" },
+      {
+        "key": "dictionary",
+        "path": "/fr/dictionnaire",
+        "title": "Dictionnaire"
+      },
       { "key": "links", "path": "/fr/liens-utiles", "title": "Liens utiles" },
       { "key": "about", "path": "/fr/a-propos", "title": "À propos" },
       { "key": "contact", "path": "/fr/contact", "title": "Contact" }

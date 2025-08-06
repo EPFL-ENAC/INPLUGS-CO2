@@ -1,4 +1,4 @@
-{% include 'layouts/main.njk' %}
+{% extends 'layouts/main.njk' %}
 
 {% block content %}
 <h2>{{ catalogs[locale or 'en']['data.title'] if catalogs else 'Data' }}</h2>

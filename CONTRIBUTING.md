@@ -37,7 +37,7 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Git
 
@@ -62,6 +62,7 @@ npm run preview
 ### Branch Naming
 
 Use descriptive branch names:
+
 - `feature/add-new-locale-support`
 - `fix/template-rendering-bug`
 - `docs/update-readme`
@@ -70,6 +71,7 @@ Use descriptive branch names:
 ### Commit Messages
 
 Follow conventional commits:
+
 - `feat: add support for new locale`
 - `fix: resolve template inheritance issue`
 - `docs: update installation guide`
@@ -78,6 +80,7 @@ Follow conventional commits:
 ### Types of Contributions
 
 We welcome:
+
 - 🐛 **Bug fixes**
 - ✨ **New features**
 - 📚 **Documentation improvements**
@@ -88,23 +91,27 @@ We welcome:
 ## 📤 Submitting Changes
 
 1. **Create a new branch**:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make your changes** and test them:
+
    ```bash
    npm run dev    # Test in development
    npm run build  # Test production build
    ```
 
 3. **Commit your changes**:
+
    ```bash
    git add .
    git commit -m "feat: add your feature description"
    ```
 
 4. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -132,8 +139,8 @@ We welcome:
 
 ```javascript
 // Good: Clear imports and exports
-import { resolve, join } from 'path'
-import { readFileSync } from 'fs'
+import { resolve, join } from "path";
+import { readFileSync } from "fs";
 
 export function myFunction() {
   // Implementation
@@ -144,11 +151,9 @@ export function myFunction() {
 
 ```html
 <!-- Good: Clear template structure -->
-{% extends "main.njk" %}
-
-{% block content %}
-  <h1>{{ t.page.title }}</h1>
-  <p>{{ t.page.description }}</p>
+{% extends "main.njk" %} {% block content %}
+<h1>{{ t.page.title }}</h1>
+<p>{{ t.page.description }}</p>
 {% endblock %}
 ```
 
@@ -215,6 +220,7 @@ npm run preview
 ### Code Formatting
 
 We use Prettier for code formatting:
+
 ```bash
 npm run format
 ```

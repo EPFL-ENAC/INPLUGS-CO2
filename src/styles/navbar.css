@@ -42,7 +42,7 @@
     outline: none;
     background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
   }
-  nav a[aria-current='page'] {
+  nav a[aria-current="page"] {
     text-decoration: underline;
   }
 
@@ -60,7 +60,7 @@
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
   }
-  .lang a[aria-current='true'] {
+  .lang a[aria-current="true"] {
     background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
     opacity: 1;
   }

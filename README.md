@@ -1,4 +1,4 @@
-# 🌍 INPLUGS-CO2 
+# 🌍 INPLUGS-CO2
 
 ## Vite SSR Nunjucks i18n Basic
 
@@ -79,21 +79,22 @@ npm run preview
 ### Adding New Pages
 
 1. Create a new template in `src/pages/`:
+
 ```bash
 touch src/pages/contact.njk
 ```
 
 2. Add the page content:
-```html
-{% extends "main.njk" %}
 
-{% block content %}
+```html
+{% extends "main.njk" %} {% block content %}
 <h1>{{ t("contact.title") }}</h1>
 <p>{{ t("contact.description") }}</p>
 {% endblock %}
 ```
 
 3. Add translations to your locale files:
+
 ```json
 // src/data/en.json
 {
@@ -119,11 +120,12 @@ src/pages/about.njk
 # French-specific version
 src/pages/about.fr.njk
 
-# German-specific version  
+# German-specific version
 src/pages/about.de.njk
 ```
 
 The plugin will:
+
 - Use the locale-specific version if available
 - Fall back to the default version for missing locales
 - Include all available variants in `alternates` for hreflang tags
@@ -131,11 +133,13 @@ The plugin will:
 ### Adding New Locales
 
 1. Create a new translation file:
+
 ```bash
 touch src/data/de.json
 ```
 
 2. Add the locale to your Vite config:
+
 ```javascript
 // vite.config.js
 locales: ['en', 'fr', 'de'],
@@ -151,23 +155,35 @@ localesMeta: {
 ### Template Features
 
 #### Translation Function
+
 ```html
-{{ t("homepage.title") }}               <!-- Function call with nested keys -->
-{{ t("homepage.greeting", { name: "John" }) }}  <!-- With parameters -->
-{{ t("missing.key") }}                  <!-- Fallback to key if not found -->
+{{ t("homepage.title") }}
+<!-- Function call with nested keys -->
+{{ t("homepage.greeting", { name: "John" }) }}
+<!-- With parameters -->
+{{ t("missing.key") }}
+<!-- Fallback to key if not found -->
 ```
 
 #### Locale Helpers
+
 ```html
-{{ locale }}                    <!-- Current locale (en, fr, etc.) -->
-{{ currentLocale }}             <!-- Same as locale -->
-{{ defaultLocale }}             <!-- Default locale -->
-{{ locales }}                   <!-- Array of all locales -->
-{{ alternates }}                <!-- Array of available locales for this page -->
-{{ rtl }}                       <!-- Boolean: is right-to-left language -->
+{{ locale }}
+<!-- Current locale (en, fr, etc.) -->
+{{ currentLocale }}
+<!-- Same as locale -->
+{{ defaultLocale }}
+<!-- Default locale -->
+{{ locales }}
+<!-- Array of all locales -->
+{{ alternates }}
+<!-- Array of available locales for this page -->
+{{ rtl }}
+<!-- Boolean: is right-to-left language -->
 ```
 
 #### Helper Functions
+
 ```html
 <!-- Check if locale is current -->
 {% if isCurrentLocale('en') %}class="active"{% endif %}
@@ -180,17 +196,35 @@ localesMeta: {
 ```
 
 #### SEO and Navigation
+
 ```html
 <!-- In your layout template -->
 {% for l in alternates %}
-<link rel="alternate" hreflang="{{ l }}" href="{{ getLocalizedUrl(currentPage, l) }}">
+<link
+  rel="alternate"
+  hreflang="{{ l }}"
+  href="{{ getLocalizedUrl(currentPage, l) }}"
+/>
 {% endfor %}
-<link rel="alternate" hreflang="x-default" href="{{ getLocalizedUrl(currentPage, defaultLocale) }}">
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href="{{ getLocalizedUrl(currentPage, defaultLocale) }}"
+/>
 
 <!-- Language switcher -->
 {% for loc in alternates %}
-<a href="{{ getLocalizedUrl(currentPage, loc) }}" 
-   {% if locale == loc %}class="active"{% endif %}>
+<a
+  href="{{ getLocalizedUrl(currentPage, loc) }}"
+  {%
+  if
+  locale=""
+  ="loc"
+  %}class="active"
+  {%
+  endif
+  %}
+>
   {{ loc | upper }}
 </a>
 {% endfor %}
@@ -203,29 +237,31 @@ localesMeta: {
 ```javascript
 // vite.config.js
 createMultiLocalePlugin({
-  srcDir: 'src',              // Source directory
-  pagesDir: 'src/pages',      // Page templates
-  layoutsDir: 'src/layouts',  // Layout templates
-  partialsDir: 'src/partials', // Partial templates
-  dataDir: 'src/data',        // Translation files
-  outputDir: 'dist',          // Output directory
-  defaultLocale: 'en',        // Default language
-  locales: ['en', 'fr'],      // Supported languages
-  siteUrl: 'https://example.com', // For sitemaps and canonicals
-  localesMeta: {              // Locale metadata
-    en: { name: 'English', rtl: false },
-    fr: { name: 'Français', rtl: false },
-    ar: { name: 'العربية', rtl: true }
+  srcDir: "src", // Source directory
+  pagesDir: "src/pages", // Page templates
+  layoutsDir: "src/layouts", // Layout templates
+  partialsDir: "src/partials", // Partial templates
+  dataDir: "src/data", // Translation files
+  outputDir: "dist", // Output directory
+  defaultLocale: "en", // Default language
+  locales: ["en", "fr"], // Supported languages
+  siteUrl: "https://example.com", // For sitemaps and canonicals
+  localesMeta: {
+    // Locale metadata
+    en: { name: "English", rtl: false },
+    fr: { name: "Français", rtl: false },
+    ar: { name: "العربية", rtl: true },
   },
-  emitSitemaps: true,         // Generate localized sitemaps
-  emit404s: true,             // Generate localized 404 pages
-  linkRewrite: 'safety-net'   // Auto-rewrite root-relative links
-})
+  emitSitemaps: true, // Generate localized sitemaps
+  emit404s: true, // Generate localized 404 pages
+  linkRewrite: "safety-net", // Auto-rewrite root-relative links
+});
 ```
 
 ### HTML Minification
 
 In production builds, HTML is automatically minified with:
+
 - ✅ Comment removal
 - ✅ Whitespace collapse
 - ✅ CSS minification
@@ -235,12 +271,14 @@ In production builds, HTML is automatically minified with:
 ## 🏗️ Build Output
 
 ### Development (`npm run dev`)
+
 - Hot reloading with file watching
 - Incremental rebuilds for changed files
 - Unminified HTML for debugging
 - Instant updates on file changes
 
 ### Production (`npm run build`)
+
 ```
 dist/
 ├── index.html          # Root redirect (minified, with cookie support)
@@ -264,18 +302,24 @@ The root `index.html` automatically redirects users to their preferred language 
 ```javascript
 // Enhanced language detection with cookie persistence
 const qs = new URLSearchParams(location.search);
-const forced = qs.get('lang');           // Query parameter override (?lang=fr)
+const forced = qs.get("lang"); // Query parameter override (?lang=fr)
 const supported = ["en", "fr"];
-const COOKIE = 'lang=';
-const getCookie = () => document.cookie.split('; ').find(c => c.startsWith(COOKIE))?.slice(COOKIE.length);
+const COOKIE = "lang=";
+const getCookie = () =>
+  document.cookie
+    .split("; ")
+    .find((c) => c.startsWith(COOKIE))
+    ?.slice(COOKIE.length);
 
-let lang = forced || getCookie() || (navigator.language||'').toLowerCase().slice(0,2);
+let lang =
+  forced || getCookie() || (navigator.language || "").toLowerCase().slice(0, 2);
 if (!supported.includes(lang)) lang = "en";
-document.cookie = `lang=${lang}; path=/; max-age=${60*60*24*365}`;  // Remember for 1 year
-location.replace('/' + lang + '/');
+document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`; // Remember for 1 year
+location.replace("/" + lang + "/");
 ```
 
 ### Language Preference Features
+
 - **Query Override**: `?lang=fr` forces French
 - **Cookie Persistence**: Remembers user's choice for 1 year
 - **Browser Detection**: Falls back to browser language
@@ -284,25 +328,30 @@ location.replace('/' + lang + '/');
 ## 🚀 Advanced Features
 
 ### Translation System
+
 The plugin provides a powerful translation system with:
+
 - **Nested key support**: `t("homepage.greeting")`
 - **Parameter interpolation**: `t("welcome", { name: "John" })`
 - **Automatic fallback**: Missing translations fall back to default locale
 - **Global Nunjucks function**: Available in all templates
 
 ### SEO Optimization
+
 - **Localized sitemaps**: Separate sitemaps per locale + sitemap index
 - **hreflang tags**: Automatic alternate language declarations
 - **Canonical URLs**: Proper SEO structure for each locale
 - **404 pages**: Localized error pages with template support
 
 ### Development Experience
+
 - **Incremental rebuilds**: Only rebuild changed pages in development
 - **Hot reloading**: Instant updates with Vite HMR
 - **File watching**: Automatic detection of template, layout, and data changes
 - **Error handling**: Clear error messages for template issues
 
 ### Link Management
+
 - **Smart rewriting**: Automatic conversion of root-relative links (`/about/` → `/fr/about/`)
 - **Helper functions**: `getLocalizedUrl()` for manual link generation
 - **Safety net**: Optional automatic link rewriting for legacy content
@@ -318,15 +367,15 @@ The plugin provides a powerful translation system with:
 
 ## 🛠️ Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reloading |
-| `npm run build` | Build for production with minification |
-| `npm run preview` | Preview production build locally |
-| `npm run serve` | Alias for preview |
-| `npm run lighthouse` | Run full Lighthouse audit on all pages |
-| `npm run lighthouse:quick` | Quick Lighthouse test on single page |
-| `npm test` | Run build test to verify everything works |
+| Command                    | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `npm run dev`              | Start development server with hot reloading |
+| `npm run build`            | Build for production with minification      |
+| `npm run preview`          | Preview production build locally            |
+| `npm run serve`            | Alias for preview                           |
+| `npm run lighthouse`       | Run full Lighthouse audit on all pages      |
+| `npm run lighthouse:quick` | Quick Lighthouse test on single page        |
+| `npm test`                 | Run build test to verify everything works   |
 
 ## 🔍 Performance Testing
 
@@ -348,27 +397,27 @@ See [LIGHTHOUSE.md](LIGHTHOUSE.md) for detailed testing guide.
 ## 📚 Examples
 
 ### Creating a Contact Page with Form
+
 ```html
 <!-- src/pages/contact.njk -->
-{% extends "main.njk" %}
-
-{% block content %}
+{% extends "main.njk" %} {% block content %}
 <h1>{{ t("contact.title") }}</h1>
 <p>{{ t("contact.description") }}</p>
 
 <form action="/{{ locale }}/submit" method="post">
   <label for="email">{{ t("contact.email") }}</label>
-  <input type="email" id="email" name="email" required>
-  
+  <input type="email" id="email" name="email" required />
+
   <label for="message">{{ t("contact.message") }}</label>
   <textarea id="message" name="message" required></textarea>
-  
+
   <button type="submit">{{ t("contact.send") }}</button>
 </form>
 {% endblock %}
 ```
 
 ### Adding RTL Language Support
+
 ```javascript
 // vite.config.js
 localesMeta: {
@@ -380,15 +429,14 @@ localesMeta: {
 
 ```html
 <!-- Layout automatically handles RTL -->
-<html lang="{{ locale }}" dir="{% if rtl %}rtl{% else %}ltr{% endif %}">
+<html lang="{{ locale }}" dir="{% if rtl %}rtl{% else %}ltr{% endif %}"></html>
 ```
 
 ### Custom 404 Pages
+
 ```html
 <!-- src/pages/404.njk -->
-{% extends "main.njk" %}
-
-{% block content %}
+{% extends "main.njk" %} {% block content %}
 <h1>{{ t("error.404.title") }}</h1>
 <p>{{ t("error.404.description") }}</p>
 <a href="/{{ locale }}/">{{ t("navigation.home") }}</a>
@@ -400,15 +448,18 @@ localesMeta: {
 ### Common Issues
 
 **Template Syntax Errors**
+
 - Use Nunjucks syntax: `{% if locale == 'en' %}` not `{{ locale === 'en' }}`
 - Function calls: `{{ t("key") }}` not `{{ t.key }}`
 
 **Missing Translations**
+
 - Check file encoding (UTF-8)
 - Verify JSON syntax in translation files
 - Use nested keys: `"homepage": { "title": "..." }`
 
 **Module Import Issues**
+
 - Ensure `"type": "module"` is in package.json
 - Use ES6 import syntax consistently
 
