@@ -13,27 +13,35 @@
     <h1>{{ t("homepage.title") }}</h1>
     <button>{{ t("homepage.button") }}</button>
 
-
     <picture>
-  <!-- PNG source -->
-  <source
-    type="image/png"
-    srcset="
-      /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
-      /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
-    "
-    sizes="(min-width: 800px) 800px, 100vw"
-  >
-  
-  <!-- Ultimate fallback -->
-  <img
-    src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
-    alt="INPLUG_illustration_cylindre_sansechelle"
-    loading="lazy"
-    decoding="async"
-  >
-</picture>
+    <!-- WEBP source -->
+    <source
+        type="image/webp"
+        srcset="
+            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
+            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w
+        "
+        sizes="(min-width: 800px) 800px, 100vw"
+    >
 
+    <!-- PNG source -->
+    <source
+      type="image/png"
+      srcset="
+        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
+        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
+      "
+      sizes="(min-width: 800px) 800px, 100vw"
+    >
+    
+    <!-- Ultimate fallback -->
+    <img
+      src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
+      alt="INPLUG_illustration_cylindre_sansechelle"
+      loading="lazy"
+      decoding="async"
+    >
+    </picture>
 
   </template>
 </index-content>
