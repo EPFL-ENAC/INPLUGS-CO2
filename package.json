@@ -1,10 +1,57 @@
 {
-  "devDependencies": {
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
-    "@evilmartians/lefthook": "^1.5.0"
+  "name": "vite-ssr-nunjucks-i18n-basic",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A modern, fast, and SEO-friendly multi-locale static site generator powered by Vite and Nunjucks",
+  "main": "vite.config.js",
+  "keywords": [
+    "vite",
+    "nunjucks",
+    "i18n",
+    "internationalization",
+    "multi-locale",
+    "static-site-generator",
+    "ssg",
+    "templates",
+    "html",
+    "build-tool"
+  ],
+  "author": "Pierre Guilbert <guilbep@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic/issues"
+  },
+  "homepage": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic#readme",
+  "scripts": {
+    "test": "npm run build && node -e \"console.log('✅ Build test passed!')\"",
+    "start": "vite",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --outDir dist",
+    "format": "prettier -w .",
+    "lint:commit": "commitlint --edit",
+    "lighthouse": "npm run build && lhci autorun",
+    "lighthouse:collect": "npm run build && lhci collect",
+    "lighthouse:upload": "lhci upload",
+    "lighthouse:quick": "./lighthouse-test.sh",
+    "perf": "npm run lighthouse"
   },
   "dependencies": {
-    "prettier": "^3.5.3"
+    "chokidar": "^3.6.0",
+    "glob": "^11.0.3",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.1",
+    "html-minifier-terser": "^7.2.0",
+    "vite": "^5.0.0",
+    "concurrently": "^9.2.0",
+    "lighthouse": "^12.8.1",
+    "wait-on": "^8.0.4"
   }
 }
