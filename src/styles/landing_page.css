@@ -48,7 +48,7 @@
     color: #000;
     border-radius: 0.25rem;
     text-decoration: none;
-    transition: tr.ansform 0.2s ease;
+    transition: transform 0.2s ease;
   }
 
   .btn-cta:hover,
