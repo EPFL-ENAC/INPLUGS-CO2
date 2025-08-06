@@ -4,7 +4,7 @@
   "routes": {
     "en": [
       { "key": "landing_page", "path": "/en/", "title": "Home" },
-      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full" },
+      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full", "hidden": true },
       {
         "key": "gcs",
         "path": "/en/gcs",
@@ -33,7 +33,8 @@
       { "key": "contact", "path": "/en/contact", "title": "Contact" }
     ],
     "fr": [
-      { "key": "index", "path": "/fr/", "title": "Accueil" },
+      { "key": "landing_page", "path": "/fr/", "title": "Accueil" },
+      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Page d'accueil complète", "hidden": true },
       {
         "key": "gcs",
         "path": "/fr/gcs",
