@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic#readme",
   "scripts": {
-    "preinstall": "lefthook install",
+    "preinstall": "npx lefthook install",
     "test": "npm run build && node -e \"console.log('✅ Build test passed!')\"",
     "start": "vite",
     "dev": "vite dev",
