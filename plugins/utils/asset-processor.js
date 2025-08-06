@@ -84,7 +84,7 @@ export class AssetProcessor {
         // Convert PNG/JPG to WebP for better compression
         const webpPath = outputPath.replace(ext, '.webp')
         optimizedBuffer = await sharp(originalBuffer)
-          .webp({ quality: 85, effort: 6 })
+          .webp({ quality: 75, effort: 6, lossless: false })
           .toBuffer()
         
         // Write the WebP version
@@ -113,9 +113,9 @@ export class AssetProcessor {
           webpPath: basename(webpPath)
         }
       } else if (ext === '.webp') {
-        // Already WebP, just optimize
+        // Already WebP, just optimize more aggressively
         optimizedBuffer = await sharp(originalBuffer)
-          .webp({ quality: 85, effort: 6 })
+          .webp({ quality: 75, effort: 6, lossless: false })
           .toBuffer()
         outputFormat = 'webp (optimized)'
       } else {
