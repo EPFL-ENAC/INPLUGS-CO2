@@ -33,7 +33,6 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "serve": "vite preview --outDir dist",
     "format": "prettier -w .",
     "lint:commit": "commitlint --edit",
     "lighthouse": "npm run build && lhci autorun",

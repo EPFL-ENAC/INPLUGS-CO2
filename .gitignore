@@ -9,6 +9,7 @@ yarn-error.log*
 lighthouse-report.html
 # Build outputs
 dist/
+.tmp/
 .vite/
 *.tsbuildinfo
 

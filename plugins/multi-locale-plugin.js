@@ -24,7 +24,7 @@
  */
 
 import { resolve, join, dirname, basename, extname } from 'path'
-import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, rmSync } from 'fs'
 import { glob } from 'glob'
 import nunjucks from 'nunjucks'
 import chokidar from 'chokidar'
@@ -51,6 +51,7 @@ export function multiLocalePlugin(options = {}) {
     partialsDir = 'src/partials',
     dataDir = 'src/data',
     outputDir = 'dist',
+    devOutputDir = '.tmp', // Separate directory for development
     defaultLocale = 'en',
     locales = ['en', 'fr'],
     siteUrl = 'https://example.com',
@@ -81,16 +82,17 @@ export function multiLocalePlugin(options = {}) {
   let isServing = false
   let server = null
   let isProduction = false
+  let currentOutputDir = outputDir // Will be set based on mode
   
   // Initialize component modules
   const assetProcessor = new AssetProcessor({ 
     srcDir, 
-    outputDir, 
+    outputDir: currentOutputDir, 
     copyPublic 
   })
   
   const pageRenderer = new PageRenderer({
-    outputDir,
+    outputDir: currentOutputDir,
     pagesDir,
     dataDir,
     locales,
@@ -100,13 +102,13 @@ export function multiLocalePlugin(options = {}) {
   })
   
   const sitemapGenerator = new SitemapGenerator({
-    outputDir,
+    outputDir: currentOutputDir,
     siteUrl,
     locales
   })
   
   const notFoundGenerator = new NotFoundGenerator({
-    outputDir,
+    outputDir: currentOutputDir,
     pagesDir,
     dataDir,
     locales,
@@ -115,20 +117,45 @@ export function multiLocalePlugin(options = {}) {
   })
   
   const webmanifestGenerator = new WebmanifestGenerator({
-    outputDir,
+    outputDir: currentOutputDir,
     locales,
     defaultLocale,
     localesMeta
   })
   
   const rootRedirectGenerator = new RootRedirectGenerator({
-    outputDir,
+    outputDir: currentOutputDir,
     locales,
     defaultLocale
   })
   
   // Track file modification times for incremental rebuilds
   const fileMTime = new Map()
+  
+  // Cleanup function for development
+  function cleanupDevDirectory() {
+    if (!isProduction && existsSync(devOutputDir)) {
+      try {
+        rmSync(devOutputDir, { recursive: true, force: true })
+        console.log(`🧹 Cleaned up ${devOutputDir} directory`)
+      } catch (error) {
+        console.warn(`⚠️  Could not clean up ${devOutputDir}:`, error.message)
+      }
+    }
+  }
+  
+  // Setup cleanup on process exit
+  function setupCleanup() {
+    const cleanup = () => {
+      cleanupDevDirectory()
+      process.exit(0)
+    }
+    
+    // Handle various exit signals
+    process.on('SIGINT', cleanup)  // Ctrl+C
+    process.on('SIGTERM', cleanup) // Termination signal
+    process.on('exit', cleanupDevDirectory) // Process exit
+  }
   
   // Configure Nunjucks
   const env = nunjucks.configure([srcDir, layoutsDir, partialsDir], {
@@ -311,14 +338,31 @@ export function multiLocalePlugin(options = {}) {
     name: 'multi-locale',
     
     configResolved(config) {
-      // Detect production mode
-      isProduction = config.command === 'build'
+      // Detect production mode using config.mode
+      // In Vite: 
+      // - dev: command='serve', mode='development'  
+      // - preview: command='serve', mode='production'
+      // - build: command='build', mode='production'
+      isProduction = config.mode === 'production'
+      
+      // Set output directory based on mode
+      currentOutputDir = isProduction ? outputDir : devOutputDir
+      
+      // Update all components with the correct output directory
+      assetProcessor.outputDir = currentOutputDir
+      pageRenderer.outputDir = currentOutputDir
+      sitemapGenerator.outputDir = currentOutputDir
+      notFoundGenerator.outputDir = currentOutputDir
+      webmanifestGenerator.outputDir = currentOutputDir
+      rootRedirectGenerator.outputDir = currentOutputDir
       
       // Update production state in all components
       assetProcessor.setProduction(isProduction)
       pageRenderer.setProduction(isProduction)
       notFoundGenerator.setProduction(isProduction)
       rootRedirectGenerator.setProduction(isProduction)
+      
+      console.log(`📁 Using output directory: ${currentOutputDir} (${isProduction ? 'production' : 'development'})`)
       
       // Update paths based on Vite config
       if (config.root) {
@@ -330,6 +374,11 @@ export function multiLocalePlugin(options = {}) {
       isServing = true
       server = devServer
       
+      // Setup cleanup for development mode
+      if (!isProduction) {
+        setupCleanup()
+      }
+      
       // Generate initial pages and assets
       assetProcessor.processAssets()
       generatePages().catch(console.error)
@@ -340,6 +389,7 @@ export function multiLocalePlugin(options = {}) {
       // Cleanup on server close
       devServer.httpServer?.on('close', () => {
         watcher.close()
+        cleanupDevDirectory()
       })
       
       // Add HMR middleware to inject Vite client script into HTML responses
@@ -375,7 +425,7 @@ export function multiLocalePlugin(options = {}) {
         
         // Serve shared assets from /assets/ - prevent locale prefixing
         if (url.startsWith('/assets/')) {
-          const assetPath = join(outputDir, url)
+          const assetPath = join(currentOutputDir, url)
           if (existsSync(assetPath)) {
             const content = readFileSync(assetPath)
             const ext = extname(url)
@@ -395,7 +445,7 @@ export function multiLocalePlugin(options = {}) {
         
         // If requesting root, serve the redirect page
         if (url === '/' || url === '/index.html') {
-          const redirectHtml = readFileSync(`${outputDir}/index.html`, 'utf8')
+          const redirectHtml = readFileSync(`${currentOutputDir}/index.html`, 'utf8')
           res.setHeader('Content-Type', 'text/html')
           res.end(redirectHtml)
           return
@@ -425,7 +475,7 @@ export function multiLocalePlugin(options = {}) {
               
               if (!filePath.endsWith('.html')) filePath += '.html'
               
-              const fullPath = join(outputDir, filePath)
+              const fullPath = join(currentOutputDir, filePath)
               if (existsSync(fullPath)) {
                 const html = readFileSync(fullPath, 'utf8')
                 res.setHeader('Content-Type', 'text/html')
@@ -441,7 +491,7 @@ export function multiLocalePlugin(options = {}) {
         if (localeMatch) {
           const [, locale, path] = localeMatch
           if (locales.includes(locale)) {
-            const filePath = `${outputDir}/${locale}/${path || 'index.html'}`
+            const filePath = `${currentOutputDir}/${locale}/${path || 'index.html'}`
             if (existsSync(filePath)) {
               const html = readFileSync(filePath, 'utf8')
               res.setHeader('Content-Type', 'text/html')
@@ -462,7 +512,7 @@ export function multiLocalePlugin(options = {}) {
         
         // Serve shared assets from /assets/ - prevent locale prefixing
         if (url.startsWith('/assets/')) {
-          const assetPath = join(outputDir, url)
+          const assetPath = join(currentOutputDir, url)
           if (existsSync(assetPath)) {
             const content = readFileSync(assetPath)
             const ext = extname(url)
@@ -482,7 +532,7 @@ export function multiLocalePlugin(options = {}) {
         
         // If requesting root, serve the redirect page
         if (url === '/' || url === '/index.html') {
-          const redirectHtml = readFileSync(`${outputDir}/index.html`, 'utf8')
+          const redirectHtml = readFileSync(`${currentOutputDir}/index.html`, 'utf8')
           res.setHeader('Content-Type', 'text/html')
           res.end(redirectHtml)
           return
@@ -512,7 +562,7 @@ export function multiLocalePlugin(options = {}) {
               
               if (!filePath.endsWith('.html')) filePath += '.html'
               
-              const fullPath = join(outputDir, filePath)
+              const fullPath = join(currentOutputDir, filePath)
               if (existsSync(fullPath)) {
                 const html = readFileSync(fullPath, 'utf8')
                 res.setHeader('Content-Type', 'text/html')
@@ -528,7 +578,7 @@ export function multiLocalePlugin(options = {}) {
         if (localeMatch) {
           const [, locale, path] = localeMatch
           if (locales.includes(locale)) {
-            const filePath = `${outputDir}/${locale}/${path || 'index.html'}`
+            const filePath = `${currentOutputDir}/${locale}/${path || 'index.html'}`
             if (existsSync(filePath)) {
               const html = readFileSync(filePath, 'utf8')
               res.setHeader('Content-Type', 'text/html')
@@ -546,8 +596,8 @@ export function multiLocalePlugin(options = {}) {
       if (!isServing) {
         console.log('🏗️  Building multi-locale site...')
         // Ensure output directory exists and is clean
-        if (!existsSync(outputDir)) {
-          mkdirSync(outputDir, { recursive: true })
+        if (!existsSync(currentOutputDir)) {
+          mkdirSync(currentOutputDir, { recursive: true })
         }
         // Process assets for both dev and production
         assetProcessor.processAssets()
