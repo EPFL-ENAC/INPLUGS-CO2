@@ -277,10 +277,18 @@ export function multiLocalePlugin(options = {}) {
   // Setup file watcher for development with incremental rebuilds
   function setupWatcher() {
     const watchPaths = [
+      // Nunjucks templates
       `${pagesDir}/**/*.njk`,
       `${layoutsDir}/**/*.njk`, 
       `${partialsDir}/**/*.njk`,
-      `${dataDir}/**/*.json`
+      // Data files
+      `${dataDir}/**/*.json`,
+      // CSS files
+      `${srcDir}/styles/**/*.css`,
+      // JS files
+      'public/js/**/*.js',
+      // Asset files that might affect the build
+      `${srcDir}/assets/**/*`
     ]
     
     const watcher = chokidar.watch(watchPaths, {
@@ -292,31 +300,55 @@ export function multiLocalePlugin(options = {}) {
       if (!isStale(path)) return
       
       console.log(`📝 File changed: ${path}`)
+      
+      // Determine file type and appropriate action
+      const ext = extname(path).toLowerCase()
+      const isTemplate = ext === '.njk'
+      const isData = ext === '.json' && path.startsWith(dataDir)
+      const isAsset = ext === '.css' || ext === '.js' || path.startsWith(`${srcDir}/assets`) || path.startsWith('public/')
+      
+      // For assets, reprocess them first
+      if (isAsset) {
+        console.log(`🎨 Reprocessing assets due to ${ext} file change...`)
+        await assetProcessor.processAssets()
+      }
+      
       const localeData = loadLocaleData(locales, dataDir)
       const routesConfig = loadRoutesConfig()
       const metaData = loadMetaData(dataDir)
       
-      // Discover pages with co-located variants for incremental rebuild
-      const allFiles = glob.sync(`${pagesDir}/**/*.njk`)
-      const byBase = new Map()
-      
-      for (const f of allFiles) {
-        const rel = f.replace(`${pagesDir}/`, '')
-        const m = rel.match(LOCALE_RE)
-        const baseName = m ? rel.replace(LOCALE_RE, '.njk') : rel
-        const entry = byBase.get(baseName) || { default: null, variants: {} }
-        if (m) entry.variants[m[1]] = rel
-        else entry.default = rel
-        byBase.set(baseName, entry)
-      }
-      
-      // If a page changed: rebuild that base page for all locales
-      if (path.startsWith(pagesDir)) {
-        const rel = path.replace(`${pagesDir}/`, '')
-        const base = rel.replace(LOCALE_RE, '.njk')
-        await pageRenderer.rebuildBase(base, localeData, routesConfig, metaData, byBase)
-      } else {
-        // layout/partials/data: rebuild all
+      // For templates and data files, handle page rebuilding
+      if (isTemplate || isData) {
+        // Discover pages with co-located variants for incremental rebuild
+        const allFiles = glob.sync(`${pagesDir}/**/*.njk`)
+        const byBase = new Map()
+        
+        for (const f of allFiles) {
+          const rel = f.replace(`${pagesDir}/`, '')
+          const m = rel.match(LOCALE_RE)
+          const baseName = m ? rel.replace(LOCALE_RE, '.njk') : rel
+          const entry = byBase.get(baseName) || { default: null, variants: {} }
+          if (m) entry.variants[m[1]] = rel
+          else entry.default = rel
+          byBase.set(baseName, entry)
+        }
+        
+        // If a page changed: rebuild that base page for all locales
+        if (path.startsWith(pagesDir)) {
+          const rel = path.replace(`${pagesDir}/`, '')
+          const base = rel.replace(LOCALE_RE, '.njk')
+          await pageRenderer.rebuildBase(base, localeData, routesConfig, metaData, byBase)
+        } else {
+          // layout/partials/data: rebuild all pages
+          await generatePages()
+        }
+      } else if (isAsset) {
+        // For assets, we need to update asset hashes and regenerate pages with new hashes
+        const assetHashes = assetProcessor.getAssetHashes()
+        pageRenderer.setAssetHashes(assetHashes)
+        notFoundGenerator.setAssetHashes(assetHashes)
+        
+        // Regenerate all pages to pick up new asset hashes
         await generatePages()
       }
       
@@ -328,7 +360,46 @@ export function multiLocalePlugin(options = {}) {
     
     watcher.on('add', async (path) => {
       console.log(`➕ File added: ${path}`)
+      
+      // Determine file type and appropriate action
+      const ext = extname(path).toLowerCase()
+      const isAsset = ext === '.css' || ext === '.js' || path.startsWith(`${srcDir}/assets`) || path.startsWith('public/')
+      
+      // For assets, reprocess them first
+      if (isAsset) {
+        console.log(`🎨 Processing new asset: ${ext} file...`)
+        await assetProcessor.processAssets()
+      }
+      
+      // Always regenerate pages when files are added to ensure proper integration
       await generatePages()
+      
+      // Trigger HMR if in dev mode
+      if (server) {
+        server.ws.send({ type: 'full-reload' })
+      }
+    })
+    
+    watcher.on('unlink', async (path) => {
+      console.log(`🗑️  File deleted: ${path}`)
+      
+      // Determine file type and appropriate action
+      const ext = extname(path).toLowerCase()
+      const isAsset = ext === '.css' || ext === '.js' || path.startsWith(`${srcDir}/assets`) || path.startsWith('public/')
+      
+      // For assets, reprocess them to update references
+      if (isAsset) {
+        console.log(`🎨 Reprocessing assets after deletion of ${ext} file...`)
+        await assetProcessor.processAssets()
+      }
+      
+      // Always regenerate pages when files are deleted to ensure cleanup
+      await generatePages()
+      
+      // Trigger HMR if in dev mode
+      if (server) {
+        server.ws.send({ type: 'full-reload' })
+      }
     })
     
     return watcher
