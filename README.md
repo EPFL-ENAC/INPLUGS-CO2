@@ -1,12 +1,14 @@
-# 🌍 Vite SSR Nunjucks i18n Basic
+# 🌍 INPLUGS-CO2 
+
+## Vite SSR Nunjucks i18n Basic
 
 [![Vite](https://img.shields.io/badge/Vite-5.0+-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Nunjucks](https://img.shields.io/badge/Nunjucks-3.2+-1C4913?style=for-the-badge&logo=nunjucks&logoColor=white)](https://mozilla.github.io/nunjucks/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic/graphs/commit-activity)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)](https://github.com/EPFL-ENAC/INPLUGS-CO2)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/EPFL-ENAC/INPLUGS-CO2/graphs/commit-activity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 > A modern, fast, and SEO-friendly multi-locale static site generator powered by Vite and Nunjucks
@@ -31,8 +33,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic.git
-cd vite-ssr-nunjucks-i18n-basic
+git clone git@github.com:EPFL-ENAC/INPLUGS-CO2.git
+cd INPLUGS-CO2
 
 # Install dependencies
 npm install
@@ -439,7 +441,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**[⭐ Star this repo](https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic)** • **[🐛 Report Bug](https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic/issues)** • **[✨ Request Feature](https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic/issues)**
+**[⭐ Star this repo](https://github.com/EPFL-ENAC/INPLUGS-CO2)** • **[🐛 Report Bug](https://github.com/EPFL-ENAC/INPLUGS-CO2/issues)** • **[✨ Request Feature](https://github.com/EPFL-ENAC/INPLUGS-CO2/issues)**
 
 Made with ❤️ for the multi-locale web
 
