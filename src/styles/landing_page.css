@@ -100,6 +100,7 @@
     gap: 0;
     grid-template-columns: 1fr;
     position: relative;
+    min-height: auto;
   }
 
   .landing_page.is-full-page .landing_page__content {
@@ -109,27 +110,27 @@
   }
 
   .landing_page.is-full-page .landing_page__visual {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     z-index: 1;
   }
 
   .landing_page.is-full-page .landing_page__visual img {
     width: 100vw;
-    height: 100vh;
-    object-fit: cover;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    object-position: center;
   }
 
   /* ---------- Info Boxes for State 2 ---------- */
   .info-boxes {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     z-index: 10;
     pointer-events: none;
     opacity: 0;

@@ -12,6 +12,9 @@
     box-shadow: var(--shadow);
     background: var(--navbar-bg);
     backdrop-filter: blur(15px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   .nav {
     display: flex;
