@@ -148,12 +148,23 @@
   }
   
   .lang svg {
-    fill: var(--brand-fg);
+    fill: var(--canard, #1A586C);
+
+    width: 19px;
+    height: 27px;
     opacity: 0.8;
+    display: block;
+    margin-top: 7px;
   }
   
   .lang a {
-    color: var(--brand-fg);
+    color: var(--canard, #1A586C);
+    font-family: Archivo;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.75px;
     text-decoration: none;
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
