@@ -1,0 +1,86 @@
+/* 
+ * Font Face Declarations - Archivo Family
+ * Complete font family with weights 300-700 and italic variants
+ */
+
+@layer tokens {
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Archivo';
+    src: url('/assets/fonts/Archivo/Archivo-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+}

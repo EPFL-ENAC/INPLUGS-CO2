@@ -286,23 +286,31 @@
     text-shadow: 7px 7px 13px rgba(0, 0, 0, 0.25);
 
     /* h2 */
-    font-family: Archivo;
+    font-family: system-ui, -apple-system, sans-serif;
     font-size: 4.375rem;
     font-style: normal;
     font-weight: 700;
     line-height: 4.375rem; /* 100% */
     letter-spacing: -0.13125rem;
   }
+  
+  .fonts-loaded-1 h2 {
+    font-family: Archivo, system-ui, -apple-system, sans-serif;
+  }
 
   span {
     color: var(--canard, #1a586c);
 
     /* h2 */
-    font-family: Archivo;
+    font-family: system-ui, -apple-system, sans-serif;
     font-size: 4.375rem;
     font-style: normal;
     font-weight: 700;
     line-height: 4.375rem;
     letter-spacing: -0.13125rem;
+  }
+  
+  .fonts-loaded-1 span {
+    font-family: Archivo, system-ui, -apple-system, sans-serif;
   }
 }

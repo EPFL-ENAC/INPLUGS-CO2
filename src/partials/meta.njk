@@ -1,5 +1,8 @@
     {%- set absolutePageUrl -%}{{ page.url | url | absoluteUrl(meta[locale].url) }}{%- endset -%}
 
+    {# FONTS - Critical FOFT with preload #}
+    <link rel="preload" href="/assets/fonts/Archivo/Archivo-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+
     {# General #}
     <meta name="description" content="{{ description or meta[locale].description }}">
     <link rel="canonical" href="{{ absolutePageUrl }}">
@@ -27,3 +30,5 @@
 
     {# RSS Feed #}
     <link type="application/atom+xml" rel="alternate" href="{{ meta.url }}/feed.xml" title="{{ meta.title }}">
+
+

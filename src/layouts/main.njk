@@ -11,10 +11,12 @@
     {% if isProduction and cssHash %}
     <link rel="stylesheet" href="/assets/styles/main.{{ cssHash }}.css" />
     <link rel="stylesheet" href="/assets/styles/tokens.{{ cssHash }}.css" />
+    <link rel="stylesheet" href="/assets/styles/fonts.{{ cssHash }}.css" />
     <link rel="stylesheet" href="/assets/styles/navbar.{{ cssHash }}.css" />
     {% else %}
     <link rel="stylesheet" href="/assets/styles/main.css" />
     <link rel="stylesheet" href="/assets/styles/tokens.css" />
+    <link rel="stylesheet" href="/assets/styles/fonts.css" />
     <link rel="stylesheet" href="/assets/styles/navbar.css" />
     {% endif %}
     {% if not allowIndexing %}
@@ -44,5 +46,44 @@
     {% else %}
     <script type="module" src="/assets/js/nav-active-lang.js"></script>
     {% endif %}
+    
+    <script>
+    /* 
+     * Font loading: Critical FOFT with preload for Archivo
+     * Implementation based on Zach Leatherman's comprehensive webfont strategy
+     * Source: https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-with-preload
+     */
+    (function() {
+      if( "fonts" in document ) {
+        // Optimization for Repeat Views
+        if( sessionStorage.fontsLoadedArchivoFoft ) {
+          document.documentElement.className += " fonts-loaded-2";
+          return;
+        }
+
+        document.fonts.load("1em Archivo").then(function () {
+          document.documentElement.className += " fonts-loaded-1";
+
+          Promise.all([
+            document.fonts.load("300 1em Archivo"),
+            document.fonts.load("400 1em Archivo"),
+            document.fonts.load("500 1em Archivo"),
+            document.fonts.load("600 1em Archivo"),
+            document.fonts.load("700 1em Archivo"),
+            document.fonts.load("italic 300 1em Archivo"),
+            document.fonts.load("italic 400 1em Archivo"),
+            document.fonts.load("italic 500 1em Archivo"),
+            document.fonts.load("italic 600 1em Archivo"),
+            document.fonts.load("italic 700 1em Archivo")
+          ]).then(function () {
+            document.documentElement.className += " fonts-loaded-2";
+
+            // Optimization for Repeat Views
+            sessionStorage.fontsLoadedArchivoFoft = true;
+          });
+        });
+      }
+    })();
+    </script>
   </body>
 </html>
