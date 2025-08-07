@@ -1,5 +1,5 @@
 <site-header>
-  <template shadowrootmode="open">
+  <template id="header-template">
     {% if isProduction and cssHash %}
     <link rel="stylesheet" href="/assets/styles/navbar.{{ cssHash }}.css">
     {% else %}
@@ -16,8 +16,31 @@
       </a>
       <nav aria-label="Main navigation">
         {% for item in navItems %}
-          <a href="{{ item.path }}" {% if page.key == item.key %}aria-current="page"{% endif %}>{{ item.title }}</a>
+          {% set priority = "primary" %}
+          {% if item.key == "dictionary" or item.key == "links" or item.key == "about" or item.key == "contact" %}
+            {% set priority = "secondary" %}
+          {% endif %}
+          {% if item.key == "about" or item.key == "contact" %}
+            {% set priority = "tertiary" %}
+          {% endif %}
+          <a href="{{ item.path }}" 
+             {% if page.key == item.key %}aria-current="page"{% endif %}
+             data-priority="{{ priority }}"
+             data-nav-item="{{ item.key }}">{{ item.title }}</a>
         {% endfor %}
+        
+        <!-- More dropdown for collapsed navigation items -->
+        <div class="nav-more">
+          <button class="nav-more-toggle" aria-expanded="false" aria-haspopup="true" aria-label="More navigation options">
+            More
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav-more-dropdown" id="nav-more-dropdown">
+            <!-- Collapsed navigation items will be moved here by JavaScript -->
+          </div>
+        </div>
       </nav>
       <div class="lang" role="navigation" aria-label="Language switcher">
         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="50 70 412 412" aria-hidden="true">
@@ -54,3 +77,5 @@
   }]
 }
 </script>
+
+<script src="/assets/js/navbar.js"></script>

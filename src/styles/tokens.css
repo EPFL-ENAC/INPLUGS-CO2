@@ -24,6 +24,13 @@
     --radius: 12px;
     --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 
+    /* Responsive breakpoints */
+    --breakpoint-mobile: 768px;
+    --breakpoint-mobile-small: 680px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1400px;
+    --breakpoint-wide: 1600px;
+
     /* Figma Colors */
     --teal-dark: #1a586c;
     --canard: #1A586C;
