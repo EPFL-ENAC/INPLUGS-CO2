@@ -3,8 +3,8 @@
   "locales": ["en", "fr"],
   "routes": {
     "en": [
-      { "key": "landing_page", "path": "/en/", "title": "Home", "themeColor": "#00aad8" },
-      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Landing Page Full", "hidden": true, "themeColor": "#00aad8" },
+      { "key": "landing_page", "path": "/en/", "title": "Home", "themeColor": "#00aad8","hidden": true},
+      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Interactive",  "themeColor": "#00aad8" },
       {
         "key": "gcs",
         "path": "/en/gcs",
@@ -35,7 +35,7 @@
       { "key": "contact", "path": "/en/contact", "title": "Contact", "themeColor": "#aaf954" }
     ],
     "fr": [
-      { "key": "landing_page", "path": "/fr/", "title": "Accueil", "themeColor": "#00aad8" },
+      { "key": "landing_page", "path": "/fr/", "title": "Accueil", "themeColor": "#00aad8", "hidden": true },
       { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Page d'accueil complète", "hidden": true, "themeColor": "#00aad8" },
       {
         "key": "gcs",
