@@ -36,7 +36,7 @@
     ],
     "fr": [
       { "key": "landing_page", "path": "/fr/", "title": "Accueil", "themeColor": "#00aad8", "hidden": true },
-      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Page d'accueil complète", "hidden": true, "themeColor": "#00aad8" },
+      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Interactive", "themeColor": "#00aad8" },
       {
         "key": "gcs",
         "path": "/fr/gcs",

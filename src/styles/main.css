@@ -1,7 +1,7 @@
 /* @import "https://cdn.jsdelivr.net/npm/simpledotcss@2.2.0/simple.min.css"; */
 
 body {
-  padding: 2.5rem 5rem 0rem 5rem;
+  /* padding: 2.5rem 5rem 0rem 5rem; */
   background-color: var(--page-theme-color, var(--cream, #f4f0eb));
 }
 
