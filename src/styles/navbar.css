@@ -19,11 +19,12 @@
   }
   .nav {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: var(--space-3);
     width: var(--container);
     margin-inline: auto;
-    padding: var(--space-3);
+    /* padding: var(--space-3); */
+    height: 100%;
   }
   
   /* Logo styles */
@@ -62,8 +63,17 @@
     display: flex;
     gap: var(--space-3);
     flex-wrap: wrap;
-    align-items: stretch;
     height: 100%;
+    align-content: center;
+  }
+  
+  nav::after {
+    content: '';
+    width: 1px;
+    height: 2.25rem; /* 36px converted to rem */
+    background-color: var(--canard);
+    margin-left: var(--space-3);
+    align-self: center;
   }
   nav a {
     color: var(--canard);
@@ -75,8 +85,13 @@
     letter-spacing: -0.04688rem;
     text-decoration: none;
     opacity: 0.9;
-    padding: 0.2rem 0.4rem;
+    padding: 0 0.4rem;
     border-radius: 6px;
+
+    display: flex;
+    align-self: stretch;
+    height: 100%;
+    align-items: center;
   }
   
   /* Progressive font enhancement */
