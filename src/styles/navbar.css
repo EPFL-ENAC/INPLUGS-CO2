@@ -41,11 +41,15 @@
   
   .landing_page__logo {
     display: block;
+    width: 5.32519rem;
+    height: 4.25rem;
+    flex-shrink: 0;
   }
   
   .landing_page__logo img {
-    height: 40px;
-    width: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
   
@@ -58,6 +62,8 @@
     display: flex;
     gap: var(--space-3);
     flex-wrap: wrap;
+    align-items: stretch;
+    height: 100%;
   }
   nav a {
     color: var(--canard);
@@ -95,21 +101,79 @@
     gap: 0.5rem;
     opacity: 0.9;
   }
+  
+  .lang svg {
+    fill: var(--brand-fg);
+    opacity: 0.8;
+  }
+  
   .lang a {
     color: var(--brand-fg);
     text-decoration: none;
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
   }
-  .lang a[aria-current="true"] {
+  
+  .lang a:hover,
+  .lang a:focus-visible {
     background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
     opacity: 1;
   }
 
+  /* Desktop: Show only alternate language */
+  @media (min-width: 769px) {
+    .lang a.current {
+      display: none;
+    }
+  }
+
+  /* Mobile: Show all languages with separators */
+  @media (max-width: 768px) {
+    .lang {
+      gap: 0;
+    }
+    
+    .lang a {
+      color: var(--canard, #1A586C);
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 0.9375rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.02813rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0;
+    }
+    
+    /* Progressive font enhancement for mobile */
+    .fonts-loaded-1 .lang a {
+      font-family: Archivo, system-ui, -apple-system, sans-serif;
+    }
+    
+    .lang a:not(:last-child)::after {
+      content: " | ";
+      color: var(--canard, #1A586C);
+      opacity: 0.6;
+      margin-left: 0.5rem;
+    }
+    
+    .lang a.current {
+      font-weight: 500;
+      opacity: 1;
+    }
+    
+    .lang svg {
+      fill: var(--canard, #1A586C);
+      opacity: 0.8;
+      margin-right: 0.5rem;
+    }
+  }
+
   /* Mobile adjustments for logo */
   @media (max-width: 680px) {
-    .landing_page__logo img {
-      height: 32px; /* Smaller logo on mobile */
+    .landing_page__logo {
+      width: 4.26rem; /* Smaller proportional width on mobile */
+      height: 3.4rem; /* Smaller proportional height on mobile */
     }
     
     .nav {
