@@ -175,7 +175,6 @@ export class AssetProcessor {
 
     // Files/paths to exclude from public copy (will be processed separately)
     const excludePatterns = [
-      'js/nav-active-lang.js', // This gets processed with hash
       'site.webmanifest', // This gets localized per locale
     ]
 
@@ -354,11 +353,6 @@ export class AssetProcessor {
         // Store hash with file-specific key (in case there are multiple JS files)
         const hashKey = fileName.replace('.js', 'Hash')
         this.assetHashes[hashKey] = hash
-        
-        // For backwards compatibility, also store as jsHash if this is nav-active-lang.js
-        if (fileName === 'nav-active-lang.js') {
-          this.assetHashes.jsHash = hash
-        }
         
         const outputFileName = this.isProduction ? 
           fileName.replace('.js', `.${hash}.js`) : 

@@ -41,11 +41,7 @@
     {% else %}
     <img src="/assets/images/logo.svg" width="400" style="margin-top: 1.5rem">
     {% endif %} #}
-    {% if isProduction and jsHash %}
-    <script type="module" src="/assets/js/nav-active-lang.{{ jsHash }}.js"></script>
-    {% else %}
-    <script type="module" src="/assets/js/nav-active-lang.js"></script>
-    {% endif %}
+
     
     <script>
     /* 
