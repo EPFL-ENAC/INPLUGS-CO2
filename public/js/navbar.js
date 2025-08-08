@@ -162,13 +162,36 @@ class ResponsiveNavigation {
       this.closeDropdowns();
     }
 
-    // Handle navigation overflow for "More" dropdown
-    this.handleNavigationOverflow();
+    // Reset any overflow modifications on mobile
+    if (window.innerWidth <= 768) {
+      const navItems = this.shadowRoot.querySelectorAll('nav > a[data-priority]');
+      const moreButton = this.shadowRoot.querySelector('.nav-more');
+      const moreDropdown = this.shadowRoot.querySelector('.nav-more-dropdown');
+      
+      if (navItems && moreButton && moreDropdown) {
+        // Reset all navigation items to be visible
+        navItems.forEach(item => {
+          item.style.display = '';
+        });
+        
+        // Hide the more button on mobile
+        moreButton.style.display = 'none';
+        moreDropdown.innerHTML = '';
+      }
+    } else {
+      // Handle navigation overflow for "More" dropdown on desktop/tablet
+      this.handleNavigationOverflow();
+    }
 
     console.log('ResponsiveNavigation: Resize handled, width:', window.innerWidth);
   }
 
   handleNavigationOverflow() {
+    // Don't run overflow logic on mobile - CSS handles it
+    if (window.innerWidth <= 768) {
+      return;
+    }
+    
     const nav = this.shadowRoot.querySelector('nav');
     const navItems = this.shadowRoot.querySelectorAll('nav > a[data-priority]');
     const moreButton = this.shadowRoot.querySelector('.nav-more');
