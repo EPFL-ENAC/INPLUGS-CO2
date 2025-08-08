@@ -1,4 +1,8 @@
 @layer components {
+  :root {
+    --breakpoint-mobile: 680px;
+    --breakpoint-landing-page: 860px;
+  }
   :host {
     display: block;
     background: var(--brand-bg);
@@ -73,23 +77,24 @@
   }
 
   .landing_page__visual picture {
-display: flex;
+    display: flex;
     width: 100%;
     height: 100%;
     justify-content: center;
   }
 
   .landing_page__visual img {
-  display: block;
+    display: block;
     height: calc(100vh - 10rem);
     /* object-fit: fill;
     object-position: top; */
-  object-fit: cover;
-  object-position: top; /* crop from bottom first */
+    object-fit: cover;
+    object-position: top; /* crop from bottom first */
   }
 
   /* ---------- Mobile adjustments ---------- */
-  @media (max-width: 680px) {
+  /* NOTE: CSS var() cannot be used inside media query conditions in current browsers, so we use the literal fallback value (860px). */
+  @media (max-width: 860px) {
     .landing_page {
       grid-template-columns: 1fr; /* single column */
     }
@@ -265,6 +270,7 @@ display: flex;
   }
 
   /* ---------- Mobile adjustments for State 2 ---------- */
+  /* NOTE: Same var() limitation, using literal 680px. */
   @media (max-width: 680px) {
     .info-box {
       max-width: 240px;
