@@ -158,6 +158,13 @@
       const open = moreDropdown.classList.toggle('open');
       moreToggle.setAttribute('aria-expanded', String(open));
     });
+    // Step 2a: basic keyboard activation (Enter / Space)
+    moreToggle.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        moreToggle.click();
+      }
+    });
   }
 
   // Close dropdown on outside click
