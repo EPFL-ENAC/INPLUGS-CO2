@@ -16,6 +16,12 @@
     padding-top: 2.5rem; /* was header's margin-top */
   }
 
+  @media (max-width: 860px) {
+    body {
+      padding-top: 0.368rem;
+    }
+  }
+
   img, svg { 
     display: block; 
     max-inline-size: 100%; 
