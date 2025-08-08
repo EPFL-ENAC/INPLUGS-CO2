@@ -153,10 +153,21 @@
   // Dropdown toggle
   if(moreToggle) {
     moreToggle.setAttribute('aria-controls', moreDropdown.id);
+    // Helper functions for Step 2b
+    function getDropdownItems(){ return Array.from(moreDropdown.querySelectorAll('a[data-nav-item]')); }
+    function focusFirstDropdownItem(){ const items = getDropdownItems(); if(items.length) items[0].focus(); }
+
     moreToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const open = moreDropdown.classList.toggle('open');
+      const wasOpen = moreDropdown.classList.contains('open');
+      const open = !wasOpen;
+      moreDropdown.classList.toggle('open', open);
       moreToggle.setAttribute('aria-expanded', String(open));
+      // Step 2b: focus first item when opening via keyboard (event.detail === 0)
+      if(open && e.detail === 0) {
+        // Delay to ensure items have potentially been moved this cycle
+        requestAnimationFrame(focusFirstDropdownItem);
+      }
     });
     // Step 2a: basic keyboard activation (Enter / Space)
     moreToggle.addEventListener('keydown', (e) => {
