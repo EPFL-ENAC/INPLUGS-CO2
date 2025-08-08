@@ -153,38 +153,103 @@
   // Dropdown toggle
   if(moreToggle) {
     moreToggle.setAttribute('aria-controls', moreDropdown.id);
-    // Helper functions for Step 2b
+
+    // Shared helpers
     function getDropdownItems(){ return Array.from(moreDropdown.querySelectorAll('a[data-nav-item]')); }
     function focusFirstDropdownItem(){ const items = getDropdownItems(); if(items.length) items[0].focus(); }
+    function focusLastDropdownItem(){ const items = getDropdownItems(); if(items.length) items[items.length-1].focus(); }
+    function openDropdown(focus='first') {
+      if(!moreDropdown.classList.contains('open')) {
+        moreDropdown.classList.add('open');
+        moreToggle.setAttribute('aria-expanded','true');
+      }
+      if(focus === 'first') requestAnimationFrame(focusFirstDropdownItem);
+      else if(focus === 'last') requestAnimationFrame(focusLastDropdownItem);
+    }
+    function closeDropdown(returnFocus=true){
+      if(!moreDropdown.classList.contains('open')) return;
+      moreDropdown.classList.remove('open');
+      moreToggle.setAttribute('aria-expanded','false');
+      if(returnFocus) moreToggle.focus();
+    }
 
+    // Click (mouse) toggle (keeps previous behavior; focus handled only for keyboard via key events)
     moreToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       const wasOpen = moreDropdown.classList.contains('open');
       const open = !wasOpen;
       moreDropdown.classList.toggle('open', open);
       moreToggle.setAttribute('aria-expanded', String(open));
-      // Step 2b: focus first item when opening via keyboard (event.detail === 0)
-      if(open && e.detail === 0) {
-        // Delay to ensure items have potentially been moved this cycle
+      if(open && e.detail === 0) { // keyboard-triggered (Enter/Space dispatch click with detail 0)
         requestAnimationFrame(focusFirstDropdownItem);
       }
+      if(!open) closeDropdown(false); // normalize state
     });
-    // Step 2a: basic keyboard activation (Enter / Space)
+
+    // Keyboard on toggle (2a, 2b already + extend for 2c,2f)
     moreToggle.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        moreToggle.click();
+      switch(e.key) {
+        case 'Enter':
+        case ' ': // Space
+          e.preventDefault();
+          moreToggle.click();
+          break;
+        case 'ArrowDown': // 2c open + focus first
+          e.preventDefault();
+          openDropdown('first');
+          break;
+        case 'ArrowUp': // optional: open + focus last for symmetry
+          e.preventDefault();
+          openDropdown('last');
+          break;
+        case 'Escape': // 2f close
+          e.preventDefault();
+          closeDropdown(true);
+          break;
       }
     });
-  }
 
-  // Close dropdown on outside click
-  document.addEventListener('click', (e) => {
-    if(!shadowRoot.contains(e.target)) {
-      moreDropdown.classList.remove('open');
-      if(moreToggle) moreToggle.setAttribute('aria-expanded','false');
-    }
-  });
+    // Dropdown keyboard navigation (2d,2f,2g)
+    moreDropdown.addEventListener('keydown', (e) => {
+      if(!moreDropdown.classList.contains('open')) return;
+      const items = getDropdownItems();
+      if(!items.length) return;
+      const currentIndex = items.indexOf(document.activeElement);
+      switch(e.key) {
+        case 'ArrowDown': // cycle forward
+          e.preventDefault();
+          if(currentIndex === -1) items[0].focus(); else items[(currentIndex + 1) % items.length].focus();
+          break;
+        case 'ArrowUp': // cycle backward
+          e.preventDefault();
+            if(currentIndex === -1) items[items.length-1].focus(); else items[(currentIndex - 1 + items.length) % items.length].focus();
+          break;
+        case 'Escape': // 2f
+          e.preventDefault();
+          closeDropdown(true);
+          break;
+        case 'Tab': // 2g close when tabbing out past ends
+          if(currentIndex === -1) return; // let browser handle
+          if(!e.shiftKey && currentIndex === items.length - 1) {
+            // forward past last
+            closeDropdown(false);
+          } else if(e.shiftKey && currentIndex === 0) {
+            // backward before first
+            closeDropdown(false);
+          }
+          break;
+      }
+    });
+
+    // Close when focus leaves toggle + dropdown
+    shadowRoot.addEventListener('focusin', (e) => {
+      if(!moreDropdown.classList.contains('open')) return;
+      if(e.target === moreToggle) return;
+      if(moreDropdown.contains(e.target)) return;
+      // Focus moved elsewhere inside header; keep open? We choose to close.
+      closeDropdown(false);
+    });
+  }
 
   // Initial collapse check on font load
   function initialRun(){ collapseIfNeeded(); }
