@@ -13,7 +13,9 @@
     inline-size: min(80ch, 100% - 10rem);
     width: auto;
     margin-inline: auto;
-    padding-block: 2rem; /* optional vertical breathing room */
+
+    /* padding-block: 2rem; optional vertical breathing room */
+    padding-top: 2rem;
   }
 
   /* SVG Page Layout */

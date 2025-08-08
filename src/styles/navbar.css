@@ -1,6 +1,23 @@
 @layer components {
   /* Shadow DOM component styles for navbar */
   :host {
+    /* Redefine breakpoint variables for shadow DOM */
+    --breakpoint-mobile: 768px;
+    --breakpoint-mobile-small: 680px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1400px;
+    --breakpoint-wide: 1600px;
+    
+    /* Redefine other CSS variables needed in shadow DOM */
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --radius: 12px;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    --canard: #1A586C;
+    --navbar-bg: rgba(244, 240, 235, 0.40);
+    --brand-fg: #ffffff;
+    --brand-bg: #1f2937;
+    
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
@@ -297,14 +314,14 @@
   }
 
   /* Desktop: Show only alternate language */
-  @media (min-width: calc(var(--breakpoint-mobile) + 1px)) {
+  @media (min-width: 769px) {
     .lang a.current {
       display: none;
     }
   }
 
   /* Large desktop: Show all navigation items */
-  @media (min-width: var(--breakpoint-desktop)) {
+  @media (min-width: 1400px) {
     .nav-more {
       display: none !important;
     }
@@ -315,7 +332,7 @@
   }
 
   /* Medium screens: Show priority items + More dropdown */
-  @media (max-width: calc(var(--breakpoint-desktop) - 1px)) and (min-width: calc(var(--breakpoint-tablet) + 1px)) {
+  @media (max-width: 1399px) and (min-width: 1025px) {
     .nav-more {
       display: flex;
     }
@@ -326,7 +343,7 @@
   }
 
   /* Tablet: Show fewer priority items + More dropdown */
-  @media (max-width: var(--breakpoint-tablet)) and (min-width: calc(var(--breakpoint-mobile) + 1px)) {
+  @media (max-width: 1024px) and (min-width: 769px) {
     .nav-more {
       display: flex;
     }
@@ -338,7 +355,7 @@
   }
 
   /* Mobile adjustments */
-  @media (max-width: var(--breakpoint-mobile)) {
+  @media (max-width: 768px) {
     .header {
       grid-template-columns: auto 1fr auto;
       grid-template-areas: "lang logo mobile-toggle";
@@ -438,7 +455,7 @@
   }
 
   /* Mobile adjustments for logo */
-  @media (max-width: var(--breakpoint-mobile-small)) {
+  @media (max-width: 680px) {
     :host {
       margin: 2.5rem 0.375rem 0rem 0.375rem; /* 6px converted to rem */
     }

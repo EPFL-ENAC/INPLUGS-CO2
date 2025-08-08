@@ -65,12 +65,6 @@
   .landing_page__visual {
     position: relative;
     z-index: 1;
-      width: 100%;
-  max-width: 420px;
-  /* Fill viewport height; use small-viewport unit to avoid iOS URL bar issues */
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden; /* no scrollbars */
   }
 
   .landing_page__visual img,

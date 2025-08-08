@@ -157,12 +157,12 @@ class ResponsiveNavigation {
   handleResize() {
     if (!this.shadowRoot) return;
 
-    // Close mobile menu if we're on desktop
-    if (window.innerWidth >= 1024 && this.mobileMenuOpen) {
+    // Close mobile menu if we're on desktop (768px breakpoint)
+    if (window.innerWidth >= 769 && this.mobileMenuOpen) {
       this.closeDropdowns();
     }
 
-    // Reset any overflow modifications on mobile
+    // Reset any overflow modifications on mobile (768px breakpoint)
     if (window.innerWidth <= 768) {
       const navItems = this.shadowRoot.querySelectorAll('nav > a[data-priority]');
       const moreButton = this.shadowRoot.querySelector('.nav-more');
