@@ -2,7 +2,11 @@
   /* ===========================================
      LAYOUT SYSTEMS (Global)
      =========================================== */
-  
+  /* Default body font family */
+  body {
+    font-family: var(--font-family-primary);
+  }
+
   /* Container - Main layout wrapper */
   .container {
     /* "min" keeps content narrow; "100% - 10rem" enforces 5rem gutters on both sides */
@@ -18,23 +22,23 @@
   }
 
   .svg-wrap {
-    inline-size: 100%;           /* fill the content width safely */
-    min-block-size: 4000px;      /* "maybe 4000px height" as you said */
+    inline-size: 100%; /* fill the content width safely */
+    min-block-size: 4000px; /* "maybe 4000px height" as you said */
     position: relative;
-    overflow: hidden;            /* if you animate beyond edges */
+    overflow: hidden; /* if you animate beyond edges */
   }
 
   .svg-wrap > svg {
     display: block;
-    inline-size: 100%;           /* full width */
-    block-size: 4000px;          /* fixed tall canvas (use with a proper viewBox) */
+    inline-size: 100%; /* full width */
+    block-size: 4000px; /* fixed tall canvas (use with a proper viewBox) */
   }
 
   .full-bleed {
     position: relative;
     left: 50%;
     right: 50%;
-    margin-inline: -50vw;    /* extends under the scrollbar */
+    margin-inline: -50vw; /* extends under the scrollbar */
     inline-size: 100vw;
   }
 }

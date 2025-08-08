@@ -19,10 +19,10 @@
     gap: 3rem;
     /* min-height: 100vh; full-screen feel */
     /* padding: 3rem 5vw; */
-    background: var(--landing-page-blue); 
+    background: var(--landing-page-blue);
     position: relative;
     overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* ---------- Left column ---------- */
@@ -65,32 +65,33 @@
   .landing_page__visual {
     position: relative;
     z-index: 1;
+      width: 100%;
+  max-width: 420px;
+  /* Fill viewport height; use small-viewport unit to avoid iOS URL bar issues */
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden; /* no scrollbars */
   }
 
   .landing_page__visual img,
   .landing_page__visual picture {
-    transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .landing_page__visual picture {
-    height: 100%; /* take the entire column height */
-    width: auto; /* width stays fixed by the column definition */
-    display: block;
+display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
   }
 
   .landing_page__visual img {
-
-      flex-shrink: 0;              /* never shrink in flex container */
-  height: 100%;                /* fill container’s height */
-  max-width: 427px;            /* cap the width */
-  aspect-ratio: 59 / 139;      /* keep correct proportions */
-  object-fit: cover;           /* or 'contain', depending on crop preference */
-  display: block;              /* remove inline gaps */
-    /* height: auto ;
-    width: 100%;
-    object-fit: cover; 
-    display: block; 
-    */
+  display: block;
+    height: calc(100vh - 10rem);
+    /* object-fit: fill;
+    object-position: top; */
+  object-fit: cover;
+  object-position: top; /* crop from bottom first */
   }
 
   /* ---------- Mobile adjustments ---------- */
@@ -103,7 +104,6 @@
       margin-top: 2rem;
     }
     .landing_page__visual img {
-
       width: 100%; /* full width on small screens */
       height: auto;
       object-fit: cover; /* or contain, etc. */
@@ -179,7 +179,7 @@
     max-width: 280px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     transform: translateY(20px);
-    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .landing_page.is-state2 .info-box {
@@ -264,7 +264,7 @@
     .btn-close {
       transition: none !important;
     }
-    
+
     .landing_page.is-state2 .info-box {
       transform: none;
     }
@@ -310,31 +310,45 @@
     text-shadow: 7px 7px 13px rgba(0, 0, 0, 0.25);
 
     /* h2 */
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: 4.375rem;
     font-style: normal;
     font-weight: 700;
     line-height: 4.375rem; /* 100% */
     letter-spacing: -0.13125rem;
   }
-  
+
   .fonts-loaded-1 h2 {
-    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    font-family:
+      Archivo,
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 
   span {
     color: var(--canard, #1a586c);
 
     /* h2 */
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: 4.375rem;
     font-style: normal;
     font-weight: 700;
     line-height: 4.375rem;
     letter-spacing: -0.13125rem;
   }
-  
+
   .fonts-loaded-1 span {
-    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    font-family:
+      Archivo,
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 }

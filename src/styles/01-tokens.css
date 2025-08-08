@@ -51,8 +51,14 @@
     /* Legacy token for compatibility */
     --accent: #2c6622;
 
+    /* Font Family Tokens */
+    --font-family-primary: Archivo, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-system: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-fallback: 'Helvetica Neue', Arial, sans-serif;
+
     color-scheme: light dark;
   }
+
 
   @view-transition {
     navigation: auto;
