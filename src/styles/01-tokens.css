@@ -1,9 +1,64 @@
-/* 
- * Font Face Declarations - Archivo Family
- * Complete font family with weights 300-700 and italic variants
- */
+/* CSS Layer Order Declaration */
+@layer reset, tokens, components, utilities;
 
 @layer tokens {
+  :root {
+    --brand-bg: #1f2937; /* slate-800 */
+    --brand-fg: #ffffff;
+    --brand-accent: #f97316; /* orange-500 */
+    --container: min(1100px, 92vw);
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --radius: 12px;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+
+    /* Responsive breakpoints */
+    --breakpoint-mobile: 768px;
+    --breakpoint-mobile-small: 680px;
+    --breakpoint-tablet: 1024px;
+    --breakpoint-desktop: 1400px;
+    --breakpoint-wide: 1600px;
+
+    /* Figma Colors */
+    --teal-dark: #1a586c;
+    --canard: #1A586C;
+    
+    --cream: #f4f0eb;
+    --blanc-cass: #f4f0eb;
+
+    --emerald: #087065;
+    --lime: #90e036;
+    --vert-turquoise: #5bad91;
+    --sage: #5bad91;
+    --cyan: #3dd0ff;
+    --black: #000000;
+    --white: #ffffff;
+    --gray-light: #d9d9d9;
+    --blue-bright: #00aad8;
+    --landing-page-blue: #00aad8;
+    --lime-bright: #aaf954;
+
+    /* Figma Colors with Opacity */
+    --cream-40: #f4f0eb66;
+    --teal-dark-50: #1a586c80;
+    --sage-50: #5bad9180;
+    --black-70: #000000b2;
+    --lime-70: #90e036b2;
+    --lime-bright-70: #aaf954b2;
+    --navbar-bg: rgba(244, 240, 235, 0.40);
+    --navbar-fg: var(--brand-fg);
+
+    /* Legacy token for compatibility */
+    --accent: #2c6622;
+
+    color-scheme: light dark;
+  }
+
+  @view-transition {
+    navigation: auto;
+  }
+
+  /* Font Face Declarations - Archivo Family */
   @font-face {
     font-family: 'Archivo';
     src: url('/assets/fonts/Archivo/Archivo-Regular.woff2') format('woff2');

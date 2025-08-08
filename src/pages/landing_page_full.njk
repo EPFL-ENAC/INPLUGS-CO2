@@ -3,12 +3,9 @@
 <index-content>
   <template shadowrootmode="open">
     {% if isProduction and cssHash %}
-    <link
-      rel="stylesheet"
-      href="/assets/styles/landing_page.{{ cssHash }}.css"
-    />
+    <link rel="stylesheet" href="/assets/styles/landing_page.{{ cssHash }}.css">
     {% else %}
-    <link rel="stylesheet" href="/assets/styles/landing_page.css" />
+    <link rel="stylesheet" href="/assets/styles/landing_page.css">
     {% endif %}
 
     <section class="landing_page is-full-page">

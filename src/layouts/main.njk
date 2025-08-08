@@ -9,15 +9,15 @@
     {% include "meta.njk" %}
     
     {% if isProduction and cssHash %}
-    <link rel="stylesheet" href="/assets/styles/main.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/tokens.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/fonts.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/navbar.{{ cssHash }}.css" />
+    <link rel="stylesheet" href="/assets/styles/00-reset.{{ cssHash }}.css" />
+    <link rel="stylesheet" href="/assets/styles/01-tokens.{{ cssHash }}.css" />
+    <link rel="stylesheet" href="/assets/styles/02-components.{{ cssHash }}.css" />
+    <link rel="stylesheet" href="/assets/styles/03-utilities.{{ cssHash }}.css" />
     {% else %}
-    <link rel="stylesheet" href="/assets/styles/main.css" />
-    <link rel="stylesheet" href="/assets/styles/tokens.css" />
-    <link rel="stylesheet" href="/assets/styles/fonts.css" />
-    <link rel="stylesheet" href="/assets/styles/navbar.css" />
+    <link rel="stylesheet" href="/assets/styles/00-reset.css" />
+    <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
+    <link rel="stylesheet" href="/assets/styles/02-components.css" />
+    <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
     {% endif %}
     {% if not allowIndexing %}
       <meta name="robots" content="noindex,nofollow">
