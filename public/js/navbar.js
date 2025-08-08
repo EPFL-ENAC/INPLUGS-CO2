@@ -67,71 +67,69 @@
   }
 
   // Collapse logic
+  let lastSignature = '';
   function collapseIfNeeded() {
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
     if(isMobile) {
       restoreAll();
+      lastSignature = 'mobile';
       log('Mobile breakpoint - collapse disabled');
       return;
     }
 
-    restoreAll();
-
-    // Quick exit if nothing to do
-    if(!canonicalItems.length) return;
-
-    const available = getAvailableNavWidth();
-
-    // Compute current required width for all items (excluding more wrapper)
-    const itemsWidth = canonicalItems.reduce((sum,a)=> sum + a.getBoundingClientRect().width, 0);
-    const itemGap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0; // nav gap (flex gap)
-    const totalGap = itemGap * Math.max(0, canonicalItems.length - 1);
-    let required = itemsWidth + totalGap;
-
-    log('Initial required', required.toFixed(1),'available', available.toFixed(1));
-
-    if(required <= available) {
-      log('All items fit. No collapse.');
+    // Do not recompute while user has dropdown open (avoid flicker)
+    if(moreDropdown.classList.contains('open')) {
+      log('Skip collapse: dropdown open');
       return;
     }
 
-    // Show More button as soon as we begin moving items because it consumes width; include its width in re-measure
-    moreWrapper.style.display = 'flex';
-    // Need its width in calculations
-    const moreWidth = moreWrapper.getBoundingClientRect().width + itemGap; // plus a gap it occupies as an item
-    required += moreWidth; // account for adding the button itself
+    // Temporarily stop observing mutations triggered by our own DOM ops
+    mo.disconnect();
 
-    // Move items from end until they fit
+    restoreAll();
+
+    if(!canonicalItems.length) { mo.observe(nav,{childList:true,subtree:false}); return; }
+
+    const available = getAvailableNavWidth();
+
+    const itemsWidth = canonicalItems.reduce((sum,a)=> sum + a.getBoundingClientRect().width, 0);
+    const itemGap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0;
+    const totalGap = itemGap * Math.max(0, canonicalItems.length - 1);
+    let required = itemsWidth + totalGap;
+
+    const preSignature = `all:${canonicalItems.length}|req:${required.toFixed(0)}|avail:${available.toFixed(0)}`;
+    if(required <= available) {
+      if(lastSignature !== preSignature) log('All items fit. No collapse.');
+      lastSignature = preSignature;
+      mo.observe(nav,{childList:true,subtree:false});
+      return;
+    }
+
+    moreWrapper.style.display = 'flex';
+    const moreWidth = moreWrapper.getBoundingClientRect().width + itemGap;
+    required += moreWidth;
+
     let moved = 0;
     while(required > available && nav.querySelector(':scope > a[data-nav-item]')) {
       const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
       if(!last) break;
-      // Update required width: remove last item width + a gap (if there remains at least one item before it)
       const lastWidth = last.getBoundingClientRect().width;
       required -= lastWidth;
-      // Removing one item also removes one gap unless it was the only item
-      if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) {
-        required -= itemGap;
-      }
-      // Prepend to dropdown to maintain canonical order
-      if(moreDropdown.firstChild) {
-        moreDropdown.insertBefore(last, moreDropdown.firstChild);
-      } else {
-        moreDropdown.appendChild(last);
-      }
+      if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= itemGap;
+      if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
       moved++;
-      log('Moved', last.getAttribute('data-nav-item'),'required now', required.toFixed(1),'available', available.toFixed(1));
-      // Safety to avoid infinite loops
-      if(moved > canonicalItems.length) break;
+      if(moved > canonicalItems.length) break; // safety
     }
 
     if(moved === 0) {
-      // Nothing moved (rare) -> hide More again
       moreWrapper.style.display = 'none';
-      log('No items moved; hiding More');
     } else {
       log('Collapse complete. Items moved:', moved);
     }
+
+    lastSignature = `moved:${moved}|req:${required.toFixed(0)}|avail:${available.toFixed(0)}`;
+    // Resume observing
+    mo.observe(nav,{childList:true,subtree:false});
   }
 
   // Dropdown toggle
@@ -163,10 +161,6 @@
   } else {
     window.addEventListener('load', ()=> setTimeout(initialRun, 150));
   }
-
-  // Also run after a short delay in case of late layout shifts
-  setTimeout(collapseIfNeeded, 400);
-  setTimeout(collapseIfNeeded, 1200);
 
   // Observe nav for mutations (dynamic changes)
   const mo = new MutationObserver(() => schedule());
