@@ -15,20 +15,18 @@
         </picture>
       </a>
       <nav aria-label="Main navigation">
+        {% set navOrder = [] %}
         {% for item in navItems %}
-          {% set priority = "primary" %}
-          {% if item.key == "dictionary" or item.key == "links" or item.key == "about" or item.key == "contact" %}
-            {% set priority = "secondary" %}
+          {% if not item.hidden %}
+            {% set _ = navOrder.push(item.key) %}
+            <a href="{{ item.path }}" 
+               {% if page.key == item.key %}aria-current="page"{% endif %}
+               data-order="{{ loop.index0 }}"
+               data-nav-item="{{ item.key }}">{{ item.title }}</a>
           {% endif %}
-          {% if item.key == "about" or item.key == "contact" %}
-            {% set priority = "tertiary" %}
-          {% endif %}
-          <a href="{{ item.path }}" 
-             {% if page.key == item.key %}aria-current="page"{% endif %}
-             data-priority="{{ priority }}"
-             data-nav-item="{{ item.key }}">{{ item.title }}</a>
         {% endfor %}
-        
+        <!-- Embed canonical order for JS (locale agnostic keys) -->
+        <script type="application/json" id="nav-order">{{ navOrder | dump | safe }}</script>
         <!-- More dropdown for collapsed navigation items -->
         <div class="nav-more">
           <button class="nav-more-toggle" aria-expanded="false" aria-haspopup="true" aria-label="More navigation options">
@@ -49,8 +47,7 @@
         {% for loc in alternates %}
           {% if page.routes[loc] %}
             <a data-lang="{{ loc }}" href="{{ page.routes[loc] }}" 
-               {% if locale == loc %}class="current"{% endif %}
-               {% if locale != loc %}class="alternate"{% endif %}
+               {% if locale == loc %}class="current"{% else %}class="alternate"{% endif %}
                aria-label="Switch to {{ loc | upper }} language">{{ loc | upper }}</a>
           {% endif %}
         {% endfor %}

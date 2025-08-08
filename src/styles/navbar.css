@@ -102,7 +102,7 @@
     grid-area: nav;
     display: flex;
     gap: var(--space-3);
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* was wrap; enforce single line so JS can measure overflow */
     height: 100%;
     align-content: center;
     justify-self: end;

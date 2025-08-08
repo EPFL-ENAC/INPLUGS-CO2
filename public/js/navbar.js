@@ -1,285 +1,178 @@
-/**
- * Responsive Navigation System
- * Creates shadow DOM imperatively and implements progressive collapse
- */
-class ResponsiveNavigation {
-  constructor() {
-    this.initialized = false;
-    this.mobileMenuOpen = false;
-    this.moreDropdownOpen = false;
-    this.resizeTimeout = null;
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.init());
-    } else {
-      this.init();
-    }
+/** Navbar adaptive collapse: moves overflowing items into a More dropdown (desktop only) */
+(function(){
+  const MOBILE_BREAKPOINT = 768; // <= disabled
+  const RESIZE_DEBOUNCE = 120;
+  const DEBUG = false;
+  function log(...args) { if(DEBUG) console.log('[NAV]', ...args); }
+
+  // Locate host & template
+  const host = document.querySelector('site-header');
+  if(!host) return;
+  const tpl = host.querySelector('#header-template');
+  if(!tpl) return;
+  if(host.shadowRoot) return; // prevent double init (e.g. via HMR)
+  const shadowRoot = host.attachShadow({mode:'open'});
+  shadowRoot.appendChild(tpl.content.cloneNode(true));
+  log('Shadow DOM attached');
+
+  // Elements
+  const header = shadowRoot.querySelector('.header');
+  const nav = shadowRoot.querySelector('nav');
+  const moreWrapper = shadowRoot.querySelector('.nav-more');
+  const moreToggle = shadowRoot.querySelector('.nav-more-toggle');
+  const moreDropdown = shadowRoot.querySelector('.nav-more-dropdown');
+  const logo = shadowRoot.querySelector('.logo-link');
+  const lang = shadowRoot.querySelector('.lang');
+  const mobileToggle = shadowRoot.querySelector('.mobile-menu-toggle');
+
+  if(!header || !nav || !moreWrapper || !moreDropdown) {
+    log('Missing required elements');
+    return;
   }
 
-  init() {
-    console.log('ResponsiveNavigation: Initializing...');
-    
-    // Create shadow DOM for site-header
-    this.setupShadowDOM();
-    
-    // Wait a bit for shadow DOM to be attached
-    setTimeout(() => {
-      this.setupEventListeners();
-      this.handleResize();
-      this.initialized = true;
-      console.log('ResponsiveNavigation: Initialization complete');
-    }, 10);
+  // Canonical items (direct children anchors of nav) collected once
+  const canonicalItems = Array.from(nav.querySelectorAll(':scope > a[data-nav-item]'));
+  if(!canonicalItems.length) {
+    log('No nav items');
   }
 
-  setupShadowDOM() {
-    const siteHeader = document.querySelector('site-header');
-    const template = siteHeader?.querySelector('#header-template');
-    
-    if (!siteHeader || !template) {
-      console.error('ResponsiveNavigation: Could not find site-header or template');
-      return;
-    }
-
-    // Create shadow root
-    const shadowRoot = siteHeader.attachShadow({ mode: 'open' });
-    
-    // Clone template content
-    const templateContent = template.content.cloneNode(true);
-    shadowRoot.appendChild(templateContent);
-    
-    console.log('ResponsiveNavigation: Shadow DOM created');
-    this.shadowRoot = shadowRoot;
-    this.siteHeader = siteHeader;
-  }
-
-  setupEventListeners() {
-    if (!this.shadowRoot) {
-      console.error('ResponsiveNavigation: Shadow root not available');
-      return;
-    }
-
-    // Mobile menu toggle
-    const mobileToggle = this.shadowRoot.querySelector('.mobile-menu-toggle');
-    if (mobileToggle) {
-      mobileToggle.addEventListener('click', () => this.toggleMobileMenu());
-    }
-
-    // More dropdown toggle
-    const moreToggle = this.shadowRoot.querySelector('.nav-more-toggle');
-    if (moreToggle) {
-      moreToggle.addEventListener('click', () => this.toggleMoreDropdown());
-    }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!this.siteHeader.contains(e.target)) {
-        this.closeDropdowns();
-      }
-    });
-
-    // Handle resize
-    window.addEventListener('resize', () => {
-      clearTimeout(this.resizeTimeout);
-      this.resizeTimeout = setTimeout(() => this.handleResize(), 150);
-    });
-
-    // Handle escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.closeDropdowns();
-      }
-    });
-
-    console.log('ResponsiveNavigation: Event listeners attached');
-  }
-
-  toggleMobileMenu() {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
-    
-    const header = this.shadowRoot.querySelector('.header');
-    const mobileToggle = this.shadowRoot.querySelector('.mobile-menu-toggle');
-    
-    if (header && mobileToggle) {
-      header.classList.toggle('mobile-menu-open', this.mobileMenuOpen);
-      mobileToggle.setAttribute('aria-expanded', this.mobileMenuOpen.toString());
-    }
-
-    console.log('ResponsiveNavigation: Mobile menu toggled:', this.mobileMenuOpen);
-  }
-
-  toggleMoreDropdown() {
-    this.moreDropdownOpen = !this.moreDropdownOpen;
-    
-    const moreToggle = this.shadowRoot.querySelector('.nav-more-toggle');
-    const moreDropdown = this.shadowRoot.querySelector('.nav-more-dropdown');
-    
-    if (moreToggle && moreDropdown) {
-      moreToggle.setAttribute('aria-expanded', this.moreDropdownOpen.toString());
-      moreDropdown.classList.toggle('open', this.moreDropdownOpen);
-    }
-
-    console.log('ResponsiveNavigation: More dropdown toggled:', this.moreDropdownOpen);
-  }
-
-  closeDropdowns() {
-    let changed = false;
-    
-    if (this.mobileMenuOpen) {
-      this.mobileMenuOpen = false;
-      const header = this.shadowRoot.querySelector('.header');
-      const mobileToggle = this.shadowRoot.querySelector('.mobile-menu-toggle');
-      
-      if (header && mobileToggle) {
-        header.classList.remove('mobile-menu-open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        changed = true;
-      }
-    }
-
-    if (this.moreDropdownOpen) {
-      this.moreDropdownOpen = false;
-      const moreToggle = this.shadowRoot.querySelector('.nav-more-toggle');
-      const moreDropdown = this.shadowRoot.querySelector('.nav-more-dropdown');
-      
-      if (moreToggle && moreDropdown) {
-        moreToggle.setAttribute('aria-expanded', 'false');
-        moreDropdown.classList.remove('open');
-        changed = true;
-      }
-    }
-
-    if (changed) {
-      console.log('ResponsiveNavigation: Dropdowns closed');
-    }
-  }
-
-  handleResize() {
-    if (!this.shadowRoot) return;
-
-    // Close mobile menu if we're on desktop (768px breakpoint)
-    if (window.innerWidth >= 769 && this.mobileMenuOpen) {
-      this.closeDropdowns();
-    }
-
-    // Reset any overflow modifications on mobile (768px breakpoint)
-    if (window.innerWidth <= 768) {
-      const navItems = this.shadowRoot.querySelectorAll('nav > a[data-priority]');
-      const moreButton = this.shadowRoot.querySelector('.nav-more');
-      const moreDropdown = this.shadowRoot.querySelector('.nav-more-dropdown');
-      
-      if (navItems && moreButton && moreDropdown) {
-        // Reset all navigation items to be visible
-        navItems.forEach(item => {
-          item.style.display = '';
-        });
-        
-        // Hide the more button on mobile
-        moreButton.style.display = 'none';
-        moreDropdown.innerHTML = '';
-      }
-    } else {
-      // Handle navigation overflow for "More" dropdown on desktop/tablet
-      this.handleNavigationOverflow();
-    }
-
-    console.log('ResponsiveNavigation: Resize handled, width:', window.innerWidth);
-  }
-
-  handleNavigationOverflow() {
-    // Don't run overflow logic on mobile - CSS handles it
-    if (window.innerWidth <= 768) {
-      return;
-    }
-    
-    const nav = this.shadowRoot.querySelector('nav');
-    const navItems = this.shadowRoot.querySelectorAll('nav > a[data-priority]');
-    const moreButton = this.shadowRoot.querySelector('.nav-more');
-    const moreDropdown = this.shadowRoot.querySelector('.nav-more-dropdown');
-    
-    if (!nav || !moreButton || !moreDropdown) return;
-
-    // Reset all items to nav first and make them visible
-    navItems.forEach(item => {
-      if (item.parentElement !== nav) {
-        nav.insertBefore(item, moreButton);
-      }
-      item.style.display = '';
-    });
-
-    // Hide more button initially
-    moreButton.style.display = 'none';
+  // Utility: put all items back into nav before the moreWrapper
+  function restoreAll() {
+    // Move any items from dropdown back to nav (in canonical order)
+    canonicalItems.forEach(a => nav.insertBefore(a, moreWrapper));
     moreDropdown.innerHTML = '';
+    moreWrapper.style.display = 'none';
+    moreDropdown.classList.remove('open');
+    if(moreToggle) moreToggle.setAttribute('aria-expanded','false');
+  }
 
-    // Force a reflow to get accurate measurements
-    nav.offsetHeight;
-
-    // Get the header container width
-    const header = this.shadowRoot.querySelector('.header');
+  // Measure available horizontal space for nav items inside the grid row
+  function getAvailableNavWidth() {
     const headerRect = header.getBoundingClientRect();
-    const langSwitcher = this.shadowRoot.querySelector('.lang');
-    const langRect = langSwitcher?.getBoundingClientRect();
-    const logo = this.shadowRoot.querySelector('.logo-link');
-    const logoRect = logo?.getBoundingClientRect();
-    
-    if (!langRect || !logoRect) return;
+    const gapPx = parseFloat(getComputedStyle(header).columnGap || getComputedStyle(header).gap || '0') || 0; // grid gap
+    // Width used by other columns (they may have own margins/padding)
+    function outerWidth(el){ if(!el) return 0; const cs = getComputedStyle(el); return el.getBoundingClientRect().width + parseFloat(cs.marginLeft)||0 + parseFloat(cs.marginRight)||0; }
+    const logoW = outerWidth(logo);
+    const langW = outerWidth(lang);
+    const mobileW = outerWidth(mobileToggle && mobileToggle.offsetParent ? mobileToggle : null); // hidden on desktop => width 0
+    // Grid with 4 columns -> 3 gaps always present at desktop; if mobile toggle hidden still occupies its grid track? It's auto/auto, but the physical width is 0.
+    const gapsCount = 3; // logo|nav|lang|mobile-toggle
+    const gapsTotal = gapPx * gapsCount;
+    const paddingLeft = parseFloat(getComputedStyle(header).paddingLeft)||0;
+    const paddingRight = parseFloat(getComputedStyle(header).paddingRight)||0;
+    const occupied = logoW + langW + mobileW + gapsTotal + paddingLeft + paddingRight;
+    const available = headerRect.width - occupied;
+    log('Widths header', headerRect.width.toFixed(1),'occupied', occupied.toFixed(1),'available', available.toFixed(1));
+    return available;
+  }
 
-    // Calculate available space more accurately
-    const usedSpace = logoRect.width + langRect.width + 40; // 40px for margins
-    const availableNavWidth = headerRect.width - usedSpace - 120; // 120px buffer for "More" button
-    
-    // Get actual widths of navigation items
-    let navItemsWidth = 0;
-    const itemWidths = [];
-    
-    navItems.forEach(item => {
-      const itemRect = item.getBoundingClientRect();
-      const itemWidth = itemRect.width + 16; // 16px for margins between items
-      itemWidths.push({ item, width: itemWidth });
-      navItemsWidth += itemWidth;
-    });
+  // Collapse logic
+  function collapseIfNeeded() {
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+    if(isMobile) {
+      restoreAll();
+      log('Mobile breakpoint - collapse disabled');
+      return;
+    }
 
-    console.log('Navigation overflow check:', {
-      headerWidth: headerRect.width,
-      availableNavWidth,
-      navItemsWidth,
-      needsCollapse: navItemsWidth > availableNavWidth
-    });
+    restoreAll();
 
-    // Only collapse if navigation items actually overflow
-    if (navItemsWidth > availableNavWidth) {
-      moreButton.style.display = 'flex';
-      
-      // Sort items by priority for collapsing (tertiary first, then secondary)
-      const sortedItems = [...itemWidths].sort((a, b) => {
-        const priorities = { 'tertiary': 3, 'secondary': 2, 'primary': 1 };
-        const aPriority = priorities[a.item.getAttribute('data-priority')] || 1;
-        const bPriority = priorities[b.item.getAttribute('data-priority')] || 1;
-        return bPriority - aPriority;
-      });
+    // Quick exit if nothing to do
+    if(!canonicalItems.length) return;
 
-      // Collapse items until we fit
-      let currentWidth = navItemsWidth;
-      const moreButtonWidth = 80; // Approximate width of "More" button
-      
-      for (const { item, width } of sortedItems) {
-        if (currentWidth + moreButtonWidth <= availableNavWidth) {
-          break; // We fit now
-        }
-        
-        // Move this item to dropdown
-        const clonedItem = item.cloneNode(true);
-        moreDropdown.appendChild(clonedItem);
-        item.style.display = 'none';
-        currentWidth -= width;
-        
-        console.log('Moved item to dropdown:', item.getAttribute('data-nav-item'), 'remaining width:', currentWidth);
+    const available = getAvailableNavWidth();
+
+    // Compute current required width for all items (excluding more wrapper)
+    const itemsWidth = canonicalItems.reduce((sum,a)=> sum + a.getBoundingClientRect().width, 0);
+    const itemGap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0; // nav gap (flex gap)
+    const totalGap = itemGap * Math.max(0, canonicalItems.length - 1);
+    let required = itemsWidth + totalGap;
+
+    log('Initial required', required.toFixed(1),'available', available.toFixed(1));
+
+    if(required <= available) {
+      log('All items fit. No collapse.');
+      return;
+    }
+
+    // Show More button as soon as we begin moving items because it consumes width; include its width in re-measure
+    moreWrapper.style.display = 'flex';
+    // Need its width in calculations
+    const moreWidth = moreWrapper.getBoundingClientRect().width + itemGap; // plus a gap it occupies as an item
+    required += moreWidth; // account for adding the button itself
+
+    // Move items from end until they fit
+    let moved = 0;
+    while(required > available && nav.querySelector(':scope > a[data-nav-item]')) {
+      const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
+      if(!last) break;
+      // Update required width: remove last item width + a gap (if there remains at least one item before it)
+      const lastWidth = last.getBoundingClientRect().width;
+      required -= lastWidth;
+      // Removing one item also removes one gap unless it was the only item
+      if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) {
+        required -= itemGap;
       }
+      // Prepend to dropdown to maintain canonical order
+      if(moreDropdown.firstChild) {
+        moreDropdown.insertBefore(last, moreDropdown.firstChild);
+      } else {
+        moreDropdown.appendChild(last);
+      }
+      moved++;
+      log('Moved', last.getAttribute('data-nav-item'),'required now', required.toFixed(1),'available', available.toFixed(1));
+      // Safety to avoid infinite loops
+      if(moved > canonicalItems.length) break;
+    }
+
+    if(moved === 0) {
+      // Nothing moved (rare) -> hide More again
+      moreWrapper.style.display = 'none';
+      log('No items moved; hiding More');
+    } else {
+      log('Collapse complete. Items moved:', moved);
     }
   }
-}
 
-// Initialize the responsive navigation
-new ResponsiveNavigation();
+  // Dropdown toggle
+  if(moreToggle) {
+    moreToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = moreDropdown.classList.toggle('open');
+      moreToggle.setAttribute('aria-expanded', String(open));
+    });
+  }
 
-console.log('ResponsiveNavigation: Script loaded');
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if(!shadowRoot.contains(e.target)) {
+      moreDropdown.classList.remove('open');
+      if(moreToggle) moreToggle.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // Debounced resize
+  let resizeTimer;
+  function schedule() { clearTimeout(resizeTimer); resizeTimer = setTimeout(collapseIfNeeded, RESIZE_DEBOUNCE); }
+  window.addEventListener('resize', schedule);
+
+  // Font / layout readiness
+  function initialRun() { collapseIfNeeded(); }
+  if(document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(()=> { setTimeout(initialRun, 50); });
+  } else {
+    window.addEventListener('load', ()=> setTimeout(initialRun, 150));
+  }
+
+  // Also run after a short delay in case of late layout shifts
+  setTimeout(collapseIfNeeded, 400);
+  setTimeout(collapseIfNeeded, 1200);
+
+  // Observe nav for mutations (dynamic changes)
+  const mo = new MutationObserver(() => schedule());
+  mo.observe(nav, { childList: true, subtree: false });
+
+  log('Navbar adaptive collapse initialized');
+})();
+
+console.log('SimpleNavbar: loaded (adaptive)');
