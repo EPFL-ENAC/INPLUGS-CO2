@@ -1,8 +1,9 @@
 @layer utilities {
   .container {
-    width: var(--container);
-    margin-inline: auto;
-    padding: var(--space-3);
+    /* width: var(--container); */
+    /* margin-inline: auto; */
+    /* padding: var(--space-3); */
+    margin: 0rem 5rem 0rem 5rem;
   }
   
   .section {

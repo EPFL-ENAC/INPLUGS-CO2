@@ -17,7 +17,7 @@
     display: grid;
     grid-template-columns: 1fr 420px; /* fluid text column | fixed image column */
     gap: 3rem;
-    min-height: 100vh; /* full-screen feel */
+    /* min-height: 100vh; full-screen feel */
     /* padding: 3rem 5vw; */
     background: var(--landing-page-blue); 
     position: relative;
@@ -72,11 +72,25 @@
     transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
-  .landing_page__visual img {
+  .landing_page__visual picture {
     height: 100%; /* take the entire column height */
     width: auto; /* width stays fixed by the column definition */
-    object-fit: cover; /* or `contain` if you prefer no cropping */
     display: block;
+  }
+
+  .landing_page__visual img {
+
+      flex-shrink: 0;              /* never shrink in flex container */
+  height: 100%;                /* fill container’s height */
+  max-width: 427px;            /* cap the width */
+  aspect-ratio: 59 / 139;      /* keep correct proportions */
+  object-fit: cover;           /* or 'contain', depending on crop preference */
+  display: block;              /* remove inline gaps */
+    /* height: auto ;
+    width: 100%;
+    object-fit: cover; 
+    display: block; 
+    */
   }
 
   /* ---------- Mobile adjustments ---------- */
@@ -89,8 +103,11 @@
       margin-top: 2rem;
     }
     .landing_page__visual img {
+
       width: 100%; /* full width on small screens */
       height: auto;
+      object-fit: cover; /* or contain, etc. */
+      border-radius: 8px;
     }
   }
 
@@ -117,6 +134,13 @@
     height: auto;
     z-index: 1;
     overflow-x: auto;
+  }
+
+  .landing_page.is-full-page .landing_page__visual picture {
+    width: auto;
+    height: auto;
+    max-width: none;
+    display: block;
   }
 
   .landing_page.is-full-page .landing_page__visual img {
