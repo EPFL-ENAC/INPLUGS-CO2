@@ -73,20 +73,32 @@
     return available;
   }
 
+  const ANIMATE_CLASS = 'nav-collapsing';
+  // Inject optional style hook once (lightweight, can be overridden in real CSS)
+  try {
+    const style = document.createElement('style');
+    style.textContent = `nav.${ANIMATE_CLASS}{transition:opacity .18s ease;}`;
+    shadowRoot.appendChild(style);
+  } catch(_){}
+
   // Collapse logic
+  let collapsing = false; // guard against re-entrancy
   let lastSignature = '';
   function collapseIfNeeded() {
+    if(collapsing) return; // skip if already running this frame
+    collapsing = true;
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
     if(isMobile) {
       restoreAll();
       lastSignature = 'mobile';
-      log('Mobile breakpoint - collapse disabled');
+      collapsing = false;
       return;
     }
-
+    if(moreDropdown.classList.contains('open')) { collapsing = false; return; }
     // Do not recompute while user has dropdown open (avoid flicker)
     if(moreDropdown.classList.contains('open')) {
       log('Skip collapse: dropdown open');
+      collapsing = false;
       return;
     }
 
@@ -95,7 +107,7 @@
 
     restoreAll();
 
-    if(!canonicalItems.length) { mo.observe(nav,{childList:true,subtree:false}); return; }
+    if(!canonicalItems.length) { mo.observe(nav,{childList:true,subtree:false}); collapsing = false; return; }
 
     const available = getAvailableNavWidth();
 
@@ -109,9 +121,11 @@
       if(lastSignature !== preSignature) log('All items fit. No collapse.');
       lastSignature = preSignature;
       mo.observe(nav,{childList:true,subtree:false});
+      collapsing = false;
       return;
     }
-
+    // Animation hook
+    nav.classList.add(ANIMATE_CLASS);
     moreWrapper.style.display = 'flex';
     const moreWidth = moreWrapper.getBoundingClientRect().width + itemGap;
     required += moreWidth;
@@ -146,8 +160,11 @@
     }
 
     lastSignature = `moved:${moved}|req:${required.toFixed(0)}|avail:${available.toFixed(0)}`;
+    // Remove animation class on next frame
+    requestAnimationFrame(()=> nav.classList.remove(ANIMATE_CLASS));
     // Resume observing
     mo.observe(nav,{childList:true,subtree:false});
+    collapsing = false;
   }
 
   // Dropdown toggle
@@ -256,7 +273,7 @@
   if(document.fonts && document.fonts.ready) { document.fonts.ready.then(()=> { setTimeout(initialRun,50); }); } else { window.addEventListener('load', ()=> setTimeout(initialRun,150)); }
 
   // Resize observer (debounced)
-  let resizeTimer; function schedule(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(collapseIfNeeded, RESIZE_DEBOUNCE); }
+  let resizeTimer; function schedule(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(()=> { collapseIfNeeded(); }, RESIZE_DEBOUNCE); }
   window.addEventListener('resize', schedule);
 
   // Mutation observer to detect nav changes
