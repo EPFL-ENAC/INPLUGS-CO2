@@ -134,6 +134,8 @@
     align-self: stretch;
     height: 100%;
     align-items: center;
+    white-space: nowrap; /* prevent multi-line wrapping */
+    flex: 0 0 auto;      /* avoid shrinking that could force wrap */
     
     /* Smooth transitions */
     transition: 
@@ -182,6 +184,8 @@
     background: none;
     border: none;
     cursor: pointer;
+    white-space: nowrap; /* ensure consistency with nav links */
+    flex: 0 0 auto;
     
     display: flex;
     align-self: stretch;
