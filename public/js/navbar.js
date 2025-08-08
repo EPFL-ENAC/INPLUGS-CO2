@@ -2,8 +2,8 @@
 (function(){
   const MOBILE_BREAKPOINT = 768; // <= disabled
   const RESIZE_DEBOUNCE = 120;
-  const DEBUG = false;
-  function log(...args) { if(DEBUG) console.log('[NAV]', ...args); }
+  const DEBUG = true; // ENABLED for debug plan
+  function log(...args){ if(DEBUG) console.log('[NAV]', ...args); }
 
   // Locate host & template
   const host = document.querySelector('site-header');
@@ -35,6 +35,14 @@
   const canonicalItems = Array.from(nav.querySelectorAll(':scope > a[data-nav-item]'));
   if(!canonicalItems.length) {
     log('No nav items');
+  }
+
+  // Insert missing helper functions used later
+  function snapshotItemWidths(list){
+    return list.map(a => ({ key: a.getAttribute('data-nav-item'), w: a.getBoundingClientRect().width.toFixed(1) }));
+  }
+  function isWrapping(){
+    return nav.scrollHeight - nav.clientHeight > 2; // height-based wrap detection
   }
 
   // Utility: put all items back into nav before the moreWrapper
@@ -82,89 +90,94 @@
   } catch(_){}
 
   // Collapse logic
-  let collapsing = false; // guard against re-entrancy
-  let lastSignature = '';
-  function collapseIfNeeded() {
-    if(collapsing) return; // skip if already running this frame
+  let collapsing = false;
+  let lastSignature='';
+  function collapseIfNeeded(){
+    if(collapsing) { log('Skip: collapsing already running'); return; }
     collapsing = true;
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
-    if(isMobile) {
-      restoreAll();
-      lastSignature = 'mobile';
-      collapsing = false;
-      return;
-    }
-    if(moreDropdown.classList.contains('open')) { collapsing = false; return; }
-    // Do not recompute while user has dropdown open (avoid flicker)
-    if(moreDropdown.classList.contains('open')) {
-      log('Skip collapse: dropdown open');
-      collapsing = false;
-      return;
-    }
-
-    // Temporarily stop observing mutations triggered by our own DOM ops
+    log('--- collapseIfNeeded START --- mobile?', isMobile);
+    if(isMobile){ restoreAll(); log('Mobile: restoreAll'); collapsing = false; return; }
+    if(moreDropdown.classList.contains('open')) { log('Dropdown open: skip'); collapsing = false; return; }
     mo.disconnect();
-
     restoreAll();
+    log('After restore: items', canonicalItems.length, snapshotItemWidths(canonicalItems));
+    if(!canonicalItems.length){ log('No items after restore'); mo.observe(nav,{childList:true,subtree:false}); collapsing=false; return; }
 
-    if(!canonicalItems.length) { mo.observe(nav,{childList:true,subtree:false}); collapsing = false; return; }
-
-    const available = getAvailableNavWidth();
-
+    // First pass measurements
+    const headerRect = header.getBoundingClientRect();
+    const navRect = nav.getBoundingClientRect();
+    const availableViaHeader = getAvailableNavWidth(); // existing function
     const itemsWidth = canonicalItems.reduce((sum,a)=> sum + a.getBoundingClientRect().width, 0);
     const itemGap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0;
     const totalGap = itemGap * Math.max(0, canonicalItems.length - 1);
-    let required = itemsWidth + totalGap;
+    let requiredAll = itemsWidth + totalGap;
+    const wrappingBefore = isWrapping();
+    log('PASS1 headerW', headerRect.width.toFixed(1), 'navW', navRect.width.toFixed(1), 'available(headerCalc)', availableViaHeader.toFixed(1), 'requiredAll', requiredAll.toFixed(1), 'gap', itemGap, 'wrapping?', wrappingBefore);
 
-    const preSignature = `all:${canonicalItems.length}|req:${required.toFixed(0)}|avail:${available.toFixed(0)}`;
-    if(required <= available) {
-      if(lastSignature !== preSignature) log('All items fit. No collapse.');
-      lastSignature = preSignature;
+    if(requiredAll <= availableViaHeader && !wrappingBefore) {
+      log('All fit by width calc and no wrapping -> done');
+      lastSignature = `fit:${requiredAll.toFixed(0)}`;
+      mo.observe(nav,{childList:true,subtree:false}); collapsing=false; return;
+    }
+
+    // Show More and force layout, second pass
+    moreWrapper.style.display = 'flex';
+    // Force layout flush
+    void moreWrapper.offsetWidth; // ensures style applied
+    const moreWidth1 = moreWrapper.getBoundingClientRect().width;
+    let required = requiredAll + moreWidth1 + itemGap; // account for gap after last item before More
+    log('After showing More: moreWidth', moreWidth1.toFixed(1), 'required+more', required.toFixed(1));
+
+    // Second pass in next frame to catch font/layout shifts
+    requestAnimationFrame(()=> {
+      const moreWidth2 = moreWrapper.getBoundingClientRect().width;
+      if(Math.abs(moreWidth2 - moreWidth1) > 1) {
+        required += (moreWidth2 - moreWidth1);
+        log('More width adjusted', moreWidth2.toFixed(1), 'required adj', required.toFixed(1));
+      }
+      const wrappingNow = isWrapping();
+      log('PASS2 wrapping?', wrappingNow, 'navW', nav.getBoundingClientRect().width.toFixed(1));
+
+      let moved = 0;
+      // Move while either required > availableViaHeader OR wrapping persists
+      while((required > availableViaHeader || isWrapping()) && nav.querySelector(':scope > a[data-nav-item]')) {
+        const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
+        if(!last) break;
+        const lastWidth = last.getBoundingClientRect().width;
+        required -= lastWidth;
+        if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= itemGap; // remove a gap if not the only item left
+        if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
+        last.setAttribute('role','menuitem');
+        moved++;
+        log('Moved', last.getAttribute('data-nav-item'), 'lastWidth', lastWidth.toFixed(1), 'required now', required.toFixed(1), 'wrapping?', isWrapping());
+        if(moved > canonicalItems.length) { log('Safety break'); break; }
+      }
+
+      if(moreDropdown.children.length) {
+        moreDropdown.setAttribute('role','menu');
+        moreDropdown.removeAttribute('aria-hidden');
+      } else {
+        moreDropdown.removeAttribute('role');
+        moreDropdown.setAttribute('aria-hidden','true');
+      }
+
+      if(!moved) {
+        if(required <= availableViaHeader && !isWrapping()) {
+          log('Post-move: everything fits, hiding More');
+          moreWrapper.style.display = 'none';
+        } else {
+          log('Post-move: nothing moved but still overflow suspicion; keeping state for inspection');
+        }
+      } else {
+        log('Collapse done. Moved', moved, 'Dropdown items order', snapshotItemWidths(Array.from(moreDropdown.querySelectorAll('a[data-nav-item]'))));
+      }
+
+      lastSignature = `moved:${moved}|req:${required.toFixed(0)}|avail:${availableViaHeader.toFixed(0)}`;
       mo.observe(nav,{childList:true,subtree:false});
       collapsing = false;
-      return;
-    }
-    // Animation hook
-    nav.classList.add(ANIMATE_CLASS);
-    moreWrapper.style.display = 'flex';
-    const moreWidth = moreWrapper.getBoundingClientRect().width + itemGap;
-    required += moreWidth;
-
-    let moved = 0;
-    while(required > available && nav.querySelector(':scope > a[data-nav-item]')) {
-      const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
-      if(!last) break;
-      const lastWidth = last.getBoundingClientRect().width;
-      required -= lastWidth;
-      if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= itemGap;
-      if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
-      // Assign menuitem role when moved into dropdown
-      last.setAttribute('role','menuitem');
-      moved++;
-      if(moved > canonicalItems.length) break; // safety
-    }
-
-    // Set / unset role on dropdown depending on content
-    if(moreDropdown.children.length) {
-      moreDropdown.setAttribute('role','menu');
-      moreDropdown.removeAttribute('aria-hidden');
-    } else {
-      moreDropdown.removeAttribute('role');
-      moreDropdown.setAttribute('aria-hidden','true');
-    }
-
-    if(moved === 0) {
-      moreWrapper.style.display = 'none';
-    } else {
-      log('Collapse complete. Items moved:', moved);
-    }
-
-    lastSignature = `moved:${moved}|req:${required.toFixed(0)}|avail:${available.toFixed(0)}`;
-    // Remove animation class on next frame
-    requestAnimationFrame(()=> nav.classList.remove(ANIMATE_CLASS));
-    // Resume observing
-    mo.observe(nav,{childList:true,subtree:false});
-    collapsing = false;
+      log('--- collapseIfNeeded END ---');
+    });
   }
 
   // Dropdown toggle
