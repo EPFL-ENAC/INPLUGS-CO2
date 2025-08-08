@@ -1,5 +1,5 @@
 /* CSS Layer Order Declaration */
-@layer reset, tokens, components, utilities;
+@layer reset, tokens, layout, utilities, components;
 
 @layer tokens {
   :root {

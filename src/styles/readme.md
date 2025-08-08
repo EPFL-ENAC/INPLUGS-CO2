@@ -8,10 +8,12 @@ This project uses a **hybrid CSS architecture** that combines CSS layers for glo
 src/styles/
 ├── 00-reset.css      # @layer reset - Global resets
 ├── 01-tokens.css     # @layer tokens - Design tokens + layer definitions  
-├── 02-components.css # @layer components - Global layout components
+├── 02-layout.css     # @layer layout - Global layout systems
 ├── 03-utilities.css  # @layer utilities - Global utility classes
-├── navbar.css        # Shadow DOM component styles (not layered)
-├── landing_page.css  # Shadow DOM component styles (not layered)
+├── 04-components.css # @layer components - Global reusable components
+├── navbar.css        # Shadow DOM component styles (@layer components)
+├── landing_page.css  # Shadow DOM component styles (@layer components)
+├── component.example.css # Template for new Shadow DOM components
 └── readme.md
 ```
 
@@ -33,23 +35,29 @@ Used for Shadow DOM components that need style encapsulation:
 The layer order is defined in `01-tokens.css`:
 
 ```css
-@layer reset, tokens, components, utilities;
+@layer reset, tokens, layout, utilities, components;
 ```
 
 **Priority (lowest to highest):**
 1. `reset` - Browser resets and base styles
 2. `tokens` - Design tokens (colors, spacing, fonts)
-3. `components` - Global layout components
+3. `layout` - Global layout systems (container, grids)
 4. `utilities` - Utility classes and overrides
+5. `components` - Reusable components (highest priority)
 
 ## Loading Strategy
 
 ### **Global CSS (in `main.njk`)**
 ```html
+The files are loaded in `main.njk` in the correct order:
+
+```html
 <link rel="stylesheet" href="/assets/styles/00-reset.css" />
 <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
-<link rel="stylesheet" href="/assets/styles/02-components.css" />
+<link rel="stylesheet" href="/assets/styles/02-layout.css" />
 <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
+<link rel="stylesheet" href="/assets/styles/04-components.css" />
+```
 ```
 
 ### **Shadow DOM Components**
@@ -82,13 +90,20 @@ Each component loads its own CSS within its shadow root:
 - CSS custom properties (design tokens)
 - Font face declarations
 
-**`02-components.css`** - Components Layer
-- Global layout components (`.container`, `.svg-wrap`)
-- Non-Shadow DOM component styles
+**`02-layout.css`** - Layout Layer
+- Global layout systems (`.container`, `.svg-wrap`, `.full-bleed`)
+- Grid systems and page structure
+- Layout utilities that affect document flow
 
 **`03-utilities.css`** - Utilities Layer
-- Utility classes that override component defaults
-- Helper classes for spacing, layout
+- Utility classes that override layout and component defaults
+- Helper classes for spacing, layout, display
+- Classes that should override components when needed
+
+**`04-components.css`** - Components Layer
+- Reusable UI components (buttons, cards, modals)
+- Non-Shadow DOM component styles
+- Highest priority for complex component interactions
 
 ### Component Files
 
@@ -123,10 +138,11 @@ Each component loads its own CSS within its shadow root:
 ## Component Development Guidelines
 
 ### **For Shadow DOM Components:**
-1. Create a dedicated CSS file (e.g., `component-name.css`)
+1. **Copy `component.example.css`** as a starting point for new components
 2. Use `@layer components` to respect the hierarchy
 3. Import the CSS within the component's template
 4. Access design tokens via CSS custom properties
+5. Use raw pixel values for breakpoints (documented in the example file)
 
 ### **For Global Styles:**
 1. Use the appropriate layered CSS file

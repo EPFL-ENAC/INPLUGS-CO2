@@ -1,6 +1,6 @@
-@layer components {
+@layer layout {
   /* ===========================================
-     LAYOUT COMPONENTS (Non-Shadow DOM)
+     LAYOUT SYSTEMS (Global)
      =========================================== */
   
   /* Container - Main layout wrapper */
