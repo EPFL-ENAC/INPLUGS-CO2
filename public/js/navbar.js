@@ -24,6 +24,7 @@
   const logo = shadowRoot.querySelector('.logo-link');
   const lang = shadowRoot.querySelector('.lang');
   const mobileToggle = shadowRoot.querySelector('.mobile-menu-toggle');
+  if(moreDropdown && !moreDropdown.id) moreDropdown.id = 'nav-more-dropdown';
 
   if(!header || !nav || !moreWrapper || !moreDropdown) {
     log('Missing required elements');
@@ -44,6 +45,12 @@
     moreWrapper.style.display = 'none';
     moreDropdown.classList.remove('open');
     if(moreToggle) moreToggle.setAttribute('aria-expanded','false');
+    // ARIA cleanup
+    if(moreDropdown.children.length === 0) {
+      moreDropdown.removeAttribute('role');
+      moreDropdown.setAttribute('aria-hidden','true');
+    }
+    canonicalItems.forEach(a => a.removeAttribute('role')); // remove menuitem role when restored
   }
 
   // Measure available horizontal space for nav items inside the grid row
@@ -51,7 +58,7 @@
     const headerRect = header.getBoundingClientRect();
     const gapPx = parseFloat(getComputedStyle(header).columnGap || getComputedStyle(header).gap || '0') || 0; // grid gap
     // Width used by other columns (they may have own margins/padding)
-    function outerWidth(el){ if(!el) return 0; const cs = getComputedStyle(el); return el.getBoundingClientRect().width + parseFloat(cs.marginLeft)||0 + parseFloat(cs.marginRight)||0; }
+    function outerWidth(el){ if(!el) return 0; const cs = getComputedStyle(el); return el.getBoundingClientRect().width + (parseFloat(cs.marginLeft)||0) + (parseFloat(cs.marginRight)||0); }
     const logoW = outerWidth(logo);
     const langW = outerWidth(lang);
     const mobileW = outerWidth(mobileToggle && mobileToggle.offsetParent ? mobileToggle : null); // hidden on desktop => width 0
@@ -117,8 +124,19 @@
       required -= lastWidth;
       if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= itemGap;
       if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
+      // Assign menuitem role when moved into dropdown
+      last.setAttribute('role','menuitem');
       moved++;
       if(moved > canonicalItems.length) break; // safety
+    }
+
+    // Set / unset role on dropdown depending on content
+    if(moreDropdown.children.length) {
+      moreDropdown.setAttribute('role','menu');
+      moreDropdown.removeAttribute('aria-hidden');
+    } else {
+      moreDropdown.removeAttribute('role');
+      moreDropdown.setAttribute('aria-hidden','true');
     }
 
     if(moved === 0) {
@@ -134,6 +152,7 @@
 
   // Dropdown toggle
   if(moreToggle) {
+    moreToggle.setAttribute('aria-controls', moreDropdown.id);
     moreToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       const open = moreDropdown.classList.toggle('open');
@@ -141,7 +160,7 @@
     });
   }
 
-  // Close on outside click
+  // Close dropdown on outside click
   document.addEventListener('click', (e) => {
     if(!shadowRoot.contains(e.target)) {
       moreDropdown.classList.remove('open');
@@ -149,24 +168,17 @@
     }
   });
 
-  // Debounced resize
-  let resizeTimer;
-  function schedule() { clearTimeout(resizeTimer); resizeTimer = setTimeout(collapseIfNeeded, RESIZE_DEBOUNCE); }
+  // Initial collapse check on font load
+  function initialRun(){ collapseIfNeeded(); }
+  if(document.fonts && document.fonts.ready) { document.fonts.ready.then(()=> { setTimeout(initialRun,50); }); } else { window.addEventListener('load', ()=> setTimeout(initialRun,150)); }
+
+  // Resize observer (debounced)
+  let resizeTimer; function schedule(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(collapseIfNeeded, RESIZE_DEBOUNCE); }
   window.addEventListener('resize', schedule);
 
-  // Font / layout readiness
-  function initialRun() { collapseIfNeeded(); }
-  if(document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(()=> { setTimeout(initialRun, 50); });
-  } else {
-    window.addEventListener('load', ()=> setTimeout(initialRun, 150));
-  }
-
-  // Observe nav for mutations (dynamic changes)
-  const mo = new MutationObserver(() => schedule());
-  mo.observe(nav, { childList: true, subtree: false });
-
-  log('Navbar adaptive collapse initialized');
+  // Mutation observer to detect nav changes
+  const mo = new MutationObserver(()=> schedule());
+  mo.observe(nav,{childList:true,subtree:false});
 })();
 
 console.log('SimpleNavbar: loaded (adaptive)');
