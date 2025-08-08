@@ -1,9 +1,9 @@
 /** Navbar adaptive collapse: moves overflowing items into a More dropdown (desktop only) */
 (function(){
-  const MOBILE_BREAKPOINT = 768; // <= disabled
+  const MOBILE_BREAKPOINT = 768;
   const RESIZE_DEBOUNCE = 120;
-  const DEBUG = true; // ENABLED for debug plan
-  function log(...args){ if(DEBUG) console.log('[NAV]', ...args); }
+  const DEBUG = false; // turned off after stabilizing
+  function log(..._args){ if(DEBUG) console.log('[NAV]', ..._args); }
 
   // Locate host & template
   const host = document.querySelector('site-header');
@@ -92,92 +92,98 @@
   // Collapse logic
   let collapsing = false;
   let lastSignature='';
+  // Persist last applied collapsed layout to avoid immediate duplicate recomputation flicker
+  let lastLayout = { available: 0, requiredAll: 0, dropdownKeys: [] };
+  let lastRunTime = 0;
+
+  function applyLayoutFromSignature(keys){
+    if(!keys.length) return;
+    moreWrapper.style.display = 'flex';
+    const keySet = new Set(keys);
+    canonicalItems.forEach(a => {
+      if(keySet.has(a.getAttribute('data-nav-item'))){
+        a.setAttribute('role','menuitem');
+        if(moreDropdown.firstChild) moreDropdown.insertBefore(a, moreDropdown.firstChild); else moreDropdown.appendChild(a);
+      }
+    });
+    if(moreDropdown.children.length){
+      moreDropdown.setAttribute('role','menu');
+      moreDropdown.removeAttribute('aria-hidden');
+    } else {
+      moreDropdown.removeAttribute('role');
+      moreDropdown.setAttribute('aria-hidden','true');
+    }
+  }
+
   function collapseIfNeeded(){
     if(collapsing) { log('Skip: collapsing already running'); return; }
     collapsing = true;
+    const now = performance.now();
+
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
     log('--- collapseIfNeeded START --- mobile?', isMobile);
-    if(isMobile){ restoreAll(); log('Mobile: restoreAll'); collapsing = false; return; }
+    if(isMobile){ restoreAll(); lastLayout = { available:0, requiredAll:0, dropdownKeys:[] }; collapsing = false; return; }
     if(moreDropdown.classList.contains('open')) { log('Dropdown open: skip'); collapsing = false; return; }
     mo.disconnect();
     restoreAll();
     log('After restore: items', canonicalItems.length, snapshotItemWidths(canonicalItems));
     if(!canonicalItems.length){ log('No items after restore'); mo.observe(nav,{childList:true,subtree:false}); collapsing=false; return; }
 
-    // First pass measurements
-    const headerRect = header.getBoundingClientRect();
-    const navRect = nav.getBoundingClientRect();
-    const availableViaHeader = getAvailableNavWidth(); // existing function
-    const itemsWidth = canonicalItems.reduce((sum,a)=> sum + a.getBoundingClientRect().width, 0);
-    const itemGap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0;
-    const totalGap = itemGap * Math.max(0, canonicalItems.length - 1);
-    let requiredAll = itemsWidth + totalGap;
-    const wrappingBefore = isWrapping();
-    log('PASS1 headerW', headerRect.width.toFixed(1), 'navW', navRect.width.toFixed(1), 'available(headerCalc)', availableViaHeader.toFixed(1), 'requiredAll', requiredAll.toFixed(1), 'gap', itemGap, 'wrapping?', wrappingBefore);
+    // Measure current full set widths
+    const available = getAvailableNavWidth();
+    const gap = parseFloat(getComputedStyle(nav).columnGap || getComputedStyle(nav).gap || '0') || 0;
+    const itemsWidth = canonicalItems.reduce((s,a)=> s + a.getBoundingClientRect().width, 0);
+    const requiredAll = itemsWidth + gap * Math.max(0, canonicalItems.length - 1);
 
-    if(requiredAll <= availableViaHeader && !wrappingBefore) {
-      log('All fit by width calc and no wrapping -> done');
-      lastSignature = `fit:${requiredAll.toFixed(0)}`;
+    // All fit -> record empty layout
+    if(requiredAll <= available){
+      lastLayout = { available, requiredAll, dropdownKeys: [] };
+      lastRunTime = now;
       mo.observe(nav,{childList:true,subtree:false}); collapsing=false; return;
     }
 
-    // Show More and force layout, second pass
+    // Reuse previous layout if geometry essentially unchanged (tolerance) and we previously collapsed
+    const tol = 2; // px
+    if(lastLayout.dropdownKeys.length && Math.abs(lastLayout.available - available) <= tol && Math.abs(lastLayout.requiredAll - requiredAll) <= tol){
+      applyLayoutFromSignature(lastLayout.dropdownKeys);
+      lastRunTime = now;
+      mo.observe(nav,{childList:true,subtree:false}); collapsing=false; return;
+    }
+
+    // Fresh collapse pass
     moreWrapper.style.display = 'flex';
     // Force layout flush
     void moreWrapper.offsetWidth; // ensures style applied
-    const moreWidth1 = moreWrapper.getBoundingClientRect().width;
-    let required = requiredAll + moreWidth1 + itemGap; // account for gap after last item before More
-    log('After showing More: moreWidth', moreWidth1.toFixed(1), 'required+more', required.toFixed(1));
+    const moreWidth = moreWrapper.getBoundingClientRect().width + gap; // include gap slot
+    let required = requiredAll + moreWidth;
 
-    // Second pass in next frame to catch font/layout shifts
-    requestAnimationFrame(()=> {
-      const moreWidth2 = moreWrapper.getBoundingClientRect().width;
-      if(Math.abs(moreWidth2 - moreWidth1) > 1) {
-        required += (moreWidth2 - moreWidth1);
-        log('More width adjusted', moreWidth2.toFixed(1), 'required adj', required.toFixed(1));
-      }
-      const wrappingNow = isWrapping();
-      log('PASS2 wrapping?', wrappingNow, 'navW', nav.getBoundingClientRect().width.toFixed(1));
+    let moved = 0;
+    while(required > available && nav.querySelector(':scope > a[data-nav-item]')) {
+      const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
+      if(!last) break;
+      const w = last.getBoundingClientRect().width;
+      required -= w;
+      if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= gap;
+      if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
+      last.setAttribute('role','menuitem');
+      moved++;
+      if(moved > canonicalItems.length) break;
+    }
 
-      let moved = 0;
-      // Move while either required > availableViaHeader OR wrapping persists
-      while((required > availableViaHeader || isWrapping()) && nav.querySelector(':scope > a[data-nav-item]')) {
-        const last = nav.querySelector(':scope > a[data-nav-item]:last-of-type');
-        if(!last) break;
-        const lastWidth = last.getBoundingClientRect().width;
-        required -= lastWidth;
-        if(nav.querySelectorAll(':scope > a[data-nav-item]').length > 1) required -= itemGap; // remove a gap if not the only item left
-        if(moreDropdown.firstChild) moreDropdown.insertBefore(last, moreDropdown.firstChild); else moreDropdown.appendChild(last);
-        last.setAttribute('role','menuitem');
-        moved++;
-        log('Moved', last.getAttribute('data-nav-item'), 'lastWidth', lastWidth.toFixed(1), 'required now', required.toFixed(1), 'wrapping?', isWrapping());
-        if(moved > canonicalItems.length) { log('Safety break'); break; }
-      }
+    if(moreDropdown.children.length){
+      moreDropdown.setAttribute('role','menu');
+      moreDropdown.removeAttribute('aria-hidden');
+    } else {
+      moreWrapper.style.display = 'none';
+      moreDropdown.removeAttribute('role');
+      moreDropdown.setAttribute('aria-hidden','true');
+    }
 
-      if(moreDropdown.children.length) {
-        moreDropdown.setAttribute('role','menu');
-        moreDropdown.removeAttribute('aria-hidden');
-      } else {
-        moreDropdown.removeAttribute('role');
-        moreDropdown.setAttribute('aria-hidden','true');
-      }
-
-      if(!moved) {
-        if(required <= availableViaHeader && !isWrapping()) {
-          log('Post-move: everything fits, hiding More');
-          moreWrapper.style.display = 'none';
-        } else {
-          log('Post-move: nothing moved but still overflow suspicion; keeping state for inspection');
-        }
-      } else {
-        log('Collapse done. Moved', moved, 'Dropdown items order', snapshotItemWidths(Array.from(moreDropdown.querySelectorAll('a[data-nav-item]'))));
-      }
-
-      lastSignature = `moved:${moved}|req:${required.toFixed(0)}|avail:${availableViaHeader.toFixed(0)}`;
-      mo.observe(nav,{childList:true,subtree:false});
-      collapsing = false;
-      log('--- collapseIfNeeded END ---');
-    });
+    lastLayout = { available, requiredAll, dropdownKeys: Array.from(moreDropdown.querySelectorAll('a[data-nav-item]')).map(a=> a.getAttribute('data-nav-item')) };
+    lastRunTime = now;
+    mo.observe(nav,{childList:true,subtree:false});
+    collapsing=false;
+    log('--- collapseIfNeeded END ---');
   }
 
   // Dropdown toggle
