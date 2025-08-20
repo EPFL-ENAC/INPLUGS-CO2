@@ -351,4 +351,17 @@
       -apple-system,
       sans-serif;
   }
+
+  /* ---------- Smoke Animation ---------- */
+  .landing_page__svg-wrapper svg { display:block; width:100%; height:auto; max-width:100%; }
+  .smoke-anim { animation: smokeRise 6s ease-in-out infinite alternate; will-change: transform, opacity; transform-origin: center; }
+  @keyframes smokeRise { 0% { transform: translateY(0) scale(1); opacity:.85;} 100% { transform: translateY(-12px) scale(1.06); opacity:.55;} }
+  @media (prefers-reduced-motion: reduce) { .smoke-anim { animation:none !important; } }
+
+  .landing_page__visual { position:relative; }
+  .landing_page__visual .landing_page__svg-wrapper { position:relative; z-index:10; }
+  .landing_page__visual .vie-surface { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .landing_page__visual .vie-surface--back { z-index:5; }
+  .landing_page__visual .vie-surface--front { z-index:15; }
+  .landing_page__visual .vie-surface svg { width:100%; height:auto; display:block; }
 }

@@ -1,0 +1,30 @@
+export default {
+  multipass: true,
+  js2svg: { pretty: false },
+  floatPrecision: 3,
+  plugins: [
+    'removeDoctype',
+    'removeXMLProcInst',
+    'removeComments',
+    'removeMetadata',
+    'removeEditorsNSData',
+    'cleanupAttrs',
+    'mergeStyles',
+    'inlineStyles',
+    'convertStyleToAttrs',
+    'cleanupIds',
+    'removeUselessDefs',
+    'cleanupNumericValues',
+    'convertColors',
+    'removeUnknownsAndDefaults',
+    'removeNonInheritableGroupAttrs',
+    'removeUselessStrokeAndFill',
+    'removeUnusedNS',
+    'convertPathData',
+    'convertTransform',
+    'collapseGroups',
+    'sortDefsChildren',
+    { name: 'removeAttrs', params: { attrs: ['data-name', 'id:^Layer', 'id:^Calque'] } },
+    { name: 'removeDimensions' }
+  ]
+};

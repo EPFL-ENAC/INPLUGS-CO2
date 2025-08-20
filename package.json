@@ -41,7 +41,9 @@
     "lighthouse:collect": "npm run build && lhci collect",
     "lighthouse:upload": "lhci upload",
     "lighthouse:quick": "./lighthouse-test.sh",
-    "perf": "npm run lighthouse"
+    "perf": "npm run lighthouse",
+    "svg:optimize": "svgo -f src/assets/svg-raw -o public/assets/svg-optimized",
+    "svg:inspect": "svgo -f src/assets/svg-raw --dry-run"
   },
   "dependencies": {
     "chokidar": "^3.6.0",

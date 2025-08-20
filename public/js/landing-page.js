@@ -40,6 +40,9 @@ class LandingPageController {
     if (this.isFullPage) {
       document.addEventListener('keydown', this.handleKeyDown.bind(this));
     }
+    
+    // After existing init logic, start illustration loader
+    this.initIllustrationLoader();
   }
 
   handleCTAClick(event) {
@@ -81,6 +84,80 @@ class LandingPageController {
     };
 
     document.startViewTransition(navigation);
+  }
+
+  // Progressive SVG fragment loader
+  initIllustrationLoader() {
+    const container = document.querySelector('[data-illustration]');
+    if (!container) return;
+
+    const prefersReducedMotion = this.prefersReducedMotion;
+    const fragmentList = JSON.parse(container.getAttribute('data-fragments') || '[]');
+    const skipSmoke = prefersReducedMotion && container.getAttribute('data-skip-smoke-reduced-motion') === 'true';
+    const maxRetries = parseInt(container.getAttribute('data-max-retries') || '1', 10);
+    const timeoutMs = parseInt(container.getAttribute('data-timeout-ms') || '6000', 10);
+
+    // If skipping smoke layer, remove last fragment (assumed smoke) & corresponding layer element
+    if (skipSmoke && fragmentList.length) {
+      fragmentList.pop();
+      const smokeLayer = container.querySelector('[data-layer="3"]');
+      if (smokeLayer) smokeLayer.remove();
+    }
+
+    const loadSequentially = async () => {
+      for (let i = 0; i < fragmentList.length; i++) {
+        const url = fragmentList[i];
+        const layerEl = container.querySelector(`[data-layer="${i}"]`);
+        if (!layerEl) continue;
+        try {
+          const svgMarkup = await this.fetchWithRetry(url, maxRetries, timeoutMs);
+          // Basic sanitization: only allow <svg ...> ... </svg>
+          const sanitized = this.extractSVG(svgMarkup);
+          if (sanitized) {
+            layerEl.innerHTML = sanitized;
+            layerEl.classList.add('is-loaded');
+          }
+        } catch (e) {
+          layerEl.classList.add('is-error');
+          container.classList.add('has-error');
+          break; // Abort remaining layers on error
+        }
+      }
+      container.classList.add('is-complete');
+    };
+
+    // Defer to next frame to not block initial rendering
+    requestAnimationFrame(loadSequentially);
+  }
+
+  fetchWithRetry(url, maxRetries, timeoutMs) {
+    const attempt = (n) => new Promise((resolve, reject) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      fetch(url, { signal: controller.signal })
+        .then(resp => {
+          clearTimeout(timer);
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            return resp.text();
+        })
+        .then(resolve)
+        .catch(err => {
+          clearTimeout(timer);
+          if (n < maxRetries) {
+            attempt(n + 1).then(resolve).catch(reject);
+          } else {
+            reject(err);
+          }
+        });
+    });
+    return attempt(0);
+  }
+
+  extractSVG(text) {
+    const match = text.match(/<svg[\s\S]*?<\/svg>/i);
+    if (!match) return null;
+    // Optionally strip script tags if any (defensive)
+    return match[0].replace(/<script[\s\S]*?<\/script>/gi, '');
   }
 }
 

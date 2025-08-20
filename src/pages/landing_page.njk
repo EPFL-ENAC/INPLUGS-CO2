@@ -18,36 +18,30 @@
         </div>
 
         <div class="landing_page__visual">
-            
-    <picture>
-    <!-- WEBP source -->
-    <source
-        type="image/webp"
-        srcset="
-            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
-            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w
-        "
-        sizes="(min-width: 800px) 800px, 100vw"
-    >
-
-    <!-- PNG source -->
-    <source
-      type="image/png"
-      srcset="
-        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
-        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
-      "
-      sizes="(min-width: 800px) 800px, 100vw"
-    >
-    
-    <!-- Ultimate fallback -->
-    <img
-      src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
-      alt="{{ t("homepage.image_alt") }}"
-      loading="lazy"
-      decoding="async"
-    >
-    </picture>
+            <!-- Progressive layered SVG loader (decorative) -->
+            <div class="landing_page__svg-wrapper" aria-hidden="true"
+                 data-illustration
+                 data-fragments='[
+                   "/assets/svg-optimized/base.svg",
+                   "/assets/svg-optimized/surface-back.svg",
+                   "/assets/svg-optimized/surface-front.svg",
+                   "/assets/svg-optimized/smoke.svg"
+                 ]'
+                 data-skip-smoke-reduced-motion="true"
+                 data-max-retries="1"
+                 data-timeout-ms="6000">
+              <div class="landing_page__svg-layer landing_page__svg-layer--base" data-layer="0"></div>
+              <div class="landing_page__svg-layer landing_page__svg-layer--surface-back" data-layer="1"></div>
+              <div class="landing_page__svg-layer landing_page__svg-layer--surface-front" data-layer="2"></div>
+              <div class="landing_page__svg-layer landing_page__svg-layer--smoke" data-layer="3"></div>
+              <noscript>
+                <picture>
+                  <source type="image/webp" srcset="/assets/images/landing-page/landing-page-illustration.webp" />
+                  <img src="/assets/images/landing-page/landing-page-illustration.webp" alt="" loading="lazy" decoding="async" />
+                </picture>
+              </noscript>
+            </div>
+        </div>
 
     </section>
 
