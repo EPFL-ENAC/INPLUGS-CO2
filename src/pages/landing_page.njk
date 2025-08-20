@@ -1,0 +1,59 @@
+{% extends "main.njk" %}
+
+{% block content %}
+
+<index-content>
+  <template shadowrootmode="open">
+    {% if isProduction and cssHash %}
+    <link rel="stylesheet" href="/assets/styles/landing_page.{{ cssHash }}.css">
+    {% else %}
+    <link rel="stylesheet" href="/assets/styles/landing_page.css">
+    {% endif %}
+    
+    <section class="landing_page">
+        <div class="landing_page__content">
+            <h1>{{ t("homepage.title") }}</h1>
+
+            <a href="/landing_page_full" class="btn-cta">{{ t("homepage.button") }}</a>
+        </div>
+
+        <div class="landing_page__visual">
+            
+    <picture>
+    <!-- WEBP source -->
+    <source
+        type="image/webp"
+        srcset="
+            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
+            /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w
+        "
+        sizes="(min-width: 800px) 800px, 100vw"
+    >
+
+    <!-- PNG source -->
+    <source
+      type="image/png"
+      srcset="
+        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
+        /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
+      "
+      sizes="(min-width: 800px) 800px, 100vw"
+    >
+    
+    <!-- Ultimate fallback -->
+    <img
+      src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
+      alt="{{ t("homepage.image_alt") }}"
+      loading="lazy"
+      decoding="async"
+    >
+    </picture>
+
+    </section>
+
+    <script type="module" src="/assets/js/landing-page.js"></script>
+
+  </template>
+</index-content>
+
+{% endblock %}

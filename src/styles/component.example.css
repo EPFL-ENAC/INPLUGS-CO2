@@ -1,0 +1,73 @@
+/**
+ * Shadow DOM Component CSS Template
+ * 
+ * Copy this file and rename it for new Shadow DOM components.
+ * Design tokens (colors, spacing, etc.) are inherited from :root.
+ * Breakpoints are now available as CSS custom properties!
+ * 
+ * Uses @layer components - highest priority in the cascade.
+ */
+
+@layer components {
+  /* Shadow DOM Host Element */
+  :host {
+    display: block;
+    /* Design tokens work in Shadow DOM via inheritance */
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+  }
+
+  /* ===========================================
+     RESPONSIVE BREAKPOINTS
+     Available as CSS custom properties:
+     --breakpoint-mobile-small: 680px
+     --breakpoint-mobile: 768px  
+     --breakpoint-tablet: 1024px
+     --breakpoint-desktop: 1400px
+     --breakpoint-wide: 1600px
+     =========================================== */
+
+  /* Mobile Small - max-width: 680px */
+  @media (max-width: var(--breakpoint-mobile-small)) {
+    /* Your mobile small styles here */
+  }
+
+  /* Mobile - max-width: 768px */
+  @media (max-width: var(--breakpoint-mobile)) {
+    /* Your mobile styles here */
+  }
+
+  /* Tablet - 769px to 1024px */
+  @media (min-width: calc(var(--breakpoint-mobile) + 1px)) and (max-width: var(--breakpoint-tablet)) {
+    /* Your tablet styles here */
+  }
+
+  /* Desktop - 1025px to 1399px */
+  @media (min-width: calc(var(--breakpoint-tablet) + 1px)) and (max-width: calc(var(--breakpoint-desktop) - 1px)) {
+    /* Your desktop styles here */
+  }
+
+  /* Large Desktop - min-width: 1400px */
+  @media (min-width: var(--breakpoint-desktop)) {
+    /* Your large desktop styles here */
+  }
+
+  /* Wide Screen - min-width: 1600px */
+  @media (min-width: var(--breakpoint-wide)) {
+    /* Your ultra-wide styles here */
+  }
+
+  /* ===========================================
+     ACCESSIBILITY
+     =========================================== */
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

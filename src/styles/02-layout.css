@@ -1,0 +1,46 @@
+@layer layout {
+  /* ===========================================
+     LAYOUT SYSTEMS (Global)
+     =========================================== */
+  /* Default body font family */
+  body {
+    font-family: var(--font-family-primary);
+  }
+
+  /* Container - Main layout wrapper */
+  .container {
+    /* "min" keeps content narrow; "100% - 10rem" enforces 5rem gutters on both sides */
+    inline-size: min(80ch, 100% - 10rem);
+    width: auto;
+    margin-inline: auto;
+
+    /* padding-block: 2rem; optional vertical breathing room */
+    padding-top: 2rem;
+  }
+
+  /* SVG Page Layout */
+  .svg-page {
+    margin: 0; /* in case user-agent styles add margins */
+  }
+
+  .svg-wrap {
+    inline-size: 100%; /* fill the content width safely */
+    min-block-size: 4000px; /* "maybe 4000px height" as you said */
+    position: relative;
+    overflow: hidden; /* if you animate beyond edges */
+  }
+
+  .svg-wrap > svg {
+    display: block;
+    inline-size: 100%; /* full width */
+    block-size: 4000px; /* fixed tall canvas (use with a proper viewBox) */
+  }
+
+  .full-bleed {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-inline: -50vw; /* extends under the scrollbar */
+    inline-size: 100vw;
+  }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 433.22 2668.63">
+  <g id="illu_cylindre_motif" data-name="illu cylindre motif">
+    <g id="animation">
+      <g id="tuyau">
+        <polyline id="co2" points="7.5 0 7.5 143.43 425.72 143.43 425.72 3.17" style="fill: none; stroke: #ace3e7; stroke-miterlimit: 10; stroke-width: 15px;"/>
+        <polyline points="214.58 149.01 214.58 161.86 214.58 223.87 214.58 2668.63" style="fill: none; stroke: #ace3e7; stroke-miterlimit: 10; stroke-width: 70px;"/>
+      </g>
+    </g>
+  </g>
+</svg>

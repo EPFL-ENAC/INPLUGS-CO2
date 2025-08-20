@@ -1,0 +1,54 @@
+{
+  "site": { "name": "GCS" },
+  "nav": {
+    "home": "Accueil",
+    "gcs": "GCS",
+    "data": "Données",
+    "education": "Éducation",
+    "dictionary": "Dictionnaire",
+    "links": "Liens utiles",
+    "about": "À propos",
+    "contact": "Contact"
+  },
+  "home": { "title": "Bienvenue sur GCS" },
+  "homepage": {
+    "title": "L'Interactive Platform for Understanding Geological Storage of CO2 t'aide à comprendre l'enfouissement du CO2",
+    "button": "En savoir plus",
+    "image_alt": "Illustration du stockage géologique de CO2",
+    "info_boxes": {
+      "injection": {
+        "title": "Injection de CO2",
+        "description": "Apprenez comment le dioxyde de carbone est injecté en toute sécurité dans les formations géologiques souterraines pour un stockage à long terme."
+      },
+      "formations": {
+        "title": "Formations rocheuses", 
+        "description": "Découvrez les types spécifiques de couches rocheuses qui constituent des sites de stockage idéaux pour le CO2 capturé."
+      },
+      "monitoring": {
+        "title": "Systèmes de surveillance",
+        "description": "Explorez les technologies avancées utilisées pour surveiller et vérifier l'intégrité du stockage de CO2 au fil du temps."
+      },
+      "safety": {
+        "title": "Sécurité environnementale",
+        "description": "Comprenez les multiples mesures de sécurité et protocoles qui protègent l'environnement et les communautés."
+      }
+    }
+  },
+  "gcs": {
+    "title": "GCS • Quoi & Pourquoi",
+    "why": "Pourquoi le GCS ?",
+    "what": "Qu'est-ce que le GCS ?",
+    "world": "Le GCS dans le monde",
+    "ch": "Le GCS en Suisse"
+  },
+  "education": {
+    "title": "Éducation",
+    "carbon": "Équipe carbone",
+    "workshops": "Ateliers",
+    "visits": "Visites"
+  },
+  "dictionary": { "title": "Dictionnaire" },
+  "links": { "title": "Liens utiles" },
+  "about": { "title": "À propos" },
+  "contact": { "title": "Contact" }
+}
