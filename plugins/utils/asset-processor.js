@@ -10,6 +10,7 @@ import {
   statSync,
   unlinkSync,
 } from "fs";
+import { parse } from "path";
 import { glob } from "glob";
 import { generateHash } from "./locale-utils.js";
 
@@ -27,7 +28,7 @@ export class AssetProcessor {
     this.copyPublic = options.copyPublic !== false;
     this.isProduction = false;
     this.assetHashes = {};
-
+    this.manifest = {};
     this.patterns = {
       css: options.cssPattern || join(this.srcDir, "styles", "*.css"),
       js: options.jsPattern || "public/js/*.js",
@@ -66,6 +67,18 @@ export class AssetProcessor {
     } catch {}
   }
 
+  #saveManifest() {
+    try {
+      console.log(JSON.stringify(this.manifest, null, 2));
+      writeFileSync(
+        join(this.outputDir, "asset-manifest.json"),
+        JSON.stringify(this.manifest, null, 2),
+      );
+    } catch (error) {
+      console.warn("Failed to save asset manifest:", error.message);
+    }
+  }
+
   // inside the class
   #toSafeKey(base) {
     // turn "landing-page", "landing_page", "landing page" → "landingPage"
@@ -77,25 +90,63 @@ export class AssetProcessor {
     return /^[a-zA-Z]/.test(normalized) ? normalized : `_${normalized}`;
   }
 
-  #imageOutputsFor(fileName, hash, ext, imgDir) {
-    const name = basename(fileName, ext);
-    const main = this.isProduction
-      ? join(imgDir, `${name}.${hash}${ext}`)
-      : join(imgDir, fileName);
-    const webp =
-      [".png", ".jpg", ".jpeg"].includes(ext.toLowerCase()) &&
-      (this.isProduction
-        ? join(imgDir, `${name}.${hash}.webp`)
-        : join(imgDir, `${name}.webp`));
-    return { main, webp: webp || null };
+  // Requires: import { parse } from "path" (or node:path)
+  // import { parse } from "node:path"
+  #imageOutputsFor(
+    fileName,
+    hash,
+    ext,
+    imgDir,
+    publicImgDir = "/assets/images",
+  ) {
+    const { name } = parse(fileName);
+    const extLower = ext.toLowerCase();
+
+    // Logical/physical PUBLIC urls (for templates)
+    const mainLogical = `${publicImgDir}/${fileName}`;
+    const mainPhysical = this.isProduction
+      ? `${publicImgDir}/${name}.${hash}${extLower}`
+      : mainLogical;
+
+    // Register main asset
+    this.manifest[mainLogical] = mainPhysical;
+
+    // Optional webp sibling (for png/jpg/jpeg)
+    let webpPhysical = null;
+    if ([".png", ".jpg", ".jpeg"].includes(extLower)) {
+      const webpLogical = `${publicImgDir}/${name}.webp`;
+      webpPhysical = this.isProduction
+        ? `${publicImgDir}/${name}.${hash}.webp`
+        : webpLogical;
+
+      this.manifest[webpLogical] = webpPhysical;
+    }
+
+    // Still return file-system paths if you need them elsewhere
+    const mainFs = this.isProduction
+      ? `${imgDir}/${name}.${hash}${extLower}`
+      : `${imgDir}/${fileName}`;
+
+    const webpFs = webpPhysical
+      ? this.isProduction
+        ? `${imgDir}/${name}.${hash}.webp`
+        : `${imgDir}/${name}.webp`
+      : null;
+
+    return {
+      // FS paths (write/copy work)
+      fs: { main: mainFs, webp: webpFs },
+      // Public URLs (templating)
+      url: { main: mainPhysical, webp: webpPhysical },
+    };
   }
 
   #isImageStale(srcPath, currentHash, outputs) {
     const cached = this.cache.images[srcPath];
     if (!cached) return true;
     if (cached.hash !== currentHash) return true;
-    if (!existsSync(outputs.main)) return true;
-    if (outputs.webp && !existsSync(outputs.webp)) return true;
+    if (!existsSync(outputs.fs?.main)) return true;
+    if (outputs.fs?.webp && !existsSync(outputs.fs?.webp)) return true;
     return false;
   }
 
@@ -106,8 +157,8 @@ export class AssetProcessor {
     } catch {}
     this.cache.images[srcPath] = {
       hash: newHash,
-      main: outputs.main,
-      webp: outputs.webp || null,
+      main: outputs.fs?.main,
+      webp: outputs.fs?.webp || null,
       mtimeMs,
     };
   }
@@ -337,6 +388,7 @@ export class AssetProcessor {
     await this.processJSFiles(assetsDir);
     await this.processImages(assetsDir);
 
+    this.#saveManifest();
     this.#saveCache();
   }
 
@@ -484,17 +536,24 @@ export class AssetProcessor {
       this.assetHashes[safeKey] = hash;
       if (fileName === "logo.svg") this.assetHashes.imgHash = hash;
 
-      const outputs = this.#imageOutputsFor(fileName, hash, ext, imgDir);
+      const publicImgDir = "/assets/images"; // public URL base
+      const outputs = this.#imageOutputsFor(
+        fileName,
+        hash,
+        ext,
+        imgDir,
+        publicImgDir,
+      );
 
       if (!this.isProduction) {
         const needCopy =
-          !existsSync(outputs.main) ||
-          (existsSync(outputs.main) &&
-            statSync(outputs.main).mtimeMs < statSync(imagePath).mtimeMs);
+          !existsSync(outputs.fs.main) ||
+          (existsSync(outputs.fs.main) &&
+            statSync(outputs.fs.main).mtimeMs < statSync(imagePath).mtimeMs);
         if (needCopy) {
-          copyFileSync(imagePath, outputs.main);
+          copyFileSync(imagePath, outputs.fs.main);
           console.log(
-            `  ✓ ${fileName} → assets/images/${basename(outputs.main)}`,
+            `  ✓ ${fileName} → assets/images/${basename(outputs.fs.main)}`,
           );
         } else {
           console.log(`  ↺ ${fileName} (unchanged)`);
@@ -504,21 +563,22 @@ export class AssetProcessor {
 
       if (!this.#isImageStale(imagePath, hash, outputs)) {
         console.log(
-          `  ⏭️  ${fileName} → assets/images/${basename(outputs.main)} (cached)`,
+          `  ⏭️  ${fileName} → assets/images/${basename(outputs.fs.main)} (cached)`,
         );
         continue;
       }
 
-      const result = await this.optimizeImage(imagePath, outputs.main);
+      const result = await this.optimizeImage(imagePath, outputs.fs.main);
 
-      // ensure webp path captured in cache for jpeg/png
-      if ([".png", ".jpg", ".jpeg"].includes(ext.toLowerCase())) {
-        outputs.webp = outputs.main.replace(ext, ".webp");
-      }
+      // // ensure webp path captured in cache for jpeg/png
+      // if ([".png", ".jpg", ".jpeg"].includes(ext.toLowerCase())) {
+      //   outputs.webp = outputs.main.replace(ext, ".webp");
+      // }
 
       // prune old hashed siblings
       this.#pruneOldHashedFiles(imgDir, name, hash, ext);
-      if (outputs.webp) this.#pruneOldHashedFiles(imgDir, name, hash, ".webp");
+      if (outputs.fs.webp)
+        this.#pruneOldHashedFiles(imgDir, name, hash, ".webp");
 
       this.#updateImageCache(imagePath, hash, outputs);
 
@@ -528,11 +588,11 @@ export class AssetProcessor {
             ? ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)`
             : "";
         console.log(
-          `  🖼️  ${fileName} → assets/images/${basename(outputs.main)} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`,
+          `  🖼️  ${fileName} → assets/images/${basename(outputs.fs.main)} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`,
         );
       } else {
         console.log(
-          `  ✓ ${fileName} → assets/images/${basename(outputs.main)}`,
+          `  ✓ ${fileName} → assets/images/${basename(outputs.fs.main)}`,
         );
       }
     }

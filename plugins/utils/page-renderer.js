@@ -117,7 +117,6 @@ export class PageRenderer {
           path: route.path,
         }));
 
-      console.log(this.assetHashes);
       let html = this.env.render(templateName, {
         locale,
         locales: this.locales,

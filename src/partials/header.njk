@@ -10,7 +10,7 @@
             <picture class="landing_page__logo">
                 <!-- WebP source -->
                 <source type="image/webp"
-                        srcset="/assets/images/logo/logo_inplugs_86x68.webp">
+                        srcset="{{ asset("/assets/images/logo/logo_inplugs_86x68.webp") }}">
                 <!-- PNG fallback -->
                 <img src="/assets/images/logo/logo_inplugs_86x68.png"
                      alt="INPLUGS Logo"
@@ -92,6 +92,7 @@
   }]
 }
 </script>
+<script src="{{ asset("/assets/js/navbar.js") }}" type="module"></script>
 {% if isProduction and navbarHash %}
     <script src="/assets/js/navbar.{{ navbarHash }}.js"></script>
 {% else %}
