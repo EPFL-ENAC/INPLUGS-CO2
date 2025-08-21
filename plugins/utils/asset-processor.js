@@ -1,418 +1,520 @@
-import { join, dirname, basename, extname } from 'path'
-import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from 'fs'
-import { glob } from 'glob'
-import { generateHash } from './locale-utils.js'
+// asset-processor.js
+import { join, dirname, basename, extname } from "path";
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  existsSync,
+  copyFileSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+} from "fs";
+import { glob } from "glob";
+import { generateHash } from "./locale-utils.js";
 
 /**
  * AssetProcessor - A flexible asset processing utility using glob patterns
- * 
- * Features:
- * - Dynamic file discovery using configurable glob patterns
+ * - Incremental: caches image hashes & outputs; skips unchanged work
  * - CSS/JS minification and cache-busting hashes in production
- * - Image optimization with WebP generation
- * - Configurable source directories and patterns
- * 
- * Usage:
- * const processor = new AssetProcessor({
- *   srcDir: 'src',
- *   outputDir: 'dist', 
- *   cssPattern: 'src/styles/*.css',        // Find all CSS files
- *   jsPattern: 'public/js/*.js',           // Find all JS files  
- *   imagePattern: 'src/assets/*.{svg,png,jpg,jpeg,webp,gif}' // Find all images
- * })
+ * - Image optimization with WebP generation via sharp (in production)
+ * - Copies/optimizes public assets incrementally too
  */
 export class AssetProcessor {
   constructor(options = {}) {
-    this.srcDir = options.srcDir || 'src'
-    this.outputDir = options.outputDir || 'dist'
-    this.copyPublic = options.copyPublic !== false
-    this.isProduction = false
-    this.assetHashes = {}
-    
-    // Configurable glob patterns
+    this.srcDir = options.srcDir || "src";
+    this.outputDir = options.outputDir || "dist";
+    this.copyPublic = options.copyPublic !== false;
+    this.isProduction = false;
+    this.assetHashes = {};
+
     this.patterns = {
-      css: options.cssPattern || join(this.srcDir, 'styles', '*.css'),
-      js: options.jsPattern || 'public/js/*.js',
-      images: options.imagePattern || join(this.srcDir, 'assets', '*.{svg,png,jpg,jpeg,webp,gif}')
-    }
+      css: options.cssPattern || join(this.srcDir, "styles", "*.css"),
+      js: options.jsPattern || "public/js/*.js",
+      images:
+        options.imagePattern ||
+        join(this.srcDir, "assets", "*.{svg,png,jpg,jpeg,webp,gif}"),
+    };
+
+    this.cacheFile =
+      options.cacheFile || join(this.outputDir, ".asset-cache.json");
+    this.cache = this.#loadCache();
   }
 
   setProduction(isProduction) {
-    this.isProduction = isProduction
+    this.isProduction = isProduction;
   }
 
   getAssetHashes() {
-    return this.assetHashes
+    return this.assetHashes;
   }
 
-  // Minify CSS content
+  // ---------- Cache helpers ----------
+  #loadCache() {
+    try {
+      if (existsSync(this.cacheFile)) {
+        return JSON.parse(readFileSync(this.cacheFile, "utf8"));
+      }
+    } catch {}
+    return { images: {} };
+  }
+
+  #saveCache() {
+    try {
+      mkdirSync(dirname(this.cacheFile), { recursive: true });
+      writeFileSync(this.cacheFile, JSON.stringify(this.cache, null, 2));
+    } catch {}
+  }
+
+  #imageOutputsFor(fileName, hash, ext, imgDir) {
+    const name = basename(fileName, ext);
+    const main = this.isProduction
+      ? join(imgDir, `${name}.${hash}${ext}`)
+      : join(imgDir, fileName);
+    const webp =
+      [".png", ".jpg", ".jpeg"].includes(ext.toLowerCase()) &&
+      (this.isProduction
+        ? join(imgDir, `${name}.${hash}.webp`)
+        : join(imgDir, `${name}.webp`));
+    return { main, webp: webp || null };
+  }
+
+  #isImageStale(srcPath, currentHash, outputs) {
+    const cached = this.cache.images[srcPath];
+    if (!cached) return true;
+    if (cached.hash !== currentHash) return true;
+    if (!existsSync(outputs.main)) return true;
+    if (outputs.webp && !existsSync(outputs.webp)) return true;
+    return false;
+  }
+
+  #updateImageCache(srcPath, newHash, outputs) {
+    let mtimeMs = 0;
+    try {
+      mtimeMs = statSync(srcPath).mtimeMs;
+    } catch {}
+    this.cache.images[srcPath] = {
+      hash: newHash,
+      main: outputs.main,
+      webp: outputs.webp || null,
+      mtimeMs,
+    };
+  }
+
+  #pruneOldHashedFiles(dir, baseName, keepHash, ext) {
+    // remove old name.<hash>.<ext> siblings
+    const prefix = `${baseName}.`;
+    try {
+      for (const f of readdirSync(dir)) {
+        if (f.startsWith(prefix) && f.endsWith(ext) && !f.includes(keepHash)) {
+          try {
+            unlinkSync(join(dir, f));
+          } catch {}
+        }
+      }
+    } catch {}
+  }
+
+  // ---------- Minifiers ----------
   async minifyCSS(cssContent) {
-    if (!this.isProduction) return cssContent
-    
+    if (!this.isProduction) return cssContent;
     try {
-      // Basic CSS minification - remove comments, whitespace, etc.
       return cssContent
-        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
-        .replace(/\s+/g, ' ') // Collapse whitespace
-        .replace(/;\s*}/g, '}') // Remove last semicolon before }
-        .replace(/{\s*/g, '{') // Remove space after {
-        .replace(/;\s*/g, ';') // Remove space after ;
-        .replace(/,\s*/g, ',') // Remove space after ,
-        .replace(/:\s*/g, ':') // Remove space after :
-        .trim()
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\s+/g, " ")
+        .replace(/;\s*}/g, "}")
+        .replace(/{\s*/g, "{")
+        .replace(/;\s*/g, ";")
+        .replace(/,\s*/g, ",")
+        .replace(/:\s*/g, ":")
+        .trim();
     } catch (error) {
-      console.warn('CSS minification failed:', error.message)
-      return cssContent
+      console.warn("CSS minification failed:", error.message);
+      return cssContent;
     }
   }
 
-  // Minify JS content  
   async minifyJS(jsContent) {
-    if (!this.isProduction) return jsContent
-    
+    if (!this.isProduction) return jsContent;
     try {
-      // Basic JS minification - remove comments and unnecessary whitespace
       return jsContent
-        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove block comments
-        .replace(/\/\/.*$/gm, '') // Remove line comments
-        .replace(/\s+/g, ' ') // Collapse whitespace
-        .replace(/;\s*}/g, ';}') // Clean up semicolons
-        .replace(/{\s*/g, '{') // Remove space after {
-        .replace(/}\s*/g, '}') // Remove space after }
-        .trim()
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\/\/.*$/gm, "")
+        .replace(/\s+/g, " ")
+        .replace(/;\s*}/g, ";}")
+        .replace(/{\s*/g, "{")
+        .replace(/}\s*/g, "}")
+        .trim();
     } catch (error) {
-      console.warn('JS minification failed:', error.message)
-      return jsContent
+      console.warn("JS minification failed:", error.message);
+      return jsContent;
     }
   }
 
-  // Optimize images using Sharp
+  // ---------- Images ----------
   async optimizeImage(inputPath, outputPath) {
     if (!this.isProduction) {
-      copyFileSync(inputPath, outputPath)
-      return { originalSize: 0, optimizedSize: 0, format: 'copied' }
+      copyFileSync(inputPath, outputPath);
+      return { originalSize: 0, optimizedSize: 0, format: "copied" };
     }
 
     try {
-      const sharp = (await import('sharp')).default
-      const ext = extname(inputPath).toLowerCase()
-      const originalBuffer = readFileSync(inputPath)
-      const originalSize = originalBuffer.length
-      
-      let optimizedBuffer
-      let outputFormat = ext.slice(1) // Remove the dot
-      
-      if (ext === '.svg') {
-        // For SVG, just copy for now (could use SVGO here)
-        optimizedBuffer = originalBuffer
-        outputFormat = 'svg (copied)'
-      } else if (['.png', '.jpg', '.jpeg'].includes(ext)) {
-        // Convert PNG/JPG to WebP for better compression
-        const webpPath = outputPath.replace(ext, '.webp')
+      const sharp = (await import("sharp")).default;
+      const ext = extname(inputPath).toLowerCase();
+      const originalBuffer = readFileSync(inputPath);
+      const originalSize = originalBuffer.length;
+
+      let optimizedBuffer;
+      let outputFormat = ext.slice(1);
+
+      if (ext === ".svg") {
+        optimizedBuffer = originalBuffer;
+        outputFormat = "svg (copied)";
+      } else if ([".png", ".jpg", ".jpeg"].includes(ext)) {
+        const webpPath = outputPath.replace(ext, ".webp");
         optimizedBuffer = await sharp(originalBuffer)
           .webp({ quality: 75, effort: 6, lossless: false })
-          .toBuffer()
-        
-        // Write the WebP version
-        writeFileSync(webpPath, optimizedBuffer)
-        outputFormat = 'webp'
-        
-        // Also keep the original format but optimized
-        let originalOptimized
-        if (ext === '.png') {
+          .toBuffer();
+        writeFileSync(webpPath, optimizedBuffer);
+        outputFormat = "webp";
+
+        let originalOptimized;
+        if (ext === ".png") {
           originalOptimized = await sharp(originalBuffer)
             .png({ quality: 85, compressionLevel: 9, effort: 10 })
-            .toBuffer()
+            .toBuffer();
         } else {
           originalOptimized = await sharp(originalBuffer)
             .jpeg({ quality: 85, progressive: true, mozjpeg: true })
-            .toBuffer()
+            .toBuffer();
         }
-        
-        writeFileSync(outputPath, originalOptimized)
-        
+        writeFileSync(outputPath, originalOptimized);
+
         return {
           originalSize,
           optimizedSize: originalOptimized.length,
           webpSize: optimizedBuffer.length,
           format: `${outputFormat} + optimized ${ext.slice(1)}`,
-          webpPath: basename(webpPath)
-        }
-      } else if (ext === '.webp') {
-        // Already WebP, just optimize more aggressively
-        optimizedBuffer = await sharp(originalBuffer)
+          webpPath: basename(webpPath),
+        };
+      } else if (ext === ".webp") {
+        optimizedBuffer = await (await import("sharp"))
+          .default(originalBuffer)
           .webp({ quality: 75, effort: 6, lossless: false })
-          .toBuffer()
-        outputFormat = 'webp (optimized)'
+          .toBuffer();
+        outputFormat = "webp (optimized)";
       } else {
-        // Unknown format, just copy
-        optimizedBuffer = originalBuffer
-        outputFormat = 'copied'
+        optimizedBuffer = originalBuffer;
+        outputFormat = "copied";
       }
-      
-      writeFileSync(outputPath, optimizedBuffer)
-      
+
+      writeFileSync(outputPath, optimizedBuffer);
+
       return {
         originalSize,
         optimizedSize: optimizedBuffer.length,
-        format: outputFormat
-      }
+        format: outputFormat,
+      };
     } catch (error) {
-      console.warn(`⚠️  Image optimization failed for ${inputPath}:`, error.message)
-      copyFileSync(inputPath, outputPath)
-      return { originalSize: 0, optimizedSize: 0, format: 'error (copied)' }
+      console.warn(
+        `⚠️  Image optimization failed for ${inputPath}:`,
+        error.message,
+      );
+      copyFileSync(inputPath, outputPath);
+      return { originalSize: 0, optimizedSize: 0, format: "error (copied)" };
     }
   }
 
-  // Copy public directory contents to dist, excluding files that will be processed separately
+  // ---------- Public assets (incremental) ----------
   async copyPublicAssets() {
-    const publicDir = 'public'
-    
+    const publicDir = "public";
     if (!existsSync(publicDir)) {
-      console.warn('Public directory not found, skipping public assets copy')
-      return
+      console.warn("Public directory not found, skipping public assets copy");
+      return;
     }
 
-    // Files/paths to exclude from public copy (will be processed separately)
-    const excludePatterns = [
-      'site.webmanifest', // This gets localized per locale
-    ]
+    const excludePatterns = ["site.webmanifest"];
 
-    // Track optimization stats
-    let totalOptimizations = 0
-    let totalOriginalSize = 0
-    let totalOptimizedSize = 0
-    let totalWebpSavings = 0
+    const shouldExclude = (relativePath) =>
+      excludePatterns.some((p) => relativePath.includes(p));
 
-    function shouldExclude(relativePath) {
-      return excludePatterns.some(pattern => relativePath.includes(pattern))
-    }
+    const copyRecursively = async (sourceDir, targetDir, basePath = "") => {
+      if (!existsSync(targetDir)) mkdirSync(targetDir, { recursive: true });
+      const items = readdirSync(sourceDir, { withFileTypes: true });
 
-    const copyRecursively = async (sourceDir, targetDir, basePath = '') => {
-      if (!existsSync(targetDir)) {
-        mkdirSync(targetDir, { recursive: true })
-      }
-
-      const items = readdirSync(sourceDir, { withFileTypes: true })
-      
       for (const item of items) {
-        const sourcePath = join(sourceDir, item.name)
-        const targetPath = join(targetDir, item.name)
-        const relativePath = join(basePath, item.name).replace(/\\/g, '/') // Normalize for Windows
-        
+        const sourcePath = join(sourceDir, item.name);
+        const targetPath = join(targetDir, item.name);
+        const relativePath = join(basePath, item.name).replace(/\\/g, "/");
+
         if (item.isDirectory()) {
-          await copyRecursively(sourcePath, targetPath, relativePath)
-        } else if (item.isFile() && !shouldExclude(relativePath)) {
-          const ext = extname(item.name).toLowerCase()
-          const isImage = ['.png', '.jpg', '.jpeg', '.webp', '.svg'].includes(ext)
-          
-          if (isImage && this.isProduction) {
-            // Optimize images in production
-            const result = await this.optimizeImage(sourcePath, targetPath)
-            totalOptimizations++
-            totalOriginalSize += result.originalSize || 0
-            totalOptimizedSize += result.optimizedSize || 0
-            
-            let sizeInfo = ''
-            if (result.originalSize > 0) {
-              const savings = ((result.originalSize - result.optimizedSize) / result.originalSize * 100).toFixed(1)
-              sizeInfo = ` (${result.originalSize}B → ${result.optimizedSize}B, -${savings}%)`
-              
-              if (result.webpSize) {
-                const webpSavings = ((result.originalSize - result.webpSize) / result.originalSize * 100).toFixed(1)
-                sizeInfo += ` + ${result.webpPath} (-${webpSavings}%)`
-                totalWebpSavings += result.originalSize - result.webpSize
-              }
-            }
-            
-            console.log(`  🖼️  ${relativePath} → ${relativePath} [${result.format}]${sizeInfo}`)
-          } else {
-            // Copy non-images or in development mode
-            copyFileSync(sourcePath, targetPath)
-            console.log(`  ✓ ${relativePath} → ${relativePath}`)
+          await copyRecursively(sourcePath, targetPath, relativePath);
+          continue;
+        }
+        if (!item.isFile() || shouldExclude(relativePath)) continue;
+
+        const ext = extname(item.name).toLowerCase();
+        const isImage = [".png", ".jpg", ".jpeg", ".webp", ".svg"].includes(
+          ext,
+        );
+
+        if (isImage && this.isProduction) {
+          const buf = readFileSync(sourcePath);
+          const hash = generateHash(buf);
+          const outputs = { main: targetPath, webp: null };
+          if (!this.#isImageStale(sourcePath, hash, outputs)) {
+            console.log(`  ⏭️  ${relativePath} (cached)`);
+            continue;
           }
+          const result = await this.optimizeImage(sourcePath, targetPath);
+          if ([".png", ".jpg", ".jpeg"].includes(ext)) {
+            outputs.webp = targetPath.replace(ext, ".webp");
+          }
+          this.#updateImageCache(sourcePath, hash, outputs);
+
+          let sizeInfo = "";
+          if (result.originalSize > 0) {
+            const savings = (
+              ((result.originalSize - result.optimizedSize) /
+                result.originalSize) *
+              100
+            ).toFixed(1);
+            sizeInfo = ` (${result.originalSize}B → ${result.optimizedSize}B, -${savings}%)`;
+            if (result.webpSize) {
+              const webpSavings = (
+                ((result.originalSize - result.webpSize) /
+                  result.originalSize) *
+                100
+              ).toFixed(1);
+              sizeInfo += ` + ${result.webpPath} (-${webpSavings}%)`;
+            }
+          }
+          console.log(
+            `  🖼️  ${relativePath} → ${relativePath} [${result.format}]${sizeInfo}`,
+          );
+        } else {
+          // fast copy only when needed
+          const needCopy =
+            !existsSync(targetPath) ||
+            (existsSync(targetPath) &&
+              statSync(targetPath).mtimeMs < statSync(sourcePath).mtimeMs);
+          if (needCopy) copyFileSync(sourcePath, targetPath);
+          console.log(
+            `  ✓ ${relativePath} → ${relativePath}${needCopy ? "" : " (unchanged)"}`,
+          );
         }
       }
-    }
+    };
 
-    await copyRecursively(publicDir, this.outputDir)
-    
-    // Show optimization summary
-    if (this.isProduction && totalOptimizations > 0) {
-      const totalSavings = totalOriginalSize - totalOptimizedSize
-      const percentSavings = ((totalSavings / totalOriginalSize) * 100).toFixed(1)
-      console.log(`📊 Image optimization summary: ${totalOptimizations} images, ${totalOriginalSize}B → ${totalOptimizedSize}B (-${percentSavings}%)`)
-      if (totalWebpSavings > 0) {
-        console.log(`📊 Additional WebP savings: ${totalWebpSavings}B`)
-      }
-    }
+    await copyRecursively(publicDir, this.outputDir);
   }
 
-  // Copy assets to /assets/ directory (dev: no hash, prod: with hash)
+  // ---------- Pipeline ----------
   async processAssets() {
     if (this.copyPublic) {
-      console.log('📁 Copying public directory...')
-      await this.copyPublicAssets()
+      console.log("📁 Copying public directory...");
+      await this.copyPublicAssets();
     }
-    
-    console.log('🎨 Processing styled assets...')
-    const assetsDir = join(this.outputDir, 'assets')
-    if (!existsSync(assetsDir)) mkdirSync(assetsDir, { recursive: true })
-    
-    // Reset hashes for this build
-    this.assetHashes = {}
-    
-    // Process CSS files
-    await this.processCSSFiles(assetsDir)
-    
-    // Process JS files  
-    await this.processJSFiles(assetsDir)
-    
-    // Process images
-    await this.processImages(assetsDir)
+
+    console.log("🎨 Processing styled assets...");
+    const assetsDir = join(this.outputDir, "assets");
+    if (!existsSync(assetsDir)) mkdirSync(assetsDir, { recursive: true });
+
+    this.assetHashes = {};
+
+    await this.processCSSFiles(assetsDir);
+    await this.processJSFiles(assetsDir);
+    await this.processImages(assetsDir);
+
+    this.#saveCache();
   }
 
+  // ---------- CSS ----------
   async processCSSFiles(assetsDir) {
-    const cssDir = join(assetsDir, 'styles')
-    if (!existsSync(cssDir)) mkdirSync(cssDir, { recursive: true })
-    
-    // Use configurable glob pattern to find CSS files
-    const cssFiles = await glob(this.patterns.css)
-    
+    const cssDir = join(assetsDir, "styles");
+    if (!existsSync(cssDir)) mkdirSync(cssDir, { recursive: true });
+
+    const cssFiles = await glob(this.patterns.css);
     if (cssFiles.length === 0) {
-      console.log(`  ℹ️  No CSS files found matching pattern: ${this.patterns.css}`)
-      return
+      console.log(
+        `  ℹ️  No CSS files found matching pattern: ${this.patterns.css}`,
+      );
+      return;
     }
-    
-    let combinedCssContent = ''
-    let totalOriginalSize = 0
-    let totalMinifiedSize = 0
-    
-    // First pass: read all CSS content to create a combined hash
+
+    let combinedCssContent = "";
+    let totalOriginalSize = 0;
+    let totalMinifiedSize = 0;
+
     for (const filePath of cssFiles) {
-      if (existsSync(filePath)) {
-        const content = readFileSync(filePath, 'utf8')
-        combinedCssContent += content
-        totalOriginalSize += content.length
+      if (!existsSync(filePath)) continue;
+      const content = readFileSync(filePath, "utf8");
+      combinedCssContent += content;
+      totalOriginalSize += content.length;
+    }
+
+    const minifiedCombinedContent = await this.minifyCSS(combinedCssContent);
+    const cssHash = minifiedCombinedContent
+      ? generateHash(minifiedCombinedContent)
+      : "";
+    if (cssHash) this.assetHashes.cssHash = cssHash;
+
+    for (const filePath of cssFiles) {
+      if (!existsSync(filePath)) continue;
+      const fileName = basename(filePath);
+      const content = readFileSync(filePath, "utf8");
+      const processedContent = await this.minifyCSS(content);
+      totalMinifiedSize += processedContent.length;
+
+      const outputFileName = this.isProduction
+        ? fileName.replace(".css", `.${cssHash}.css`)
+        : fileName;
+      writeFileSync(join(cssDir, outputFileName), processedContent);
+
+      if (this.isProduction) {
+        const savings = (
+          ((content.length - processedContent.length) / content.length) *
+          100
+        ).toFixed(1);
+        console.log(
+          `  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
+        );
+      } else {
+        console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
       }
     }
-    
-    // Minify combined content for production
-    const minifiedCombinedContent = await this.minifyCSS(combinedCssContent)
-    const cssHash = minifiedCombinedContent ? generateHash(minifiedCombinedContent) : ''
-    if (cssHash) this.assetHashes.cssHash = cssHash
-    
-    // Second pass: process and copy files with the combined hash
-    for (const filePath of cssFiles) {
-      if (existsSync(filePath)) {
-        const fileName = basename(filePath)
-        const content = readFileSync(filePath, 'utf8')
-        const processedContent = await this.minifyCSS(content)
-        totalMinifiedSize += processedContent.length
-        
-        const outputFileName = this.isProduction ? 
-          fileName.replace('.css', `.${cssHash}.css`) : 
-          fileName
-        
-        writeFileSync(join(cssDir, outputFileName), processedContent)
-        
-        if (this.isProduction) {
-          const savings = ((content.length - processedContent.length) / content.length * 100).toFixed(1)
-          console.log(`  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`)
-        } else {
-          console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`)
-        }
-      }
-    }
-    
+
     if (this.isProduction && totalOriginalSize > 0) {
-      const totalSavings = ((totalOriginalSize - totalMinifiedSize) / totalOriginalSize * 100).toFixed(1)
-      console.log(`📊 CSS optimization summary: ${totalOriginalSize}B → ${totalMinifiedSize}B (-${totalSavings}%)`)
+      const totalSavings = (
+        ((totalOriginalSize - totalMinifiedSize) / totalOriginalSize) *
+        100
+      ).toFixed(1);
+      console.log(
+        `📊 CSS optimization summary: ${totalOriginalSize}B → ${totalMinifiedSize}B (-${totalSavings}%)`,
+      );
     }
   }
 
+  // ---------- JS ----------
   async processJSFiles(assetsDir) {
-    const jsDir = join(assetsDir, 'js')
-    if (!existsSync(jsDir)) mkdirSync(jsDir, { recursive: true })
-    
-    // Use configurable glob pattern to find JS files
-    const jsFiles = await glob(this.patterns.js)
-    
+    const jsDir = join(assetsDir, "js");
+    if (!existsSync(jsDir)) mkdirSync(jsDir, { recursive: true });
+
+    const jsFiles = await glob(this.patterns.js);
     if (jsFiles.length === 0) {
-      console.log(`  ℹ️  No JS files found matching pattern: ${this.patterns.js}`)
-      return
+      console.log(
+        `  ℹ️  No JS files found matching pattern: ${this.patterns.js}`,
+      );
+      return;
     }
-    
+
     for (const jsPath of jsFiles) {
-      if (existsSync(jsPath)) {
-        const fileName = basename(jsPath)
-        const content = readFileSync(jsPath, 'utf8')
-        const minifiedContent = await this.minifyJS(content)
-        const hash = generateHash(minifiedContent)
-        
-        // Store hash with file-specific key (in case there are multiple JS files)
-        const hashKey = fileName.replace('.js', 'Hash')
-        this.assetHashes[hashKey] = hash
-        
-        const outputFileName = this.isProduction ? 
-          fileName.replace('.js', `.${hash}.js`) : 
-          fileName
-        
-        writeFileSync(join(jsDir, outputFileName), minifiedContent)
-        
-        if (this.isProduction) {
-          const savings = ((content.length - minifiedContent.length) / content.length * 100).toFixed(1)
-          console.log(`  ⚡ ${fileName} → assets/js/${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`)
-        } else {
-          console.log(`  ✓ ${fileName} → assets/js/${outputFileName}`)
-        }
+      if (!existsSync(jsPath)) continue;
+
+      const fileName = basename(jsPath);
+      const content = readFileSync(jsPath, "utf8");
+      const minifiedContent = await this.minifyJS(content);
+      const hash = generateHash(minifiedContent);
+
+      const hashKey = fileName.replace(".js", "Hash");
+      this.assetHashes[hashKey] = hash;
+
+      const outputFileName = this.isProduction
+        ? fileName.replace(".js", `.${hash}.js`)
+        : fileName;
+      writeFileSync(join(jsDir, outputFileName), minifiedContent);
+
+      if (this.isProduction) {
+        const savings = (
+          ((content.length - minifiedContent.length) / content.length) *
+          100
+        ).toFixed(1);
+        console.log(
+          `  ⚡ ${fileName} → assets/js/${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`,
+        );
+      } else {
+        console.log(`  ✓ ${fileName} → assets/js/${outputFileName}`);
       }
     }
   }
 
+  // ---------- Images (incremental, hashed in prod) ----------
   async processImages(assetsDir) {
-    const imgDir = join(assetsDir, 'images')
-    if (!existsSync(imgDir)) mkdirSync(imgDir, { recursive: true })
-    
-    // Use configurable glob pattern to find image files
-    const imageFiles = await glob(this.patterns.images)
-    
+    const imgDir = join(assetsDir, "images");
+    if (!existsSync(imgDir)) mkdirSync(imgDir, { recursive: true });
+
+    const imageFiles = await glob(this.patterns.images);
     if (imageFiles.length === 0) {
-      console.log(`  ℹ️  No image files found matching pattern: ${this.patterns.images}`)
-      return
+      console.log(
+        `  ℹ️  No image files found matching pattern: ${this.patterns.images}`,
+      );
+      return;
     }
-    
+
     for (const imagePath of imageFiles) {
-      if (existsSync(imagePath)) {
-        const fileName = basename(imagePath)
-        const content = readFileSync(imagePath)
-        const hash = generateHash(content)
-        
-        // Store hash with file-specific key
-        const name = basename(fileName, extname(fileName))
-        const hashKey = `${name}Hash`
-        this.assetHashes[hashKey] = hash
-        
-        // For backwards compatibility, also store as imgHash if this is logo.svg
-        if (fileName === 'logo.svg') {
-          this.assetHashes.imgHash = hash
-        }
-        
-        const ext = extname(fileName)
-        const outputFileName = this.isProduction ? 
-          `${name}.${hash}${ext}` : 
-          fileName
-        
-        const outputPath = join(imgDir, outputFileName)
-        const result = await this.optimizeImage(imagePath, outputPath)
-        
-        if (this.isProduction && result.originalSize > 0) {
-          const savings = result.originalSize !== result.optimizedSize ? 
-            ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)` : ''
-          console.log(`  🖼️  ${fileName} → assets/images/${outputFileName} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`)
+      if (!existsSync(imagePath)) continue;
+
+      const fileName = basename(imagePath);
+      const content = readFileSync(imagePath);
+      const hash = generateHash(content);
+      const ext = extname(fileName);
+      const name = basename(fileName, ext);
+
+      // template hashes
+      const hashKey = `${name}Hash`;
+      this.assetHashes[hashKey] = hash;
+      if (fileName === "logo.svg") this.assetHashes.imgHash = hash;
+
+      const outputs = this.#imageOutputsFor(fileName, hash, ext, imgDir);
+
+      if (!this.isProduction) {
+        const needCopy =
+          !existsSync(outputs.main) ||
+          (existsSync(outputs.main) &&
+            statSync(outputs.main).mtimeMs < statSync(imagePath).mtimeMs);
+        if (needCopy) {
+          copyFileSync(imagePath, outputs.main);
+          console.log(
+            `  ✓ ${fileName} → assets/images/${basename(outputs.main)}`,
+          );
         } else {
-          console.log(`  ✓ ${fileName} → assets/images/${outputFileName}`)
+          console.log(`  ↺ ${fileName} (unchanged)`);
         }
+        continue;
+      }
+
+      if (!this.#isImageStale(imagePath, hash, outputs)) {
+        console.log(
+          `  ⏭️  ${fileName} → assets/images/${basename(outputs.main)} (cached)`,
+        );
+        continue;
+      }
+
+      const result = await this.optimizeImage(imagePath, outputs.main);
+
+      // ensure webp path captured in cache for jpeg/png
+      if ([".png", ".jpg", ".jpeg"].includes(ext.toLowerCase())) {
+        outputs.webp = outputs.main.replace(ext, ".webp");
+      }
+
+      // prune old hashed siblings
+      this.#pruneOldHashedFiles(imgDir, name, hash, ext);
+      if (outputs.webp) this.#pruneOldHashedFiles(imgDir, name, hash, ".webp");
+
+      this.#updateImageCache(imagePath, hash, outputs);
+
+      if (result.originalSize > 0) {
+        const savings =
+          result.originalSize !== result.optimizedSize
+            ? ` (-${(((result.originalSize - result.optimizedSize) / result.originalSize) * 100).toFixed(1)}%)`
+            : "";
+        console.log(
+          `  🖼️  ${fileName} → assets/images/${basename(outputs.main)} [${result.format}] (${result.originalSize}B → ${result.optimizedSize}B${savings})`,
+        );
+      } else {
+        console.log(
+          `  ✓ ${fileName} → assets/images/${basename(outputs.main)}`,
+        );
       }
     }
   }
