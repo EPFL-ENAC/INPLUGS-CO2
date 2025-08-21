@@ -9,7 +9,7 @@
     {% else %}
     <link rel="stylesheet" href="/assets/styles/landing_page.css">
     {% endif %}
-    
+
     <section class="landing_page">
         <div class="landing_page__content">
             <h1>{{ t("homepage.title") }}</h1>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="landing_page__visual">
-            
+
     <picture>
     <!-- WEBP source -->
     <source
@@ -39,7 +39,7 @@
       "
       sizes="(min-width: 800px) 800px, 100vw"
     >
-    
+
     <!-- Ultimate fallback -->
     <img
       src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
@@ -51,8 +51,12 @@
 
     </section>
 
-    <script type="module" src="/assets/js/landing-page.js"></script>
 
+    {% if isProduction and landingPageHash %}
+    <script type="module" src="/assets/js/landing-page.{{ landingPageHash }}.js"></script>
+    {% else %}
+    <script type="module" src="/assets/js/landing-page.js"></script>
+    {% endif %}
   </template>
 </index-content>
 
