@@ -3,6 +3,7 @@ node_modules
 **/Thumbs.db
 # Good
 *.local.md
+.zed
 
 # Dependencies
 node_modules/
