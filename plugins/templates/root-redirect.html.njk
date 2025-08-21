@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>{{ title }}</title>
-  <script>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+        <script>
     // Language detection and redirect with cookie support
     const qs = new URLSearchParams(location.search);
     const forced = qs.get('lang');
@@ -57,19 +57,21 @@
     
     // Redirect immediately
     redirect();
-  </script>
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=/{{ defaultLocale }}">
-  </noscript>
-</head>
-<body>
-  <p>Redirecting to your preferred language...</p>
-  <nav>
-    <ul>
-      {%- for locale in locales %}
-      <li><a href="/{{ locale }}">{{ locale | upper }}</a></li>
-      {%- endfor %}
-    </ul>
-  </nav>
-</body>
+        </script>
+        <noscript>
+            <meta http-equiv="refresh" content="0; url=/{{ defaultLocale }}">
+        </noscript>
+    </head>
+    <body>
+        <p>Redirecting to your preferred language...</p>
+        <nav>
+            <ul>
+                {%- for locale in locales %}
+                    <li>
+                        <a href="/{{ locale }}">{{ locale | upper }}</a>
+                    </li>
+                {%- endfor %}
+            </ul>
+        </nav>
+    </body>
 </html>

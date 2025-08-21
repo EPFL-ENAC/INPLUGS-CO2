@@ -1,51 +1,52 @@
-<!doctype html>
-<html lang="{{ locale or 'en' }}" dir="{% if rtl %}rtl{% else %}ltr{% endif %}">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ t("site.name") or title or 'INPLUGS CO2' }}</title>
-
-
-    {% include "meta.njk" %}
-    
-    {% if isProduction and cssHash %}
-    <link rel="stylesheet" href="/assets/styles/00-reset.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/01-tokens.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/02-layout.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/03-utilities.{{ cssHash }}.css" />
-    <link rel="stylesheet" href="/assets/styles/04-components.{{ cssHash }}.css" />
-    {% else %}
-    <link rel="stylesheet" href="/assets/styles/00-reset.css" />
-    <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
-    <link rel="stylesheet" href="/assets/styles/02-layout.css" />
-    <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
-    <link rel="stylesheet" href="/assets/styles/04-components.css" />
-    {% endif %}
-    {% if not allowIndexing %}
-      <meta name="robots" content="noindex,nofollow">
-    {% else %}
-      <link rel="canonical" href="{{ hostname }}{{ pagePath }}">
-      {% for l in alternates %}
-        <link rel="alternate" hreflang="{{ l }}" href="{{ getLocalizedUrl(currentPage, l) }}">
-      {% endfor %}
-      <link rel="alternate" hreflang="x-default" href="{{ getLocalizedUrl(currentPage, defaultLocale) }}">
-    {% endif %}
-  </head>
-  <body{% if themeColor %} style="--page-theme-color: {{ themeColor }};"{% endif %}>
-    {# <h1>{{ t("title") or title or 'INPLUGS CO2' }}</h1> #}
-    {% include "header.njk" %}
-    <main class="container">
-      {% block content %}{% endblock %}
-    </main>
-    {# {% include "footer.njk" %} #}
-    {# {% if isProduction and imgHash %}
+<!DOCTYPE html>
+<html lang="{{ locale or 'en' }}"
+      dir="{% if rtl %}rtl{% else %}ltr{% endif %}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ t("site.name") or title or 'INPLUGS CO2' }}</title>
+        {% include "meta.njk" %}
+        {% if isProduction and cssHash %}
+            <link rel="stylesheet" href="/assets/styles/00-reset.{{ cssHash }}.css" />
+            <link rel="stylesheet" href="/assets/styles/01-tokens.{{ cssHash }}.css" />
+            <link rel="stylesheet" href="/assets/styles/02-layout.{{ cssHash }}.css" />
+            <link rel="stylesheet" href="/assets/styles/03-utilities.{{ cssHash }}.css" />
+            <link rel="stylesheet"
+                  href="/assets/styles/04-components.{{ cssHash }}.css" />
+        {% else %}
+            <link rel="stylesheet" href="/assets/styles/00-reset.css" />
+            <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
+            <link rel="stylesheet" href="/assets/styles/02-layout.css" />
+            <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
+            <link rel="stylesheet" href="/assets/styles/04-components.css" />
+        {% endif %}
+        {% if not allowIndexing %}
+            <meta name="robots" content="noindex,nofollow">
+        {% else %}
+            <link rel="canonical" href="{{ hostname }}{{ pagePath }}">
+            {% for l in alternates %}
+                <link rel="alternate"
+                      hreflang="{{ l }}"
+                      href="{{ getLocalizedUrl(currentPage, l) }}">
+            {% endfor %}
+            <link rel="alternate"
+                  hreflang="x-default"
+                  href="{{ getLocalizedUrl(currentPage, defaultLocale) }}">
+        {% endif %}
+    </head>
+    <body {% if themeColor %}style="--page-theme-color: {{ themeColor }};"{% endif %}>
+        {# <h1>{{ t("title") or title or 'INPLUGS CO2' }}</h1> #}
+        {% include "header.njk" %}
+        <main class="container">
+            {% block content %}{% endblock %}
+        </main>
+        {# {% include "footer.njk" %} #}
+        {# {% if isProduction and imgHash %}
     <img src="/assets/images/logo.{{ imgHash }}.svg" width="400" style="margin-top: 1.5rem">
     {% else %}
     <img src="/assets/images/logo.svg" width="400" style="margin-top: 1.5rem">
-    {% endif %} #}
-
-    
-    <script>
+{% endif %} #}
+        <script>
     /* 
      * Font loading: Critical FOFT with preload for Archivo
      * Implementation based on Zach Leatherman's comprehensive webfont strategy
@@ -82,6 +83,6 @@
         });
       }
     })();
-    </script>
-  </body>
+        </script>
+    </body>
 </html>
