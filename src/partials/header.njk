@@ -19,7 +19,7 @@
         {% for item in navItems %}
           {% if not item.hidden %}
             {% set _ = navOrder.push(item.key) %}
-            <a href="{{ item.path }}" 
+            <a href="{{ item.path }}"
                {% if page.key == item.key %}aria-current="page"{% endif %}
                data-order="{{ loop.index0 }}"
                data-nav-item="{{ item.key }}">{{ item.title }}</a>
@@ -46,7 +46,7 @@
         </svg>
         {% for loc in alternates %}
           {% if page.routes[loc] %}
-            <a data-lang="{{ loc }}" href="{{ page.routes[loc] }}" 
+            <a data-lang="{{ loc }}" href="{{ page.routes[loc] }}"
                {% if locale == loc %}class="current"{% else %}class="alternate"{% endif %}
                aria-label="Switch to {{ loc | upper }} language">{{ loc | upper }}</a>
           {% endif %}
@@ -75,4 +75,10 @@
 }
 </script>
 
+
+{% if isProduction and navbarHash %}
+<script src="/assets/js/navbar.{{ navbarHash }}.js"></script>
+{% else %}
+<!-- why is it iffe and not a module? -->
 <script src="/assets/js/navbar.js"></script>
+{% endif %}

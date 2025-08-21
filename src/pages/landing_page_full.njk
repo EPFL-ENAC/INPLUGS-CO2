@@ -60,7 +60,12 @@
       </div>
     </section>
 
+
+    {% if isProduction and landingPageHash %}
+    <script type="module" src="/assets/js/landing-page.{{ landingPageHash }}.js"></script>
+    {% else %}
     <script type="module" src="/assets/js/landing-page.js"></script>
+    {% endif %}
   </template>
 </index-content>
 

@@ -66,6 +66,17 @@ export class AssetProcessor {
     } catch {}
   }
 
+  // inside the class
+  #toSafeKey(base) {
+    // turn "landing-page", "landing_page", "landing page" → "landingPage"
+    const camel = base
+      .trim()
+      .replace(/[^a-zA-Z0-9]+(.)/g, (_, ch) => (ch ? ch.toUpperCase() : ""));
+    const normalized = camel ? camel[0].toLowerCase() + camel.slice(1) : camel;
+    // identifiers can't start with a digit; prefix with "_" if so
+    return /^[a-zA-Z]/.test(normalized) ? normalized : `_${normalized}`;
+  }
+
   #imageOutputsFor(fileName, hash, ext, imgDir) {
     const name = basename(fileName, ext);
     const main = this.isProduction
@@ -416,8 +427,13 @@ export class AssetProcessor {
       const minifiedContent = await this.minifyJS(content);
       const hash = generateHash(minifiedContent);
 
-      const hashKey = fileName.replace(".js", "Hash");
-      this.assetHashes[hashKey] = hash;
+      const fileBase = fileName.replace(/\.js$/i, "");
+      const unsafeKey = `${fileBase}Hash`;
+      const safeKey = `${this.#toSafeKey(fileBase)}Hash`;
+
+      // expose both: original (may contain -) and safe camelCase
+      this.assetHashes[unsafeKey] = hash;
+      this.assetHashes[safeKey] = hash;
 
       const outputFileName = this.isProduction
         ? fileName.replace(".js", `.${hash}.js`)
@@ -458,11 +474,14 @@ export class AssetProcessor {
       const content = readFileSync(imagePath);
       const hash = generateHash(content);
       const ext = extname(fileName);
-      const name = basename(fileName, ext);
 
       // template hashes
-      const hashKey = `${name}Hash`;
-      this.assetHashes[hashKey] = hash;
+      const name = basename(fileName, ext);
+      const unsafeKey = `${name}Hash`;
+      const safeKey = `${this.#toSafeKey(name)}Hash`;
+
+      this.assetHashes[unsafeKey] = hash;
+      this.assetHashes[safeKey] = hash;
       if (fileName === "logo.svg") this.assetHashes.imgHash = hash;
 
       const outputs = this.#imageOutputsFor(fileName, hash, ext, imgDir);
