@@ -1,16 +1,12 @@
 <site-header>
 <template id="header-template">
-    {% if isProduction and cssHash %}
-        <link rel="stylesheet" href="/assets/styles/navbar.{{ cssHash }}.css">
-    {% else %}
-        <link rel="stylesheet" href="/assets/styles/navbar.css">
-    {% endif %}
+    <link rel="stylesheet" href='{{ asset("/assets/styles/navbar.css") }}'>
     <header class="header">
         <a href="/{{ locale }}/" class="logo-link" aria-label="Go to homepage">
             <picture class="landing_page__logo">
                 <!-- WebP source -->
                 <source type="image/webp"
-                        srcset="/assets/images/logo/logo_inplugs_86x68.webp">
+                        srcset="{{ asset("/assets/images/logo/logo_inplugs_86x68.webp") }}">
                 <!-- PNG fallback -->
                 <img src="/assets/images/logo/logo_inplugs_86x68.png"
                      alt="INPLUGS Logo"
@@ -92,9 +88,4 @@
   }]
 }
 </script>
-{% if isProduction and navbarHash %}
-    <script src="/assets/js/navbar.{{ navbarHash }}.js"></script>
-{% else %}
-    <!-- why is it iffe and not a module? -->
-    <script src="/assets/js/navbar.js"></script>
-{% endif %}
+<script src='{{ asset("/assets/js/navbar.js") }}'></script>

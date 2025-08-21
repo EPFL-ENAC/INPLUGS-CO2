@@ -6,20 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{{ t("site.name") or title or 'INPLUGS CO2' }}</title>
         {% include "meta.njk" %}
-        {% if isProduction and cssHash %}
-            <link rel="stylesheet" href="/assets/styles/00-reset.{{ cssHash }}.css" />
-            <link rel="stylesheet" href="/assets/styles/01-tokens.{{ cssHash }}.css" />
-            <link rel="stylesheet" href="/assets/styles/02-layout.{{ cssHash }}.css" />
-            <link rel="stylesheet" href="/assets/styles/03-utilities.{{ cssHash }}.css" />
-            <link rel="stylesheet"
-                  href="/assets/styles/04-components.{{ cssHash }}.css" />
-        {% else %}
-            <link rel="stylesheet" href="/assets/styles/00-reset.css" />
-            <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
-            <link rel="stylesheet" href="/assets/styles/02-layout.css" />
-            <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
-            <link rel="stylesheet" href="/assets/styles/04-components.css" />
-        {% endif %}
+        <link rel="stylesheet" href='{{ asset("/assets/styles/00-reset.css") }}' />
+        <link rel="stylesheet" href='{{ asset("/assets/styles/01-tokens.css") }}' />
+        <link rel="stylesheet" href='{{ asset("/assets/styles/02-layout.css") }}' />
+        <link rel="stylesheet"
+              href='{{ asset("/assets/styles/03-utilities.css") }}' />
+        <link rel="stylesheet"
+              href='{{ asset("/assets/styles/04-components.css") }}' />
         {% if not allowIndexing %}
             <meta name="robots" content="noindex,nofollow">
         {% else %}
@@ -41,13 +34,11 @@
             {% block content %}{% endblock %}
         </main>
         {# {% include "footer.njk" %} #}
-        {# {% if isProduction and imgHash %}
-    <img src="/assets/images/logo.{{ imgHash }}.svg" width="400" style="margin-top: 1.5rem">
-    {% else %}
-    <img src="/assets/images/logo.svg" width="400" style="margin-top: 1.5rem">
-{% endif %} #}
+        {# <img src='{{ asset("/assets/images/logo.svg")}}'
+      width="400"
+      style="margin-top: 1.5rem"> #}
         <script>
-    /* 
+    /*
      * Font loading: Critical FOFT with preload for Archivo
      * Implementation based on Zach Leatherman's comprehensive webfont strategy
      * Source: https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-with-preload
