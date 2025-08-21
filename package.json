@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/guilbep/vite-ssr-nunjucks-i18n-basic#readme",
   "scripts": {
-    "preinstall": "npx lefthook install",
+    "prepare": "lefthook install -f",
     "test": "npm run build && node -e \"console.log('✅ Build test passed!')\"",
     "start": "vite",
     "dev": "npm run webp:dev && vite dev",
@@ -49,6 +49,8 @@
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@lhci/cli": "^0.15.1",
     "@rollup/plugin-terser": "^0.4.4",
     "concurrently": "^9.2.0",
