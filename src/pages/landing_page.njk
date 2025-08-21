@@ -2,11 +2,8 @@
 {% block content %}
     <index-content>
     <template shadowrootmode="open">
-        {% if isProduction and cssHash %}
-            <link rel="stylesheet" href="/assets/styles/landing_page.{{ cssHash }}.css">
-        {% else %}
-            <link rel="stylesheet" href="/assets/styles/landing_page.css">
-        {% endif %}
+        <link rel="stylesheet"
+              href='{{ asset("/assets/styles/landing_page.css") }}'>
         <section class="landing_page">
             <div class="landing_page__content">
                 <h1>{{ t("homepage.title") }}</h1>
@@ -33,11 +30,7 @@
                          decoding="async">
                 </picture>
             </section>
-            {% if isProduction and landingPageHash %}
-                <script type="module" src="/assets/js/landing-page.{{ landingPageHash }}.js"></script>
-            {% else %}
-                <script type="module" src="/assets/js/landing-page.js"></script>
-            {% endif %}
+            <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script>
         </template>
         </index-content>
     {% endblock %}

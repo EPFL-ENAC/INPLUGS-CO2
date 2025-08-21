@@ -434,6 +434,9 @@ export class AssetProcessor {
       const outputFileName = this.isProduction
         ? fileName.replace(".css", `.${cssHash}.css`)
         : fileName;
+      this.manifest[`/assets/styles/${fileName}`] =
+        `/assets/styles/${outputFileName}`;
+
       writeFileSync(join(cssDir, outputFileName), processedContent);
 
       if (this.isProduction) {

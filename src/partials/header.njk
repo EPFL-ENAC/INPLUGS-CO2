@@ -1,10 +1,6 @@
 <site-header>
 <template id="header-template">
-    {% if isProduction and cssHash %}
-        <link rel="stylesheet" href="/assets/styles/navbar.{{ cssHash }}.css">
-    {% else %}
-        <link rel="stylesheet" href="/assets/styles/navbar.css">
-    {% endif %}
+    <link rel="stylesheet" href='{{ asset("/assets/styles/navbar.css") }}'>
     <header class="header">
         <a href="/{{ locale }}/" class="logo-link" aria-label="Go to homepage">
             <picture class="landing_page__logo">
