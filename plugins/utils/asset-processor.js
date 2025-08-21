@@ -49,7 +49,9 @@ export class AssetProcessor {
   getAssetHashes() {
     return this.assetHashes;
   }
-
+  getManifest() {
+    return this.manifest;
+  }
   // ---------- Cache helpers ----------
   #loadCache() {
     try {
@@ -323,7 +325,7 @@ export class AssetProcessor {
         if (isImage && this.isProduction) {
           const buf = readFileSync(sourcePath);
           const hash = generateHash(buf);
-          const outputs = { main: targetPath, webp: null };
+          const outputs = { fs: { main: targetPath, webp: null } };
           if (!this.#isImageStale(sourcePath, hash, outputs)) {
             console.log(`  ⏭️  ${relativePath} (cached)`);
             continue;
@@ -491,7 +493,7 @@ export class AssetProcessor {
         ? fileName.replace(".js", `.${hash}.js`)
         : fileName;
       writeFileSync(join(jsDir, outputFileName), minifiedContent);
-
+      this.manifest[`/assets/js/${fileName}`] = `/assets/js/${outputFileName}`;
       if (this.isProduction) {
         const savings = (
           ((content.length - minifiedContent.length) / content.length) *

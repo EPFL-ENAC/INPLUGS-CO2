@@ -214,16 +214,9 @@ export function multiLocalePlugin(options = {}) {
     return currentTranslator ? currentTranslator(key, params) : key;
   });
 
-  let manifest = {};
-  try {
-    manifest = JSON.parse(
-      readFileSync(join("dist", "asset-manifest.json"), "utf8"),
-    );
-  } catch (_) {
-    /* dev first run: ignore */
-  }
-
   // If not found in manifest, fall back to the logical path
+  //
+  const manifest = assetProcessor.getManifest();
   console.log("manifest", manifest);
   env.addGlobal("asset", (logicalPath) => manifest[logicalPath] || logicalPath);
   env.addGlobal("manifest", manifest);

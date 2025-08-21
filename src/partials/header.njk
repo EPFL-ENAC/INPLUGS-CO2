@@ -92,10 +92,4 @@
   }]
 }
 </script>
-<script src="{{ asset("/assets/js/navbar.js") }}" type="module"></script>
-{% if isProduction and navbarHash %}
-    <script src="/assets/js/navbar.{{ navbarHash }}.js"></script>
-{% else %}
-    <!-- why is it iffe and not a module? -->
-    <script src="/assets/js/navbar.js"></script>
-{% endif %}
+<script src='{{ asset("/assets/js/navbar.js") }}'></script>
