@@ -7,17 +7,17 @@
     --breakpoint-tablet: 1024px;
     --breakpoint-desktop: 1400px;
     --breakpoint-wide: 1600px;
-    
+
     /* Redefine other CSS variables needed in shadow DOM */
     --space-2: 0.5rem;
     --space-3: 1rem;
     --radius: 12px;
     --shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-    --canard: #1A586C;
-    --navbar-bg: rgba(244, 240, 235, 0.40);
+    --canard: #1a586c;
+    --navbar-bg: rgba(244, 240, 235, 0.4);
     --brand-fg: #ffffff;
     --brand-bg: #1f2937;
-    
+
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
@@ -35,7 +35,7 @@
     z-index: 100;
     height: 5.5rem;
   }
-  
+
   .header {
     display: grid;
     grid-template-columns: auto 1fr auto auto;
@@ -45,7 +45,7 @@
     padding-left: 2rem;
     height: 100%;
   }
-  
+
   /* New: force vertical layout when header has mobile-menu-open (SSR / accessibility state) */
   .header.mobile-menu-open nav[aria-label="Main navigation"] {
     flex-direction: column;
@@ -53,7 +53,7 @@
     height: auto;
     gap: 0; /* vertical list tight like mobile */
   }
-  
+
   .header.mobile-menu-open nav[aria-label="Main navigation"] a {
     width: 100%;
     padding: var(--space-2) 0;
@@ -61,11 +61,11 @@
     align-items: center; /* reset stretch */
     height: auto;
   }
-  
+
   .header.mobile-menu-open nav[aria-label="Main navigation"] a:last-child {
     border-bottom: none;
   }
-  
+
   /* Logo styles */
   .logo-link {
     grid-area: logo;
@@ -74,30 +74,30 @@
     text-decoration: none;
     transition: transform 0.2s ease;
   }
-  
+
   .logo-link:hover {
     transform: scale(1.05);
   }
-  
+
   .landing_page__logo {
     display: block;
     width: 5.32519rem;
     flex-shrink: 0;
   }
-  
+
   .landing_page__logo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  
+
   h1 {
     font-size: 1rem;
     margin: 0 var(--space-3) 0 0;
     letter-spacing: 0.3px;
   }
-  
+
   nav {
     grid-area: nav;
     display: flex;
@@ -107,19 +107,22 @@
     align-content: center;
     justify-self: end;
   }
-  
+
   nav::after {
-    content: '';
+    content: "";
     width: 1px;
     height: 2.25rem; /* 36px converted to rem */
     background-color: var(--canard);
     margin-left: var(--space-3);
     align-self: center;
   }
-  
+
   nav a {
     color: var(--canard);
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: 1.5625rem;
     font-style: normal;
     font-weight: 400;
@@ -135,27 +138,31 @@
     height: 100%;
     align-items: center;
     white-space: nowrap; /* prevent multi-line wrapping */
-    flex: 0 0 auto;      /* avoid shrinking that could force wrap */
-    
+    flex: 0 0 auto; /* avoid shrinking that could force wrap */
+
     /* Smooth transitions */
-    transition: 
+    transition:
       opacity 0.2s ease,
       background-color 0.2s ease,
       transform 0.2s ease;
   }
-  
+
   /* Progressive font enhancement */
   .fonts-loaded-1 nav a {
-    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    font-family:
+      Archivo,
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
-  
+
   nav a:hover,
   nav a:focus-visible {
     opacity: 1;
     outline: none;
     background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
   }
-  
+
   nav a[aria-current="page"] {
     text-decoration: none;
     font-style: normal;
@@ -164,14 +171,119 @@
   }
 
   /* More dropdown button */
-  .nav-more {
-    position: relative;
+
+  /* Hide nav items at their breakpoints and below
+@media (max-width: 1300px) {
+  nav .nav-contact { display: none !important; }
+}
+@media (max-width: 1250px) {
+  nav .nav-about { display: none !important; }
+}
+@media (max-width: 1180px) {
+  nav .nav-links { display: none !important; }
+}
+@media (max-width: 1020px) {
+  nav .nav-dictionary { display: none !important; }
+}
+@media (max-width: 900px) {
+  nav .nav-education { display: none !important; }
+} */
+  /* Default: hide them in dropdown, show only in nav bar */
+  .nav-more-dropdown .nav-contact,
+  .nav-more-dropdown .nav-about,
+  .nav-more-dropdown .nav-links,
+  .nav-more-dropdown .nav-dictionary,
+  .nav-more-dropdown .nav-education {
     display: none;
+  }
+
+  /* Contact */
+  @media (max-width: 1300px) {
+    nav .nav-contact {
+      display: none !important;
+    }
+    .nav-more-dropdown .nav-contact {
+      display: block;
+    }
+  }
+
+  /* About */
+  @media (max-width: 1250px) {
+    nav .nav-about {
+      display: none !important;
+    }
+    .nav-more-dropdown .nav-about {
+      display: block;
+    }
+  }
+
+  /* Links */
+  @media (max-width: 1180px) {
+    nav .nav-links {
+      display: none !important;
+    }
+    .nav-more-dropdown .nav-links {
+      display: block;
+    }
+  }
+
+  /* Dictionary */
+  @media (max-width: 1020px) {
+    nav .nav-dictionary {
+      display: none !important;
+    }
+    .nav-more-dropdown .nav-dictionary {
+      display: block;
+    }
+  }
+
+  /* Education */
+  @media (max-width: 900px) {
+    nav .nav-education {
+      display: none !important;
+    }
+    .nav-more-dropdown .nav-education {
+      display: block;
+    }
+  }
+
+  /* Default: dropdown items hidden */
+  /* FOR WHEN we want different cut threshold
+.nav-more-dropdown a {
+  display: none;
+}
+
+html[lang="en"] @media (max-width: 1300px) {
+  nav .nav-contact { display: none !important; }
+  .nav-more-dropdown .nav-contact { display: block; }
+}
+html[lang="en"] @media (max-width: 1250px) {
+  nav .nav-about { display: none !important; }
+  .nav-more-dropdown .nav-about { display: block; }
+}
+
+html[lang="fr"] @media (max-width: 1350px) {
+  nav .nav-contact { display: none !important; }
+  .nav-more-dropdown .nav-contact { display: block; }
+}
+html[lang="fr"] @media (max-width: 1270px) {
+  nav .nav-about { display: none !important; }
+  .nav-more-dropdown .nav-about { display: block; }
+}  */
+
+  .nav-more {
+    /* position: relative;
+    display: none; */
+    position: relative;
+    display: inline-block;
   }
 
   .nav-more-toggle {
     color: var(--canard);
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     font-size: 1.5625rem;
     font-style: normal;
     font-weight: 400;
@@ -186,7 +298,7 @@
     cursor: pointer;
     white-space: nowrap; /* ensure consistency with nav links */
     flex: 0 0 auto;
-    
+
     display: flex;
     align-self: stretch;
     height: 100%;
@@ -196,7 +308,11 @@
 
   /* Progressive font enhancement */
   .fonts-loaded-1 .nav-more-toggle {
-    font-family: Archivo, system-ui, -apple-system, sans-serif;
+    font-family:
+      Archivo,
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 
   .nav-more-toggle:hover,
@@ -228,19 +344,27 @@
     min-width: 200px;
     z-index: 1000;
     display: none;
-    
+
     /* Animation properties */
     opacity: 0;
     transform: translateY(-10px);
-    transition: 
+    transition:
       opacity 0.2s ease,
       transform 0.2s ease,
       visibility 0.2s;
     visibility: hidden;
   }
 
+  .nav-more:hover .nav-more-dropdown,
+  .nav-more:focus-within .nav-more-dropdown {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
   .nav-more-dropdown.open {
-    display: block;
+    display: flex;
     opacity: 1;
     transform: translateY(0);
     visibility: visible;
@@ -307,18 +431,18 @@
     gap: 0.5rem;
     opacity: 0.9;
   }
-  
+
   .lang svg {
-    fill: var(--canard, #1A586C);
+    fill: var(--canard, #1a586c);
     width: 19px;
     height: 27px;
     opacity: 0.8;
     display: block;
     margin-top: 7px;
   }
-  
+
   .lang a {
-    color: var(--canard, #1A586C);
+    color: var(--canard, #1a586c);
     font-family: Archivo;
     font-size: 25px;
     font-style: normal;
@@ -329,7 +453,7 @@
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
   }
-  
+
   .lang a:hover,
   .lang a:focus-visible {
     background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
@@ -348,7 +472,7 @@
     .nav-more {
       display: none !important;
     }
-    
+
     nav a[data-priority] {
       display: flex !important;
     }
@@ -359,7 +483,7 @@
     .nav-more {
       display: flex;
     }
-    
+
     nav a[data-priority="secondary"] {
       display: none;
     }
@@ -370,7 +494,7 @@
     .nav-more {
       display: flex;
     }
-    
+
     nav a[data-priority="secondary"],
     nav a[data-priority="tertiary"] {
       display: none;
@@ -404,11 +528,11 @@
       flex-direction: column;
       padding: var(--space-3);
       box-shadow: var(--shadow);
-      
+
       /* Animation properties */
       opacity: 0;
       transform: translateY(-20px);
-      transition: 
+      transition:
         opacity 0.3s ease,
         transform 0.3s ease,
         visibility 0.3s;
@@ -429,7 +553,8 @@
 
     nav a {
       padding: var(--space-2) 0;
-      border-bottom: 1px solid color-mix(in oklab, var(--canard) 20%, transparent);
+      border-bottom: 1px solid
+        color-mix(in oklab, var(--canard) 20%, transparent);
     }
 
     nav a:last-child {
@@ -440,10 +565,13 @@
       gap: 0;
       justify-self: start;
     }
-    
+
     .lang a {
-      color: var(--canard, #1A586C);
-      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--canard, #1a586c);
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
       font-size: 0.9375rem;
       font-style: normal;
       font-weight: 400;
@@ -452,26 +580,30 @@
       padding: 0.25rem 0.5rem;
       border-radius: 0;
     }
-    
+
     /* Progressive font enhancement for mobile */
     .fonts-loaded-1 .lang a {
-      font-family: Archivo, system-ui, -apple-system, sans-serif;
+      font-family:
+        Archivo,
+        system-ui,
+        -apple-system,
+        sans-serif;
     }
-    
+
     .lang a:not(:last-child)::after {
       content: " | ";
-      color: var(--canard, #1A586C);
+      color: var(--canard, #1a586c);
       opacity: 0.6;
       margin-left: 0.5rem;
     }
-    
+
     .lang a.current {
       font-weight: 500;
       opacity: 1;
     }
-    
+
     .lang svg {
-      fill: var(--canard, #1A586C);
+      fill: var(--canard, #1a586c);
       opacity: 0.8;
       margin-right: 0.5rem;
     }
@@ -482,7 +614,7 @@
     :host {
       margin: 0rem 0.375rem 0rem 0.375rem; /* 6px converted to rem */
     }
-    
+
     .landing_page__logo {
       width: 4.26rem;
       height: 3.4rem;
@@ -504,11 +636,11 @@
     .hamburger-line {
       transition: none !important;
     }
-    
+
     .nav-more-dropdown.open {
       transform: none;
     }
-    
+
     nav.open {
       transform: none;
     }

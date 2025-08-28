@@ -9,3 +9,5 @@
     -       /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
 
 7.  Add a way to ignore .DS_Store for build etc ?
+
+8.  Add polyfill for safari and firefox maybe ?

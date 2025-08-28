@@ -1,5 +1,5 @@
 <site-header>
-<template id="header-template">
+<template shadowroot="open"  shadowrootmode="open">
     <link rel="stylesheet" href='{{ asset("/assets/styles/navbar.css") }}'>
     <header class="header">
         <a href="/{{ locale }}/" class="logo-link" aria-label="Go to homepage">
@@ -20,6 +20,7 @@
                 {% if not item.hidden %}
                     {% set _ = navOrder.push(item.key) %}
                     <a href="{{ item.path }}"
+                       class="nav-{{ item.key }}"
                        {% if page.key == item.key %}aria-current="page"{% endif %}
                        data-order="{{ loop.index0 }}"
                        data-nav-item="{{ item.key }}">{{ item.title }}</a>
@@ -45,6 +46,17 @@
                 </button>
                 <div class="nav-more-dropdown" id="nav-more-dropdown">
                     <!-- Collapsed navigation items will be moved here by JavaScript -->
+                     {% set navOrder = [] %}
+                    {% for item in navItems %}
+                        {% if not item.hidden %}
+                            {% set _ = navOrder.push(item.key) %}
+                            <a href="{{ item.path }}"
+                            class="nav-{{ item.key }}"
+                            {% if page.key == item.key %}aria-current="page"{% endif %}
+                            data-order="{{ loop.index0 }}"
+                            data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </nav>
@@ -88,4 +100,3 @@
   }]
 }
 </script>
-<script src='{{ asset("/assets/js/navbar.js") }}'></script>
