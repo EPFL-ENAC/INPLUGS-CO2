@@ -3,28 +3,26 @@
     <index-content>
     <template shadowrootmode="open">
         <link rel="stylesheet"
-              href='{{ asset("/assets/styles/landing_page.css") }}'>
+              href='{{ asset("/assets/styles/landing_page_interactive.css") }}'>
         <section class="landing_page is-full-page">
             <div class="landing_page__visual">
-                <picture>
-                    <!-- WEBP source -->
+                {% include "landing_svg.njk" %}
+                <!-- <picture>
                     <source type="image/webp"
                             srcset="/assets/images/landing-page/landing-page-illustration.webp  800w,
                                     /assets/images/landing-page/landing-page-illustration.webp 1600w"
                             sizes="(min-width: 800px) 800px,
                                    100vw" />
-                    <!-- PNG source -->
                     <source type="image/png"
                             srcset="/assets/images/landing-page/landing-page-illustration.png  800w,
                                     /assets/images/landing-page/landing-page-illustration.png 1600w"
                             sizes="(min-width: 800px) 800px,
                                    100vw" />
-                    <!-- Ultimate fallback -->
                     <img src="/assets/images/landing-page/landing-page-illustration.png"
                          alt="{{ t("homepage.image_alt") }}"
                          loading="lazy"
                          decoding="async" />
-                </picture>
+                </picture> -->
             </div>
             <!-- Info boxes for State 2 (explore mode) -->
             <div class="info-boxes">
