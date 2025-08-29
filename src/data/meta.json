@@ -1,18 +1,18 @@
 {
   "en": {
-    "title": "Guilbert's SSR project",
+    "title": "Inplugs CO2 project",
     "description": "Brief description of the project",
-    "url": "https://guilberts-ssr-project.app",
+    "url": "https://inplugs-co2-dev.epfl.ch",
     "lang": "en",
     "locale": "en_us",
-    "author": "Guilbert Pierre"
+    "author": "ENAC-IT4R"
   },
   "fr": {
-    "title": "Guilbert's SSR project",
-    "description": "Brève description du projet",
-    "url": "https://guilberts-ssr-project.app",
+    "title": "Inplugs projet CO2",
+    "description": "Description du projet",
+    "url": "https://inplugs-co2-dev.epfl.ch",
     "lang": "fr",
     "locale": "fr_fr",
-    "author": "Guilbert Pierre"
+    "author": "ENAC-IT4R"
   }
 }
