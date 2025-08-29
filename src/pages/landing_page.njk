@@ -16,7 +16,21 @@
                 loop 
                 playsinline 
                 preload="auto"
-                style="width: 100%; height: auto; object-fit: cover;">
+                poster="{{ asset("/assets/images/landing-page/landing_page_small.webp") }}"
+                style="
+                background: linear-gradient(180deg, #ffffff 0%, #00D1FF 100%);
+                    height: calc(100vh - 163px);
+                    background-repeat: no-repeat;
+                    max-width: 400px;
+                    max-width: -webkit-fill-available;
+                    max-width: -moz-available;
+                    max-width: fill-available;"
+                >
+                <!-- style="
+                background-image: url('{{ asset("/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp") }}');
+                    height: calc(100vh - 163px);
+                    background-repeat: no-repeat;" -->
+                <!-- style="width: 100%; height: auto; object-fit: cover;" -->
                 <!-- <source src="{{ asset("/assets/videos/animation-optimized.webm") }}" type="video/webm">
                   -->
                 
