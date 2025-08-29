@@ -11,7 +11,7 @@
     "contact": "Contact"
   },
   "homepage": {
-    "title": "The Interactive Platform for Understanding Geological Storage of CO2 helps you understand CO2 storage.",
+    "title": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO2</i> helps you understand CO2 storage.",
     "button": "Learn more",
     "image_alt": "Geological CO2 storage illustration",
     "info_boxes": {
@@ -34,6 +34,62 @@
     }
   },
   "gcs": {
+    "page_1": {
+      "title": "Why Geological Carbon Storage ?",
+      "subtitle_1": "Mitigating Climate Change",
+      "text_1": "CO₂ is a major greenhouse gas. Geological storage helps reduce emissions from heavy industries (e.g., steel, cement, power plants) that are difficult to decarbonize.",
+      "subtitle_2": "Supports Net-Zero Goals",
+      "text_2": "Most climate models show we can’t reach net-zero emissions without some form of carbon capture and storage, especially for hard-to-abate sectors.",
+      "subtitle_3": "Long-Term Storage",
+      "text_3": "Deep geological formations (like depleted oil and gas fields or deep saline aquifers) can trap CO₂ for thousands to millions of years."
+    },
+    "page_2": {
+      "title": "What is <i>Geological</i> <i>Carbon</i> <i>Storage</i>?",
+      "subtitle_1": "Capture",
+      "text_1": "CO₂ is captured from industrial processes or directly from the air using technologies like chemical absorption or adsorption.",
+      "subtitle_2": "Transport",
+      "text_2": "The captured CO₂ is compressed into a supercritical fluid and transported via pipelines or ships to storage sites.",
+      "subtitle_3": "Injection",
+      "text_3": "At the storage site, CO₂ is injected deep underground (typically 800 meters or more) into porous rock formations sealed by impermeable cap rocks.",
+      "subtitle_4": "Monitoring",
+      "text_4": "Advanced monitoring techniques (like seismic surveys and well logging) ensure the CO₂ remains securely stored and detect any potential leaks."
+    },
+    "page_3": {
+      "title": "GCS<br/> in the <i>World</i>",
+      "text_1": "Several large-scale geological carbon storage projects are operational worldwide, demonstrating the feasibility and safety of this technology.",
+      "legend_1": "Storage capacity",
+      "legend_2": "Existing GCS sites",
+      "legend_3": "Planned projects and capacity 2030-2050",
+      "image_alt": "Map of global geological carbon storage projects",
+      "project_1": {
+        "name": "Sleipner (Norway)",
+        "description": "Operational since 1996, Sleipner is one of the longest-running CCS projects, injecting about 1 million tonnes of CO₂ annually into a saline aquifer beneath the North Sea."
+      },
+      "project_2": {
+        "name": "Quest (Canada)",
+        "description": "Since 2015, Quest has captured and stored over 5 million tonnes of CO₂ from oil sands operations in Alberta, showcasing CCS in the energy sector."
+      },
+      "project_3": {
+        "name": "Gorgon (Australia)",
+        "description": "The Gorgon project began injecting CO₂ in 2019, aiming to store up to 4 million tonnes per year from its LNG operations."
+      }
+    },
+    "page_4": {
+      "title": "Geological Carbon Storage in Switzerland",
+      "text_1": "Switzerland is actively exploring geological carbon storage as part of its climate strategy, with several initiatives and studies underway.",
+      "initiative_1": {
+        "name": "Swiss CCS Research",
+        "description": "Swiss research institutions are conducting studies on the feasibility of CO₂ storage in deep saline aquifers and depleted oil and gas fields."
+      },
+      "initiative_2": {
+        "name": "Pilot Projects",
+        "description": "Pilot projects are being developed to test CO₂ capture and storage technologies in various industrial sectors."
+      },
+      "initiative_3": {
+        "name": "Regulatory Framework",
+        "description": "Switzerland is working on establishing a regulatory framework to ensure the safe and effective implementation of geological carbon storage."
+      }
+    },
     "title": "GCS • What & Why",
     "why": "Why is GCS?",
     "what": "What is GCS?",

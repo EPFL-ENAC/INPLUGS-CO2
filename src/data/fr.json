@@ -12,7 +12,7 @@
   },
   "home": { "title": "Bienvenue sur GCS" },
   "homepage": {
-    "title": "L'Interactive Platform for Understanding Geological Storage of CO2 t'aide à comprendre l'enfouissement du CO2",
+    "title": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO2</i> t'aide à comprendre l'enfouissement du CO2",
     "button": "En savoir plus",
     "image_alt": "Illustration du stockage géologique de CO2",
     "info_boxes": {

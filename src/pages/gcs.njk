@@ -1,8 +1,54 @@
-{% extends 'layouts/main.njk' %}
+{% extends "main.njk" %}
 {% block content %}
-    <h2>{{ t("gcs.title") }}</h2>
-    <p>{{ t("gcs.why") }}</p>
-    <h3>{{ t("gcs.what") }}</h3>
-    <p>{{ t("gcs.world") }}</p>
-    <p>{{ t("gcs.ch") }}</p>
+<gcs-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/gcs.css") }}'>
+
+        <main class="gcs_page">
+            <section id="screen-1" class="screen-1 theme-turquoise" aria-labelledby="title-1">
+                <h2 class="screen-title title-1">{{ t("gcs.page_1.title") }}</h2>
+                <!-- Contenu de l'écran 1 -->
+                <h3>{{ t("gcs.page_1.subtitle_1") }}</h3>
+                <p>{{ t("gcs.page_1.text_1") }}</p>
+                <h3>{{ t("gcs.page_1.subtitle_2") }}</h3>
+                <p>{{ t("gcs.page_1.text_2") }}</p>
+                <h3>{{ t("gcs.page_1.subtitle_3") }}</h3>
+                <p>{{ t("gcs.page_1.text_3") }}</p>
+            </section>
+
+            <section id="screen-2" class="theme-white-dark" aria-labelledby="title-2">
+                <h2 id="title-2" class="screen-title title-2">{{ t("gcs.page_2.title") | safe }}</h2>
+                <!-- Contenu de l'écran 2 -->
+            </section>
+
+            <section id="screen-3" class="screen-3 theme-canard" aria-labelledby="title-3">
+                <h2 id="title-3" class="screen-title title-3">{{ t("gcs.page_3.title")|safe }}</h2>
+                <picture>
+                    <source type="image/webp"
+                            srcset="{{ asset("/assets/images/gcs/world-map.webp") }} 800w,
+                                    {{ asset("/assets/images/gcs/world-map.webp") }} 1600w"
+                            sizes="(min-width: 800px) 800px,
+                                   100vw" />
+                    <source type="image/png"
+                            srcset="{{ asset("/assets/images/gcs/world-map.png") }} 800w,
+                                    {{ asset("/assets/images/gcs/world-map.png") }} 1600w"
+                            sizes="(min-width: 800px) 800px,
+                                   100vw" />
+                    <img src="{{ asset("/assets/images/gcs/world-map.png") }}"
+                         alt="{{ t("gcs.page_3.image_alt") }}"
+                         loading="lazy"
+                         decoding="async" />
+                </picture>
+                <!-- Contenu de l'écran 3 -->
+                 <p>{{ t("gcs.page_3.text_1") }}</p>
+            </section>
+
+            <section id="screen-4" class="theme-white-dark" aria-labelledby="title-3">
+                <h2 id="title-4" class="screen-title title-4">{{ t("gcs.page_4.title") }}</h2>
+                <!-- Contenu de l'écran 4 -->
+            </section>
+        </main>
+        <script type="module" src='{{ asset("/assets/js/gcs.js") }}'></script>
+    </template>
+</gcs-content>
 {% endblock %}
