@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 62 54">
+  <defs>
+    <filter id="drop-shadow-1" x="10" y="10" width="34" height="34" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-2" x="0" y="0" width="34" height="34" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur-2" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-3" x="21" y="15" width="35" height="35" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur-3" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur-3" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-4" x="28" y="21" width="34" height="33" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur-4" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur-4" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-5" x="5" y="1" width="38" height="38" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur-5" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur-5" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-6" x="3" y="10" width="33" height="33" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2"/>
+      <feGaussianBlur result="blur-6" stdDeviation="4"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur-6" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="illu_cylindre_motif" data-name="illu cylindre motif">
+    <g id="déco_1er_plan_-_copie" data-name="déco 1er plan - copie">
+      <g id="fumee_voiture" data-name="fumee voiture">
+        <circle cx="48.02" cy="44.01" r="7.8" style="fill: #efe1d7;"/>
+        <circle cx="24.65" cy="30.4" r="8.22" style="fill: #efe1d7;"/>
+        <circle cx="17.14" cy="24.28" r="6.71" style="fill: #efe1d7;"/>
+        <circle cx="31.65" cy="21.79" r="8.27" style="fill: #efe1d7;"/>
+        <circle cx="33.69" cy="39.32" r="7.93" style="fill: #efe1d7;"/>
+        <circle cx="25.06" cy="24.9" r="4.5" style="fill: #efe1d7; filter: url(#drop-shadow-1);"/>
+        <circle cx="14.53" cy="15.48" r="4.5" style="fill: #efe1d7; filter: url(#drop-shadow-2);"/>
+        <circle cx="36.68" cy="30.39" r="5.03" style="fill: #efe1d7; filter: url(#drop-shadow-3);"/>
+        <circle cx="42.99" cy="35.76" r="4.11" style="fill: #efe1d7; filter: url(#drop-shadow-4);"/>
+        <circle cx="22.26" cy="17.92" r="6.63" style="fill: #efe1d7; filter: url(#drop-shadow-5);"/>
+        <circle cx="17.54" cy="24.55" r="3.97" style="fill: #efe1d7; filter: url(#drop-shadow-6);"/>
+        <circle cx="36.42" cy="35.76" r="4.77" style="fill: #efe1d7;"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -6,39 +6,46 @@
 
 class LandingPageController {
   constructor() {
-    this.landingPageSection = document.querySelector('.landing_page');
-    this.ctaButton = document.querySelector('.btn-cta');
-    this.backButton = document.querySelector('.btn-back');
+    this.landingPageSection = document.querySelector(".landing_page");
+    this.ctaButton = document.querySelector(".btn-cta");
+    this.backButton = document.querySelector(".btn-back");
     this.isFullPage = false;
-    
+
     // Check for View Transition API support
-    this.supportsViewTransitions = 'startViewTransition' in document;
-    
+    this.supportsViewTransitions = "startViewTransition" in document;
+
     // Check for reduced motion preference
-    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+    this.prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     this.init();
   }
 
   init() {
     if (!this.landingPageSection) return;
-    
+
     // Determine current page
-    this.isFullPage = window.location.pathname.includes('landing_page_full');
-    
+    this.isFullPage = window.location.pathname.includes(
+      "landing_page_interactive",
+    );
+
     // Enhance CTA button with View Transitions if on landing page
     if (this.ctaButton && !this.isFullPage) {
-      this.ctaButton.addEventListener('click', this.handleCTAClick.bind(this));
+      this.ctaButton.addEventListener("click", this.handleCTAClick.bind(this));
     }
-    
+
     // Enhance back button with View Transitions if on full page
     if (this.backButton && this.isFullPage) {
-      this.backButton.addEventListener('click', this.handleBackClick.bind(this));
+      this.backButton.addEventListener(
+        "click",
+        this.handleBackClick.bind(this),
+      );
     }
-    
+
     // Listen for escape key to go back to landing page
     if (this.isFullPage) {
-      document.addEventListener('keydown', this.handleKeyDown.bind(this));
+      document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
   }
 
@@ -62,14 +69,14 @@ class LandingPageController {
 
   handleKeyDown(event) {
     // Go back to landing page on Escape key when on full page
-    if (event.key === 'Escape' && this.isFullPage) {
+    if (event.key === "Escape" && this.isFullPage) {
       this.navigateToLandingPage();
     }
   }
 
   navigateToFullPage() {
     const navigation = () => {
-      window.location.href = '/landing_page_full';
+      window.location.href = "/landing_page_interactive";
     };
 
     document.startViewTransition(navigation);
@@ -77,7 +84,7 @@ class LandingPageController {
 
   navigateToLandingPage() {
     const navigation = () => {
-      window.location.href = '/landing_page';
+      window.location.href = "/landing_page";
     };
 
     document.startViewTransition(navigation);
@@ -85,8 +92,8 @@ class LandingPageController {
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
     new LandingPageController();
   });
 } else {

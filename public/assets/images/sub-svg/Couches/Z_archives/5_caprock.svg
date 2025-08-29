@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1930 1149.86">
+  <defs>
+    <pattern id="Nouvelle_nuance_de_motif_13" data-name="Nouvelle nuance de motif 13" x="0" y="0" width="188.25" height="188.25" patternTransform="translate(-864.21 -1544.43)" patternUnits="userSpaceOnUse" viewBox="0 0 188.25 188.25">
+      <g>
+        <rect y="0" width="188.25" height="188.25" style="fill: none;"/>
+        <rect x="180.51" y="180.51" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-7.74" y="180.51" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-195.99" y="180.51" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="180.51" y="-7.74" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-7.74" y="-7.74" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-195.99" y="-7.74" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="180.51" y="-195.99" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-7.74" y="-195.99" width="203.73" height="203.73" style="fill: #7a808c;"/>
+        <rect x="-195.99" y="-195.99" width="203.73" height="203.73" style="fill: #7a808c;"/>
+      </g>
+    </pattern>
+  </defs>
+  <g id="illu_cylindre_motif" data-name="illu cylindre motif">
+    <g id="layers">
+      <g id="caprock">
+        <path d="M1930,107.07v935.71s0,107.07-965,107.07S0,1042.79,0,1042.79V107.07S0,0,965,0s965,107.07,965,107.07Z" style="fill: url(#Nouvelle_nuance_de_motif_13);"/>
+        <path d="M1930,107.07v935.71s0,107.07-965,107.07S0,1042.79,0,1042.79V107.07S0,0,965,0s965,107.07,965,107.07Z" style="fill: url(#_6gris);"/>
+      </g>
+    </g>
+  </g>
+</svg>

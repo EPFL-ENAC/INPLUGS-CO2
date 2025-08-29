@@ -3,8 +3,19 @@
   "locales": ["en", "fr"],
   "routes": {
     "en": [
-      { "key": "landing_page", "path": "/en/", "title": "Home", "themeColor": "#00aad8","hidden": true},
-      { "key": "landing_page_full", "path": "/en/landing_page_full", "title": "Interactive",  "themeColor": "#00aad8" },
+      {
+        "key": "landing_page",
+        "path": "/en/",
+        "title": "Home",
+        "themeColor": "#00aad8",
+        "hidden": true
+      },
+      {
+        "key": "landing_page_interactive",
+        "path": "/en/landing_page_interactive",
+        "title": "Interactive",
+        "themeColor": "#00aad8"
+      },
       {
         "key": "gcs",
         "path": "/en/gcs",
@@ -17,7 +28,12 @@
           { "id": "switzerland", "title": "GCS in Switzerland" }
         ]
       },
-      { "key": "data", "path": "/en/data", "title": "Data", "themeColor": "#1a586c" },
+      {
+        "key": "data",
+        "path": "/en/data",
+        "title": "Data",
+        "themeColor": "#1a586c"
+      },
       {
         "key": "education",
         "path": "/en/education",
@@ -29,14 +45,45 @@
           { "id": "visits", "title": "Visits" }
         ]
       },
-      { "key": "dictionary", "path": "/en/dictionary", "title": "Dictionary", "themeColor": "#087065" },
-      { "key": "links", "path": "/en/useful-links", "title": "Useful links", "themeColor": "#3dd0ff" },
-      { "key": "about", "path": "/en/about", "title": "About", "themeColor": "#f97316" },
-      { "key": "contact", "path": "/en/contact", "title": "Contact", "themeColor": "#aaf954" }
+      {
+        "key": "dictionary",
+        "path": "/en/dictionary",
+        "title": "Dictionary",
+        "themeColor": "#087065"
+      },
+      {
+        "key": "links",
+        "path": "/en/useful-links",
+        "title": "Useful links",
+        "themeColor": "#3dd0ff"
+      },
+      {
+        "key": "about",
+        "path": "/en/about",
+        "title": "About",
+        "themeColor": "#f97316"
+      },
+      {
+        "key": "contact",
+        "path": "/en/contact",
+        "title": "Contact",
+        "themeColor": "#aaf954"
+      }
     ],
     "fr": [
-      { "key": "landing_page", "path": "/fr/", "title": "Accueil", "themeColor": "#00aad8", "hidden": true },
-      { "key": "landing_page_full", "path": "/fr/landing_page_full", "title": "Interactive", "themeColor": "#00aad8" },
+      {
+        "key": "landing_page",
+        "path": "/fr/",
+        "title": "Accueil",
+        "themeColor": "#00aad8",
+        "hidden": true
+      },
+      {
+        "key": "landing_page_interactive",
+        "path": "/fr/landing_page_interactive",
+        "title": "Interactive",
+        "themeColor": "#00aad8"
+      },
       {
         "key": "gcs",
         "path": "/fr/gcs",
@@ -49,7 +96,12 @@
           { "id": "switzerland", "title": "Le GCS en Suisse" }
         ]
       },
-      { "key": "data", "path": "/fr/data", "title": "Données", "themeColor": "#1a586c" },
+      {
+        "key": "data",
+        "path": "/fr/data",
+        "title": "Données",
+        "themeColor": "#1a586c"
+      },
       {
         "key": "education",
         "path": "/fr/education",
@@ -67,9 +119,24 @@
         "title": "Dictionnaire",
         "themeColor": "#087065"
       },
-      { "key": "links", "path": "/fr/liens-utiles", "title": "Liens utiles", "themeColor": "#3dd0ff" },
-      { "key": "about", "path": "/fr/a-propos", "title": "À propos", "themeColor": "#f97316" },
-      { "key": "contact", "path": "/fr/contact", "title": "Contact", "themeColor": "#aaf954" }
+      {
+        "key": "links",
+        "path": "/fr/liens-utiles",
+        "title": "Liens utiles",
+        "themeColor": "#3dd0ff"
+      },
+      {
+        "key": "about",
+        "path": "/fr/a-propos",
+        "title": "À propos",
+        "themeColor": "#f97316"
+      },
+      {
+        "key": "contact",
+        "path": "/fr/contact",
+        "title": "Contact",
+        "themeColor": "#aaf954"
+      }
     ]
   }
 }
