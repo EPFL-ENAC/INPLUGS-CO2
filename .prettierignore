@@ -6,6 +6,9 @@ node_modules/
 package-lock.json
 npm-shrinkwrap.json
 .python-version
+*mp4
+*webm
+
 # Python files and environments
 backend/.venv/*
 backend/**/*.py

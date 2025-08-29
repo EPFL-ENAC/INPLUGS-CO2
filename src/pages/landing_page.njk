@@ -10,25 +10,35 @@
                 <a href="/landing_page_interactive" class="btn-cta">{{ t("homepage.button") }}</a>
             </div>
             <div class="landing_page__visual">
-                <picture>
-                    <!-- WEBP source -->
+                <video 
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                preload="auto"
+                style="width: 100%; height: auto; object-fit: cover;">
+                <!-- <source src="{{ asset("/assets/videos/animation-optimized.webm") }}" type="video/webm">
+                  -->
+                
+                <source src="{{ asset("/assets/videos/output-400px.webm") }}" type="video/webm">
+                <source src="{{ asset("/assets/videos/animation-optimized.mp4") }}" type="video/mp4">
+                </video>
+                <!-- <picture>
                     <source type="image/webp"
                             srcset="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
                                     /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w"
                             sizes="(min-width: 800px) 800px,
                                    100vw">
-                    <!-- PNG source -->
                     <source type="image/png"
                             srcset="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
                                     /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w"
                             sizes="(min-width: 800px) 800px,
                                    100vw">
-                    <!-- Ultimate fallback -->
                     <img src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
                          alt="{{ t("homepage.image_alt") }}"
                          loading="lazy"
                          decoding="async">
-                </picture>
+                </picture> -->
             </section>
             <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script>
         </template>
