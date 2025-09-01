@@ -65,6 +65,9 @@ class LandingPageController {
 
       // Initialize scroll navigation
       this.initScrollNavigation();
+      
+      // Scroll to the first marker (4% position) on page load
+      this.scrollToFirstMarkerOnLoad();
     }
   }
 
@@ -193,6 +196,13 @@ class LandingPageController {
     this.updateScrollButtons();
   }
 
+  scrollToFirstMarkerOnLoad() {
+    // Small delay to ensure everything is rendered
+    setTimeout(() => {
+      this.scrollToStep(1);
+    }, 100);
+  }
+
   handleCTAClick(event) {
     // Only enhance with View Transitions if supported and motion allowed
     if (this.supportsViewTransitions && !this.prefersReducedMotion) {
@@ -219,13 +229,13 @@ class LandingPageController {
     if (event.key === "Escape") {
       this.navigateToLandingPage();
     }
-    // Scroll to next step on Space key
-    else if (event.key === " " && !event.shiftKey) {
+    // Scroll to next step on Space key or Right Arrow
+    else if ((event.key === " " && !event.shiftKey) || event.key === "ArrowRight") {
       event.preventDefault(); // Prevent default space behavior (scrolling)
       this.scrollToStep(this.currentStep + 1);
     }
-    // Scroll to previous step on Shift+Space
-    else if (event.key === " " && event.shiftKey) {
+    // Scroll to previous step on Shift+Space or Left Arrow
+    else if ((event.key === " " && event.shiftKey) || event.key === "ArrowLeft") {
       event.preventDefault(); // Prevent default space behavior (scrolling)
       this.scrollToStep(this.currentStep - 1);
     }
