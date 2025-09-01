@@ -7,15 +7,15 @@
 class LandingPageController {
   constructor() {
     // Get the shadow root
-    const indexContent = document.querySelector('index-content');
+    const indexContent = document.querySelector("index-content");
     this.shadowRoot = indexContent && indexContent.shadowRoot;
-    
+
     // Check if we have access to the shadow root
     if (!this.shadowRoot) {
-      console.error('Could not access shadow root');
+      console.error("Could not access shadow root");
       return;
     }
-    
+
     this.landingPageSection = this.shadowRoot.querySelector(".landing_page");
     this.ctaButton = this.shadowRoot.querySelector(".btn-cta");
     this.backButton = this.shadowRoot.querySelector(".btn-back");
@@ -62,7 +62,7 @@ class LandingPageController {
     // Listen for escape key to go back to landing page
     if (this.isFullPage) {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
-      
+
       // Initialize scroll navigation
       this.initScrollNavigation();
     }
@@ -72,7 +72,7 @@ class LandingPageController {
     // Get scroll navigation buttons from shadow root
     this.scrollUpBtn = this.shadowRoot.getElementById("scroll-up-btn");
     this.scrollDownBtn = this.shadowRoot.getElementById("scroll-down-btn");
-    
+
     // Get scroll markers from shadow root
     for (let i = 1; i <= 5; i++) {
       const marker = this.shadowRoot.getElementById(`scroll-marker-${i}`);
@@ -80,15 +80,23 @@ class LandingPageController {
         this.scrollMarkers.push(marker);
       }
     }
-    
-    if (this.scrollUpBtn && this.scrollDownBtn && this.scrollMarkers.length > 0) {
+
+    if (
+      this.scrollUpBtn &&
+      this.scrollDownBtn &&
+      this.scrollMarkers.length > 0
+    ) {
       // Add event listeners
-      this.scrollUpBtn.addEventListener("click", () => this.scrollToStep(this.currentStep - 1));
-      this.scrollDownBtn.addEventListener("click", () => this.scrollToStep(this.currentStep + 1));
-      
+      this.scrollUpBtn.addEventListener("click", () =>
+        this.scrollToStep(this.currentStep - 1),
+      );
+      this.scrollDownBtn.addEventListener("click", () =>
+        this.scrollToStep(this.currentStep + 1),
+      );
+
       // Update button states on scroll
       window.addEventListener("scroll", () => this.updateScrollButtons());
-      
+
       // Initial update
       this.updateScrollButtons();
     }
@@ -97,34 +105,35 @@ class LandingPageController {
   getCurrentStep() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
-    
+
     // Find the closest step
     let closestStep = 1;
     let minDistance = Math.abs(scrollPosition - 0);
-    
+
     for (let i = 0; i < this.scrollMarkers.length; i++) {
       const markerPosition = this.scrollMarkers[i].offsetTop;
       const distance = Math.abs(scrollPosition - markerPosition);
-      
+
       if (distance < minDistance) {
         minDistance = distance;
         closestStep = i + 1;
       }
     }
-    
+
     return closestStep;
   }
 
   updateScrollButtons() {
     this.currentStep = this.getCurrentStep();
-    
+
     // Disable/enable buttons based on current step
     if (this.scrollUpBtn) {
       this.scrollUpBtn.disabled = this.currentStep === 1;
     }
-    
+
     if (this.scrollDownBtn) {
-      this.scrollDownBtn.disabled = this.currentStep === this.scrollMarkers.length;
+      this.scrollDownBtn.disabled =
+        this.currentStep === this.scrollMarkers.length;
     }
   }
 
@@ -133,25 +142,25 @@ class LandingPageController {
     if (step < 1 || step > this.scrollMarkers.length) {
       return;
     }
-    
+
     // Get target position
     const targetMarker = this.scrollMarkers[step - 1];
     if (!targetMarker) {
       return;
     }
-    
+
     // Scroll to position
     const targetPosition = targetMarker.offsetTop;
-    
+
     // Use smooth scrolling
     window.scrollTo({
       top: targetPosition,
-      behavior: "smooth"
+      behavior: "smooth",
     });
-    
+
     // Update current step
     this.currentStep = step;
-    
+
     // Update button states
     this.updateScrollButtons();
   }
