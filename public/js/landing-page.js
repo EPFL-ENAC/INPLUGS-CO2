@@ -35,6 +35,11 @@ class LandingPageController {
     this.scrollMarkers = [];
     this.currentStep = 1;
 
+    // Touch swipe variables
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.swipeThreshold = 50; // Minimum swipe distance in pixels
+
     this.init();
   }
 
@@ -68,6 +73,11 @@ class LandingPageController {
 
       // Scroll to the first marker (4% position) on page load
       this.scrollToFirstMarkerOnLoad();
+
+      // Add touch event listeners for mobile swipe navigation
+      document.addEventListener("touchstart", this.handleTouchStart.bind(this));
+      document.addEventListener("touchmove", this.handleTouchMove.bind(this));
+      document.addEventListener("touchend", this.handleTouchEnd.bind(this));
     }
   }
 
@@ -261,6 +271,45 @@ class LandingPageController {
     };
 
     document.startViewTransition(navigation);
+  }
+
+  handleTouchStart(event) {
+    // Only handle touch events on the interactive landing page
+    if (!this.isFullPage) return;
+
+    // Store the initial touch position
+    this.touchStartX = event.changedTouches[0].screenX;
+  }
+
+  handleTouchMove(event) {
+    // Only handle touch events on the interactive landing page
+    if (!this.isFullPage) return;
+
+    // Prevent scrolling during swipe gesture
+    event.preventDefault();
+  }
+
+  handleTouchEnd(event) {
+    // Only handle touch events on the interactive landing page
+    if (!this.isFullPage) return;
+
+    // Store the final touch position
+    this.touchEndX = event.changedTouches[0].screenX;
+
+    // Calculate the swipe distance
+    const swipeDistance = this.touchStartX - this.touchEndX;
+
+    // Check if swipe distance exceeds threshold
+    if (Math.abs(swipeDistance) > this.swipeThreshold) {
+      // Swipe right - go to previous step
+      if (swipeDistance < 0) {
+        this.scrollToStep(this.currentStep - 1);
+      }
+      // Swipe left - go to next step
+      else {
+        this.scrollToStep(this.currentStep + 1);
+      }
+    }
   }
 }
 
