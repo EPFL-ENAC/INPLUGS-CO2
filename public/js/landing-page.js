@@ -40,6 +40,14 @@ class LandingPageController {
     this.touchEndX = 0;
     this.swipeThreshold = 50; // Minimum swipe distance in pixels
 
+    // Throttling variables for scroll updates
+    this.ticking = false;
+    this.lastStep = -1;
+    
+    // Debounce timer for minimap updates
+    this.minimapUpdateTimer = null;
+    this.minimapDebounceDelay = 50; // milliseconds
+
     this.init();
   }
 
@@ -120,7 +128,7 @@ class LandingPageController {
 
       // Update minimap markers on scroll (don't update navigation step)
       window.addEventListener("scroll", () => {
-        this.updateMinimapMarkers();
+        this.onScroll();
       });
 
       // Initial update
@@ -222,17 +230,33 @@ class LandingPageController {
   }
 
   updateMinimapMarkers() {
-    // Get current step based on scroll position (visually closest)
-    const visuallyClosestStep = this.getCurrentStep();
+    // Clear existing timer
+    if (this.minimapUpdateTimer) {
+      clearTimeout(this.minimapUpdateTimer);
+    }
 
-    // Update minimap markers to highlight the visually closest step
-    this.minimapMarkers.forEach((marker, index) => {
-      if (index + 1 === visuallyClosestStep) {
-        marker.classList.add("minimap-border");
-      } else {
-        marker.classList.remove("minimap-border");
+    // Set new timer
+    this.minimapUpdateTimer = setTimeout(() => {
+      // Get current step based on scroll position (visually closest)
+      const visuallyClosestStep = this.getCurrentStep();
+
+      // Only update if the step has changed
+      if (visuallyClosestStep === this.lastStep) {
+        return;
       }
-    });
+
+      // Update the last step
+      this.lastStep = visuallyClosestStep;
+
+      // Update minimap markers to highlight the visually closest step
+      this.minimapMarkers.forEach((marker, index) => {
+        if (index + 1 === visuallyClosestStep) {
+          marker.classList.add("minimap-border");
+        } else {
+          marker.classList.remove("minimap-border");
+        }
+      });
+    }, this.minimapDebounceDelay);
   }
 
   scrollToStep(step) {
@@ -366,6 +390,19 @@ class LandingPageController {
       else {
         this.scrollToStep(this.currentStep + 1);
       }
+    }
+  }
+
+  /**
+   * Throttled scroll handler using requestAnimationFrame
+   */
+  onScroll() {
+    if (!this.ticking) {
+      requestAnimationFrame(() => {
+        this.updateMinimapMarkers();
+        this.ticking = false;
+      });
+      this.ticking = true;
     }
   }
 }
