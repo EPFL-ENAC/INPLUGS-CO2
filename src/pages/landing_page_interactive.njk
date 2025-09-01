@@ -5,6 +5,13 @@
         <link rel="stylesheet"
               href='{{ asset("/assets/styles/landing_page_interactive.css") }}'>
         <section class="landing_page is-full-page">
+            <!-- Scroll position markers for navigation buttons -->
+            <div id="scroll-marker-1" class="scroll-marker" style="position: absolute; top: 0vh;"></div>
+            <div id="scroll-marker-2" class="scroll-marker" style="position: absolute; top: 100vh;"></div>
+            <div id="scroll-marker-3" class="scroll-marker" style="position: absolute; top: 200vh;"></div>
+            <div id="scroll-marker-4" class="scroll-marker" style="position: absolute; top: 300vh;"></div>
+            <div id="scroll-marker-5" class="scroll-marker" style="position: absolute; top: 400vh;"></div>
+            
             <div class="landing_page__visual">
                 {% include "landing_svg.njk" %}
                 <!-- <picture>
@@ -33,6 +40,21 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Scroll Navigation Buttons -->
+        <div class="scroll-nav-buttons">
+            <button id="scroll-up-btn" class="scroll-nav-button" disabled>
+                <svg class="scroll-arrow" viewBox="0 0 24 24">
+                    <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                </svg>
+            </button>
+            <button id="scroll-down-btn" class="scroll-nav-button">
+                <svg class="scroll-arrow scroll-arrow-down" viewBox="0 0 24 24">
+                    <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                </svg>
+            </button>
+        </div>
+        
         <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script>
     </template>
     </index-content>

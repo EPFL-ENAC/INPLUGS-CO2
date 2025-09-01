@@ -6,9 +6,19 @@
 
 class LandingPageController {
   constructor() {
-    this.landingPageSection = document.querySelector(".landing_page");
-    this.ctaButton = document.querySelector(".btn-cta");
-    this.backButton = document.querySelector(".btn-back");
+    // Get the shadow root
+    const indexContent = document.querySelector('index-content');
+    this.shadowRoot = indexContent && indexContent.shadowRoot;
+    
+    // Check if we have access to the shadow root
+    if (!this.shadowRoot) {
+      console.error('Could not access shadow root');
+      return;
+    }
+    
+    this.landingPageSection = this.shadowRoot.querySelector(".landing_page");
+    this.ctaButton = this.shadowRoot.querySelector(".btn-cta");
+    this.backButton = this.shadowRoot.querySelector(".btn-back");
     this.isFullPage = false;
 
     // Check for View Transition API support
@@ -18,6 +28,12 @@ class LandingPageController {
     this.prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+
+    // Scroll navigation elements
+    this.scrollUpBtn = null;
+    this.scrollDownBtn = null;
+    this.scrollMarkers = [];
+    this.currentStep = 1;
 
     this.init();
   }
@@ -46,7 +62,98 @@ class LandingPageController {
     // Listen for escape key to go back to landing page
     if (this.isFullPage) {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
+      
+      // Initialize scroll navigation
+      this.initScrollNavigation();
     }
+  }
+
+  initScrollNavigation() {
+    // Get scroll navigation buttons from shadow root
+    this.scrollUpBtn = this.shadowRoot.getElementById("scroll-up-btn");
+    this.scrollDownBtn = this.shadowRoot.getElementById("scroll-down-btn");
+    
+    // Get scroll markers from shadow root
+    for (let i = 1; i <= 5; i++) {
+      const marker = this.shadowRoot.getElementById(`scroll-marker-${i}`);
+      if (marker) {
+        this.scrollMarkers.push(marker);
+      }
+    }
+    
+    if (this.scrollUpBtn && this.scrollDownBtn && this.scrollMarkers.length > 0) {
+      // Add event listeners
+      this.scrollUpBtn.addEventListener("click", () => this.scrollToStep(this.currentStep - 1));
+      this.scrollDownBtn.addEventListener("click", () => this.scrollToStep(this.currentStep + 1));
+      
+      // Update button states on scroll
+      window.addEventListener("scroll", () => this.updateScrollButtons());
+      
+      // Initial update
+      this.updateScrollButtons();
+    }
+  }
+
+  getCurrentStep() {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // Find the closest step
+    let closestStep = 1;
+    let minDistance = Math.abs(scrollPosition - 0);
+    
+    for (let i = 0; i < this.scrollMarkers.length; i++) {
+      const markerPosition = this.scrollMarkers[i].offsetTop;
+      const distance = Math.abs(scrollPosition - markerPosition);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestStep = i + 1;
+      }
+    }
+    
+    return closestStep;
+  }
+
+  updateScrollButtons() {
+    this.currentStep = this.getCurrentStep();
+    
+    // Disable/enable buttons based on current step
+    if (this.scrollUpBtn) {
+      this.scrollUpBtn.disabled = this.currentStep === 1;
+    }
+    
+    if (this.scrollDownBtn) {
+      this.scrollDownBtn.disabled = this.currentStep === this.scrollMarkers.length;
+    }
+  }
+
+  scrollToStep(step) {
+    // Validate step
+    if (step < 1 || step > this.scrollMarkers.length) {
+      return;
+    }
+    
+    // Get target position
+    const targetMarker = this.scrollMarkers[step - 1];
+    if (!targetMarker) {
+      return;
+    }
+    
+    // Scroll to position
+    const targetPosition = targetMarker.offsetTop;
+    
+    // Use smooth scrolling
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth"
+    });
+    
+    // Update current step
+    this.currentStep = step;
+    
+    // Update button states
+    this.updateScrollButtons();
   }
 
   handleCTAClick(event) {

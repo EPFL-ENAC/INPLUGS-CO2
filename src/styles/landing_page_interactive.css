@@ -180,6 +180,63 @@
     outline-offset: 2px;
   }
 
+  /* ---------- Scroll Navigation Buttons ---------- */
+  .scroll-nav-buttons {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 100;
+  }
+
+  .scroll-nav-button {
+    width: 58.772px;
+    height: 58.772px;
+    flex-shrink: 0;
+    border-radius: 58.772px;
+    border: none;
+    background: rgba(170, 249, 84, 0.29);
+    backdrop-filter: blur(2.5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .scroll-nav-button:enabled {
+    background: rgba(144, 224, 54, 0.70);
+    backdrop-filter: blur(2.5px);
+  }
+
+  .scroll-nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .scroll-nav-button:hover:enabled {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .scroll-nav-button:focus-visible {
+    outline: 2px solid #9af640;
+    outline-offset: 2px;
+  }
+
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+
+  .scroll-arrow-down {
+    transform: rotate(180deg);
+  }
+
   /* ---------- Accessibility & Motion Reduction ---------- */
   @media (prefers-reduced-motion: reduce) {
     .landing_page,
