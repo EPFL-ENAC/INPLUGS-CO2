@@ -492,24 +492,30 @@
 /* dyanmic svvg */
 
 .cloud-right {
-    transform: translate(calc(100vw - 35px), 240px);
+  transform: translate(calc(100vw - 35px), 240px);
 }
 
 @media (max-width: 768px) {
-    .cloud-right { transform: translate(90vw, 80px); }
+  .cloud-right {
+    transform: translate(90vw, 80px);
+  }
 }
 
 .cloud-right-2 {
-    transform: translate(calc(100vw - 427px), 120px);
+  transform: translate(calc(100vw - 427px), 120px);
 }
 
 @media (max-width: 768px) {
-    .cloud-right-2 { transform: translate(90vw, 80px); }
+  .cloud-right-2 {
+    transform: translate(90vw, 80px);
+  }
 }
 .cloud-left {
-    transform: translate(-100px, 80px);
+  transform: translate(-100px, 80px);
 }
 
 @media (max-width: 768px) {
-    .cloud-left { transform: translate(-90vw, 80px); }
+  .cloud-left {
+    transform: translate(-90vw, 80px);
+  }
 }
