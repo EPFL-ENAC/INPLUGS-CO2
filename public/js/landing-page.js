@@ -105,6 +105,14 @@ class LandingPageController {
       }
     }
 
+    // Log marker positions for debugging
+    console.log("[DEBUG] initScrollNavigation - Scroll marker positions:");
+    for (let i = 0; i < this.scrollMarkers.length; i++) {
+      console.log(
+        `[DEBUG] Marker ${i + 1}: offsetTop = ${this.scrollMarkers[i].offsetTop}`,
+      );
+    }
+
     if (
       this.scrollUpBtn &&
       this.scrollDownBtn &&
@@ -131,24 +139,110 @@ class LandingPageController {
 
   getCurrentStep() {
     const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const viewportCenter = scrollPosition + windowHeight / 2;
 
-    // Find the closest step based on visual positioning
-    let closestStep = 1;
-    let minDistance = Math.abs(
-      scrollPosition - this.scrollMarkers[0].offsetTop,
-    );
+    console.log(`[DEBUG] getCurrentStep - Scroll position: ${scrollPosition}`);
+    console.log(`[DEBUG] getCurrentStep - Window height: ${windowHeight}`);
+    console.log(`[DEBUG] getCurrentStep - Viewport center: ${viewportCenter}`);
 
-    for (let i = 1; i < this.scrollMarkers.length; i++) {
-      const markerPosition = this.scrollMarkers[i].offsetTop;
-      const distance = Math.abs(scrollPosition - markerPosition);
+    // Find the step that is most visible based on a scoring system
+    let bestScore = -Infinity;
+    let bestStep = 1;
 
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestStep = i + 1;
+    for (let i = 0; i < this.scrollMarkers.length; i++) {
+      const marker = this.scrollMarkers[i];
+      const markerPosition = marker.offsetTop;
+
+      // Get the associated info box for this marker (assuming they correspond)
+      // Info boxes are inside the shadow DOM, so we need to use shadowRoot.querySelector
+      const infoBox = this.shadowRoot
+        ? this.shadowRoot.querySelector(`#info-box-${i + 1}`)
+        : null;
+
+      // Calculate visibility metrics
+      let visibilityRatio = 0;
+      let centerDistance = 0;
+      let elementTop = 0;
+      let elementBottom = 0;
+
+      if (infoBox) {
+        // For info boxes, calculate how much is visible in viewport
+        const rect = infoBox.getBoundingClientRect();
+        elementTop = rect.top + scrollPosition;
+        elementBottom = rect.bottom + scrollPosition;
+
+        // Calculate intersection with viewport
+        const visibleTop = Math.max(scrollPosition, elementTop);
+        const visibleBottom = Math.min(
+          scrollPosition + windowHeight,
+          elementBottom,
+        );
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const elementHeight = elementBottom - elementTop;
+
+        visibilityRatio = elementHeight > 0 ? visibleHeight / elementHeight : 0;
+
+        // Distance from element center to viewport center
+        const elementCenter = (elementTop + elementBottom) / 2;
+        centerDistance = Math.abs(viewportCenter - elementCenter);
+      } else {
+        // Fallback to marker-based calculation if no info box
+        visibilityRatio = 1; // Assume fully visible
+        centerDistance = Math.abs(viewportCenter - markerPosition);
+        elementTop = markerPosition;
+        elementBottom = markerPosition;
+      }
+
+      // Calculate score (higher is better)
+      // Prefer elements that are more visible and closer to center
+      // Enhanced scoring: heavily prioritize fully visible elements
+      let score = 0;
+      const centerScore = 1 / (1 + centerDistance / 1000);
+
+      if (visibilityRatio >= 0.95) {
+        // If almost fully visible, prioritize center proximity heavily (90% center, 10% visibility)
+        score = visibilityRatio * 0.1 + centerScore * 0.9;
+      } else if (visibilityRatio >= 0.5) {
+        // If moderately visible, balance visibility and center proximity (60% visibility, 40% center)
+        score = visibilityRatio * 0.6 + centerScore * 0.4;
+      } else {
+        // If barely visible, prioritize visibility heavily (80% visibility, 20% center)
+        score = visibilityRatio * 0.8 + centerScore * 0.2;
+      }
+
+      console.log(
+        `[DEBUG] getCurrentStep - Marker ${i + 1} (index ${i}) position: ${markerPosition}`,
+      );
+      console.log(
+        `[DEBUG] getCurrentStep - Info box: ${infoBox ? "found" : "not found"}`,
+      );
+      console.log(
+        `[DEBUG] getCurrentStep - Element top: ${elementTop}, bottom: ${elementBottom}`,
+      );
+      console.log(
+        `[DEBUG] getCurrentStep - Element height: ${elementBottom - elementTop}`,
+      );
+      console.log(
+        `[DEBUG] getCurrentStep - Visible height: ${Math.max(0, Math.min(scrollPosition + windowHeight, elementBottom) - Math.max(scrollPosition, elementTop))}`,
+      );
+      console.log(
+        `[DEBUG] getCurrentStep - Visibility ratio: ${visibilityRatio}, Center distance: ${centerDistance}, Score: ${score}`,
+      );
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestStep = i + 1;
+        console.log(
+          `[DEBUG] getCurrentStep - Updated best step to: ${bestStep} with score: ${score}`,
+        );
       }
     }
 
-    return closestStep;
+    console.log(
+      `[DEBUG] getCurrentStep - Final best step: ${bestStep} with score: ${bestScore}`,
+    );
+    return bestStep;
   }
 
   updateScrollButtons() {
@@ -165,13 +259,20 @@ class LandingPageController {
   }
 
   updateMinimapMarkers() {
+    console.log("[DEBUG] updateMinimapMarkers - Updating minimap markers");
     // Get current step based on scroll position (visually closest)
     const visuallyClosestStep = this.getCurrentStep();
+    console.log(
+      `[DEBUG] updateMinimapMarkers - Visually closest step: ${visuallyClosestStep}`,
+    );
 
     // Update minimap markers to highlight the visually closest step
     this.minimapMarkers.forEach((marker, index) => {
       if (index + 1 === visuallyClosestStep) {
         marker.classList.add("minimap-border");
+        console.log(
+          `[DEBUG] updateMinimapMarkers - Added border to marker ${index + 1}`,
+        );
       } else {
         marker.classList.remove("minimap-border");
       }
@@ -179,19 +280,25 @@ class LandingPageController {
   }
 
   scrollToStep(step) {
+    console.log(`[DEBUG] scrollToStep - Scrolling to step: ${step}`);
     // Validate step
     if (step < 1 || step > this.scrollMarkers.length) {
+      console.log(`[DEBUG] scrollToStep - Invalid step: ${step}`);
       return;
     }
 
     // Get target position
     const targetMarker = this.scrollMarkers[step - 1];
     if (!targetMarker) {
+      console.log(
+        `[DEBUG] scrollToStep - Target marker not found for step: ${step}`,
+      );
       return;
     }
 
     // Scroll to position
     const targetPosition = targetMarker.offsetTop;
+    console.log(`[DEBUG] scrollToStep - Target position: ${targetPosition}`);
 
     // Use smooth scrolling
     window.scrollTo({
@@ -201,6 +308,9 @@ class LandingPageController {
 
     // Update current step
     this.currentStep = step;
+    console.log(
+      `[DEBUG] scrollToStep - Updated currentStep to: ${this.currentStep}`,
+    );
 
     // Update button states
     this.updateScrollButtons();
