@@ -105,9 +105,8 @@ class LandingPageController {
         this.scrollToStep(this.currentStep + 1),
       );
 
-      // Update button states and minimap markers on scroll
+      // Update minimap markers on scroll (don't update navigation step)
       window.addEventListener("scroll", () => {
-        this.updateScrollButtons();
         this.updateMinimapMarkers();
       });
 
@@ -119,13 +118,12 @@ class LandingPageController {
 
   getCurrentStep() {
     const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-
-    // Find the closest step
+    
+    // Find the closest step based on visual positioning
     let closestStep = 1;
-    let minDistance = Math.abs(scrollPosition - 0);
+    let minDistance = Math.abs(scrollPosition - this.scrollMarkers[0].offsetTop);
 
-    for (let i = 0; i < this.scrollMarkers.length; i++) {
+    for (let i = 1; i < this.scrollMarkers.length; i++) {
       const markerPosition = this.scrollMarkers[i].offsetTop;
       const distance = Math.abs(scrollPosition - markerPosition);
 
@@ -139,9 +137,8 @@ class LandingPageController {
   }
 
   updateScrollButtons() {
-    this.currentStep = this.getCurrentStep();
-
     // Disable/enable buttons based on current step
+    // We use the stored currentStep for navigation, not the visually detected step
     if (this.scrollUpBtn) {
       this.scrollUpBtn.disabled = this.currentStep === 1;
     }
@@ -153,12 +150,12 @@ class LandingPageController {
   }
 
   updateMinimapMarkers() {
-    // Get current step based on scroll position
-    const currentStep = this.getCurrentStep();
+    // Get current step based on scroll position (visually closest)
+    const visuallyClosestStep = this.getCurrentStep();
 
-    // Update minimap markers
+    // Update minimap markers to highlight the visually closest step
     this.minimapMarkers.forEach((marker, index) => {
-      if (index + 1 === currentStep) {
+      if (index + 1 === visuallyClosestStep) {
         marker.classList.add("minimap-border");
       } else {
         marker.classList.remove("minimap-border");
@@ -213,9 +210,22 @@ class LandingPageController {
   }
 
   handleKeyDown(event) {
-    // Go back to landing page on Escape key when on full page
-    if (event.key === "Escape" && this.isFullPage) {
+    // Only handle keys on the interactive landing page
+    if (!this.isFullPage) return;
+    
+    // Go back to landing page on Escape key
+    if (event.key === "Escape") {
       this.navigateToLandingPage();
+    }
+    // Scroll to next step on Space key
+    else if (event.key === " " && !event.shiftKey) {
+      event.preventDefault(); // Prevent default space behavior (scrolling)
+      this.scrollToStep(this.currentStep + 1);
+    }
+    // Scroll to previous step on Shift+Space
+    else if (event.key === " " && event.shiftKey) {
+      event.preventDefault(); // Prevent default space behavior (scrolling)
+      this.scrollToStep(this.currentStep - 1);
     }
   }
 
