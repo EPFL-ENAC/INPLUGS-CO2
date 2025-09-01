@@ -105,14 +105,6 @@ class LandingPageController {
       }
     }
 
-    // Log marker positions for debugging
-    console.log("[DEBUG] initScrollNavigation - Scroll marker positions:");
-    for (let i = 0; i < this.scrollMarkers.length; i++) {
-      console.log(
-        `[DEBUG] Marker ${i + 1}: offsetTop = ${this.scrollMarkers[i].offsetTop}`,
-      );
-    }
-
     if (
       this.scrollUpBtn &&
       this.scrollDownBtn &&
@@ -141,10 +133,6 @@ class LandingPageController {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const viewportCenter = scrollPosition + windowHeight / 2;
-
-    console.log(`[DEBUG] getCurrentStep - Scroll position: ${scrollPosition}`);
-    console.log(`[DEBUG] getCurrentStep - Window height: ${windowHeight}`);
-    console.log(`[DEBUG] getCurrentStep - Viewport center: ${viewportCenter}`);
 
     // Find the step that is most visible based on a scoring system
     let bestScore = -Infinity;
@@ -211,37 +199,12 @@ class LandingPageController {
         score = visibilityRatio * 0.8 + centerScore * 0.2;
       }
 
-      console.log(
-        `[DEBUG] getCurrentStep - Marker ${i + 1} (index ${i}) position: ${markerPosition}`,
-      );
-      console.log(
-        `[DEBUG] getCurrentStep - Info box: ${infoBox ? "found" : "not found"}`,
-      );
-      console.log(
-        `[DEBUG] getCurrentStep - Element top: ${elementTop}, bottom: ${elementBottom}`,
-      );
-      console.log(
-        `[DEBUG] getCurrentStep - Element height: ${elementBottom - elementTop}`,
-      );
-      console.log(
-        `[DEBUG] getCurrentStep - Visible height: ${Math.max(0, Math.min(scrollPosition + windowHeight, elementBottom) - Math.max(scrollPosition, elementTop))}`,
-      );
-      console.log(
-        `[DEBUG] getCurrentStep - Visibility ratio: ${visibilityRatio}, Center distance: ${centerDistance}, Score: ${score}`,
-      );
-
       if (score > bestScore) {
         bestScore = score;
         bestStep = i + 1;
-        console.log(
-          `[DEBUG] getCurrentStep - Updated best step to: ${bestStep} with score: ${score}`,
-        );
       }
     }
 
-    console.log(
-      `[DEBUG] getCurrentStep - Final best step: ${bestStep} with score: ${bestScore}`,
-    );
     return bestStep;
   }
 
@@ -259,20 +222,13 @@ class LandingPageController {
   }
 
   updateMinimapMarkers() {
-    console.log("[DEBUG] updateMinimapMarkers - Updating minimap markers");
     // Get current step based on scroll position (visually closest)
     const visuallyClosestStep = this.getCurrentStep();
-    console.log(
-      `[DEBUG] updateMinimapMarkers - Visually closest step: ${visuallyClosestStep}`,
-    );
 
     // Update minimap markers to highlight the visually closest step
     this.minimapMarkers.forEach((marker, index) => {
       if (index + 1 === visuallyClosestStep) {
         marker.classList.add("minimap-border");
-        console.log(
-          `[DEBUG] updateMinimapMarkers - Added border to marker ${index + 1}`,
-        );
       } else {
         marker.classList.remove("minimap-border");
       }
@@ -280,25 +236,19 @@ class LandingPageController {
   }
 
   scrollToStep(step) {
-    console.log(`[DEBUG] scrollToStep - Scrolling to step: ${step}`);
     // Validate step
     if (step < 1 || step > this.scrollMarkers.length) {
-      console.log(`[DEBUG] scrollToStep - Invalid step: ${step}`);
       return;
     }
 
     // Get target position
     const targetMarker = this.scrollMarkers[step - 1];
     if (!targetMarker) {
-      console.log(
-        `[DEBUG] scrollToStep - Target marker not found for step: ${step}`,
-      );
       return;
     }
 
     // Scroll to position
     const targetPosition = targetMarker.offsetTop;
-    console.log(`[DEBUG] scrollToStep - Target position: ${targetPosition}`);
 
     // Use smooth scrolling
     window.scrollTo({
@@ -308,9 +258,6 @@ class LandingPageController {
 
     // Update current step
     this.currentStep = step;
-    console.log(
-      `[DEBUG] scrollToStep - Updated currentStep to: ${this.currentStep}`,
-    );
 
     // Update button states
     this.updateScrollButtons();
