@@ -94,9 +94,15 @@
     "urls": ["/{{ locale }}/gcs", "/{{ locale }}/data", "/{{ locale }}/education"],
     "eagerness": "moderate"
   }],
-  "prefetch": [{
-    "where": { "selector_matches": "nav a", "href_matches": "/{{ locale }}/.+" },
-    "eagerness": "conservative"
-  }]
+  "prefetch": [
+    {
+      "where": { "selector_matches": "nav a" },
+      "eagerness": "conservative"
+    },
+    {
+      "where": { "href_matches": "/{{ locale }}/*" },
+      "eagerness": "conservative"
+    }
+  ]
 }
 </script>

@@ -15,21 +15,25 @@
     "button": "Learn more",
     "image_alt": "Geological CO2 storage illustration",
     "info_boxes": {
-      "injection": {
-        "title": "CO2 Injection",
-        "description": "Learn how carbon dioxide is safely injected into underground geological formations for long-term storage."
+      "box1": {
+        "title": "CO₂ capture",
+        "description": "CO2 is directly <i>captured</i> from large emitters before being released in the atmosphere"
       },
-      "formations": {
-        "title": "Rock Formations",
-        "description": "Discover the specific types of rock layers that make ideal storage sites for captured CO2."
+      "box2": {
+        "title": "CO₂ compression & injection",
+        "description": "<i>Captured</i> CO2 is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth env. 700-800m"
       },
-      "monitoring": {
-        "title": "Monitoring Systems",
-        "description": "Explore the advanced technologies used to monitor and verify CO2 storage integrity over time."
+      "box3": {
+        "title": "CO₂ storage",
+        "description": "CO2 is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
       },
-      "safety": {
-        "title": "Environmental Safety",
-        "description": "Understand the multiple safety measures and protocols that protect the environment and communities."
+      "box4": {
+        "title": "CO₂ migration",
+        "description": "The injected CO2 is <i>less dense</i> than the existing water in the pores and starts migrating upwards"
+      },
+      "box5": {
+        "title": "CO₂ trapping",
+        "description": "The <i>buoyant</i> CO2 is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
       }
     }
   },

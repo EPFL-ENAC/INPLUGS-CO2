@@ -1,4 +1,5 @@
 @layer components {
+
   /* ---------- Full Page Layout (landing_page_interactive.njk) ---------- */
   .landing_page.is-full-page {
     padding: 0;
@@ -25,10 +26,12 @@
   }*/
   .landing_page.is-full-page .landing_page__visual {
     position: relative;
-    width: 100vw; /* Changed from 100% to 100vw for full viewport width */
+    width: 100vw;
+    /* Changed from 100% to 100vw for full viewport width */
     height: auto;
     z-index: 1;
-    overflow-x: hidden; /* Changed from auto to hidden */
+    overflow-x: hidden;
+    /* Changed from auto to hidden */
   }
 
   /* Target the SVG directly */
@@ -88,8 +91,9 @@
     height: 100%;
     z-index: 10;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease 0.3s; /* Delay appearance */
+    opacity: 1;
+    transition: opacity 0.6s ease 0.3s;
+    /* Delay appearance */
   }
 
   .landing_page.is-state2 .info-boxes {
@@ -99,32 +103,73 @@
 
   .info-box {
     position: absolute;
-    background: rgba(255, 255, 255, 0.95);
+    /* background: rgba(255, 255, 255, 0.95); */
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 1.5rem;
-    max-width: 280px;
+    max-width: 834px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     transform: translateY(20px);
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(26, 88, 108, 0.50);
+    backdrop-filter: blur(6.5px);
+
+        color: var(--blanc-cass, #F4F0EB);
+    /* etiquettes */
+    font-family: Archivo;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+    /* 100% */
+    letter-spacing: -1.8px;
+    display:grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+
   }
+  .info-box p {
+        /* text */
+    color: var(--blanc-cass, #F4F0EB);
+    /* etiquettes */
+    font-family: Archivo;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+    /* 100% */
+    letter-spacing: -1.8px;
+    margin: 0px
+  }
+  .info-box i {
+    color: var(--vert-punchy, #90E036);
+    /* etiquettes bold */
+    font-family: Archivo;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 60px;
+    letter-spacing: -1.8px;
+  }
+  .info-box h3 {
+        color: var(--blanc-cass, #F4F0EB);
+    /* etiquettes */
+    font-family: Archivo;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 60px;
+    /* 100% */
+    letter-spacing: -1.8px;
+    margin: 0px
+  }
+
+.icon-small { width: 30px; height: 30px; }
+.icon-medium { width: 45px; height: 45px; }
+.icon-large { width: 60px; height: 60px; }
 
   .landing_page.is-state2 .info-box {
     transform: translateY(0);
-  }
-
-  .info-box h3 {
-    margin: 0 0 0.75rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1a586c;
-  }
-
-  .info-box p {
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #333;
   }
 
   /* Info box positions */
@@ -148,10 +193,15 @@
 
   .info-box:nth-child(4) {
     bottom: 15%;
-    right: 8%;
+    right: 30%;
     transition-delay: 1.1s;
   }
 
+    .info-box:nth-child(5) {
+    bottom: 45%;
+    right: 30%;
+    transition-delay: 1.1s;
+  }
   /* ---------- Close Button ---------- */
   .btn-close {
     position: fixed;
@@ -239,6 +289,7 @@
 
   /* ---------- Accessibility & Motion Reduction ---------- */
   @media (prefers-reduced-motion: reduce) {
+
     .landing_page,
     .landing_page__visual img,
     .landing_page__visual picture,
@@ -302,7 +353,8 @@
     font-size: 4.375rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 4.375rem; /* 100% */
+    line-height: 4.375rem;
+    /* 100% */
     letter-spacing: -0.13125rem;
   }
 
@@ -374,7 +426,8 @@
     letter-spacing: -0.75px;
     position: absolute;
     left: 10px;
-    z-index: 16; /* Above minimap image but below buttons */
+    z-index: 16;
+    /* Above minimap image but below buttons */
     padding: 2px 6px;
     border-radius: 4px;
     transition: all 0.3s ease;
