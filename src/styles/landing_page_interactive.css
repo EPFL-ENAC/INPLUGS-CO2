@@ -244,7 +244,7 @@
     bottom: 1.5rem;
     right: 1.5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     z-index: 100;
   }
@@ -289,10 +289,11 @@
     width: 24px;
     height: 24px;
     fill: white;
+    transform: rotate(-90deg);
   }
 
   .scroll-arrow-down {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
   }
 
   /* ---------- Accessibility & Motion Reduction ---------- */
