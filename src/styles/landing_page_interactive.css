@@ -461,4 +461,29 @@
   #scroll-minimap-marker-5 {
     top: 155px;
   }
+
+  /* ---------- Scroll Markers ---------- */
+  .scroll-marker {
+    position: absolute;
+  }
+
+  #scroll-marker-1 {
+    top: 4%;
+  }
+
+  #scroll-marker-2 {
+    top: 38%;
+  }
+
+  #scroll-marker-3 {
+    top: 90%;
+  }
+
+  #scroll-marker-4 {
+    top: 70%;
+  }
+
+  #scroll-marker-5 {
+    top: 55%;
+  }
 }
