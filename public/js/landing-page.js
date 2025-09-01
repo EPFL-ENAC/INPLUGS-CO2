@@ -118,10 +118,12 @@ class LandingPageController {
 
   getCurrentStep() {
     const scrollPosition = window.scrollY;
-    
+
     // Find the closest step based on visual positioning
     let closestStep = 1;
-    let minDistance = Math.abs(scrollPosition - this.scrollMarkers[0].offsetTop);
+    let minDistance = Math.abs(
+      scrollPosition - this.scrollMarkers[0].offsetTop,
+    );
 
     for (let i = 1; i < this.scrollMarkers.length; i++) {
       const markerPosition = this.scrollMarkers[i].offsetTop;
@@ -212,7 +214,7 @@ class LandingPageController {
   handleKeyDown(event) {
     // Only handle keys on the interactive landing page
     if (!this.isFullPage) return;
-    
+
     // Go back to landing page on Escape key
     if (event.key === "Escape") {
       this.navigateToLandingPage();
