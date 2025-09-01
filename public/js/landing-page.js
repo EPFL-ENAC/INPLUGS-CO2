@@ -84,7 +84,9 @@ class LandingPageController {
     // Get minimap markers from shadow root
     this.minimapMarkers = [];
     for (let i = 1; i <= 5; i++) {
-      const marker = this.shadowRoot.getElementById(`scroll-minimap-marker-${i}`);
+      const marker = this.shadowRoot.getElementById(
+        `scroll-minimap-marker-${i}`,
+      );
       if (marker) {
         this.minimapMarkers.push(marker);
       }
@@ -153,7 +155,7 @@ class LandingPageController {
   updateMinimapMarkers() {
     // Get current step based on scroll position
     const currentStep = this.getCurrentStep();
-    
+
     // Update minimap markers
     this.minimapMarkers.forEach((marker, index) => {
       if (index + 1 === currentStep) {

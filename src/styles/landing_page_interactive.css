@@ -348,13 +348,13 @@
     right: 3.5rem;
     /* Border removed - will be applied to active marker instead */
   }
-  
+
   .minimap-border {
     border: 2px solid var(--blanc-cass, #f4f0eb);
     border-radius: 6px;
     box-shadow: 0 0 8px rgba(244, 240, 235, 0.5);
   }
-  
+
   .minimap img {
     /* aspect-ratio: 33/88; */
     width: 100%;
