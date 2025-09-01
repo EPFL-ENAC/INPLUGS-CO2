@@ -81,6 +81,15 @@ class LandingPageController {
       }
     }
 
+    // Get minimap markers from shadow root
+    this.minimapMarkers = [];
+    for (let i = 1; i <= 5; i++) {
+      const marker = this.shadowRoot.getElementById(`scroll-minimap-marker-${i}`);
+      if (marker) {
+        this.minimapMarkers.push(marker);
+      }
+    }
+
     if (
       this.scrollUpBtn &&
       this.scrollDownBtn &&
@@ -94,11 +103,15 @@ class LandingPageController {
         this.scrollToStep(this.currentStep + 1),
       );
 
-      // Update button states on scroll
-      window.addEventListener("scroll", () => this.updateScrollButtons());
+      // Update button states and minimap markers on scroll
+      window.addEventListener("scroll", () => {
+        this.updateScrollButtons();
+        this.updateMinimapMarkers();
+      });
 
       // Initial update
       this.updateScrollButtons();
+      this.updateMinimapMarkers();
     }
   }
 
@@ -135,6 +148,20 @@ class LandingPageController {
       this.scrollDownBtn.disabled =
         this.currentStep === this.scrollMarkers.length;
     }
+  }
+
+  updateMinimapMarkers() {
+    // Get current step based on scroll position
+    const currentStep = this.getCurrentStep();
+    
+    // Update minimap markers
+    this.minimapMarkers.forEach((marker, index) => {
+      if (index + 1 === currentStep) {
+        marker.classList.add("minimap-border");
+      } else {
+        marker.classList.remove("minimap-border");
+      }
+    });
   }
 
   scrollToStep(step) {
