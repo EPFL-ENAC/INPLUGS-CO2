@@ -336,4 +336,56 @@
       -apple-system,
       sans-serif;
   }
+
+  /* ---------- Minimap ---------- */
+  .minimap {
+    position: fixed;
+    top: 10rem;
+    right: 0;
+    width: 146px;
+    z-index: 15;
+    pointer-events: none;
+    right: 3.5rem;
+  }
+
+  .minimap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Scroll Mini Markers ---------- */
+  .scroll-mini-marker {
+    color: var(--blanc-cass, #f4f0eb);
+    /* legends */
+    font-family: Archivo;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    position: absolute;
+    left: 10px;
+  }
+
+  /* Individual marker positions */
+  #scroll-minimap-marker-1 {
+    top: 2px;
+  }
+
+  #scroll-minimap-marker-2 {
+    top: 100px;
+  }
+
+  #scroll-minimap-marker-3 {
+    top: 249px;
+  }
+
+  #scroll-minimap-marker-4 {
+    top: 179px;
+  }
+
+  #scroll-minimap-marker-5 {
+    top: 155px;
+  }
 }

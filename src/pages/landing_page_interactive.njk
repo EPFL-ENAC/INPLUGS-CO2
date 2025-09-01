@@ -54,22 +54,30 @@
             </button>
         </div>
 
-        <picture>
+        <picture class="minimap">
             <source srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap-146w@1x.webp 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-292w@2x.webp 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-438w@3x.webp 3") }}x
+      {{ asset("/assets/images/landing-page-interactive/minimap@1x.webp 1x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@2x.webp 2x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@3x.webp 3x") }}
     " type="image/webp">
             <source srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap-146w@1x.png 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-292w@2x.png 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-438w@3x.png 3x") }}
+      {{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}
     " type="image/png">
-            <img src="{{ asset("/assets/images/landing-page-interactive/minimap-146w@1x.png") }}" srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap-146w@1x.png 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-292w@2x.png 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap-438w@3x.png 3x") }}
-    " alt="Minimap preview" width="146" height="auto" loading="lazy" style="max-width: 100%; height: auto;">
+            <img src="{{ asset("/assets/images/landing-page-interactive/minimap@1x.png") }}" srcset="
+      {{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }},
+      {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}
+    " alt="Minimap preview" loading="lazy">
+
+        <!-- Scroll position markers for navigation buttons -->
+        <div id="scroll-minimap-marker-1" class="scroll-mini-marker">1</div>
+        <div id="scroll-minimap-marker-2" class="scroll-mini-marker">2</div>
+        <div id="scroll-minimap-marker-3" class="scroll-mini-marker">3</div>
+        <div id="scroll-minimap-marker-4" class="scroll-mini-marker">4</div>
+        <div id="scroll-minimap-marker-5" class="scroll-mini-marker">5</div>
+
         </picture>
 
         <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script>
