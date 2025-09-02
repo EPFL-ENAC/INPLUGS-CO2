@@ -12,3 +12,6 @@
 7.  Add a way to ignore .DS_Store for build etc ?
 
 8.  Add polyfill for safari and firefox maybe ?
+- Test so firefox (1280x3003)
+- y'a  de problèmes de resolutions:. des lenovo avec des pixelRatio de 3
+- possibilité de cliquer sur la minimap (les nombres)

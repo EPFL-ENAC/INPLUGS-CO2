@@ -1,5 +1,13 @@
-{% extends 'layouts/main.njk' %}
+{% extends "main.njk" %}
 {% block content %}
-    <h2>{{ catalogs[locale or 'en']['data.title'] if catalogs else 'Data' }}</h2>
-    <p>Access and explore carbon storage and removal data.</p>
+<data-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/data.css") }}'>
+
+        <main class="data_page">
+            COUCOU
+        </main>
+        <!-- <script type="module" src='{{ asset("/assets/js/data.js") }}'></script> -->
+    </template>
+</data-content>
 {% endblock %}
