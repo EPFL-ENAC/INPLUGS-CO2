@@ -2,12 +2,12 @@
     <!-- Road motion path -->
     <path id="roadPath" d="M77 590.72 C150,200 300,260 580,220" />
     <!-- Reusable car symbol (centered around 0,0 for easier path following) -->
-    <g id="car">
+    <symbol id="car">
         <rect x="-22" y="-12" width="44" height="24" rx="4" fill="#e53935" />
         <rect x="-10" y="-10" width="20" height="10" fill="#ffcdd2" />
         <circle cx="-12" cy="14" r="6" fill="#333" />
         <circle cx="12" cy="14" r="6" fill="#333" />
-    </g>
+    </symbol>
 
     <g id="car-new">
         <path d="M25.21 2.15s-7.1.5-8.75.7-2.36.44-2.41.9 2.36 2.21 4.27 2.59z" style="fill:#4a433c" />
@@ -92,6 +92,8 @@
             <animate attributeName="opacity" values="0.6; 0" dur="1s" repeatCount="indefinite" />
         </circle>
     </symbol>
+
+    <symbol id="car-puff" data-name="car-puff" viewBox="0 0 37.03 46.86"><circle cx="32.12" cy="39.13" r="4.91" style="fill:#efe1d7"/><circle cx="19.14" cy="31.86" r="11.48" style="fill:#efe1d7"/><circle cx="16.21" cy="18.05" r="10.73" style="fill:#efe1d7"/><circle cx="30.21" cy="30.03" r="4.89" style="fill:#efe1d7"/><circle cx="25.28" cy="42.34" r="4.52" style="fill:#efe1d7"/><circle cx="19.93" cy="36.6" r="5.18" style="fill:#efe1d7"/><circle cx="6.41" cy="31.46" r="5.46" style="fill:#efe1d7"/><circle cx="6.59" cy="7.1" r="6.59" style="fill:#efe1d7"/><circle cx="10.58" cy="12.37" r="6.12" style="fill:#efe1d7"/><circle cx="17.26" cy="5.65" r="5.65" style="fill:#efe1d7"/></symbol>
 </defs>
 <!-- Animated layer:
 1. the car and its puffs are grouped so they can be hidden/shown together
@@ -115,6 +117,11 @@
             <mpath href="#road-straight-80px-lower" />
         </animateMotion>
 
+        <g data-name="car-puff">
+            <use href="#car-puff" x="-38" y="-40" width="37.03" height="46.86" />
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0,0" to="-10,0"
+                dur="2.8s" repeatCount="indefinite" />
+        </g>
         <!-- All puffs start at the same position (behind car) but drift differently -->
         <use href="#puff" transform="translate(-10, 0)">
             <animateTransform attributeName="transform" attributeType="XML" type="translate"
