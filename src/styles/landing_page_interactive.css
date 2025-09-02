@@ -492,7 +492,7 @@
 /* dyanmic svvg */
 
 .cloud-right {
-  transform: translate(calc(100vw - 35px), 240px);
+  transform: translate(calc(100vw - 35px), 270px);
 }
 
 @media (max-width: 768px) {
