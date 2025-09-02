@@ -81,11 +81,13 @@
   h2.title-2 i {
     display: inline-block;
     white-space: nowrap;
+    font-style: inherit;
     /* keep the whole word on one line */
   }
 
   h2.title-2 i::first-letter {
     color: var(--canard, #1a586c);
+    font-style: inherit;
   }
 
   .screen-3 {
