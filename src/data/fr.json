@@ -12,21 +12,21 @@
   },
   "home": { "title": "Bienvenue sur GCS" },
   "homepage": {
-    "title": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO2</i> t'aide à comprendre l'enfouissement du CO2",
+    "title": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre l'enfouissement du CO₂",
     "button": "En savoir plus",
-    "image_alt": "Illustration du stockage géologique de CO2",
+    "image_alt": "Illustration du stockage géologique de CO₂",
     "info_boxes": {
       "injection": {
-        "title": "Injection de CO2",
+        "title": "Injection de CO₂",
         "description": "Apprenez comment le dioxyde de carbone est injecté en toute sécurité dans les formations géologiques souterraines pour un stockage à long terme."
       },
       "formations": {
         "title": "Formations rocheuses",
-        "description": "Découvrez les types spécifiques de couches rocheuses qui constituent des sites de stockage idéaux pour le CO2 capturé."
+        "description": "Découvrez les types spécifiques de couches rocheuses qui constituent des sites de stockage idéaux pour le CO₂ capturé."
       },
       "monitoring": {
         "title": "Systèmes de surveillance",
-        "description": "Explorez les technologies avancées utilisées pour surveiller et vérifier l'intégrité du stockage de CO2 au fil du temps."
+        "description": "Explorez les technologies avancées utilisées pour surveiller et vérifier l'intégrité du stockage de CO₂ au fil du temps."
       },
       "safety": {
         "title": "Sécurité environnementale",

@@ -11,29 +11,29 @@
     "contact": "Contact"
   },
   "homepage": {
-    "title": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO2</i> helps you understand CO2 storage.",
+    "title": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO₂</i> helps you understand CO₂ storage.",
     "button": "Learn more",
-    "image_alt": "Geological CO2 storage illustration",
+    "image_alt": "Geological CO₂ storage illustration",
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO2 is directly <i>captured</i> from large emitters before being released in the atmosphere"
+        "description": "CO₂ is directly <i>captured</i> from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<i>Captured</i> CO2 is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth env. 700-800m"
+        "description": "<i>Captured</i> CO₂ is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth env. 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "CO2 is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
+        "description": "CO₂ is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO2 is <i>less dense</i> than the existing water in the pores and starts migrating upwards"
+        "description": "The injected CO₂ is <i>less dense</i> than the existing water in the pores and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO2 is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
       }
     }
   },
