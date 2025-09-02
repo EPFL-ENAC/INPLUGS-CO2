@@ -1,15 +1,8 @@
 <defs>
     <!-- Road motion path -->
     <path id="roadPath" d="M77 590.72 C150,200 300,260 580,220" />
-    <!-- Reusable car symbol (centered around 0,0 for easier path following) -->
-    <symbol id="car">
-        <rect x="-22" y="-12" width="44" height="24" rx="4" fill="#e53935" />
-        <rect x="-10" y="-10" width="20" height="10" fill="#ffcdd2" />
-        <circle cx="-12" cy="14" r="6" fill="#333" />
-        <circle cx="12" cy="14" r="6" fill="#333" />
-    </symbol>
 
-    <g id="car-new">
+    <symbol id="car-new">
         <path d="M25.21 2.15s-7.1.5-8.75.7-2.36.44-2.41.9 2.36 2.21 4.27 2.59z" style="fill:#4a433c" />
         <path
             d="M134.49 55.76s-107.83 2.2-110.4 2.26c-2.57.05-21.4-3.46-21.99-3.89S.2 51.94.14 49.08C.08 46.21.02 43.34 0 42.24s1.97-3.68 1.91-6.16-.21-10.14-.23-11.03c-.02-.88 3.4-6.47 5.11-8.87C8.51 13.77 20.69 2.72 25.47 1.9 30.25 1.09 74.22-.75 83.23.33S99.6 5.07 106.35 8.9s17.3 9.74 18.68 10.04 17.3 2.07 26.16 3.66c8.86 1.58 14.8 3.67 15.93 4.8s1.34 1.96 1.76 4.23c.41 2.27.66 3.74 1.05 4.57s1.06 1.3 1.09 2.92.16 7.61.18 8.67c.02 1.07-5.61 6.07-7.77 6.48s-20.49 1.3-28.94 1.47Z"
@@ -43,56 +36,20 @@
         <path
             d="M10.41 33.64c-1.19.02-6.28.13-8.54.17-.06-2.9-.14-7.02-.17-8.38l2.92-.06c.77-.02 3.31 2.89 4.78 4.39 1.46 1.5 2.56 3.84 1.02 3.88Z"
             style="fill:#ef3061" />
-    </g>
-    <!-- <path id="road" d="M77 590.72c22.15 6.49 44.21 13.2 66.26 19.94 22.05 6.74 44.06 13.6 66.06 20.47 21.98 6.93 43.97 13.83 65.91 20.87 10.97 3.52 21.97 6.96 32.91 10.56 10.93 3.63 21.47 8.28 32.18 12.47l-5.39-.99 617.98-1.37-1.51.08 180.62-18.65-9.56 4.84c1.76-1.91 3.46-3.88 5.1-5.9 1.64-2.02 3.31-4.01 5.18-5.82 1.87-1.81 3.92-3.46 5.89-5.18l5.97-5.11c7.93-6.84 15.96-13.59 23.97-20.35 8.05-6.73 16.11-13.45 24.24-20.1 4.04-3.35 8.18-6.61 12.26-9.93 4.09-3.31 8.19-6.6 12.35-9.84a909.75 909.75 0 0 1-8.61 13.24c-2.9 4.38-5.76 8.81-8.7 13.16-5.84 8.74-11.76 17.4-17.69 26.06-5.97 8.62-11.92 17.26-17.96 25.81l-4.52 6.43c-1.52 2.13-2.96 4.33-4.59 6.36-1.62 2.04-3.44 3.89-5.3 5.72-1.85 1.83-3.65 3.7-5.38 5.64l-3.79 4.24-5.77.6-180.62 18.65-.75.08h-.76L335 704.14h-2.72l-2.67-.99c-10.78-4-21.74-7.55-32.31-12.12-10.56-4.6-21.05-9.36-31.58-14.03-21.06-9.35-42.06-18.85-63.07-28.31-20.99-9.52-41.98-19.06-62.92-28.71-20.94-9.64-41.87-19.33-62.72-29.24z" style="fill:url(#F)" /> -->
-    <!-- Original road -->
+    </symbol>
 
-    <path id="road-straight" d="M77 590.72 L1250 590.72" style="stroke: url(#F); stroke-width: 5; fill: none;" />
-    <path id="road-straight-40px-lower-long" d="M77 630.72 L1250 630.72"
-        style="stroke: url(#F); stroke-width: 5; fill: none;" />
     <path id="road-straight-40px-lower" d="M177 630.72 L1050 630.72"
         style="stroke: url(#F); stroke-width: 5; fill: none;" />
     <path id="road-straight-80px-lower" d="M177 670.72 L1050 670.72"
         style="stroke: url(#F); stroke-width: 5; fill: none;" />
-    <path id="road" d="M77 590.72 
-                   C250 640, 350 660, 500 670
-                   S750 650, 900 630
-                   S1100 620, 1250 610" style="stroke: url(#F); stroke-width: 5; fill: none;" />
-
-    <!-- Road moved up 30px -->
-    <path id="road-up30" d="M77 560.72 
-                        C250 610, 350 630, 500 640
-                        S750 620, 900 600
-                        S1100 590, 1250 580" style="stroke: url(#F); stroke-width: 5; fill: none;" />
-
-    <!-- Road moved up 50px -->
-    <path id="road-up50" d="M250 540.72 
-                        C250 590, 350 610, 500 620
-                        S750 600, 900 580
-                        S1100 570, 1250 560" style="stroke: url(#F); stroke-width: 5; fill: none;" />
-
-    <!-- Road moved up 80px -->
-    <path id="road-up80" d="M77 510.72 
-                        C250 560, 350 580, 500 590
-                        S750 570, 900 550
-                        S1100 540, 1250 530" style="stroke: url(#F); stroke-width: 5; fill: none;" />
-    <g id="puff" class="anim">
+    <symbol id="puff" class="anim">
         <circle cx="0" cy="0" r="6" fill="#cfd8dc" />
         <animate attributeName="opacity" from="1" to="0.5" dur="2.8s" repeatCount="indefinite" />
         <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0,0" to="0,-10"
             dur="2.8s" repeatCount="indefinite" />
         <animateTransform attributeName="transform" additive="sum" type="scale" from="0.6" to="1.9" dur="2.8s"
             repeatCount="indefinite" />
-    </g>
-
-    <!-- Puff symbol definition -->
-    <symbol id="puff2" viewBox="-10 -10 20 20">
-        <circle cx="0" cy="0" r="6" fill="gray" opacity="0.6">
-            <animate attributeName="r" values="3; 10" dur="1s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.6; 0" dur="1s" repeatCount="indefinite" />
-        </circle>
     </symbol>
-
     <symbol id="car-puff" data-name="car-puff" viewBox="0 0 37.03 46.86"><circle cx="32.12" cy="39.13" r="4.91" style="fill:#efe1d7"/><circle cx="19.14" cy="31.86" r="11.48" style="fill:#efe1d7"/><circle cx="16.21" cy="18.05" r="10.73" style="fill:#efe1d7"/><circle cx="30.21" cy="30.03" r="4.89" style="fill:#efe1d7"/><circle cx="25.28" cy="42.34" r="4.52" style="fill:#efe1d7"/><circle cx="19.93" cy="36.6" r="5.18" style="fill:#efe1d7"/><circle cx="6.41" cy="31.46" r="5.46" style="fill:#efe1d7"/><circle cx="6.59" cy="7.1" r="6.59" style="fill:#efe1d7"/><circle cx="10.58" cy="12.37" r="6.12" style="fill:#efe1d7"/><circle cx="17.26" cy="5.65" r="5.65" style="fill:#efe1d7"/></symbol>
 </defs>
 <!-- Animated layer:
@@ -112,7 +69,7 @@
     </use>
 
     <!-- Smoke puffs attached to car position -->
-    <g>
+    <g id="car-with-puffs">
         <animateMotion dur="20s" rotate="auto" repeatCount="indefinite">
             <mpath href="#road-straight-80px-lower" />
         </animateMotion>
