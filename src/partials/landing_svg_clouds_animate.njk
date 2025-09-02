@@ -1,16 +1,13 @@
-
 <!-- More dynamic animated cloud -->
-<g id="dynamic-cloud" transform="translate(300, 150)">
+<g id="dynamic-cloud" transform="translate(300, 150)" style="display:none;">
     <!-- Gentle floating motion -->
-    <animateTransform attributeName="transform" type="translate" 
-                     values="300,150; 305,145; 300,150; 295,155; 300,150" 
-                     dur="10s" repeatCount="indefinite" />
-    
+    <animateTransform attributeName="transform" type="translate" values="300,150; 305,145; 300,150; 295,155; 300,150"
+        dur="10s" repeatCount="indefinite" />
+
     <!-- Subtle scaling for breathing effect -->
-    <animateTransform attributeName="transform" type="scale" 
-                     values="1; 1.02; 1; 0.98; 1" 
-                     dur="12s" repeatCount="indefinite" additive="sum" />
-    
+    <animateTransform attributeName="transform" type="scale" values="1; 1.02; 1; 0.98; 1" dur="12s"
+        repeatCount="indefinite" additive="sum" />
+
     <g data-name="illu cylindre motif">
         <!-- Background circles (subtler animation) -->
         <circle cx="35.01" cy="137.41" r="35.01" style="fill:#efe1d7">
@@ -22,13 +19,12 @@
         <circle cx="111.06" cy="73.79" r="29.36" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.6; 1; 0.6" dur="8s" repeatCount="indefinite" begin="2s" />
         </circle>
-        
+
         <!-- Foreground circles (more prominent animation) -->
         <circle cx="134.02" cy="33.88" r="33.88" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.3; 1; 0.3" dur="5s" repeatCount="indefinite" begin="0.5s" />
-            <animateTransform attributeName="transform" type="translate" 
-                             values="0,0; 2,-3; 0,0; -2,3; 0,0" 
-                             dur="6s" repeatCount="indefinite" additive="sum" />
+            <animateTransform attributeName="transform" type="translate" values="0,0; 2,-3; 0,0; -2,3; 0,0" dur="6s"
+                repeatCount="indefinite" additive="sum" />
         </circle>
         <circle cx="61.74" cy="90.35" r="25.98" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.7; 1; 0.7" dur="4s" repeatCount="indefinite" begin="1.5s" />
@@ -37,13 +33,12 @@
     </g>
 </g>
 
-<!-- Animated Cloud Group -->
-<g id="animated-cloud" class="cloud-right">
-    <animateTransform attributeName="transform" type="translate" 
-                     values="0,0; 5,-5; 0,0; -5,5; 0,0" 
-                     dur="8s" repeatCount="indefinite" />
+<!-- fumee_1eplan_droite -->
+<g id="fumee_1eplan_droite" class="cloud-right">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 5,-5; 0,0; -5,5; 0,0" dur="8s"
+        repeatCount="indefinite" />
     <!-- cloud content -->
-    
+
     <!-- Individual circle animations -->
     <g data-name="illu cylindre motif">
         <!-- Main cloud circles with staggered fade-ins -->
@@ -64,9 +59,8 @@
         </circle>
         <circle cx="83.58" cy="133.27" r="18.07" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.4; 1; 0.4" dur="4s" repeatCount="indefinite" begin="1.2s" />
-            <animateTransform attributeName="transform" type="translate" 
-                             values="0,0; 2,-3; 0,0; -2,3; 0,0" 
-                             dur="6s" repeatCount="indefinite" additive="sum" />
+            <animateTransform attributeName="transform" type="translate" values="0,0; 2,-3; 0,0; -2,3; 0,0" dur="6s"
+                repeatCount="indefinite" additive="sum" />
         </circle>
         <circle cx="75.67" cy="109.93" r="11.67" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.7; 1; 0.7" dur="2s" repeatCount="indefinite" begin="0.3s" />
@@ -89,20 +83,19 @@
     </g>
 </g>
 
-<!-- Second animated cloud -->
-<g id="animated-cloud-2" class="cloud-right-2">
+<g transform="translate(1340, 114 ) scale(1)">
+<!-- fumee_1eplan_gauche -->
+<g id="fumee_1eplan_gauche_animated" class="cloud-right-2">
     <!-- Floating animation for the entire cloud -->
-    <animateTransform attributeName="transform" type="translate" 
-                     values="0,0; 3,-3; 0,0; -3,3; 0,0" 
-                     dur="10s" repeatCount="indefinite" />
-    
+    <animateTransform attributeName="transform" type="translate" values="0,0; 3,-3; 0,0; -3,3; 0,0" dur="10s"
+        repeatCount="indefinite" />
+
     <!-- Individual circle animations with different timings -->
-    <g data-name="illu cylindre motif">
+    <g data-name="fumee_1eplan_droite">
         <circle cx="32.38" cy="149.83" r="32.38" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.4; 1; 0.4" dur="5s" repeatCount="indefinite" begin="0s" />
-            <animateTransform attributeName="transform" type="translate" 
-                             values="0,0; 2,-3; 0,0; -2,3; 0,0" 
-                             dur="6s" repeatCount="indefinite" additive="sum" />
+            <animateTransform attributeName="transform" type="translate" values="0,0; 2,-3; 0,0; -2,3; 0,0" dur="6s"
+                repeatCount="indefinite" additive="sum" />
         </circle>
         <circle cx="108.42" cy="131.01" r="31.25" style="fill:#efe1d7">
             <animate attributeName="opacity" values="0.3; 1; 0.3" dur="6s" repeatCount="indefinite" begin="0.7s" />
@@ -184,3 +177,34 @@
         </circle>
     </g>
 </g>
+</g>
+<!-- fumee_2eplan_droite: Outer group for positioning, inner group for animation: -->
+<g transform="translate(1540, 130 ) scale(1.1)">
+    <g id="fumee_2eplan_droite_animated" class="cloud-left">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 3,-3; 0,0; -3,3; 0,0" dur="10s"
+            repeatCount="indefinite" />
+
+        <g data-name="fumee_2eplan_droite">
+            <circle cx="16.04" cy="82.81" r="16.04" style="fill:#efe1d7" />
+            <circle cx="27.1" cy="69.26" r="16.35" style="fill:#efe1d7" />
+            <circle cx="40.4" cy="91.7" r="13.85" style="fill:#efe1d7" />
+            <circle cx="52.31" cy="64.83" r="16.41" style="fill:#efe1d7" />
+            <circle cx="29.87" cy="54.58" r="8.03" style="fill:#efe1d7" />
+            <circle cx="53.14" cy="81.18" r="6.1" style="fill:#efe1d7" />
+            <circle cx="40.95" cy="54.3" r="6.65" style="fill:#efe1d7" />
+            <circle cx="77.43" cy="65.77" r="15.88" style="fill:#efe1d7" />
+            <circle cx="45.11" cy="38.23" r="14.68" style="fill:#efe1d7" />
+            <circle cx="108.27" cy="52.36" r="15.51" style="fill:#efe1d7" />
+            <circle cx="81.12" cy="43.22" r="18.9" style="fill:#efe1d7" />
+            <circle cx="87.77" cy="16.62" r="14.68" style="fill:#efe1d7" />
+            <circle cx="66.99" cy="16.35" r="16.35" style="fill:#efe1d7" />
+            <circle cx="63.39" cy="44.05" r="9.7" style="fill:#efe1d7" />
+            <circle cx="58.13" cy="27.15" r="6.37" style="fill:#efe1d7" />
+            <circle cx="71.98" cy="29.37" r="6.1" style="fill:#efe1d7" />
+            <circle cx="99.41" cy="34.63" r="7.25" style="fill:#efe1d7" />
+            <circle cx="86.94" cy="50.98" r="5.82" style="fill:#efe1d7" />
+        </g>
+    </g>
+</g>
+<!-- fumee_2eplan_gauche -->
+<!-- fumee_3eplan -->

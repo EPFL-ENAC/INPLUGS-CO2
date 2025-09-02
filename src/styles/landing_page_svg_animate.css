@@ -9,7 +9,7 @@
   }
 }
 
-.cloud-right-2 {
+/* .cloud-right-2 {
   transform: translate(calc(100vw - 427px), 120px);
 }
 
@@ -17,7 +17,7 @@
   .cloud-right-2 {
     transform: translate(90vw, 80px);
   }
-}
+} */
 .cloud-left {
   transform: translate(-100px, 80px);
 }
