@@ -198,20 +198,15 @@ class LandingPageController {
     const viewportCenter = scrollPosition + windowHeight / 2;
 
     // Find the step that is most visible based on a scoring system
+    // Now focusing only on info boxes instead of trying to correlate with scroll markers
     let bestScore = -Infinity;
     let bestStep = 1;
 
-    for (let i = 0; i < this.scrollMarkers.length; i++) {
-      const marker = this.scrollMarkers[i];
-      const markerPosition = marker.offsetTop;
+    // Loop through info boxes directly instead of scroll markers
+    for (let i = 0; i < this.infoBoxes.length; i++) {
+      const infoBox = this.infoBoxes[i];
 
-      // Get the associated info box for this marker (assuming they correspond)
-      // Info boxes are inside the shadow DOM, so we need to use shadowRoot.querySelector
-      const infoBox = this.shadowRoot
-        ? this.shadowRoot.querySelector(`#info-box-${i + 1}`)
-        : null;
-
-      // Calculate visibility metrics
+      // Calculate visibility metrics for the info box
       let visibilityRatio = 0;
       let centerDistance = 0;
       let elementTop = 0;
@@ -237,12 +232,6 @@ class LandingPageController {
         // Distance from element center to viewport center
         const elementCenter = (elementTop + elementBottom) / 2;
         centerDistance = Math.abs(viewportCenter - elementCenter);
-      } else {
-        // Fallback to marker-based calculation if no info box
-        visibilityRatio = 1; // Assume fully visible
-        centerDistance = Math.abs(viewportCenter - markerPosition);
-        elementTop = markerPosition;
-        elementBottom = markerPosition;
       }
 
       // Calculate score (higher is better)
@@ -264,7 +253,7 @@ class LandingPageController {
 
       if (score > bestScore) {
         bestScore = score;
-        bestStep = i + 1;
+        bestStep = i + 1; // Step number corresponds to info box index + 1
       }
     }
 
@@ -333,22 +322,21 @@ class LandingPageController {
     const targetPosition = targetMarker.offsetTop;
 
     // Use smooth scrolling
+    // SCROLL BEHAVIOR "instant" TO AVOID INTERFERING WITH VIEW TRANSITIONS
+    // SCROLL BEHAVIOR "smooth" CAUSES JANK WITH VIEW TRANSITIONS
     window.scrollTo({
       top: targetPosition,
-      behavior: "instant",
+      behavior: "smooth",
     });
 
     // Update current step
     this.currentStep = step;
 
-    // Update info box visibility
-    this.updateInfoBoxVisibility();
-
-    // Update button states
-    this.updateScrollButtons();
-
-    // Update minimap markers to reflect the new current step
-    this.updateMinimapMarkers();
+    // Update UI elements after a short delay to allow scroll to complete
+    // This ensures the UI is updated based on the actual scroll position
+    setTimeout(() => {
+      this.updateUIElements();
+    }, 300); // Slightly longer than typical scroll duration
   }
 
   scrollToFirstMarkerOnLoad() {
@@ -463,12 +451,24 @@ class LandingPageController {
   onScroll() {
     if (!this.ticking) {
       requestAnimationFrame(() => {
-        this.updateMinimapMarkers();
-        this.updateInfoBoxVisibility();
+        this.updateUIElements();
         this.ticking = false;
       });
       this.ticking = true;
     }
+  }
+
+  /**
+   * Unified method to update all UI elements based on current scroll position
+   */
+  updateUIElements() {
+    // Recalculate current step based on actual scroll position
+    this.currentStep = this.getCurrentStep();
+    
+    // Update all UI elements
+    this.updateInfoBoxVisibility();
+    this.updateScrollButtons();
+    this.updateMinimapMarkers();
   }
 
   /**
