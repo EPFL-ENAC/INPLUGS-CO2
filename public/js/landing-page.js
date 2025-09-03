@@ -48,7 +48,7 @@ class LandingPageController {
     // Debounce timer for minimap updates
     this.minimapUpdateTimer = null;
     /* we could optimize via other strategies
-    
+
     1. Throttle the scroll event handler using requestAnimationFrame
     2. Optimize the getCurrentStep method to reduce computational overhead
     3. Track the last calculated step to prevent unnecessary updates
@@ -464,7 +464,7 @@ class LandingPageController {
   updateUIElements() {
     // Recalculate current step based on actual scroll position
     this.currentStep = this.getCurrentStep();
-    
+
     // Update all UI elements
     this.updateInfoBoxVisibility();
     this.updateScrollButtons();
