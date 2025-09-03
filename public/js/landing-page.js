@@ -34,6 +34,7 @@ class LandingPageController {
     this.scrollDownBtn = null;
     this.scrollMarkers = [];
     this.currentStep = 1;
+    this.infoBoxes = [];
 
     // Touch swipe variables
     this.touchStartX = 0;
@@ -125,6 +126,14 @@ class LandingPageController {
       this.scrollDownBtn &&
       this.scrollMarkers.length > 0
     ) {
+      // Get info boxes from shadow root
+      for (let i = 1; i <= 5; i++) {
+        const infoBox = this.shadowRoot.getElementById(`info-box-${i}`);
+        if (infoBox) {
+          this.infoBoxes.push(infoBox);
+        }
+      }
+
       // Add event listeners
       this.scrollUpBtn.addEventListener("click", () =>
         this.scrollToStep(this.currentStep - 1),
@@ -141,6 +150,11 @@ class LandingPageController {
       // Initial update
       this.updateScrollButtons();
       this.updateMinimapMarkers();
+      
+      // Small delay to ensure DOM is fully loaded
+      setTimeout(() => {
+        this.updateInfoBoxVisibility();
+      }, 100);
     }
   }
 
@@ -290,6 +304,9 @@ class LandingPageController {
     // Update current step
     this.currentStep = step;
 
+    // Update info box visibility
+    this.updateInfoBoxVisibility();
+
     // Update button states
     this.updateScrollButtons();
   }
@@ -407,10 +424,30 @@ class LandingPageController {
     if (!this.ticking) {
       requestAnimationFrame(() => {
         this.updateMinimapMarkers();
+        this.updateInfoBoxVisibility();
         this.ticking = false;
       });
       this.ticking = true;
     }
+  }
+
+  /**
+   * Update info box visibility based on current step
+   */
+  updateInfoBoxVisibility() {
+    // Check if infoBoxes are initialized
+    if (!this.infoBoxes || this.infoBoxes.length === 0) {
+      return;
+    }
+    
+    // Update all info boxes
+    this.infoBoxes.forEach((infoBox, index) => {
+      if (index + 1 === this.currentStep) {
+        infoBox.classList.add("visible");
+      } else {
+        infoBox.classList.remove("visible");
+      }
+    });
   }
 }
 
