@@ -39,7 +39,7 @@ class LandingPageController {
     // Touch swipe variables
     this.touchStartX = 0;
     this.touchEndX = 0;
-    this.swipeThreshold = 50; // Minimum swipe distance in pixels
+    this.swipeThreshold = 20; // Minimum swipe distance in pixels
 
     // Throttling variables for scroll updates
     this.ticking = false;
@@ -54,7 +54,7 @@ class LandingPageController {
     3. Track the last calculated step to prevent unnecessary updates
     4. Improve marker updates to minimize DOM manipulations
     */
-    this.minimapDebounceDelay = 50; // milliseconds
+    this.minimapDebounceDelay = 20; // milliseconds
 
     this.init();
   }
@@ -150,11 +150,13 @@ class LandingPageController {
       // Initial update
       this.updateScrollButtons();
       this.updateMinimapMarkers();
-      
-      // Small delay to ensure DOM is fully loaded
-      setTimeout(() => {
-        this.updateInfoBoxVisibility();
-      }, 100);
+
+      // Use double requestAnimationFrame to ensure DOM is fully rendered
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.updateInfoBoxVisibility();
+        });
+      });
     }
   }
 
@@ -261,6 +263,9 @@ class LandingPageController {
       // Get current step based on scroll position (visually closest)
       const visuallyClosestStep = this.getCurrentStep();
 
+      // Update currentStep to match the visually closest step
+      this.currentStep = visuallyClosestStep;
+
       // Only update if the step has changed
       if (visuallyClosestStep === this.lastStep) {
         return;
@@ -298,7 +303,7 @@ class LandingPageController {
     // Use smooth scrolling
     window.scrollTo({
       top: targetPosition,
-      behavior: "smooth",
+      behavior: "instant" in this.prefersReducedMotion ? "auto" : "smooth",
     });
 
     // Update current step
@@ -439,7 +444,7 @@ class LandingPageController {
     if (!this.infoBoxes || this.infoBoxes.length === 0) {
       return;
     }
-    
+
     // Update all info boxes
     this.infoBoxes.forEach((infoBox, index) => {
       if (index + 1 === this.currentStep) {
