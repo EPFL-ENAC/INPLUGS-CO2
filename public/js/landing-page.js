@@ -94,7 +94,6 @@ class LandingPageController {
       document.addEventListener("touchstart", this.handleTouchStart.bind(this));
       document.addEventListener("touchmove", this.handleTouchMove.bind(this));
       document.addEventListener("touchend", this.handleTouchEnd.bind(this));
-
     }
   }
 
@@ -336,7 +335,7 @@ class LandingPageController {
     // Use smooth scrolling
     window.scrollTo({
       top: targetPosition,
-      behavior: "instant"
+      behavior: "instant",
     });
 
     // Update current step
