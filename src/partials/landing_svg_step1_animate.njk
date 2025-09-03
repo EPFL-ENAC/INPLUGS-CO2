@@ -1,0 +1,33 @@
+<g id="landing_svg_step1_animate" data-name="co2-labels-and-arrows-tube-up">
+    <defs>
+        <!-- First part: vertical + half horizontal -->
+    <path id="tuyau-up-part1" 
+      style="fill:none;stroke:#ace3e7;stroke-miterlimit:10;stroke-width:15px"
+      d="M1379.25 642.78v143.43h209.11" />
+      <path id="tuyau-up-part2" 
+      style="fill:none;stroke:#ace3e7;stroke-miterlimit:10;stroke-width:15px"
+      d="M1797.47 645.95v140.26h-418.22" />
+
+      <path id="tube-complete-left" data-name="tuyau-complete-left"
+      style="fill:none;stroke:#ace3e7;stroke-miterlimit:10;stroke-width:15px"
+      d="M1379.25 642.78v143.43h209.22v90" />
+
+      <path id="tube-complete-right" data-name="tuyau-complete-right"
+      style="fill:none;stroke:#ace3e7;stroke-miterlimit:10;stroke-width:15px"
+      d="M1797.5 642.78v143.43h-209.11v90" />
+    </defs>
+    <g data-name="co2-labels">
+        <use href="#co2" visibility="hidden">
+            <animateMotion dur="4s" repeatCount="indefinite">
+                <mpath href="#tube-complete-left" />
+            </animateMotion>
+            <set attributeName="visibility" to="visible" begin="0s" />
+        </use>
+        <use href="#co2" visibility="hidden">
+            <animateMotion dur="4s" repeatCount="indefinite" begin="0s" fill="freeze">
+                <mpath href="#tube-complete-right" />
+            </animateMotion>
+            <set attributeName="visibility" to="visible" begin="0s" />
+        </use>
+    </g>
+</g>
