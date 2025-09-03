@@ -88,22 +88,25 @@
     </g>
 </g>
 
-<g transform="translate(1340, 114 ) scale(1)">
+<g data-name="fumee_1eplan_gauche_group-position" transform="translate(1340, 114 ) scale(1)">
     <!-- fumee_1eplan_gauche -->
-    <g id="fumee_1eplan_gauche_animated" class="cloud-right-2">
+    <g id="fumee_1eplan_gauche_animated">
         <!-- Floating animation for the entire cloud -->
         <animateTransform attributeName="transform" type="translate" values="0,0; 3,-3; 0,0; -3,3; 0,0" dur="10s"
             repeatCount="indefinite" />
 
+        <!-- Subtle scaling for breathing effect -->
+        <animateTransform attributeName="transform" type="scale" values="1; 1.02; 1; 0.98; 1" dur="12s"
+            repeatCount="indefinite" additive="sum" />
         <!-- Individual circle animations with different timings -->
         <g data-name="fumee_1eplan_droite">
             <circle cx="32.38" cy="149.83" r="32.38" style="fill:#efe1d7">
-                <animate attributeName="opacity" values="0.4; 1; 0.4" dur="5s" repeatCount="indefinite" begin="0s" />
+                <animate attributeName="opacity" values="0.5; 1; 0.4" dur="5s" repeatCount="indefinite" begin="0s" />
                 <animateTransform attributeName="transform" type="translate" values="0,0; 2,-3; 0,0; -2,3; 0,0" dur="6s"
                     repeatCount="indefinite" additive="sum" />
             </circle>
             <circle cx="108.42" cy="131.01" r="31.25" style="fill:#efe1d7">
-                <animate attributeName="opacity" values="0.3; 1; 0.3" dur="6s" repeatCount="indefinite" begin="0.7s" />
+                <animate attributeName="opacity" values="0.7; 1; 0.3" dur="6s" repeatCount="indefinite" begin="0.7s" />
             </circle>
             <circle cx="165.65" cy="33.13" r="33.13" style="fill:#efe1d7">
                 <animate attributeName="opacity" values="0.5; 1; 0.5" dur="7s" repeatCount="indefinite" begin="1.2s" />

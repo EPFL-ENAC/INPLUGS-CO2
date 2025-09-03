@@ -187,6 +187,12 @@
   /* ---------- Scroll Markers ---------- */
   .scroll-marker {
     position: absolute;
+        z-index: 100000;
+    /* debug css */
+    /* width: 100%;
+    height: 2px;
+    background-color: red;
+    display: block; */
   }
 
   #scroll-marker-1 {
@@ -198,15 +204,15 @@
   }
 
   #scroll-marker-3 {
-    top: 70%;
+    top: 72%;
   }
 
   #scroll-marker-4 {
-    top: 65%;
+    top: 67%;
   }
 
   #scroll-marker-5 {
-    top: 65%;
+    top: 58%;
   }
 }
 
@@ -224,19 +230,19 @@
 }
 
 .info-box:nth-child(3) {
-  bottom: 15%;
+  bottom: 8%;
   left: 4%;
   transition-delay: 0.1s;
 }
 
 .info-box:nth-child(4) {
-  bottom: 23%;
+  bottom: 27%;
   left: 4%;
   transition-delay: 0.1s;
 }
 
 .info-box:nth-child(5) {
-  bottom: 24%;
+  bottom: 30%;
   left: 4%;
   transition-delay: 0.1s;
 }
@@ -469,6 +475,8 @@ span {
   padding: 2px 6px;
   border-radius: 4px;
   transition: all 0.1s ease-in-out;
+  pointer-events: visible;
+  cursor: pointer;
 }
 
 /* Individual marker positions */
@@ -481,7 +489,7 @@ span {
 }
 
 #scroll-minimap-marker-3 {
-  top: 249px;
+  top: 219px;
 }
 
 #scroll-minimap-marker-4 {
@@ -489,5 +497,5 @@ span {
 }
 
 #scroll-minimap-marker-5 {
-  top: 155px;
+  top: 145px;
 }

@@ -94,6 +94,7 @@ class LandingPageController {
       document.addEventListener("touchstart", this.handleTouchStart.bind(this));
       document.addEventListener("touchmove", this.handleTouchMove.bind(this));
       document.addEventListener("touchend", this.handleTouchEnd.bind(this));
+
     }
   }
 
@@ -118,6 +119,10 @@ class LandingPageController {
       );
       if (marker) {
         this.minimapMarkers.push(marker);
+
+        marker.addEventListener("click", () => {
+          this.scrollToStep(i);
+        });
       }
     }
 
@@ -160,6 +165,34 @@ class LandingPageController {
     }
   }
 
+  removeEventListeners() {
+    // Remove all event listeners to prevent memory leaks
+    if (this.ctaButton) {
+      this.ctaButton.removeEventListener("click", this.handleCTAClick);
+    }
+    if (this.backButton) {
+      this.backButton.removeEventListener("click", this.handleBackClick);
+    }
+    document.removeEventListener("keydown", this.handleKeyDown);
+    if (this.scrollUpBtn) {
+      this.scrollUpBtn.removeEventListener("click", this.scrollToStep);
+    }
+    if (this.scrollDownBtn) {
+      this.scrollDownBtn.removeEventListener("click", this.scrollToStep);
+    }
+    window.removeEventListener("scroll", this.onScroll);
+    document.removeEventListener("touchstart", this.handleTouchStart);
+    document.removeEventListener("touchmove", this.handleTouchMove);
+    document.removeEventListener("touchend", this.handleTouchEnd);
+    this.minimapMarkers.forEach((marker, index) => {
+      marker.removeEventListener("click", () => {
+        this.scrollToStep(index + 1);
+      });
+    });
+  }
+
+  // call removeEventListeners when navigating away
+  // window.addEventListener("beforeunload", this.removeEventListeners.bind(this));
   getCurrentStep() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -303,7 +336,7 @@ class LandingPageController {
     // Use smooth scrolling
     window.scrollTo({
       top: targetPosition,
-      behavior: "instant" in this.prefersReducedMotion ? "auto" : "smooth",
+      behavior: "instant"
     });
 
     // Update current step
@@ -314,6 +347,9 @@ class LandingPageController {
 
     // Update button states
     this.updateScrollButtons();
+
+    // Update minimap markers to reflect the new current step
+    this.updateMinimapMarkers();
   }
 
   scrollToFirstMarkerOnLoad() {
