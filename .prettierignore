@@ -61,3 +61,6 @@ CITATION.cff
 *.njk
 *.jinja
 *.j2
+
+# Images
+public/assets/images/*

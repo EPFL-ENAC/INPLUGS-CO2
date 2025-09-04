@@ -3,24 +3,25 @@
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;
+    --vert-turquoise: #5bad91;
   }
 
   :host {
-    --vert-turquoise: #5bad91;
     --blanc-cass: #f4f0eb;
     --canard: #1a586c;
+    --vert-turquoise: #5bad91;
     --noir: #000;
     --blanc: #fff;
     display: block;
-    background: var(--brand-bg);
-    color: var(--brand-fg);
+    background: var(--blanc);
+    color: var(--noir);
     font:
       500 16px/1.4 system-ui,
       -apple-system,
       Segoe UI,
       Roboto,
       sans-serif;
-    /* box-shadow: var(--shadow); */
+    box-shadow: var(--shadow);
   }
 
   /* Smooth scrolling */
@@ -38,5 +39,109 @@
     padding-left: 5rem;
     padding-right: 5rem;
     scroll-margin-top: 0;
+  }
+
+  h1.data_title {
+    font-family: var(--font-family-primary);
+    font-size: clamp(80px, 12vw, 150px);
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.92px;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+
+  h1.title2 {
+    font-family: var(--font-family-primary);
+    font-size: clamp(80px, 12vw, 150px);
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.92px;
+  }
+
+  section.title {
+    min-height: auto; /* Override the 100vh from main section */
+    margin-bottom: 0; /* Remove bottom margin to bring counter closer */
+    padding-bottom: 2.5rem; /* Remove bottom padding */
+  }
+
+  section.compteur {
+    min-height: auto;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 2rem;
+  }
+
+  /* Center the compteur title and value */
+  h3.compteur_title {
+    text-align: center;
+    min-height: auto;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+  span.compteur {
+    display: block;
+    text-align: center;
+    font-family: Archivo;
+    font-size: 10rem;
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  span.canard,
+  h2.sphincs_text span.canard {
+    color: var(--canard) !important;
+  }
+
+  span.turquoise,
+  h2.sphincs_text span.turquoise {
+    color: #5bad91 !important;
+  }
+
+  h2.subtitle2 {
+    font-family: var(--font-family-primary);
+    font-size: clamp(27px, 4vw, 50px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.96px;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    color: inherit; /* Let spans override the color */
+  }
+
+  section.sphincs p {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem; /* Space between image and text */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
+
+  .content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem; /* Space between image and text */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
+
+  section.sphincs img {
+    width: 300px; /* Adjust this size as needed */
+    height: auto; /* Maintain aspect ratio */
+    flex: 1; /* Prevent image from shrinking */
+  }
+
+  span.sphincs_text {
+    background-color: #D9D9D9;
+    padding: 1rem;
+    width: fit-content;
+    flex-shrink: 0; /* Take remaining space */
+    min-width: 250px; /* Minimum width for text readability */
   }
 }

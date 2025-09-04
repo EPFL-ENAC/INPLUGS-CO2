@@ -41,6 +41,13 @@
     "world": "Le GCS dans le monde",
     "ch": "Le GCS en Suisse"
   },
+    "data": {
+    "title": "GCS en <span class=\"canard\">nombres</span>",
+    "compteur_title": "Compteur à venir",
+    "title2": "SPHINCS",
+    "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
+    "sphincs_text": "Lorem ipsum dolor sit amet,<br> consectetuer adipiscing elit,<br> sed diam nonummy nibh<br> euismod tincidunt ut laoreet<br> dolore magna aliquam erat<br> volutpat. Ut wisi enim ad minim<br> veniam, quis nostrud exerci<br> tation ullamcorper suscipit<br> lobortis nisl ut aliquip ex ea<br> commodo consequat. Duis<br> autem vel eum iriure<br> dolor.Lorem ipsum dolor sit<br> amet, consectetuer adipiscing<br> elit, sed diam nonummy nibh<br> euismod tincidunt ut laoreet<br> dolore magna aliquam erat<br> volutpat."
+  },
   "education": {
     "title": "Éducation",
     "carbon": "Équipe carbone",
