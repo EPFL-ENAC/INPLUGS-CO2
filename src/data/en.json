@@ -100,11 +100,19 @@
     "world": "GCS in the world",
     "ch": "GCS in Switzerland"
   },
+  "data": {
+    "title": "GCS in <span class=\"canard\">numbers</span>",
+    "compteur_title": "Counter to come",
+    "title2": "SPHINCS",
+    "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
+    "sphincs_text": "Lorem ipsum dolor sit amet,<br> consectetuer adipiscing elit,<br> sed diam nonummy nibh<br> euismod tincidunt ut laoreet<br> dolore magna aliquam erat<br> volutpat. Ut wisi enim ad minim<br> veniam, quis nostrud exerci<br> tation ullamcorper suscipit<br> lobortis nisl ut aliquip ex ea<br> commodo consequat. Duis<br> autem vel eum iriure<br> dolor.Lorem ipsum dolor sit<br> amet, consectetuer adipiscing<br> elit, sed diam nonummy nibh<br> euismod tincidunt ut laoreet<br> dolore magna aliquam erat<br> volutpat."
+  },
   "education": {
     "title": "Education",
     "carbon": "Carbon team",
     "workshops": "Workshops",
-    "visits": "Visits"
+    "visits": "Visits",
+    "education_title": "Carbon Team"
   },
   "dictionary": { "title": "Dictionary" },
   "links": { "title": "Useful links" },
