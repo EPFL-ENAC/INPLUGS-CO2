@@ -50,7 +50,7 @@
     margin-top: 5em;
   }
 
-  @media (min-width: 481px){  
+  @media (min-width: 481px) {
     h1.data_title {
       font-family: var(--font-family-primary);
       font-size: 7em;
@@ -150,7 +150,7 @@
     }
 
     h1.title2 {
-      color: var(--blanc)
+      color: var(--blanc);
     }
 
     h2 {
@@ -159,10 +159,10 @@
     }
 
     .turquoise {
-      color: var(--blanc)
+      color: var(--blanc);
     }
 
-    .compteur{
+    .compteur {
       font-size: 11em;
       top: 0%;
       font-weight: bold;
