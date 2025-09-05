@@ -1,0 +1,55 @@
+@layer components {
+  :root {
+    --breakpoint-mobile: 680px;
+    --breakpoint-landing-page: 860px;
+    --canard: #1a586c;
+    --vert-turquoise: #5bad91;
+  }
+
+  :host {
+    --blanc-cass: #f4f0eb;
+    --canard: #1a586c;
+    --vert-turquoise: #5bad91;
+    --noir: #000;
+    --blanc: #fff;
+    display: block;
+    background: var(--blanc);
+    color: var(--noir);
+    font:
+      500 16px/1.4 system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      sans-serif;
+    box-shadow: var(--shadow);
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--blanc);
+  }
+
+  /* Styles de base pour toutes les sections */
+  main section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    scroll-margin-top: 0;
+  }
+    
+  h1.education_title {
+    font-family: var(--font-family-primary);
+    font-size: clamp(80px, 12vw, 150px);
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.92px;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+}
