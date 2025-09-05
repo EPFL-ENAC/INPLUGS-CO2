@@ -41,7 +41,7 @@
     padding-right: 5rem;
     scroll-margin-top: 0;
   }
-    
+
   h1.education_title {
     font-family: var(--font-family-primary);
     font-size: clamp(80px, 12vw, 150px);

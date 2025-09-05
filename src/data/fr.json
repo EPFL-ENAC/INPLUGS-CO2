@@ -41,7 +41,7 @@
     "world": "Le GCS dans le monde",
     "ch": "Le GCS en Suisse"
   },
-    "data": {
+  "data": {
     "title": "GCS en <span class=\"canard\">nombres</span>",
     "compteur_title": "Compteur à venir",
     "title2": "SPHINCS",

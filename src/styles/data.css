@@ -15,12 +15,6 @@
     display: block;
     background: var(--blanc);
     color: var(--noir);
-    font:
-      500 16px/1.4 system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      sans-serif;
     box-shadow: var(--shadow);
   }
 
@@ -41,107 +35,157 @@
     scroll-margin-top: 0;
   }
 
-  h1.data_title {
-    font-family: var(--font-family-primary);
-    font-size: clamp(80px, 12vw, 150px);
-    font-style: normal;
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -1.92px;
-    margin-bottom: 1rem;
-    margin-top: 3rem;
+  .canard {
+    color: var(--canard);
   }
 
-  h1.title2 {
-    font-family: var(--font-family-primary);
-    font-size: clamp(80px, 12vw, 150px);
-    font-style: normal;
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -1.92px;
+  .turquoise {
+    color: var(--vert-turquoise);
   }
 
-  section.title {
-    min-height: auto; /* Override the 100vh from main section */
-    margin-bottom: 0; /* Remove bottom margin to bring counter closer */
-    padding-bottom: 2.5rem; /* Remove bottom padding */
-  }
-
-  section.compteur {
-    min-height: auto;
+  .compteur_wrapper {
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 2rem;
+    margin-top: 5em;
   }
 
-  /* Center the compteur title and value */
-  h3.compteur_title {
-    text-align: center;
-    min-height: auto;
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0;
-    padding-bottom: 0;
+  @media (min-width: 481px){  
+    h1.data_title {
+      font-family: var(--font-family-primary);
+      font-size: 7em;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
+
+    h1.title2 {
+      font-family: var(--font-family-primary);
+      font-size: 7em;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+    }
+
+    section.title {
+      min-height: auto; /* Override the 100vh from main section */
+      margin-bottom: 0; /* Remove bottom margin to bring counter closer */
+      padding-bottom: 2.5rem; /* Remove bottom padding */
+    }
+
+    section.compteur {
+      min-height: auto;
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+
+    /* Center the compteur title and value */
+    h3.compteur_title {
+      text-align: center;
+      min-height: auto;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+      padding-bottom: 0;
+    }
+
+    span.compteur {
+      display: block;
+      text-align: center;
+      font-size: 10rem;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    h2.subtitle2 {
+      font-family: var(--font-family-primary);
+      font-size: 2em;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.96px;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      color: inherit; /* Let spans override the color */
+    }
+
+    section.sphincs p {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem; /* Space between image and text */
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    .content-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem; /* Space between image and text */
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    section.sphincs img {
+      width: 300px;
+      height: auto; /* Maintain aspect ratio */
+      flex: 1; /* Prevent image from shrinking */
+    }
+
+    span.sphincs_text {
+      background-color: #d9d9d9;
+      padding: 1rem;
+      width: fit-content;
+      flex-shrink: 0; /* Take remaining space */
+      min-width: 250px; /* Minimum width for text readability */
+    }
   }
 
-  span.compteur {
-    display: block;
-    text-align: center;
-    font-family: Archivo;
-    font-size: 10rem;
-    font-weight: bold;
-    margin-top: 0;
-  }
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2em;
+      margin-left: 0%;
+      margin-bottom: 0;
+    }
 
-  span.canard,
-  h2.sphincs_text span.canard {
-    color: var(--canard) !important;
-  }
+    h1.title2 {
+      color: var(--blanc)
+    }
 
-  span.turquoise,
-  h2.sphincs_text span.turquoise {
-    color: #5bad91 !important;
-  }
+    h2 {
+      font-size: 1em;
+      color: var(--blanc) !important;
+    }
 
-  h2.subtitle2 {
-    font-family: var(--font-family-primary);
-    font-size: clamp(27px, 4vw, 50px);
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -0.96px;
-    margin-bottom: 1rem;
-    margin-top: 0;
-    color: inherit; /* Let spans override the color */
-  }
+    .turquoise {
+      color: var(--blanc)
+    }
 
-  section.sphincs p {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem; /* Space between image and text */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  }
+    .compteur{
+      font-size: 11em;
+      top: 0%;
+      font-weight: bold;
+    }
 
-  .content-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem; /* Space between image and text */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  }
+    .section_title {
+      margin-bottom: 2em;
+    }
 
-  section.sphincs img {
-    width: 300px; /* Adjust this size as needed */
-    height: auto; /* Maintain aspect ratio */
-    flex: 1; /* Prevent image from shrinking */
-  }
+    .sphincs {
+      background-color: var(--vert-turquoise);
+    }
 
-  span.sphincs_text {
-    background-color: #D9D9D9;
-    padding: 1rem;
-    width: fit-content;
-    flex-shrink: 0; /* Take remaining space */
-    min-width: 250px; /* Minimum width for text readability */
+    img {
+      width: 100%;
+      height: auto; /* Maintain aspect ratio */
+      flex: 1; /* Prevent image from shrinking */
+    }
+
+    .sphincs_text {
+      background-color: var(--blanc);
+      width: 100%;
+      flex: 1;
+    }
   }
 }
