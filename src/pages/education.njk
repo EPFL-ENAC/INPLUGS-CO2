@@ -1,5 +1,11 @@
 {% extends 'layouts/main.njk' %}
 {% block content %}
-    <h2>{{ catalogs[locale or 'en']['education.title'] if catalogs else 'Education' }}</h2>
-    <p>Educational resources and materials about carbon storage and removal.</p>
+<data-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/education.css") }}'>
+
+        <h1 class="education_title">{{ t("education.education_title") }}</h1>
+        <section class="team">
+    </template>
+</data-content>
 {% endblock %}

@@ -32,7 +32,7 @@
         "key": "data",
         "path": "/en/data",
         "title": "Data",
-        "themeColor": "#1a586c"
+        "themeColor": "#FFF"
       },
       {
         "key": "education",
@@ -98,9 +98,9 @@
       },
       {
         "key": "data",
-        "path": "/fr/data",
+        "path": "/fr/donnees",
         "title": "Données",
-        "themeColor": "#1a586c"
+        "themeColor": "#FFF"
       },
       {
         "key": "education",
