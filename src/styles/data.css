@@ -30,8 +30,8 @@
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     scroll-margin-top: 0;
   }
 
@@ -121,14 +121,14 @@
     }
 
     .content-wrapper {
-      display: flex;
-      align-items: flex-start;
+      display: grid;
       gap: 2rem; /* Space between image and text */
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      grid-template-columns: 3fr 1fr;
+      margin-bottom: 2rem;
     }
 
     section.sphincs img {
-      width: 300px;
+      width: 100%;
       height: auto; /* Maintain aspect ratio */
       flex: 1; /* Prevent image from shrinking */
     }
@@ -182,10 +182,16 @@
       flex: 1; /* Prevent image from shrinking */
     }
 
+    .content-wrapper {
+      gap: 2.5rem;
+      display: grid;
+    }
+
     .sphincs_text {
       background-color: var(--blanc);
+      display: block;
       width: 100%;
-      flex: 1;
+      padding: 0;
     }
   }
 }
