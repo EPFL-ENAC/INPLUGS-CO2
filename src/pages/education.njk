@@ -3,9 +3,45 @@
 <data-content>
     <template shadowrootmode="open">
         <link rel="stylesheet" href='{{ asset("/assets/styles/education.css") }}'>
-
-        <h1 class="education_title">{{ t("education.education_title") }}</h1>
-        <section class="team">
+        
+        <main class="education_page">
+            <section class="team">
+                <h1 class="title">{{ t("education.carbon") }}</h1>
+                <div class="team_wrapper">
+                    <div class="team_member">
+                        <img src="{{ asset("/assets/images/education/person1.jpg") }}" alt="Member 1"/>
+                        <div class="member_overlay">
+                            <h2 class="member_name">Name</h2>
+                            <p class="member_role">Position</p>
+                        </div>
+                    </div>
+                    <div class="team_member">
+                        <img src="{{ asset("/assets/images/education/person2.jpg") }}" alt="Member 2"/>
+                        <div class="member_overlay">
+                            <h2 class="member_name">Name</h2>
+                            <p class="member_role">Position</p>
+                        </div>
+                    </div>
+                    <div class="team_member">
+                        <img src="{{ asset("/assets/images/education/person3.jpg") }}" alt="Member 3"/>
+                        <div class="member_overlay">
+                            <h2 class="member_name">Name</h2>
+                            <p class="member_role">Position</p>
+                        </div>
+                    </div>
+            </section>
+            <section class="workshops">
+                <h1 class="title">{{ t("education.workshops") }}</h1>
+                <div class="workshops_wrapper">
+                    <span class="workshop_text">{{ t("education.workshop_text") | safe}}</span>
+                    <img class="workshop_image" src="{{ asset("/assets/images/education/workshop.png") }}" alt="Workshop"/>
+            </section>
+            <section class="visits">
+                <h1 class="title visit" >{{ t("education.visits") }}</h1>
+                <img class="visit_image" src="{{ asset("/assets/images/education/no-image.png") }}" alt="Visit"/>
+            </section>
+        </main>
+        <!-- <script type="module" src='{{ asset("/assets/js/education.js") }}'></script> -->
     </template>
 </data-content>
 {% endblock %}

@@ -12,6 +12,7 @@
     --vert-turquoise: #5bad91;
     --noir: #000;
     --blanc: #fff;
+    --gris-clair: #8e8e8e;
     display: block;
     background: var(--blanc);
     color: var(--noir);
@@ -33,17 +34,15 @@
   /* Styles de base pour toutes les sections */
   main section {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     justify-content: left;
     align-items: left;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     scroll-margin-top: 0;
   }
 
-  h1.education_title {
-    font-family: var(--font-family-primary);
+  .title {
+    font-family: Archivo;
     font-size: clamp(80px, 12vw, 150px);
     font-style: normal;
     font-weight: 900;
@@ -52,4 +51,60 @@
     margin-bottom: 1rem;
     margin-top: 3rem;
   }
+
+  .team_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 4fr 1.5fr;
+    width: 100%;
+    justify-items: center;
+  }
+
+  img {
+    width: 22em;
+    height: auto;
+  }
+
+  .member_overlay {
+    background-color: var(--gris-clair);
+    width: 22em;
+    gap: 1rem;
+  }
+
+  .member_name {
+    margin-left: 0.5rem;
+  }
+
+  .member_role {
+    margin-left: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .workshops_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+  }
+
+  .workshop_text {
+    margin-top: 10rem;
+  }
+
+  .workshop_image {
+    width: 100%;
+    height: auto;
+  }
+
+  section.visits {
+    background-color: var(--vert-turquoise);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .visit {
+    color: var(--blanc);
+  }
+
 }

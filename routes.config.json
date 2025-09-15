@@ -38,7 +38,7 @@
         "key": "education",
         "path": "/en/education",
         "title": "Education",
-        "themeColor": "#90e036",
+        "themeColor": "#FFF",
         "anchors": [
           { "id": "carbon-team", "title": "Carbon team" },
           { "id": "workshops", "title": "Workshops" },
@@ -106,7 +106,7 @@
         "key": "education",
         "path": "/fr/education",
         "title": "Éducation",
-        "themeColor": "#90e036",
+        "themeColor": "#FFF",
         "anchors": [
           { "id": "carbon-team", "title": "Équipe carbone" },
           { "id": "workshops", "title": "Ateliers" },
