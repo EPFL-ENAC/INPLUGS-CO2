@@ -41,33 +41,9 @@
     scroll-margin-top: 0;
   }
 
-  .title {
-    font-family: Archivo;
-    font-size: clamp(80px, 12vw, 150px);
-    font-style: normal;
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -1.92px;
-    margin-bottom: 1rem;
-    margin-top: 3rem;
-  }
-
-  .team_wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 4fr 1.5fr;
-    width: 100%;
-    justify-items: center;
-  }
-
-  img {
-    width: 22em;
-    height: auto;
-  }
-
   .member_overlay {
     background-color: var(--gris-clair);
-    width: 22em;
+    width: 100%;
     gap: 1rem;
   }
 
@@ -80,31 +56,117 @@
     padding-bottom: 0.5rem;
   }
 
-  .workshops_wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  @media (min-width: 481px) {
+    .team_wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 4fr 1.5fr;
+      width: 100%;
+      justify-items: center;
+    }
 
+    .title {
+      font-family: Archivo;
+      font-size: clamp(80px, 12vw, 150px);
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
+
+    img {
+      width: 22rem;
+      height: auto;
+    }
+
+    .workshops_wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .workshop_text {
+      margin-top: 10rem;
+    }
+
+    .workshop_image {
+      width: 100%;
+      height: auto;
+    }
+
+    section.visits {
+      background-color: var(--vert-turquoise);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .visit {
+      color: var(--blanc);
+    }
   }
 
-  .workshop_text {
-    margin-top: 10rem;
-  }
+  @media (max-width: 480px) {
+    .title {
+      font-family: Archivo;
+      font-size: 3.5rem;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
 
-  .workshop_image {
-    width: 100%;
-    height: auto;
-  }
+    .team_member {
+      box-sizing: border-box;
+    }
 
-  section.visits {
-    background-color: var(--vert-turquoise);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .team_wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .visit {
-    color: var(--blanc);
-  }
+    .team_wrapper img {
+      gap: 1rem;
+      max-width: 170px;
+      width: 100%;
+      height: auto;
+    }
 
+    .member_overlay {
+      max-width: 170px;
+      width: 100%;
+      gap: 0.5rem;
+    }
+
+    .workshops {
+      color: var(--blanc);
+      background-color: var(--vert-turquoise);
+    }
+
+    .workshops_wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .workshops_wrapper img {
+      order: -1;
+    }
+
+    .visits {
+      background-color: var(--blanc);
+    }
+
+    .visit_image {
+      width:100%;
+      height: auto;
+    }
+  }
 }

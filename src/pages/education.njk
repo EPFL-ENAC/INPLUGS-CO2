@@ -5,6 +5,7 @@
         <link rel="stylesheet" href='{{ asset("/assets/styles/education.css") }}'>
         
         <main class="education_page">
+
             <section class="team">
                 <h1 class="title">{{ t("education.carbon") }}</h1>
                 <div class="team_wrapper">
@@ -30,16 +31,19 @@
                         </div>
                     </div>
             </section>
+
             <section class="workshops">
                 <h1 class="title">{{ t("education.workshops") }}</h1>
                 <div class="workshops_wrapper">
                     <span class="workshop_text">{{ t("education.workshop_text") | safe}}</span>
                     <img class="workshop_image" src="{{ asset("/assets/images/education/workshop.png") }}" alt="Workshop"/>
             </section>
+            
             <section class="visits">
                 <h1 class="title visit" >{{ t("education.visits") }}</h1>
                 <img class="visit_image" src="{{ asset("/assets/images/education/no-image.png") }}" alt="Visit"/>
             </section>
+
         </main>
         <!-- <script type="module" src='{{ asset("/assets/js/education.js") }}'></script> -->
     </template>
