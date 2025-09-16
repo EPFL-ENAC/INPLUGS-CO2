@@ -1,5 +1,73 @@
 {% extends 'layouts/main.njk' %}
 {% block content %}
-    <h2>{{ catalogs[locale or 'en']['dictionary.title'] if catalogs else 'Dictionary' }}</h2>
-    <p>Terminology and definitions related to carbon storage and removal.</p>
+<data-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/dictionary.css") }}'>
+        
+        <main class="dictionary_page">
+
+            <section class="dictionary">
+                <h2 class="title">{{ t("dictionary.description") }}</h2>
+
+                <details>
+                    <summary>{{ t("dictionary.item1.term") }}</summary>
+                    <p>{{ t("dictionary.item1.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item2.term") }}</summary>
+                    <p>{{ t("dictionary.item2.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item3.term") }}</summary>
+                    <p>{{ t("dictionary.item3.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item4.term") }}</summary>
+                    <p>{{ t("dictionary.item4.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item5.term") }}</summary>
+                    <p>{{ t("dictionary.item5.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item6.term") }}</summary>
+                    <p>{{ t("dictionary.item6.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item7.term") }}</summary>
+                    <p>{{ t("dictionary.item7.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item8.term") }}</summary>
+                    <p>{{ t("dictionary.item8.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item9.term") }}</summary>
+                    <p>{{ t("dictionary.item9.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item10.term") }}</summary>
+                    <p>{{ t("dictionary.item10.definition") }}</p>
+                </details>
+
+                <details>
+                    <summary>{{ t("dictionary.item11.term") }}</summary>
+                    <p>{{ t("dictionary.item11.definition") }}</p>
+                </details>
+
+            </section>
+
+        </main>
+        <!-- <script type="module" src='{{ asset("/assets/js/dictionary.js") }}'></script> -->
+    </template>
+</data-content>
 {% endblock %}

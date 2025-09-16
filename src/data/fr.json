@@ -54,7 +54,54 @@
     "workshops": "Ateliers",
     "visits": "Visites"
   },
-  "dictionary": { "title": "Dictionnaire" },
+  "dictionary": { 
+    "title": "Dictionnaire",
+    "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
+    "item1": {
+      "term": "GCS",
+      "definition": "Lorem Ipsum"
+    },
+    "item2": {
+      "term": "Caprock",
+      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+    },
+    "item3": {
+      "term": "Density",
+      "definition": "Lorem Ipsum"
+    },
+    "item4": {
+      "term": "Dissolution",
+      "definition": "Lorem Ipsum"
+    },
+    "item5": {
+      "term": "Gaz",
+      "definition": "Lorem Ipsum"
+    },
+    "item6": {
+      "term": "Injection de CO2",
+      "definition": "Lorem Ipsum"
+    },
+    "item7": {
+      "term": "Liquide",
+      "definition": "Lorem Ipsum"
+    },
+    "item8": {
+      "term": "Minéralisation",
+      "definition": "Lorem Ipsum"
+    },
+    "item9": {
+      "term": "Net zero (neutralité carbone)",
+      "definition": "Lorem Ipsum"
+    },
+    "item10": {
+      "term": "Pérméabilité",
+      "definition": "Lorem Ipsum"
+    },
+    "item11": {
+      "term": "Pilot project",
+      "definition": "Lorem Ipsum"
+    }
+  },
   "links": { "title": "Liens utiles" },
   "about": { "title": "À propos" },
   "contact": { "title": "Contact" }
