@@ -21,9 +21,6 @@ class LandingPageController {
     this.backButton = this.shadowRoot.querySelector(".btn-back");
     this.isFullPage = false;
 
-
-
-
     this.svg = this.shadowRoot.querySelector("#inplugs-svg");
     this.steps = [
       this.shadowRoot.querySelector("#landing_svg_step1_animate"),
@@ -470,7 +467,6 @@ class LandingPageController {
     }
   }
 
-
   resetSteps() {
     this.steps.forEach((s) => {
       if (s === null) return;
@@ -479,24 +475,24 @@ class LandingPageController {
       // For <g> (step3) hide it
       if (s.tagName === "g") s.setAttribute("visibility", "hidden");
     });
-}
-    showAnimateStep(step) {
-      this.svg.pauseAnimations();
-      this.svg.setCurrentTime(0);
-      this.resetSteps();
-      const s = this.steps[step - 1];
-      if (s === null) return;
-      if (s.tagName === "animateTransform") {
-        s.setAttribute("repeatCount", "indefinite");
-        s.beginElement();
-      } else if (s.tagName === "g") {
-        if (step === 2) {
-        }
-        s.setAttribute("visibility", "visible");
-        // Arrows already repeat indefinitely
+  }
+  showAnimateStep(step) {
+    this.svg.pauseAnimations();
+    this.svg.setCurrentTime(0);
+    this.resetSteps();
+    const s = this.steps[step - 1];
+    if (s === null) return;
+    if (s.tagName === "animateTransform") {
+      s.setAttribute("repeatCount", "indefinite");
+      s.beginElement();
+    } else if (s.tagName === "g") {
+      if (step === 2) {
       }
+      s.setAttribute("visibility", "visible");
+      // Arrows already repeat indefinitely
+    }
 
-      this.svg.unpauseAnimations();
+    this.svg.unpauseAnimations();
   }
   /**
    * Unified method to update all UI elements based on current scroll position
@@ -510,8 +506,6 @@ class LandingPageController {
     this.updateScrollButtons();
     this.updateMinimapMarkers();
     this.showAnimateStep(this.currentStep);
-
-    
   }
 
   /**
