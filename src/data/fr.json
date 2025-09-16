@@ -48,13 +48,7 @@
     "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
     "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "education": {
-    "title": "Éducation",
-    "carbon": "Équipe carbone",
-    "workshops": "Ateliers",
-    "visits": "Visites"
-  },
-  "dictionary": { 
+  "dictionary": {
     "title": "Dictionnaire",
     "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
     "item1": {

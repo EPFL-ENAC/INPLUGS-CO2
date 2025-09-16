@@ -35,17 +35,6 @@
         "themeColor": "#FFF"
       },
       {
-        "key": "education",
-        "path": "/en/education",
-        "title": "Education",
-        "themeColor": "#FFF",
-        "anchors": [
-          { "id": "carbon-team", "title": "Carbon team" },
-          { "id": "workshops", "title": "Workshops" },
-          { "id": "visits", "title": "Visits" }
-        ]
-      },
-      {
         "key": "dictionary",
         "path": "/en/dictionary",
         "title": "Dictionary",
@@ -101,17 +90,6 @@
         "path": "/fr/donnees",
         "title": "Données",
         "themeColor": "#FFF"
-      },
-      {
-        "key": "education",
-        "path": "/fr/education",
-        "title": "Éducation",
-        "themeColor": "#FFF",
-        "anchors": [
-          { "id": "carbon-team", "title": "Équipe carbone" },
-          { "id": "workshops", "title": "Ateliers" },
-          { "id": "visits", "title": "Visites" }
-        ]
       },
       {
         "key": "dictionary",
