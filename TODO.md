@@ -18,3 +18,10 @@
 - possibilité de cliquer sur la minimap (les nombres)
 - follow git ignore for dsstore
 9 - Assets and public js/css/images snaffu
+
+
+# Section Quentin
+
+1. le padding écrit dans main section de chaque sous page n'est pas pris en compte.
+2. photo de l'équipe carone
+3. voir si page education éxiste toujours

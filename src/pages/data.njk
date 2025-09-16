@@ -5,7 +5,21 @@
         <link rel="stylesheet" href='{{ asset("/assets/styles/data.css") }}'>
 
         <main class="data_page">
-            COUCOU
+            <section class="title">
+                <h1 class="data_title">{{ t("data.title") | safe}}</h1>
+                <div class="compteur_wrapper">
+                    <h3 class="compteur_title">{{ t("data.compteur_title") }}</h3>
+                    <span class="compteur">18</span>
+                </div>
+            </section>
+            <section class="sphincs">
+                <h1 class="title2">{{ t("data.title2") }}</h1>
+                <h2 class="subtitle2">{{ t("data.subtitle2") | safe}}</h2>
+                <div class="content-wrapper">
+                    <img src="{{ asset("/assets/images/data/image1.png") }}" alt="image"/>
+                    <span class="sphincs_text">{{ t("data.sphincs_text") | safe}} </span>
+                </div>
+            </section>
         </main>
         <!-- <script type="module" src='{{ asset("/assets/js/data.js") }}'></script> -->
     </template>

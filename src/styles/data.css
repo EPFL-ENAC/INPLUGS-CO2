@@ -3,24 +3,19 @@
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;
+    --vert-turquoise: #5bad91;
   }
 
   :host {
-    --vert-turquoise: #5bad91;
     --blanc-cass: #f4f0eb;
     --canard: #1a586c;
+    --vert-turquoise: #5bad91;
     --noir: #000;
     --blanc: #fff;
     display: block;
-    background: var(--brand-bg);
-    color: var(--brand-fg);
-    font:
-      500 16px/1.4 system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      sans-serif;
-    /* box-shadow: var(--shadow); */
+    background: var(--blanc);
+    color: var(--noir);
+    box-shadow: var(--shadow);
   }
 
   /* Smooth scrolling */
@@ -35,8 +30,168 @@
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     scroll-margin-top: 0;
+  }
+
+  .canard {
+    color: var(--canard);
+  }
+
+  .turquoise {
+    color: var(--vert-turquoise);
+  }
+
+  .compteur_wrapper {
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    margin-top: 5em;
+  }
+
+  @media (min-width: 481px) {
+    h1.data_title {
+      font-family: var(--font-family-primary);
+      font-size: 7em;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
+
+    h1.title2 {
+      font-family: var(--font-family-primary);
+      font-size: 7em;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1.92px;
+    }
+
+    section.title {
+      min-height: auto; /* Override the 100vh from main section */
+      margin-bottom: 0; /* Remove bottom margin to bring counter closer */
+      padding-bottom: 2.5rem; /* Remove bottom padding */
+    }
+
+    section.compteur {
+      min-height: auto;
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+
+    /* Center the compteur title and value */
+    h3.compteur_title {
+      text-align: center;
+      min-height: auto;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      margin-top: 0;
+      padding-bottom: 0;
+    }
+
+    span.compteur {
+      display: block;
+      text-align: center;
+      font-size: 10rem;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    h2.subtitle2 {
+      font-family: var(--font-family-primary);
+      font-size: 2em;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.96px;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      color: inherit; /* Let spans override the color */
+    }
+
+    section.sphincs p {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem; /* Space between image and text */
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    .content-wrapper {
+      display: grid;
+      gap: 2rem; /* Space between image and text */
+      grid-template-columns: 3fr 1fr;
+      margin-bottom: 2rem;
+    }
+
+    section.sphincs img {
+      width: 100%;
+      height: auto; /* Maintain aspect ratio */
+      flex: 1; /* Prevent image from shrinking */
+    }
+
+    span.sphincs_text {
+      background-color: #d9d9d9;
+      padding: 1rem;
+      width: fit-content;
+      flex-shrink: 0; /* Take remaining space */
+      min-width: 250px; /* Minimum width for text readability */
+    }
+  }
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2em;
+      margin-left: 0%;
+      margin-bottom: 0;
+    }
+
+    h1.title2 {
+      color: var(--blanc);
+    }
+
+    h2 {
+      font-size: 1em;
+      color: var(--blanc) !important;
+    }
+
+    .turquoise {
+      color: var(--blanc);
+    }
+
+    .compteur {
+      font-size: 11em;
+      top: 0%;
+      font-weight: bold;
+    }
+
+    .section_title {
+      margin-bottom: 2em;
+    }
+
+    .sphincs {
+      background-color: var(--vert-turquoise);
+    }
+
+    img {
+      width: 100%;
+      height: auto; /* Maintain aspect ratio */
+      flex: 1; /* Prevent image from shrinking */
+    }
+
+    .content-wrapper {
+      gap: 2.5rem;
+      display: grid;
+    }
+
+    .sphincs_text {
+      background-color: var(--blanc);
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
   }
 }

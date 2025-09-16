@@ -32,24 +32,13 @@
         "key": "data",
         "path": "/en/data",
         "title": "Data",
-        "themeColor": "#1a586c"
-      },
-      {
-        "key": "education",
-        "path": "/en/education",
-        "title": "Education",
-        "themeColor": "#90e036",
-        "anchors": [
-          { "id": "carbon-team", "title": "Carbon team" },
-          { "id": "workshops", "title": "Workshops" },
-          { "id": "visits", "title": "Visits" }
-        ]
+        "themeColor": "#FFF"
       },
       {
         "key": "dictionary",
         "path": "/en/dictionary",
         "title": "Dictionary",
-        "themeColor": "#087065"
+        "themeColor": "#FFF"
       },
       {
         "key": "links",
@@ -98,26 +87,15 @@
       },
       {
         "key": "data",
-        "path": "/fr/data",
+        "path": "/fr/donnees",
         "title": "Données",
-        "themeColor": "#1a586c"
-      },
-      {
-        "key": "education",
-        "path": "/fr/education",
-        "title": "Éducation",
-        "themeColor": "#90e036",
-        "anchors": [
-          { "id": "carbon-team", "title": "Équipe carbone" },
-          { "id": "workshops", "title": "Ateliers" },
-          { "id": "visits", "title": "Visites" }
-        ]
+        "themeColor": "#FFF"
       },
       {
         "key": "dictionary",
         "path": "/fr/dictionnaire",
         "title": "Dictionnaire",
-        "themeColor": "#087065"
+        "themeColor": "#FFF"
       },
       {
         "key": "links",

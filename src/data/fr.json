@@ -41,13 +41,61 @@
     "world": "Le GCS dans le monde",
     "ch": "Le GCS en Suisse"
   },
-  "education": {
-    "title": "Éducation",
-    "carbon": "Équipe carbone",
-    "workshops": "Ateliers",
-    "visits": "Visites"
+  "data": {
+    "title": "GCS en <span class=\"canard\">nombres</span>",
+    "compteur_title": "Compteur à venir",
+    "title2": "SPHINCS",
+    "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
+    "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "dictionary": { "title": "Dictionnaire" },
+  "dictionary": {
+    "title": "Dictionnaire",
+    "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
+    "item1": {
+      "term": "GCS",
+      "definition": "Lorem Ipsum"
+    },
+    "item2": {
+      "term": "Caprock",
+      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+    },
+    "item3": {
+      "term": "Density",
+      "definition": "Lorem Ipsum"
+    },
+    "item4": {
+      "term": "Dissolution",
+      "definition": "Lorem Ipsum"
+    },
+    "item5": {
+      "term": "Gaz",
+      "definition": "Lorem Ipsum"
+    },
+    "item6": {
+      "term": "Injection de CO2",
+      "definition": "Lorem Ipsum"
+    },
+    "item7": {
+      "term": "Liquide",
+      "definition": "Lorem Ipsum"
+    },
+    "item8": {
+      "term": "Minéralisation",
+      "definition": "Lorem Ipsum"
+    },
+    "item9": {
+      "term": "Net zero (neutralité carbone)",
+      "definition": "Lorem Ipsum"
+    },
+    "item10": {
+      "term": "Pérméabilité",
+      "definition": "Lorem Ipsum"
+    },
+    "item11": {
+      "term": "Pilot project",
+      "definition": "Lorem Ipsum"
+    }
+  },
   "links": { "title": "Liens utiles" },
   "about": { "title": "À propos" },
   "contact": { "title": "Contact" }
