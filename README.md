@@ -62,7 +62,7 @@ npm run preview
 │   │   ├── index.njk      # Home page
 │   │   └── about.njk      # About page
 │   └── partials/          # Reusable components
-│       ├── header.njk     # Navigation with language switcher
+│       ├── navbar.njk     # Navigation with language switcher
 │       └── footer.njk     # Site footer
 ├── dist/                  # Generated output (production)
 │   ├── index.html         # Root redirect page

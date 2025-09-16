@@ -29,7 +29,7 @@
     </head>
     <body {% if themeColor %}style="--page-theme-color: {{ themeColor }};"{% endif %}>
         {# <h1>{{ t("title") or title or 'INPLUGS CO2' }}</h1> #}
-        {% include "header.njk" %}
+        {% include "navbar.njk" %}
         <main class="container">
             {% block content %}{% endblock %}
         </main>

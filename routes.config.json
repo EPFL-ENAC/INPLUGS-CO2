@@ -11,9 +11,9 @@
         "hidden": true
       },
       {
-        "key": "landing_page_interactive",
-        "path": "/en/landing_page_interactive",
-        "title": "Interactive",
+        "key": "what_is_gcs",
+        "path": "/en/what_is_gcs",
+        "title": "What is GCS?",
         "themeColor": "#00aad8"
       },
       {
@@ -68,9 +68,9 @@
         "hidden": true
       },
       {
-        "key": "landing_page_interactive",
-        "path": "/fr/landing_page_interactive",
-        "title": "Interactive",
+        "key": "what_is_gcs",
+        "path": "/fr/what_is_gcs",
+        "title": "Qu'est-ce que le GCS ?",
         "themeColor": "#00aad8"
       },
       {
