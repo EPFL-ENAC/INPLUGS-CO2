@@ -466,7 +466,10 @@ export class AssetProcessor {
           console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
         }
       } catch (error) {
-        console.warn(`⚠️  Failed to process CSS file ${filePath}:`, error.message);
+        console.warn(
+          `⚠️  Failed to process CSS file ${filePath}:`,
+          error.message,
+        );
         continue;
       }
     }
