@@ -1,26 +1,45 @@
-1.  Don't optimize the images every time?
-    - Use a plugin to optimize images only when they are changed or added.
-    - Dynamically render the build by overriding meta.json in plugin with env variable
-2.  Add a template for the robots.txt
-3.  Add a sitemap in html for user discovery
-4.  Add rollup critical plugin!
-5.  Have a rollup plugin or something else to have the global css merge into one css optimize instead of 5 ?
-6.  have several resolution for images for srcset purposes
-    -       /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
-    -       /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w
+# Project TODO List
 
-7.  Add a way to ignore .DS_Store for build etc ?
+## Site Structure & Navigation
+- [ ] Review and optimize site navigation flow
+- [ ] Ensure consistent navbar implementation across all pages
+- [ ] Verify footer content is up-to-date and consistent
 
-8.  Add polyfill for safari and firefox maybe ?
+## Page Content
+- [ ] Audit all page content for accuracy and completeness
+- [ ] Check language consistency between EN/FR versions
+- [ ] Update meta descriptions and SEO elements
 
-- Test so firefox (1280x3003)
-- y'a de problèmes de resolutions:. des lenovo avec des pixelRatio de 3
-- possibilité de cliquer sur la minimap (les nombres)
-- follow git ignore for dsstore
-  9 - Assets and public js/css/images snaffu
+## Styling & UI
+- [ ] Review CSS for unused or redundant styles
+- [ ] Ensure responsive design works across all device sizes
+- [ ] Check color scheme consistency with design tokens
+- [ ] Optimize font loading and performance
 
-# Section Quentin
+## Performance Optimization
+- [ ] Audit image sizes and formats (WebP conversion)
+- [ ] Minify CSS and JavaScript assets
+- [ ] Implement proper caching strategies
+- [ ] Run Lighthouse tests and address issues
 
-1. le padding écrit dans main section de chaque sous page n'est pas pris en compte.
-2. photo de l'équipe carone
-3. voir si page education éxiste toujours
+## JavaScript Functionality
+- [ ] Review and optimize existing JS files
+- [ ] Ensure progressive enhancement principles
+- [ ] Add error handling where missing
+
+## Accessibility
+- [ ] Run accessibility audit
+- [ ] Ensure proper semantic HTML
+- [ ] Check color contrast ratios
+- [ ] Verify keyboard navigation
+
+## Build & Deployment
+- [ ] Review build process efficiency
+- [ ] Check Docker configuration
+- [ ] Validate nginx configuration
+- [ ] Test deployment process
+
+## Documentation
+- [ ] Update README with latest project info
+- [ ] Document build process
+- [ ] Add comments to complex code sections
