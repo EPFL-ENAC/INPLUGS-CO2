@@ -111,6 +111,7 @@ export class PageRenderer {
     this.setCurrentTranslator(translator);
     try {
       // Get navigation items from routes config for current locale
+      const navItemsMap = {};
       const navItems = (routesConfig.routes || [])
         .filter((route) => {
           // Check if route is hidden for this locale
@@ -119,7 +120,7 @@ export class PageRenderer {
         })
         .map((route) => {
           // Transform route for this locale
-          return {
+          const result = {
             ...route,
             key: route.key,
             path: getRoutePath(route.key, locale, routesConfig),
@@ -127,7 +128,9 @@ export class PageRenderer {
             themeColor: getRouteProperty(route, "themeColor", locale),
             anchors: getRouteProperty(route, "anchors", locale),
           };
-        });
+          navItemsMap[result.key] = result;
+          return result;
+          });
 
       let html = this.env.render(templateName, {
         locale,
@@ -145,6 +148,7 @@ export class PageRenderer {
           ),
         ),
         navItems, // Navigation items from routes config
+        navItemsMap, // Navigation items map for easy access by key
         meta: metaData, // Meta data from meta.json
         currentPage: routePath,
         themeColor, // Page-specific theme color

@@ -236,6 +236,39 @@ localesMeta: {
 {% endfor %}
 ```
 
+#### Navigation Items Map
+
+In addition to the `navItems` array, the plugin also provides a `navItemsMap` object for easy access to navigation items by their key:
+
+```html
+<!-- Access a specific navigation item directly by key -->
+<a href="{{ navItemsMap.gcs.path }}">{{ navItemsMap.gcs.title }}</a>
+
+<!-- Check if a navigation item exists -->
+{% if navItemsMap.gcs %}
+  <div class="gcs-section">
+    <h2>{{ navItemsMap.gcs.title }}</h2>
+    <p>Theme color: {{ navItemsMap.gcs.themeColor }}</p>
+  </div>
+{% endif %}
+
+<!-- Access anchors of a specific navigation item -->
+{% if navItemsMap.gcs.anchors %}
+  <ul>
+    {% for anchor in navItemsMap.gcs.anchors %}
+      <li><a href="{{ navItemsMap.gcs.path }}#{{ anchor.id }}">{{ anchor.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+```
+
+The `navItemsMap` provides the same properties as the items in the `navItems` array:
+- `key`: Unique identifier for the page
+- `path`: Locale-specific URL path
+- `title`: Translated page title
+- `themeColor`: Page-specific theme color
+- `anchors`: Section anchors for dropdown menus (if available)
+
 ## ⚙️ Configuration
 
 ### Routes Configuration
