@@ -5,14 +5,14 @@
         <link rel="stylesheet" href='{{ asset("/assets/styles/data.css") }}'>
 
         <main class="data_page">
-            <section class="title">
+            <section class="title" id="gcs-numbers">
                 <h1 class="data_title">{{ t("data.title") | safe}}</h1>
                 <div class="compteur_wrapper">
                     <h3 class="compteur_title">{{ t("data.compteur_title") }}</h3>
                     <span class="compteur">18</span>
                 </div>
             </section>
-            <section class="sphincs">
+            <section class="sphincs" id="sphincs">
                 <h1 class="title2">{{ t("data.title2") }}</h1>
                 <h2 class="subtitle2">{{ t("data.subtitle2") | safe}}</h2>
                 <div class="content-wrapper">
