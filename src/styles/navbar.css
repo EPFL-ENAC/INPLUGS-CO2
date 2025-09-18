@@ -285,13 +285,11 @@
     visibility: hidden;
   }
 
-  .nav-item-dropdown:hover .nav-dropdown-menu,
-  .nav-item-dropdown:focus-within .nav-dropdown-menu,
-  .nav-item-dropdown.js-active .nav-dropdown-menu {
+  .nav-dropdown-menu.dropdown-active {
     display: flex;
     flex-direction: column;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateX(var(--dropdown-left-position, 0px));
     visibility: visible;
   }
 
