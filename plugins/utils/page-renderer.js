@@ -112,9 +112,7 @@ export class PageRenderer {
       const navItems = (routesConfig.routes?.[locale] || [])
         .filter((route) => !route.hidden) // Filter out hidden routes
         .map((route) => ({
-          key: route.key,
-          title: route.title,
-          path: route.path,
+          ...route,
         }));
 
       let html = this.env.render(templateName, {

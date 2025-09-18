@@ -8,22 +8,42 @@
                 <source type="image/webp"
                         srcset="{{ asset("/assets/images/logo/logo_inplugs_86x68.webp") }}">
                 <!-- PNG fallback -->
-                <img src="/assets/images/logo/logo_inplugs_86x68.png"
+                <img src="{{ asset("/assets/images/logo/logo_inplugs_86x68.png") }}"
                      alt="INPLUGS Logo"
                      width="86"
                      height="68">
             </picture>
         </a>
-        <nav aria-label="Main navigation">
+        <nav aria-label="Main navigation" class="navbar-nav">
             {% set navOrder = [] %}
             {% for item in navItems %}
                 {% if not item.hidden %}
                     {% set _ = navOrder.push(item.key) %}
-                    <a href="{{ item.path }}"
-                       class="nav-{{ item.key }}"
-                       {% if page.key == item.key %}aria-current="page"{% endif %}
-                       data-order="{{ loop.index0 }}"
-                       data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                    {% if item.anchors !== undefined %}
+                        <!-- Nav item with dropdown -->
+                        <div class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item  %}nav-{{ item.align }}{% endif %}">
+                            <a href="{{ item.path }}"
+                               class="nav-{{ item.key }} nav-dropdown-toggle"
+                               {% if page.key == item.key %}aria-current="page"{% endif %}
+                               data-order="{{ loop.index0 }}"
+                               data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                            <div class="nav-dropdown-menu">
+                                <!-- Dropdown items specific to each main nav item -->
+                                 {% if item.anchors %}
+                                    {% for anchor in item.anchors %}
+                                        <a href="{{item.path + "#" + anchor.id}}" class="nav-dropdown-item">{{anchor.title}}</a>
+                                    {% endfor %}
+                                 {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Regular nav item -->
+                        <a href="{{ item.path }}"
+                           class="nav-{{ item.key }} {% if 'align' in item %}nav-{{ item.align }}{% endif %}"
+                           {% if page.key == item.key %}aria-current="page"{% endif %}
+                           data-order="{{ loop.index0 }}"
+                           data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
             <!-- Embed canonical order for JS (locale agnostic keys) -->

@@ -8,7 +8,8 @@
         "path": "/en/",
         "title": "Home",
         "themeColor": "#00aad8",
-        "hidden": true
+        "align": "start",
+        "hidden": false
       },
       {
         "key": "what_is_gcs",
@@ -22,7 +23,7 @@
         "title": "GCS",
         "themeColor": "#5bad91",
         "anchors": [
-          { "id": "why", "title": "Why is GCS?" },
+          { "id": "why", "title": "Why GCS?" },
           { "id": "what", "title": "What is GCS?" },
           { "id": "world", "title": "GCS in the world" },
           { "id": "switzerland", "title": "GCS in Switzerland" }
@@ -32,31 +33,44 @@
         "key": "data",
         "path": "/en/data",
         "title": "Data",
-        "themeColor": "#FFF"
+        "themeColor": "#FFF",
+        "anchors": [
+          { "id": "gcs-numbers", "title": "GCS in numbers" },
+          { "id": "sphincs", "title": "SPHINCS" }
+        ]
       },
       {
         "key": "dictionary",
         "path": "/en/dictionary",
         "title": "Dictionary",
-        "themeColor": "#FFF"
+        "themeColor": "#FFF",
+        "anchors": [
+          { "id": "references", "title": "References" }
+        ]
       },
       {
         "key": "links",
         "path": "/en/useful-links",
         "title": "Useful links",
-        "themeColor": "#3dd0ff"
+        "themeColor": "#3dd0ff",
+        "anchors": [
+          { "id": "news", "title": "News" },
+          { "id": "events", "title": "Events" },
+          { "id": "articles", "title": "Articles" }
+        ]
       },
       {
         "key": "about",
         "path": "/en/about",
         "title": "About",
-        "themeColor": "#f97316"
-      },
-      {
-        "key": "contact",
-        "path": "/en/contact",
-        "title": "Contact",
-        "themeColor": "#aaf954"
+        "themeColor": "#f97316",
+        "anchors": [
+          { "id": "team", "title": "The team" },
+          { "id": "mission-values", "title": "Mission and Values" },
+          { "id": "funding", "title": "Funding" },
+          { "id": "contact-form", "title": "Contact form" },
+          { "id": "support-us", "title": "Support us" }
+        ]
       }
     ],
     "fr": [
@@ -89,31 +103,44 @@
         "key": "data",
         "path": "/fr/donnees",
         "title": "Données",
-        "themeColor": "#FFF"
+        "themeColor": "#FFF",
+        "anchors": [
+          { "id": "gcs-numbers", "title": "GCS en nombres" },
+          { "id": "sphincs", "title": "SPHINCS" }
+        ]
       },
       {
         "key": "dictionary",
         "path": "/fr/dictionnaire",
         "title": "Dictionnaire",
-        "themeColor": "#FFF"
+        "themeColor": "#FFF",
+        "anchors": [
+          { "id": "references", "title": "Références" }
+        ]
       },
       {
         "key": "links",
         "path": "/fr/liens-utiles",
         "title": "Liens utiles",
-        "themeColor": "#3dd0ff"
+        "themeColor": "#3dd0ff",
+        "anchors": [
+          { "id": "news", "title": "Actualités" },
+          { "id": "events", "title": "Événements" },
+          { "id": "articles", "title": "Articles" }
+        ]
       },
       {
         "key": "about",
         "path": "/fr/a-propos",
         "title": "À propos",
-        "themeColor": "#f97316"
-      },
-      {
-        "key": "contact",
-        "path": "/fr/contact",
-        "title": "Contact",
-        "themeColor": "#aaf954"
+        "themeColor": "#f97316",
+        "anchors": [
+          { "id": "team", "title": "L'équipe" },
+          { "id": "mission-values", "title": "Mission et Valeurs" },
+          { "id": "funding", "title": "Financement" },
+          { "id": "contact-form", "title": "Formulaire de contact" },
+          { "id": "support-us", "title": "Nous soutenir" }
+        ]
       }
     ]
   }

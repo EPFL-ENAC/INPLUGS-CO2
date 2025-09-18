@@ -21,12 +21,10 @@
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
-    font:
-      500 16px/1.4 system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      sans-serif;
+    --font-family-primary:
+      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
+    font-family: var(--font-family-primary);
     box-shadow: var(--shadow);
     background: var(--navbar-bg);
     backdrop-filter: blur(15px);
@@ -104,10 +102,35 @@
     gap: var(--space-3);
     flex-wrap: nowrap; /* was wrap; enforce single line so JS can measure overflow */
     height: 100%;
-    align-content: center;
+    /* align-content: center;
+    justify-self: end; */
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr auto auto auto auto auto;
+    align-items: center;
+    gap: 1rem;
+  }
+  /* nav > :first-child {
+    margin-left: 0;
+    justify-self: start;
+  }
+  nav > :not(:first-child) {
+    justify-self: end;
+  } */
+
+  nav > a,
+  nav > .nav-item-dropdown {
+    /* Default: show all nav items */
+    display: flex !important;
     justify-self: end;
   }
-
+  nav > .nav-start {
+    justify-self: start;
+  }
+  nav > .nav-end {
+    justify-self: end;
+  }
   nav::after {
     content: "";
     width: 1px;
@@ -168,6 +191,125 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+  }
+
+  /* Custom dropdowns */
+  
+  .nav-item-dropdown {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+  }
+
+  .nav-dropdown-toggle {
+    color: var(--canard);
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.04688rem;
+    text-decoration: none;
+    opacity: 0.9;
+    padding: 0 0.4rem;
+    border-radius: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    flex: 0 0 auto;
+
+    display: flex;
+    align-self: stretch;
+    height: 100%;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Progressive font enhancement */
+  .fonts-loaded-1 .nav-dropdown-toggle {
+    font-family:
+      Archivo,
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  .nav-dropdown-toggle:hover,
+  .nav-dropdown-toggle:focus-visible {
+    opacity: 1;
+    outline: none;
+    background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
+  }
+
+  .nav-dropdown-toggle:focus-visible {
+    outline: 2px solid var(--canard);
+    outline-offset: 2px;
+  }
+
+  .nav-dropdown-toggle[aria-current="page"] {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .nav-dropdown-menu {
+position: absolute;
+  top: 100%;
+  left: 0;
+  
+  /* Background with fallback */
+  background: rgba(244, 240, 235, 0.8);
+  background: color-mix(in srgb, var(--navbar-bg) 80%, transparent);
+  
+  /* Backdrop filter with fallbacks */
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+  
+  /* Ensure proper layering */
+  isolation: isolate;
+  z-index: 1000;
+  
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  min-width: 200px;
+  
+  /* Animation */
+  opacity: 0;
+  transform: translateY(-10px) translateZ(0);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  visibility: hidden;
+  }
+
+  .nav-item-dropdown:hover .nav-dropdown-menu,
+  .nav-item-dropdown:focus-within .nav-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .nav-dropdown-item {
+    display: block;
+    padding: var(--space-2);
+    color: var(--canard);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    margin: 0.25rem 0;
+  }
+
+  .nav-dropdown-item:hover,
+  .nav-dropdown-item:focus-visible {
+    background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-dropdown-item[aria-current="page"] {
+    font-weight: 700;
   }
 
   /* More dropdown button */
@@ -247,30 +389,6 @@
     }
   }
 
-  /* Default: dropdown items hidden */
-  /* FOR WHEN we want different cut threshold
-.nav-more-dropdown a {
-  display: none;
-}
-
-html[lang="en"] @media (max-width: 1300px) {
-  nav .nav-contact { display: none !important; }
-  .nav-more-dropdown .nav-contact { display: block; }
-}
-html[lang="en"] @media (max-width: 1250px) {
-  nav .nav-about { display: none !important; }
-  .nav-more-dropdown .nav-about { display: block; }
-}
-
-html[lang="fr"] @media (max-width: 1350px) {
-  nav .nav-contact { display: none !important; }
-  .nav-more-dropdown .nav-contact { display: block; }
-}
-html[lang="fr"] @media (max-width: 1270px) {
-  nav .nav-about { display: none !important; }
-  .nav-more-dropdown .nav-about { display: block; }
-}  */
-
   .nav-more {
     /* position: relative;
     display: none; */
@@ -320,16 +438,19 @@ html[lang="fr"] @media (max-width: 1270px) {
     opacity: 1;
     outline: none;
     background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
+    backdrop-filter: blur(10px);
   }
 
   .nav-more-toggle:focus-visible {
     outline: 2px solid var(--canard);
     outline-offset: 2px;
+    backdrop-filter: blur(10px);
   }
 
   .nav-more-toggle[aria-expanded="true"] {
     opacity: 1;
     background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
+    backdrop-filter: blur(10px);
   }
 
   .nav-more-dropdown {
@@ -337,8 +458,8 @@ html[lang="fr"] @media (max-width: 1270px) {
     top: 100%;
     right: 0;
     background: var(--navbar-bg);
-    backdrop-filter: blur(15px);
     box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
     border-radius: var(--radius);
     padding: var(--space-2);
     min-width: 200px;
@@ -523,8 +644,6 @@ html[lang="fr"] @media (max-width: 1270px) {
       top: 100%;
       left: 0;
       right: 0;
-      background: var(--navbar-bg);
-      backdrop-filter: blur(15px);
       flex-direction: column;
       padding: var(--space-3);
       box-shadow: var(--shadow);
