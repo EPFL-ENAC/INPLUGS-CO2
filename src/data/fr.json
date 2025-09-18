@@ -12,7 +12,8 @@
   },
   "home": { "title": "Bienvenue sur GCS" },
   "homepage": {
-    "title": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre l'enfouissement du CO₂",
+    "title": "INPLUGS-CO2:",
+    "subtitle": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre l'enfouissement du CO₂",
     "button": "En savoir plus",
     "image_alt": "Illustration du stockage géologique de CO₂",
     "info_boxes": {

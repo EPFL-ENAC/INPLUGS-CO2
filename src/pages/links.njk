@@ -1,5 +1,45 @@
 {% extends 'layouts/main.njk' %}
 {% block content %}
-    <h2>{{ catalogs[locale or 'en']['links.title'] if catalogs else 'Useful Links' }}</h2>
-    <p>Useful links and resources related to carbon storage and removal.</p>
+<links-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/links.css") }}'>
+        
+        <main class="links_page">
+            <section class="links-intro">
+                <h2>{{ catalogs[locale or 'en']['links.title'] if catalogs else 'Useful Links' }}</h2>
+                <p>Useful links and resources related to carbon storage and removal.</p>
+            </section>
+            
+            <section class="news" id="news">
+                <h3>News</h3>
+                <p>Latest news and updates about geological carbon storage.</p>
+                <ul>
+                    <li><a href="#">New breakthrough in CO2 capture technology</a></li>
+                    <li><a href="#">International collaboration on GCS projects</a></li>
+                    <li><a href="#">Policy updates on carbon pricing</a></li>
+                </ul>
+            </section>
+            
+            <section class="events" id="events">
+                <h3>Events</h3>
+                <p>Upcoming conferences, workshops, and seminars.</p>
+                <ul>
+                    <li><a href="#">International Conference on Carbon Storage - June 2023</a></li>
+                    <li><a href="#">Workshop on Monitoring Techniques - July 2023</a></li>
+                    <li><a href="#">Webinar: Community Engagement in GCS Projects - August 2023</a></li>
+                </ul>
+            </section>
+            
+            <section class="articles" id="articles">
+                <h3>Articles</h3>
+                <p>Research papers, reports, and publications.</p>
+                <ul>
+                    <li><a href="#">"Advances in Geological Carbon Storage" - Journal of Environmental Science</a></li>
+                    <li><a href="#">"Economic Analysis of CCS Projects" - Energy Economics Report</a></li>
+                    <li><a href="#">"Environmental Impact Assessment Guidelines" - International Standards Publication</a></li>
+                </ul>
+            </section>
+        </main>
+    </template>
+</links-content>
 {% endblock %}

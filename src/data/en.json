@@ -11,7 +11,8 @@
     "contact": "Contact"
   },
   "homepage": {
-    "title": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO₂</i> helps you understand CO₂ storage.",
+    "title": "INPLUGS-CO2:",
+    "subtitle": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO₂</i> helps you understand how this technology works.",
     "button": "Learn more",
     "image_alt": "Geological CO₂ storage illustration",
     "info_boxes": {
@@ -107,7 +108,55 @@
     "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
     "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "dictionary": { "title": "Dictionary" },
+
+  "dictionary": {
+    "title": "Dictionnaire",
+    "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
+    "item1": {
+      "term": "GCS",
+      "definition": "Lorem Ipsum"
+    },
+    "item2": {
+      "term": "Caprock",
+      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+    },
+    "item3": {
+      "term": "Density",
+      "definition": "Lorem Ipsum"
+    },
+    "item4": {
+      "term": "Dissolution",
+      "definition": "Lorem Ipsum"
+    },
+    "item5": {
+      "term": "Gaz",
+      "definition": "Lorem Ipsum"
+    },
+    "item6": {
+      "term": "Injection de CO2",
+      "definition": "Lorem Ipsum"
+    },
+    "item7": {
+      "term": "Liquide",
+      "definition": "Lorem Ipsum"
+    },
+    "item8": {
+      "term": "Minéralisation",
+      "definition": "Lorem Ipsum"
+    },
+    "item9": {
+      "term": "Net zero (neutralité carbone)",
+      "definition": "Lorem Ipsum"
+    },
+    "item10": {
+      "term": "Pérméabilité",
+      "definition": "Lorem Ipsum"
+    },
+    "item11": {
+      "term": "Pilot project",
+      "definition": "Lorem Ipsum"
+    }
+  },
   "links": { "title": "Useful links" },
   "about": { "title": "About" },
   "contact": { "title": "Contact" }

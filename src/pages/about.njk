@@ -1,9 +1,97 @@
 {% extends "main.njk" %}
 {% block content %}
-    <h1>{{ t("about.title") }}</h1>
-    <p>{{ t("about.intro") }}</p>
-    <p>Learn more about the INPLUGS CO2 project and our mission in carbon storage and removal research.</p>
-    <p>
-        This platform provides comprehensive information about geological carbon storage (GCS) technologies and their applications.
-    </p>
+<about-content>
+    <template shadowrootmode="open">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/about.css") }}'>
+        
+        <main class="about_page">
+            <section class="about-intro">
+                <h1>{{ t("about.title") }}</h1>
+                <p>{{ t("about.intro") }}</p>
+                <p>Learn more about the INPLUGS CO2 project and our mission in carbon storage and removal research.</p>
+                <p>
+                    This platform provides comprehensive information about geological carbon storage (GCS) technologies and their applications.
+                </p>
+            </section>
+            
+            <section class="team" id="team">
+                <h2>The Team</h2>
+                <p>Our multidisciplinary team brings together experts in geology, engineering, environmental science, and policy.</p>
+                <div class="team-members">
+                    <div class="team-member">
+                        <h3>Dr. Jane Smith</h3>
+                        <p>Project Director, Geologist</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Prof. John Doe</h3>
+                        <p>Lead Engineer, CO2 Storage Systems</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Dr. Emily Johnson</h3>
+                        <p>Environmental Specialist</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mission-values" id="mission-values">
+                <h2>Mission and Values</h2>
+                <h3>Our Mission</h3>
+                <p>To advance the understanding and implementation of safe, effective geological carbon storage solutions that contribute to global climate change mitigation efforts.</p>
+                
+                <h3>Core Values</h3>
+                <ul>
+                    <li><strong>Scientific Integrity:</strong> Commitment to rigorous, evidence-based research</li>
+                    <li><strong>Environmental Responsibility:</strong> Ensuring the protection of ecosystems and communities</li>
+                    <li><strong>Transparency:</strong> Open communication with stakeholders and the public</li>
+                    <li><strong>Collaboration:</strong> Working with international partners to share knowledge and best practices</li>
+                </ul>
+            </section>
+            
+            <section class="funding" id="funding">
+                <h2>Funding</h2>
+                <p>Our research is supported by grants from national science foundations and partnerships with industry leaders.</p>
+                <ul>
+                    <li>National Science Foundation Grant #XXXXXX</li>
+                    <li>European Union Horizon Europe Program</li>
+                    <li>Industry Partnership with Major Energy Company</li>
+                </ul>
+            </section>
+            
+            <section class="contact-form" id="contact-form">
+                <h2>Contact Form</h2>
+                <p>Get in touch with our team for inquiries, collaborations, or feedback.</p>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+            
+            <section class="support-us" id="support-us">
+                <h2>Support Us</h2>
+                <p>There are several ways you can support our research and outreach efforts.</p>
+                <ul>
+                    <li><strong>Donate:</strong> Financial contributions help fund our research activities</li>
+                    <li><strong>Volunteer:</strong> Assist with community outreach and educational programs</li>
+                    <li><strong>Collaborate:</strong> Partner with us on research projects or pilot studies</li>
+                    <li><strong>Spread Awareness:</strong> Share our resources and findings with your networks</li>
+                </ul>
+            </section>
+        </main>
+    </template>
+</about-content>
 {% endblock %}

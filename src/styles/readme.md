@@ -7,7 +7,7 @@ This project uses a **hybrid CSS architecture** that combines CSS layers for glo
 ```
 src/styles/
 ├── 00-reset.css      # @layer reset - Global resets
-├── 01-tokens.css     # @layer tokens - Design tokens + layer definitions  
+├── 01-tokens.css     # @layer tokens - Design tokens + layer definitions
 ├── 02-layout.css     # @layer layout - Global layout systems
 ├── 03-utilities.css  # @layer utilities - Global utility classes
 ├── 04-components.css # @layer components - Global reusable components
@@ -20,13 +20,17 @@ src/styles/
 ## Architecture Principles
 
 ### **Global CSS (Layered)**
+
 Used for styles that affect the entire document:
+
 - Layout components (`.container`, `.svg-wrap`)
 - Base resets and typography
 - Utility classes
 
 ### **Component CSS (Encapsulated)**
+
 Used for Shadow DOM components that need style encapsulation:
+
 - Navbar component (`navbar.css`)
 - Landing page component (`landing_page.css`)
 
@@ -39,6 +43,7 @@ The layer order is defined in `01-tokens.css`:
 ```
 
 **Priority (lowest to highest):**
+
 1. `reset` - Browser resets and base styles
 2. `tokens` - Design tokens (colors, spacing, fonts)
 3. `layout` - Global layout systems (container, grids)
@@ -48,23 +53,23 @@ The layer order is defined in `01-tokens.css`:
 ## Loading Strategy
 
 ### **Global CSS (in `main.njk`)**
-```html
-The files are loaded in `main.njk` in the correct order:
 
-```html
+````html
+The files are loaded in `main.njk` in the correct order: ```html
 <link rel="stylesheet" href="/assets/styles/00-reset.css" />
 <link rel="stylesheet" href="/assets/styles/01-tokens.css" />
 <link rel="stylesheet" href="/assets/styles/02-layout.css" />
 <link rel="stylesheet" href="/assets/styles/03-utilities.css" />
 <link rel="stylesheet" href="/assets/styles/04-components.css" />
-```
-```
+````
+
+````
 
 ### **Shadow DOM Components**
 Each component loads its own CSS within its shadow root:
 
 ```html
-<!-- In header.njk -->
+<!-- In navbar.njk -->
 <template id="header-template">
   <link rel="stylesheet" href="/assets/styles/navbar.css">
   <!-- component content -->
@@ -75,32 +80,37 @@ Each component loads its own CSS within its shadow root:
   <link rel="stylesheet" href="/assets/styles/landing_page.css">
   <!-- component content -->
 </template>
-```
+````
 
 ## File Details
 
 ### Global Files
 
 **`00-reset.css`** - Reset Layer
+
 - Browser resets and base HTML element styles
 - Global typography and spacing resets
 
 **`01-tokens.css`** - Tokens Layer + Layer Definitions
+
 - **Contains the layer order declaration** (must load first!)
 - CSS custom properties (design tokens)
 - Font face declarations
 
 **`02-layout.css`** - Layout Layer
+
 - Global layout systems (`.container`, `.svg-wrap`, `.full-bleed`)
 - Grid systems and page structure
 - Layout utilities that affect document flow
 
 **`03-utilities.css`** - Utilities Layer
+
 - Utility classes that override layout and component defaults
 - Helper classes for spacing, layout, display
 - Classes that should override components when needed
 
 **`04-components.css`** - Components Layer
+
 - Reusable UI components (buttons, cards, modals)
 - Non-Shadow DOM component styles
 - Highest priority for complex component interactions
@@ -108,11 +118,13 @@ Each component loads its own CSS within its shadow root:
 ### Component Files
 
 **`navbar.css`** - Navbar Component
+
 - All navbar styles within `@layer components`
 - Includes responsive behavior and interactions
 - Loaded only within the navbar shadow root
 
 **`landing_page.css`** - Landing Page Component
+
 - All landing page styles within `@layer components`
 - Includes animations and state management
 - Loaded only within landing page shadow roots
@@ -120,17 +132,20 @@ Each component loads its own CSS within its shadow root:
 ## Why This Hybrid Approach?
 
 ### **Benefits of Layered Global CSS:**
+
 - Predictable cascade for document-wide styles
 - Clear separation of concerns
 - Easy maintenance of base styles
 
 ### **Benefits of Encapsulated Component CSS:**
+
 - **True style isolation** for Shadow DOM components
 - **Prevents style leakage** between components
 - **Reusable components** with their own styling
 - **Component-specific** CSS loading
 
 ### **Design Token Sharing:**
+
 - Components can access CSS custom properties from `01-tokens.css`
 - Consistent colors, spacing, and breakpoints across all styles
 - Global design system with local implementation
@@ -138,6 +153,7 @@ Each component loads its own CSS within its shadow root:
 ## Component Development Guidelines
 
 ### **For Shadow DOM Components:**
+
 1. **Copy `component.example.css`** as a starting point for new components
 2. Use `@layer components` to respect the hierarchy
 3. Import the CSS within the component's template
@@ -145,6 +161,7 @@ Each component loads its own CSS within its shadow root:
 5. Use raw pixel values for breakpoints (documented in the example file)
 
 ### **For Global Styles:**
+
 1. Use the appropriate layered CSS file
 2. Avoid component-specific styles in global files
 3. Focus on layout, utilities, and base styles

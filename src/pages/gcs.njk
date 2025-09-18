@@ -3,6 +3,7 @@
 <gcs-content>
     <template shadowrootmode="open">
         <link rel="stylesheet" href='{{ asset("/assets/styles/gcs.css") }}'>
+        <link rel="stylesheet" href='{{ asset("/assets/styles/faq.css") }}'>
 
         <main class="gcs_page">
             <section id="screen-1" class="screen-1 theme-turquoise" aria-labelledby="title-1">
@@ -46,6 +47,26 @@
             <section id="screen-4" class="theme-white-dark" aria-labelledby="title-3">
                 <h2 id="title-4" class="screen-title title-4">{{ t("gcs.page_4.title") }}</h2>
                 <!-- Contenu de l'écran 4 -->
+            </section>
+
+            <section id="screen-5" class="faq">
+                <h1>FAQ</h1>
+                <p>Frequently Asked Questions about Geological Carbon Storage</p>
+                
+                <details>
+                    <summary>What is Geological Carbon Storage?</summary>
+                    <p>Geological Carbon Storage (GCS) is a technology that involves capturing carbon dioxide (CO2) emissions from industrial processes and storing them deep underground in geological formations.</p>
+                </details>
+                
+                <details>
+                    <summary>How does GCS work?</summary>
+                    <p>GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored.</p>
+                </details>
+                
+                <details>
+                    <summary>Is GCS safe?</summary>
+                    <p>Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure.</p>
+                </details>
             </section>
         </main>
         <script type="module" src='{{ asset("/assets/js/gcs.js") }}'></script>

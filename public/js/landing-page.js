@@ -63,9 +63,7 @@ class LandingPageController {
     if (!this.landingPageSection) return;
 
     // Determine current page
-    this.isFullPage = window.location.pathname.includes(
-      "landing_page_interactive",
-    );
+    this.isFullPage = window.location.pathname.includes("what_is_gcs");
 
     // Enhance CTA button with View Transitions if on landing page
     if (this.ctaButton && !this.isFullPage) {
@@ -392,7 +390,7 @@ class LandingPageController {
 
   navigateToFullPage() {
     const navigation = () => {
-      window.location.href = "/landing_page_interactive";
+      window.location.href = "/what_is_gcs";
     };
 
     document.startViewTransition(navigation);

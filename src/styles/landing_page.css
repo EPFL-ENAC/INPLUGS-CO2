@@ -7,13 +7,16 @@
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
-    font:
-      500 16px/1.4 system-ui,
-      -apple-system,
-      Segoe UI,
-      Roboto,
-      sans-serif;
-    /* box-shadow: var(--shadow); */
+    --font-family-primary:
+      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
+    font-family: var(--font-family-primary);
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    font-family: var(--font-family-primary);
   }
 
   /* ---------- Grid layout ---------- */
@@ -115,6 +118,9 @@
   @media (max-width: 860px) {
     .landing_page {
       grid-template-columns: 1fr; /* single column */
+      gap: 0.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
     .landing_page__visual {
       height: auto; /* let image size naturally */
