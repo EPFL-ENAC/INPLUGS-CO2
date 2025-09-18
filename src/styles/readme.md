@@ -82,6 +82,20 @@ Each component loads its own CSS within its shadow root:
 </template>
 ````
 
+### Recommendation
+
+Remove shadow DOM from your project because
+
+YAGNI Principle: You aren't reusing components, so you don't need the encapsulation benefits
+Simplicity: Removing shadow DOM simplifies both HTML structure and JavaScript
+Easier Maintenance: Less complex code is easier to maintain and debug
+Better Developer Experience: Easier to inspect and modify in browser dev tools
+Instead, focus on:
+
+Using consistent CSS naming conventions (like BEM)
+Proper semantic HTML structure
+Well-organized partial templates
+
 ## File Details
 
 ### Global Files

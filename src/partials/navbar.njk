@@ -1,5 +1,4 @@
-<site-header>
-<template shadowroot="open"  shadowrootmode="open">
+<div class="site-header">
     <link rel="stylesheet" href='{{ asset("/assets/styles/navbar.css") }}'>
     <header class="header">
         <a href="/{{ locale }}/" class="logo-link" aria-label="Go to homepage">
@@ -18,7 +17,7 @@
             {% set navOrder = [] %}
             {% for item in navItems %}
                 {% if not item.hidden %}
-                    {% set _ = navOrder.push(item.key) %}
+                    {% set _ = navOrder.push(item.key) %}m
                     {% if item.anchors !== undefined %}
                         <!-- Nav item with dropdown -->
                         <div class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item %}nav-{{ item.align }}{% endif %}">
@@ -106,8 +105,7 @@
             <span class="hamburger-line"></span>
         </button>
     </header>
-</template>
-</site-header>
+</div>
 <script type="speculationrules">
 {
   "prerender": [{
