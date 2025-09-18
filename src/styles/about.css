@@ -128,15 +128,15 @@
     .about_page {
       padding: 1rem;
     }
-    
+
     .about_page h1 {
       font-size: 2rem;
     }
-    
+
     .about_page h2 {
       font-size: 1.75rem;
     }
-    
+
     .team-members {
       grid-template-columns: 1fr;
     }

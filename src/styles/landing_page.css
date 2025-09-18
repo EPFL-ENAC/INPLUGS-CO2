@@ -7,16 +7,17 @@
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
-      --font-family-primary:
-    Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+    --font-family-primary:
+      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
     font-family: var(--font-family-primary);
   }
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
     font-family: var(--font-family-primary);
   }
-
 
   /* ---------- Grid layout ---------- */
   .landing_page {
