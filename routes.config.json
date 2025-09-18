@@ -44,9 +44,7 @@
         "path": "/en/dictionary",
         "title": "Dictionary",
         "themeColor": "#FFF",
-        "anchors": [
-          { "id": "references", "title": "References" }
-        ]
+        "anchors": [{ "id": "references", "title": "References" }]
       },
       {
         "key": "links",
@@ -114,9 +112,7 @@
         "path": "/fr/dictionnaire",
         "title": "Dictionnaire",
         "themeColor": "#FFF",
-        "anchors": [
-          { "id": "references", "title": "Références" }
-        ]
+        "anchors": [{ "id": "references", "title": "Références" }]
       },
       {
         "key": "links",
