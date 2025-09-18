@@ -814,9 +814,11 @@ Understanding the difference between the `public` and `src/assets` directories i
 ### Overview of Both Directories
 
 #### Public Directory
+
 The `public` directory serves files directly at the root URL path without any build-time processing or optimization. Files placed in this directory are copied as-is to the output directory (`dist`) during the build process.
 
 #### Src/Assets Directory
+
 The `src/assets` directory contains source assets that get processed, bundled, minified, and hashed during the build process for optimization. These assets benefit from the project's custom asset processing pipeline.
 
 ### Historical Context
@@ -834,6 +836,7 @@ The distinction between `public` and `src/assets` directories evolved from the h
 This project implements a custom asset processing pipeline through the `AssetProcessor` class that handles both directories with distinct behaviors:
 
 #### Public Directory Processing
+
 - Files are copied directly to the output directory without modification
 - Maintains original filenames and paths
 - Suitable for assets that need predictable URLs
@@ -841,6 +844,7 @@ This project implements a custom asset processing pipeline through the `AssetPro
 - Processed by the `copyPublicAssets()` method in the asset processor
 
 #### Src/Assets Directory Processing
+
 - Files undergo optimization, minification, and hashing during build
 - Filenames are modified with content-based hashes for cache busting
 - Images are converted to WebP format for modern browsers
@@ -850,6 +854,7 @@ This project implements a custom asset processing pipeline through the `AssetPro
 ### Best Practices Guidelines
 
 #### DO put in PUBLIC:
+
 - **SEO/Meta files**: robots.txt, sitemap.xml, favicon.ico, apple-touch-icon.png
 - **PWA files**: manifest.json, service worker files
 - **Third-party libraries**: External JS/CSS that shouldn't be bundled (analytics, CDN fallbacks)
@@ -857,6 +862,7 @@ This project implements a custom asset processing pipeline through the `AssetPro
 - **Media with fixed URLs**: Images referenced in meta tags, email templates, or external systems
 
 #### DO put in ASSETS:
+
 - **Application code**: Your .js, .ts, .jsx, .tsx files
 - **Stylesheets**: .css, .scss, .sass files that get processed
 - **Fonts used in CSS**: Font files imported via @font-face or CSS modules
@@ -864,11 +870,13 @@ This project implements a custom asset processing pipeline through the `AssetPro
 - **Component-specific resources**: SVG icons imported as components, JSON data files
 
 #### DON'T put in PUBLIC:
+
 - Source code files that need transpilation/bundling
 - Images that should get optimized and cache-busted
 - Fonts that are imported via CSS (they won't get proper paths)
 
 #### DON'T put in ASSETS:
+
 - Files that external services need to access at predictable URLs
 - Files that should bypass the build system entirely
 
@@ -877,21 +885,26 @@ This project implements a custom asset processing pipeline through the `AssetPro
 This project's custom asset processor provides advanced features beyond standard Vite processing:
 
 #### Development vs Production Behavior
+
 - **Development**: Assets are copied/processed without heavy optimization for faster builds
 - **Production**: Assets are fully optimized, hashed, and minified for performance
 
 #### Incremental Processing
+
 The asset processor implements incremental processing to only rebuild changed assets, significantly improving build times during development.
 
 #### WebP Generation
+
 All images in both directories automatically get WebP versions generated in production builds for better performance on supporting browsers.
 
 #### Asset Manifest
+
 The processor generates an asset manifest that maps logical paths to their processed/hashed versions, enabling proper asset referencing in templates.
 
 ### Practical Examples
 
 #### File Structure Example
+
 ```
 project/
 ├── public/
@@ -923,6 +936,7 @@ project/
 #### Referencing Assets in Templates
 
 ##### PUBLIC assets usage:
+
 ```html
 <!-- Direct paths since files are copied as-is -->
 <link rel="icon" href="/favicon.ico" />
@@ -932,6 +946,7 @@ project/
 ```
 
 ##### SRC/ASSETS usage:
+
 ```html
 <!-- Through the asset processor manifest -->
 <img src="{{ asset('/assets/images/hero-banner.jpg') }}" alt="Hero" />
@@ -941,6 +956,7 @@ project/
 #### Build Output Differences
 
 **PUBLIC files** → Copied as-is to build folder:
+
 ```
 dist/
 ├── favicon.ico              # Same filename, same content
@@ -954,6 +970,7 @@ dist/
 ```
 
 **SRC/ASSETS files** → Processed and renamed:
+
 ```
 dist/
 ├── assets/
@@ -968,6 +985,7 @@ dist/
 ```
 
 ### Key Takeaway
+
 - **PUBLIC**: "I need this exact file at this exact URL"
 - **SRC/ASSETS**: "Process this file and give me the optimized result"
 
