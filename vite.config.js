@@ -40,29 +40,29 @@ export default defineConfig({
     // Image optimization plugin
     ViteImageOptimizer({
       png: {
-        quality: 85
+        quality: 85,
       },
       jpeg: {
-        quality: 85
+        quality: 85,
       },
       jpg: {
-        quality: 85
+        quality: 85,
       },
       tiff: {
-        quality: 85
+        quality: 85,
       },
       gif: {},
       webp: {
-        quality: 85
+        quality: 85,
       },
       avif: {
-        quality: 85
+        quality: 85,
       },
       svg: {
         multipass: true,
         plugins: [
           {
-            name: 'preset-default',
+            name: "preset-default",
             params: {
               overrides: {
                 removeViewBox: false,
@@ -71,7 +71,7 @@ export default defineConfig({
           },
         ],
       },
-    })
+    }),
   ],
   // Don't use publicDir since we're handling our own static generation
   publicDir: false,
@@ -81,13 +81,13 @@ export default defineConfig({
     // Don't empty the directory since our plugin creates files there
     emptyOutDir: false,
     // Enable minification
-    minify: 'terser',
+    minify: "terser",
     // Terser options for JS minification
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
-      }
+        drop_debugger: true,
+      },
     },
     // CSS minification
     cssMinify: true,

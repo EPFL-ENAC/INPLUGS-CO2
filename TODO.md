@@ -17,8 +17,7 @@
 - y'a de problèmes de resolutions:. des lenovo avec des pixelRatio de 3
 - possibilité de cliquer sur la minimap (les nombres)
 - follow git ignore for dsstore
-9 - Assets and public js/css/images snaffu
-
+  9 - Assets and public js/css/images snaffu
 
 # Section Quentin
 
