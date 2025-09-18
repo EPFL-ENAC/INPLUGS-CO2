@@ -33,15 +33,15 @@
       "anchors": {
         "en": [
           { "id": "why", "title": "Why GCS?" },
-          { "id": "what", "title": "What is GCS?" },
           { "id": "world", "title": "GCS in the world" },
-          { "id": "switzerland", "title": "GCS in Switzerland" }
+          { "id": "switzerland", "title": "GCS in Switzerland" },
+          { "id": "faq", "title": "FAQ" }
         ],
         "fr": [
           { "id": "why", "title": "Pourquoi le GCS ?" },
-          { "id": "what", "title": "Qu'est-ce que le GCS ?" },
           { "id": "world", "title": "Le GCS dans le monde" },
-          { "id": "switzerland", "title": "Le GCS en Suisse" }
+          { "id": "switzerland", "title": "Le GCS en Suisse" },
+          { "id": "faq", "title": "FAQ" }
         ]
       }
     },
