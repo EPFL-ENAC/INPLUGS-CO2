@@ -83,12 +83,15 @@
         }} sections">
         <!-- Dropdown items specific to each main nav item -->
         {% for anchor in item.anchors %}
-        <a href="{{ item.path + " #" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
+        <a href="{{ item.path + "#" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
         {% endfor %}
     </div>
     {% endif %}
     {% endfor %}
 </div>
+<script>
+    //* JavaScript to handle dropdowns and mobile menu toggle
+</script>
 <script type="speculationrules">
 {
   "prerender": [{

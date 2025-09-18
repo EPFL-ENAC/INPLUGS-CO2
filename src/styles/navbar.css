@@ -27,7 +27,6 @@
     font-family: var(--font-family-primary);
     box-shadow: var(--shadow);
     background: var(--navbar-bg);
-    backdrop-filter: blur(15px);
     position: sticky;
     top: 0px;
     z-index: 100;
@@ -42,6 +41,7 @@
     gap: var(--space-3);
     padding-left: 2rem;
     height: 100%;
+    backdrop-filter: blur(15px);
   }
 
   /* New: force vertical layout when header has mobile-menu-open (SSR / accessibility state) */
@@ -277,7 +277,7 @@
 
     /* Animation */
     opacity: 0;
-    transform: translateY(-10px) translateZ(0);
+    transform: translateY(-10px) translateZ(0) translateX(0px);
     transition:
       opacity 0.2s ease,
       transform 0.2s ease,
@@ -286,7 +286,8 @@
   }
 
   .nav-item-dropdown:hover .nav-dropdown-menu,
-  .nav-item-dropdown:focus-within .nav-dropdown-menu {
+  .nav-item-dropdown:focus-within .nav-dropdown-menu,
+  .nav-item-dropdown.js-active .nav-dropdown-menu {
     display: flex;
     flex-direction: column;
     opacity: 1;
