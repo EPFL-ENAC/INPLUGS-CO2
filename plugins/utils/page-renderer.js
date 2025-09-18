@@ -120,12 +120,12 @@ export class PageRenderer {
         .map((route) => {
           // Transform route for this locale
           return {
+            ...route,
             key: route.key,
             path: getRoutePath(route.key, locale, routesConfig),
             title: getRouteProperty(route, "title", locale),
             themeColor: getRouteProperty(route, "themeColor", locale),
             anchors: getRouteProperty(route, "anchors", locale),
-            ...route,
           };
         });
 
