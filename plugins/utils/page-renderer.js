@@ -130,7 +130,7 @@ export class PageRenderer {
           };
           navItemsMap[result.key] = result;
           return result;
-          });
+        });
 
       let html = this.env.render(templateName, {
         locale,
