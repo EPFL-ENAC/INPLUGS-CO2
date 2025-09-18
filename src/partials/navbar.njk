@@ -17,7 +17,7 @@
             {% set navOrder = [] %}
             {% for item in navItems %}
                 {% if not item.hidden %}
-                    {% set _ = navOrder.push(item.key) %}m
+                    {% set _ = navOrder.push(item.key) %}
                     {% if item.anchors !== undefined %}
                         <!-- Nav item with dropdown -->
                         <div class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item %}nav-{{ item.align }}{% endif %}">
