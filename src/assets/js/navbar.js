@@ -30,8 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
           const leftPosition = toggleRect.left - navRect.left;
 
           // Store the position as a CSS variable on the dropdown menu
-          dropdownMenu.style.setProperty('--dropdown-left-position', `${leftPosition}px`);
-          
+          dropdownMenu.style.setProperty(
+            "--dropdown-left-position",
+            `${leftPosition}px`,
+          );
+
           // Add the active class to show the dropdown
           dropdownMenu.classList.add("dropdown-active");
         });
