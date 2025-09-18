@@ -21,7 +21,7 @@
                     {% set _ = navOrder.push(item.key) %}
                     {% if item.anchors !== undefined %}
                         <!-- Nav item with dropdown -->
-                        <div class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item  %}nav-{{ item.align }}{% endif %}">
+                        <div class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item %}nav-{{ item.align }}{% endif %}">
                             <a href="{{ item.path }}"
                                class="nav-{{ item.key }} nav-dropdown-toggle"
                                {% if page.key == item.key %}aria-current="page"{% endif %}
@@ -29,11 +29,11 @@
                                data-nav-item="{{ item.key }}">{{ item.title }}</a>
                             <div class="nav-dropdown-menu">
                                 <!-- Dropdown items specific to each main nav item -->
-                                 {% if item.anchors %}
+                                {% if item.anchors %}
                                     {% for anchor in item.anchors %}
-                                        <a href="{{item.path + "#" + anchor.id}}" class="nav-dropdown-item">{{anchor.title}}</a>
+                                        <a href="{{ item.path + "#" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
                                     {% endfor %}
-                                 {% endif %}
+                                {% endif %}
                             </div>
                         </div>
                     {% else %}
@@ -66,15 +66,15 @@
                 </button>
                 <div class="nav-more-dropdown" id="nav-more-dropdown">
                     <!-- Collapsed navigation items will be moved here by JavaScript -->
-                     {% set navOrder = [] %}
+                    {% set navOrder = [] %}
                     {% for item in navItems %}
                         {% if not item.hidden %}
                             {% set _ = navOrder.push(item.key) %}
                             <a href="{{ item.path }}"
-                            class="nav-{{ item.key }}"
-                            {% if page.key == item.key %}aria-current="page"{% endif %}
-                            data-order="{{ loop.index0 }}"
-                            data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                               class="nav-{{ item.key }}"
+                               {% if page.key == item.key %}aria-current="page"{% endif %}
+                               data-order="{{ loop.index0 }}"
+                               data-nav-item="{{ item.key }}">{{ item.title }}</a>
                         {% endif %}
                     {% endfor %}
                 </div>

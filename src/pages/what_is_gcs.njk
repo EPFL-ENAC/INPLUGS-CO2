@@ -1,51 +1,56 @@
 {% extends "main.njk" %}
 {% block content %}
-<index-content>
+    <index-content>
     <template shadowrootmode="open">
         <link rel="stylesheet" href='{{ asset("/assets/styles/what_is_gcs.css") }}'>
         <section class="landing_page is-full-page">
-
-            <div class="landing_page__visual">
-                {% include "landing_svg.njk" %}
-            </div>
-                        <!-- Scroll position markers for navigation buttons -->
+            <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
+            <!-- Scroll position markers for navigation buttons -->
             <div id="scroll-marker-1" class="scroll-marker"></div>
             <div id="scroll-marker-2" class="scroll-marker"></div>
             <div id="scroll-marker-3" class="scroll-marker"></div>
             <div id="scroll-marker-4" class="scroll-marker"></div>
             <div id="scroll-marker-5" class="scroll-marker"></div>
-
             <div class="info-boxes">
-                <div id="info-box-1" class="info-box" alt="{{ t('homepage.info_boxes.box1.title') }}: {{ t('homepage.info_boxes.box1.description') | safe }}">
+                <div id="info-box-1"
+                     class="info-box"
+                     alt="{{ t("homepage.info_boxes.box1.title") }}: {{ t("homepage.info_boxes.box1.description") | safe }}">
                     <h3>1.</h3>
                     <p>{{ t("homepage.info_boxes.box1.description") | safe }}</p>
                     <svg class="icon icon-large" width="24" height="24" aria-hidden="true">
                         <use href="#my-icon"></use>
                     </svg>
-
                 </div>
-                <div id="info-box-2" class="info-box" alt="{{ t('homepage.info_boxes.box2.title') }}: {{ t('homepage.info_boxes.box2.description') | safe }}">
+                <div id="info-box-2"
+                     class="info-box"
+                     alt="{{ t("homepage.info_boxes.box2.title") }}: {{ t("homepage.info_boxes.box2.description") | safe }}">
                     <h3>2.</h3>
                     <p>{{ t("homepage.info_boxes.box2.description") | safe }}</p>
                     <svg class="icon icon-large" width="24" height="24" aria-hidden="true">
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
-                <div id="info-box-3" class="info-box" alt="{{ t('homepage.info_boxes.box3.title') }}: {{ t('homepage.info_boxes.box3.description') | safe }}">
+                <div id="info-box-3"
+                     class="info-box"
+                     alt="{{ t("homepage.info_boxes.box3.title") }}: {{ t("homepage.info_boxes.box3.description") | safe }}">
                     <h3>3.</h3>
                     <p>{{ t("homepage.info_boxes.box3.description") | safe }}</p>
                     <svg class="icon icon-large" width="24" height="24" aria-hidden="true">
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
-                <div id="info-box-4" class="info-box" alt="{{ t('homepage.info_boxes.box4.title') }}: {{ t('homepage.info_boxes.box4.description') | safe }}">
+                <div id="info-box-4"
+                     class="info-box"
+                     alt="{{ t("homepage.info_boxes.box4.title") }}: {{ t("homepage.info_boxes.box4.description") | safe }}">
                     <h3>4.</h3>
                     <p>{{ t("homepage.info_boxes.box4.description") | safe }}</p>
                     <svg class="icon icon-large" width="24" height="24" aria-hidden="true">
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
-                <div id="info-box-5" class="info-box" alt="{{ t('homepage.info_boxes.box5.title') }}: {{ t('homepage.info_boxes.box5.description') | safe }}">
+                <div id="info-box-5"
+                     class="info-box"
+                     alt="{{ t("homepage.info_boxes.box5.title") }}: {{ t("homepage.info_boxes.box5.description") | safe }}">
                     <h3>5.</h3>
                     <p>{{ t("homepage.info_boxes.box5.description") | safe }}</p>
                     <svg class="icon icon-large" width="24" height="24" aria-hidden="true">
@@ -54,7 +59,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Scroll Navigation Buttons -->
         <div class="scroll-nav-buttons">
             <button id="scroll-up-btn" class="scroll-nav-button" disabled>
@@ -68,24 +72,15 @@
                 </svg>
             </button>
         </div>
-
         <picture class="minimap">
-            <source srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap@1x.webp 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@2x.webp 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@3x.webp 3x") }}
-    " type="image/webp">
-            <source srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}
-    " type="image/png">
-            <img src="{{ asset("/assets/images/landing-page-interactive/minimap@1x.png") }}" srcset="
-      {{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }},
-      {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}
-    " alt="Minimap preview" loading="lazy">
-
+            <source srcset="{{ asset("/assets/images/landing-page-interactive/minimap@1x.webp 1x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@2x.webp 2x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@3x.webp 3x") }}"
+                    type="image/webp">
+            <source srcset="{{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}"
+                    type="image/png">
+            <img src="{{ asset("/assets/images/landing-page-interactive/minimap@1x.png") }}"
+                 srcset="{{ asset("/assets/images/landing-page-interactive/minimap@1x.png 1x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@2x.png 2x") }}, {{ asset("/assets/images/landing-page-interactive/minimap@3x.png 3x") }}"
+                 alt="Minimap preview"
+                 loading="lazy">
             <!-- Scroll position markers for navigation buttons -->
             <div id="scroll-minimap-marker-1" class="scroll-mini-marker">1</div>
             <div id="scroll-minimap-marker-2" class="scroll-mini-marker">2</div>
@@ -93,9 +88,8 @@
             <div id="scroll-minimap-marker-4" class="scroll-mini-marker">4</div>
             <div id="scroll-minimap-marker-5" class="scroll-mini-marker">5</div>
         </picture>
-
         <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script>
         <script type="module" src='{{ asset("/assets/js/svg-animate.js") }}'></script>
     </template>
-</index-content>
+    </index-content>
 {% endblock %}

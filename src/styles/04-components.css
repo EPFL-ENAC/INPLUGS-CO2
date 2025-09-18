@@ -7,7 +7,7 @@
      
      Shadow DOM components should have their own CSS files.
      =========================================== */
-  
+
   /* Example: Button component */
   .btn {
     display: inline-flex;

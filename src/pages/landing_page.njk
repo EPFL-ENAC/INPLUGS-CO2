@@ -1,20 +1,18 @@
 {% extends "main.njk" %}
 {% block content %}
-<index-content>
+    <index-content>
     <template shadowrootmode="open">
-        <link rel="stylesheet" href='{{ asset("/assets/styles/landing_page.css") }}'>
-
+        <link rel="stylesheet"
+              href='{{ asset("/assets/styles/landing_page.css") }}'>
         <section class="landing_page">
             <div class="landing_page__content">
-                <h1>{{ t("homepage.title")|safe }}</h1>
-                <h1>{{ t("homepage.subtitle")|safe }}</h1>
+                <h1>{{ t("homepage.title") |safe }}</h1>
+                <h2>{{ t("homepage.subtitle") |safe }}</h2>
                 <a href="/what_is_gcs" class="btn-cta">{{ t("homepage.button") }}</a>
             </div>
-            <div class="landing_page__visual">
-                {% include "landing_svg.njk" %}
-            </div>
+            <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
         </section>
         <!-- <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script> -->
     </template>
-</index-content>
+    </index-content>
 {% endblock %}

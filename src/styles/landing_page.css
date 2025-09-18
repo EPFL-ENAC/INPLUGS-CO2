@@ -42,6 +42,17 @@
   .landing_page__content h1 {
     margin: 0 0 2rem;
     font:
+      700 4.8rem/1.2 "Helvetica Neue",
+      sans-serif;
+    max-width: 40ch; /* keep readable line length */
+    text-wrap: balance; /* balance lines if wrapping */
+    text-wrap-mode: pretty; /* better line breaks */
+    display: inline-block; /* already needed for ::first-letter */
+  }
+
+  .landing_page__content h2 {
+    margin: 0 0 2rem;
+    font:
       700 2.8rem/1.2 "Helvetica Neue",
       sans-serif;
     max-width: 40ch; /* keep readable line length */
@@ -51,15 +62,19 @@
   }
 
   h1 span,
-  h1 i {
+  h1 i,
+  h2 span,
+  h2 i {
     font-style: inherit; /* keep normal style, just color first letter */
     display: inline-block;
     font-weight: inherit;
   }
-  h1 i {
+  h1 i,
+  h2 i {
     color: var(--canard, #1a586c);
   }
-  h1 span::first-letter {
+  h1 span::first-letter,
+  h2 span::first-letter {
     color: var(--canard, #1a586c);
   }
 

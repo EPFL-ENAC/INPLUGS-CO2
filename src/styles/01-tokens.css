@@ -21,8 +21,8 @@
 
     /* Figma Colors */
     --teal-dark: #1a586c;
-    --canard: #1A586C;
-    
+    --canard: #1a586c;
+
     --cream: #f4f0eb;
     --blanc-cass: #f4f0eb;
 
@@ -45,20 +45,23 @@
     --black-70: #000000b2;
     --lime-70: #90e036b2;
     --lime-bright-70: #aaf954b2;
-    --navbar-bg: rgba(244, 240, 235, 0.40);
+    --navbar-bg: rgba(244, 240, 235, 0.4);
     --navbar-fg: var(--brand-fg);
 
     /* Legacy token for compatibility */
     --accent: #2c6622;
 
     /* Font Family Tokens */
-    --font-family-primary: Archivo, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-family-system: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-family-fallback: 'Helvetica Neue', Arial, sans-serif;
+    --font-family-primary:
+      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
+    --font-family-system:
+      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+      sans-serif;
+    --font-family-fallback: "Helvetica Neue", Arial, sans-serif;
 
     color-scheme: light dark;
   }
-
 
   @view-transition {
     navigation: auto;
@@ -66,80 +69,81 @@
 
   /* Font Face Declarations - Archivo Family */
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-Regular.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-Italic.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Italic.woff2") format("woff2");
     font-weight: 400;
     font-style: italic;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-Light.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Light.woff2") format("woff2");
     font-weight: 300;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-LightItalic.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-LightItalic.woff2") format("woff2");
     font-weight: 300;
     font-style: italic;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-Medium.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Medium.woff2") format("woff2");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-MediumItalic.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-MediumItalic.woff2") format("woff2");
     font-weight: 500;
     font-style: italic;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-SemiBold.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-SemiBold.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-SemiBoldItalic.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-SemiBoldItalic.woff2")
+      format("woff2");
     font-weight: 600;
     font-style: italic;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-Bold.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Bold.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
   }
-  
+
   @font-face {
-    font-family: 'Archivo';
-    src: url('/assets/fonts/Archivo/Archivo-BoldItalic.woff2') format('woff2');
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-BoldItalic.woff2") format("woff2");
     font-weight: 700;
     font-style: italic;
     font-display: swap;
