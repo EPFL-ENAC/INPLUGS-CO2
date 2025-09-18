@@ -1,11 +1,8 @@
 @layer components {
-  :root {
+  :host {
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;
-  }
-
-  :host {
     --vert-turquoise: #5bad91;
     --blanc-cass: #f4f0eb;
     --canard: #1a586c;
@@ -15,10 +12,10 @@
     background: var(--brand-bg);
     color: var(--brand-fg);
     --font-family-primary:
-      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, sans-serif;
+    Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
     font-family: var(--font-family-primary);
-    /* box-shadow: var(--shadow); */
+    --navbar-height: 161px;
   }
 
   /* Smooth scrolling */
@@ -28,7 +25,8 @@
 
   /* Styles de base pour toutes les sections */
   main section {
-    min-height: 100vh;
+    /* min-height: calc(100vh - var(--navbar-height)); */
+    min-height: 100dvh; /* full viewport height minus navbar */
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -47,30 +45,30 @@
   .screen-title {
     margin: 0;
     font-family: var(--font-family-primary);
-    font-size: 176px;
+    font-size: 6rem; /* was 176px or 11rem*/
     /* font-size: 100px; */
     font-style: normal;
     font-weight: 900;
-    line-height: 178px;
+    line-height: 6rem;
     /* 101.136% */
     letter-spacing: -5.28px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   /*  todo: make h3 and p common element like screen-title */
   #screen-1 h3 {
     font-family: var(--font-family-primary);
-    font-size: 70px;
+    font-size: 5.5rem; /* was 70px */
+    line-height: 5.5rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 70px;
     letter-spacing: -2.1px;
     margin: 0px;
   }
 
   #screen-1 p {
     font-family: var(--font-family-primary);
-    font-size: 30px;
+    font-size: 2rem; /* was 30px */
     font-style: normal;
     font-weight: 400;
     line-height: normal;

@@ -1,0 +1,49 @@
+@layer components {
+  .faq {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq h1 {
+    color: #1a586c;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .faq p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  .faq details {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .faq summary {
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1a586c;
+    outline: none;
+  }
+
+  .faq summary:hover,
+  .faq summary:focus {
+    color: #0d3c4a;
+  }
+
+  .faq details[open] summary {
+    margin-bottom: 1rem;
+  }
+
+  .faq details p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
