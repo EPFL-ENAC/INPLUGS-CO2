@@ -33,7 +33,8 @@
     align-items: left;
     padding-left: 5rem;
     padding-right: 5rem;
-    scroll-margin-top: 0;
+    /* should probably be a padding of the page */
+    scroll-margin-top: 6rem; /* Offset for sticky navbar (5.5rem height + buffer) */
   }
 
   .screen-1 {
