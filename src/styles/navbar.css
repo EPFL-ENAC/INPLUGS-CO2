@@ -194,7 +194,7 @@
   }
 
   /* Custom dropdowns */
-  
+
   .nav-item-dropdown {
     position: relative;
     display: inline-block;
@@ -254,32 +254,35 @@
   }
 
   .nav-dropdown-menu {
-position: absolute;
-  top: 100%;
-  left: 0;
-  
-  /* Background with fallback */
-  background: rgba(244, 240, 235, 0.8);
-  background: color-mix(in srgb, var(--navbar-bg) 80%, transparent);
-  
-  /* Backdrop filter with fallbacks */
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-  backdrop-filter: blur(12px) saturate(120%);
-  
-  /* Ensure proper layering */
-  isolation: isolate;
-  z-index: 1000;
-  
-  box-shadow: var(--shadow);
-  border-radius: var(--radius);
-  padding: var(--space-2);
-  min-width: 200px;
-  
-  /* Animation */
-  opacity: 0;
-  transform: translateY(-10px) translateZ(0);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-  visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    /* Background with fallback */
+    background: rgba(244, 240, 235, 0.8);
+    background: color-mix(in srgb, var(--navbar-bg) 80%, transparent);
+
+    /* Backdrop filter with fallbacks */
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    backdrop-filter: blur(12px) saturate(120%);
+
+    /* Ensure proper layering */
+    isolation: isolate;
+    z-index: 1000;
+
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: var(--space-2);
+    min-width: 200px;
+
+    /* Animation */
+    opacity: 0;
+    transform: translateY(-10px) translateZ(0);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+    visibility: hidden;
   }
 
   .nav-item-dropdown:hover .nav-dropdown-menu,
