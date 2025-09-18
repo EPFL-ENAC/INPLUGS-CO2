@@ -381,6 +381,10 @@ export class AssetProcessor {
     }
 
     console.log("🎨 Processing styled assets...");
+    // Ensure output directory exists
+    if (!existsSync(this.outputDir)) {
+      mkdirSync(this.outputDir, { recursive: true });
+    }
     const assetsDir = join(this.outputDir, "assets");
     if (!existsSync(assetsDir)) mkdirSync(assetsDir, { recursive: true });
 
@@ -413,9 +417,14 @@ export class AssetProcessor {
 
     for (const filePath of cssFiles) {
       if (!existsSync(filePath)) continue;
-      const content = readFileSync(filePath, "utf8");
-      combinedCssContent += content;
-      totalOriginalSize += content.length;
+      try {
+        const content = readFileSync(filePath, "utf8");
+        combinedCssContent += content;
+        totalOriginalSize += content.length;
+      } catch (error) {
+        console.warn(`⚠️  Failed to read CSS file ${filePath}:`, error.message);
+        continue;
+      }
     }
 
     const minifiedCombinedContent = await this.minifyCSS(combinedCssContent);
@@ -426,29 +435,39 @@ export class AssetProcessor {
 
     for (const filePath of cssFiles) {
       if (!existsSync(filePath)) continue;
-      const fileName = basename(filePath);
-      const content = readFileSync(filePath, "utf8");
-      const processedContent = await this.minifyCSS(content);
-      totalMinifiedSize += processedContent.length;
+      try {
+        const fileName = basename(filePath);
+        const content = readFileSync(filePath, "utf8");
+        const processedContent = await this.minifyCSS(content);
+        totalMinifiedSize += processedContent.length;
 
-      const outputFileName = this.isProduction
-        ? fileName.replace(".css", `.${cssHash}.css`)
-        : fileName;
-      this.manifest[`/assets/styles/${fileName}`] =
-        `/assets/styles/${outputFileName}`;
+        const outputFileName = this.isProduction
+          ? fileName.replace(".css", `.${cssHash}.css`)
+          : fileName;
+        this.manifest[`/assets/styles/${fileName}`] =
+          `/assets/styles/${outputFileName}`;
 
-      writeFileSync(join(cssDir, outputFileName), processedContent);
+        // Ensure the CSS directory exists before writing
+        if (!existsSync(cssDir)) {
+          mkdirSync(cssDir, { recursive: true });
+        }
 
-      if (this.isProduction) {
-        const savings = (
-          ((content.length - processedContent.length) / content.length) *
-          100
-        ).toFixed(1);
-        console.log(
-          `  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
-        );
-      } else {
-        console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
+        writeFileSync(join(cssDir, outputFileName), processedContent);
+
+        if (this.isProduction) {
+          const savings = (
+            ((content.length - processedContent.length) / content.length) *
+            100
+          ).toFixed(1);
+          console.log(
+            `  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
+          );
+        } else {
+          console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
+        }
+      } catch (error) {
+        console.warn(`⚠️  Failed to process CSS file ${filePath}:`, error.message);
+        continue;
       }
     }
 

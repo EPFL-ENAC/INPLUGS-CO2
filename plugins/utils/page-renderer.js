@@ -109,7 +109,6 @@ export class PageRenderer {
 
     // Set the global translator for this render
     this.setCurrentTranslator(translator);
-
     try {
       // Get navigation items from routes config for current locale
       const navItems = (routesConfig.routes || [])
@@ -126,6 +125,7 @@ export class PageRenderer {
             title: getRouteProperty(route, "title", locale),
             themeColor: getRouteProperty(route, "themeColor", locale),
             anchors: getRouteProperty(route, "anchors", locale),
+            ...route,
           };
         });
 

@@ -96,10 +96,10 @@ export function multiLocalePlugin(options = {}) {
   let isProduction = false;
   let currentOutputDir = outputDir; // Will be set based on mode
 
-  // Initialize component modules
+  // Initialize component modules with correct output directory
   const assetProcessor = new AssetProcessor({
     srcDir,
-    outputDir: currentOutputDir,
+    outputDir: isProduction ? outputDir : devOutputDir, // Use correct directory based on mode
     copyPublic,
   });
 
@@ -245,7 +245,7 @@ export function multiLocalePlugin(options = {}) {
     // Discover pages with co-located variants
     const allFiles = glob.sync(`${pagesDir}/**/*.njk`);
     const byBase = new Map(); // basePath => { default: file, variants: {en:file,fr:file} }
-
+    console.log("generatePages allFiles", allFiles);
     for (const f of allFiles) {
       const rel = f.replace(`${pagesDir}/`, "");
       const m = rel.match(LOCALE_RE);
