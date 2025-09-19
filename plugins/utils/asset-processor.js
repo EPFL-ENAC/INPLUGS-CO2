@@ -30,11 +30,18 @@ export class AssetProcessor {
     this.assetHashes = {};
     this.manifest = {};
     this.patterns = {
-      css: options.cssPattern || join(this.srcDir, "styles", "*.css"),
-      js: options.jsPattern || "public/js/*.js",
+      css:
+        options.cssPattern || join(this.srcDir, "assets", "css", "**", "*.css"),
+      js: options.jsPattern || join(this.srcDir, "assets", "js", "**", "*.js"),
       images:
         options.imagePattern ||
-        join(this.srcDir, "assets", "*.{svg,png,jpg,jpeg,webp,gif}"),
+        join(
+          this.srcDir,
+          "assets",
+          "images",
+          "**",
+          "*.{svg,png,jpg,jpeg,webp,gif}",
+        ),
     };
 
     this.cacheFile =
@@ -411,6 +418,9 @@ export class AssetProcessor {
       return;
     }
 
+    // Calculate base path for preserving directory structure
+    const cssBasePath = join(this.srcDir, "assets", "css");
+
     let combinedCssContent = "";
     let totalOriginalSize = 0;
     let totalMinifiedSize = 0;
@@ -436,7 +446,10 @@ export class AssetProcessor {
     for (const filePath of cssFiles) {
       if (!existsSync(filePath)) continue;
       try {
+        // Preserve directory structure by calculating relative path
+        const relativePath = filePath.replace(cssBasePath + "/", "");
         const fileName = basename(filePath);
+        const dirName = dirname(relativePath);
         const content = readFileSync(filePath, "utf8");
         const processedContent = await this.minifyCSS(content);
         totalMinifiedSize += processedContent.length;
@@ -444,15 +457,19 @@ export class AssetProcessor {
         const outputFileName = this.isProduction
           ? fileName.replace(".css", `.${cssHash}.css`)
           : fileName;
-        this.manifest[`/assets/styles/${fileName}`] =
-          `/assets/styles/${outputFileName}`;
 
-        // Ensure the CSS directory exists before writing
-        if (!existsSync(cssDir)) {
-          mkdirSync(cssDir, { recursive: true });
+        // Preserve directory structure in output
+        const outputDir = join(cssDir, dirName);
+        if (!existsSync(outputDir)) {
+          mkdirSync(outputDir, { recursive: true });
         }
 
-        writeFileSync(join(cssDir, outputFileName), processedContent);
+        // Clean up the directory name to avoid leading dots
+        const cleanDirName = dirName === "." ? "" : dirName;
+        this.manifest[`/assets/styles/${relativePath}`] =
+          `/assets/styles/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
+
+        writeFileSync(join(outputDir, outputFileName), processedContent);
 
         if (this.isProduction) {
           const savings = (
@@ -460,10 +477,12 @@ export class AssetProcessor {
             100
           ).toFixed(1);
           console.log(
-            `  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
+            `  🎨 ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
           );
         } else {
-          console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
+          console.log(
+            `  ✓ ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName}`,
+          );
         }
       } catch (error) {
         console.warn(
@@ -498,10 +517,16 @@ export class AssetProcessor {
       return;
     }
 
+    // Calculate base path for preserving directory structure
+    const jsBasePath = join(this.srcDir, "assets", "js");
+
     for (const jsPath of jsFiles) {
       if (!existsSync(jsPath)) continue;
 
+      // Preserve directory structure by calculating relative path
+      const relativePath = jsPath.replace(jsBasePath + "/", "");
       const fileName = basename(jsPath);
+      const dirName = dirname(relativePath);
       const content = readFileSync(jsPath, "utf8");
       const minifiedContent = await this.minifyJS(content);
       const hash = generateHash(minifiedContent);
@@ -517,18 +542,30 @@ export class AssetProcessor {
       const outputFileName = this.isProduction
         ? fileName.replace(".js", `.${hash}.js`)
         : fileName;
-      writeFileSync(join(jsDir, outputFileName), minifiedContent);
-      this.manifest[`/assets/js/${fileName}`] = `/assets/js/${outputFileName}`;
+
+      // Preserve directory structure in output
+      const outputDir = join(jsDir, dirName);
+      if (!existsSync(outputDir)) {
+        mkdirSync(outputDir, { recursive: true });
+      }
+
+      // Clean up the directory name to avoid leading dots
+      const cleanDirName = dirName === "." ? "" : dirName;
+      writeFileSync(join(outputDir, outputFileName), minifiedContent);
+      this.manifest[`/assets/js/${relativePath}`] =
+        `/assets/js/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
       if (this.isProduction) {
         const savings = (
           ((content.length - minifiedContent.length) / content.length) *
           100
         ).toFixed(1);
         console.log(
-          `  ⚡ ${fileName} → assets/js/${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`,
+          `  ⚡ ${relativePath} → assets/js/${dirName ? dirName + "/" : ""}${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`,
         );
       } else {
-        console.log(`  ✓ ${fileName} → assets/js/${outputFileName}`);
+        console.log(
+          `  ✓ ${relativePath} → assets/js/${dirName ? dirName + "/" : ""}${outputFileName}`,
+        );
       }
     }
   }

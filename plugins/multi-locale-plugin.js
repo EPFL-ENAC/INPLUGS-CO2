@@ -101,7 +101,6 @@ export function multiLocalePlugin(options = {}) {
     srcDir,
     outputDir: isProduction ? outputDir : devOutputDir, // Use correct directory based on mode
     copyPublic,
-    jsPattern: join(srcDir, "assets", "js", "*.js"), // Process JS files from src/assets/js/
   });
 
   const pageRenderer = new PageRenderer({
@@ -306,7 +305,7 @@ export function multiLocalePlugin(options = {}) {
       // Data files
       `${dataDir}/**/*.json`,
       // CSS files
-      `${srcDir}/styles/**/*.css`,
+      `${srcDir}/assets/css/**/*.css`,
       // JS files
       `${srcDir}/assets/js/**/*.js`,
       // Asset files that might affect the build

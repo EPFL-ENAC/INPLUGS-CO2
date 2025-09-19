@@ -1,5 +1,17 @@
 # Project TODO List
 
+## PLugin asset management
+
+- [ ] Asset management should be logically following the readme
+      not weird stuff like /styles or public/js in assets
+      this.patterns = {
+      css: options.cssPattern || join(this.srcDir, "styles", "\*_", "_.css"),
+      js: options.jsPattern || "public/js/_.js",
+      images:
+      options.imagePattern ||
+      join(this.srcDir, "assets", "_.{svg,png,jpg,jpeg,webp,gif}"),
+      };
+
 ## Site Structure & Navigation
 
 - [ ] Review and optimize site navigation flow
