@@ -1,5 +1,5 @@
 // asset-processor.js
-import { join, dirname, basename, extname } from "path";
+import { join, dirname, basename, extname, resolve } from "path";
 import {
   readFileSync,
   writeFileSync,
@@ -222,6 +222,78 @@ export class AssetProcessor {
     }
   }
 
+  // ---------- CSS Dependency Resolution ----------
+  /**
+   * Resolves CSS @import statements and returns all dependencies
+   * @param {string} cssFilePath - Path to the CSS file
+   * @param {Set} visited - Set of already visited files to prevent circular dependencies
+   * @returns {Array} Array of resolved file paths
+   */
+  resolveCssDependencies(cssFilePath, visited = new Set()) {
+    if (visited.has(cssFilePath)) {
+      return []; // Prevent circular dependencies
+    }
+    
+    visited.add(cssFilePath);
+    const dependencies = [cssFilePath]; // Include the file itself
+    
+    try {
+      const content = readFileSync(cssFilePath, 'utf8');
+      
+      // Match @import statements
+      const importRegex = /@import\s+(?:url\()?["'](.*?)(?:["']\)?);?/g;
+      let match;
+      
+      while ((match = importRegex.exec(content)) !== null) {
+        const importPath = match[1];
+        
+        // Skip external URLs and absolute paths
+        if (importPath.startsWith('http') || importPath.startsWith('/')) {
+          continue;
+        }
+        
+        // Resolve relative path
+        const resolvedPath = resolve(dirname(cssFilePath), importPath);
+        
+        // Recursively resolve dependencies
+        const nestedDeps = this.resolveCssDependencies(resolvedPath, visited);
+        dependencies.push(...nestedDeps);
+      }
+    } catch (error) {
+      console.warn(`⚠️  Failed to resolve CSS dependencies for ${cssFilePath}:`, error.message);
+    }
+    
+    return dependencies;
+  }
+
+  /**
+   * Reads and concatenates all CSS files in the dependency chain
+   * @param {string} entryFilePath - Path to the entry CSS file
+   * @returns {string} Concatenated CSS content
+   */
+  async concatenateCssDependencies(entryFilePath) {
+    const dependencies = this.resolveCssDependencies(entryFilePath);
+    let concatenatedContent = '';
+    
+    // Use a Set to avoid duplicate files
+    const uniqueDependencies = [...new Set(dependencies)];
+    
+    for (const filePath of uniqueDependencies) {
+      try {
+        if (existsSync(filePath)) {
+          const content = readFileSync(filePath, 'utf8');
+          // Remove @import statements since we're concatenating
+          const cleanedContent = content.replace(/@import\s+(?:url\()?["'].*?(?:["']\)?);?/g, '');
+          concatenatedContent += cleanedContent + '\n';
+        }
+      } catch (error) {
+        console.warn(`⚠️  Failed to read CSS file ${filePath}:`, error.message);
+      }
+    }
+    
+    return concatenatedContent;
+  }
+
   // ---------- Images ----------
   async optimizeImage(inputPath, outputPath) {
     if (!this.isProduction) {
@@ -386,28 +458,7 @@ export class AssetProcessor {
     // Calculate base path for preserving directory structure
     const cssBasePath = join(this.srcDir, "assets", "css");
 
-    let combinedCssContent = "";
-    let totalOriginalSize = 0;
-    let totalMinifiedSize = 0;
-
-    for (const filePath of cssFiles) {
-      if (!existsSync(filePath)) continue;
-      try {
-        const content = readFileSync(filePath, "utf8");
-        combinedCssContent += content;
-        totalOriginalSize += content.length;
-      } catch (error) {
-        console.warn(`⚠️  Failed to read CSS file ${filePath}:`, error.message);
-        continue;
-      }
-    }
-
-    const minifiedCombinedContent = await this.minifyCSS(combinedCssContent);
-    const cssHash = minifiedCombinedContent
-      ? generateHash(minifiedCombinedContent)
-      : "";
-    if (cssHash) this.assetHashes.cssHash = cssHash;
-
+    // Process each CSS file individually with dependency resolution
     for (const filePath of cssFiles) {
       if (!existsSync(filePath)) continue;
       try {
@@ -415,12 +466,16 @@ export class AssetProcessor {
         const relativePath = filePath.replace(cssBasePath + "/", "");
         const fileName = basename(filePath);
         const dirName = dirname(relativePath);
-        const content = readFileSync(filePath, "utf8");
-        const processedContent = await this.minifyCSS(content);
-        totalMinifiedSize += processedContent.length;
+        
+        // Concatenate CSS with its dependencies
+        const concatenatedContent = await this.concatenateCssDependencies(filePath);
+        const processedContent = await this.minifyCSS(concatenatedContent);
+        
+        // Generate hash based on the concatenated content
+        const hash = generateHash(processedContent);
 
         const outputFileName = this.isProduction
-          ? fileName.replace(".css", `.${cssHash}.css`)
+          ? fileName.replace(".css", `.${hash}.css`)
           : fileName;
 
         // Preserve directory structure in output
@@ -438,11 +493,11 @@ export class AssetProcessor {
 
         if (this.isProduction) {
           const savings = (
-            ((content.length - processedContent.length) / content.length) *
+            ((concatenatedContent.length - processedContent.length) / concatenatedContent.length) *
             100
           ).toFixed(1);
           console.log(
-            `  🎨 ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
+            `  🎨 ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName} (${concatenatedContent.length}B → ${processedContent.length}B, -${savings}%)`,
           );
         } else {
           console.log(
@@ -456,16 +511,6 @@ export class AssetProcessor {
         );
         continue;
       }
-    }
-
-    if (this.isProduction && totalOriginalSize > 0) {
-      const totalSavings = (
-        ((totalOriginalSize - totalMinifiedSize) / totalOriginalSize) *
-        100
-      ).toFixed(1);
-      console.log(
-        `📊 CSS optimization summary: ${totalOriginalSize}B → ${totalMinifiedSize}B (-${totalSavings}%)`,
-      );
     }
   }
 

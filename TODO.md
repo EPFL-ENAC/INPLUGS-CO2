@@ -2,7 +2,7 @@
 
 ## PLugin asset management
 
-- [ ] Asset management should be logically following the readme
+- [x] Asset management should be logically following the readme
       not weird stuff like /styles or public/js in assets
       this.patterns = {
       css: options.cssPattern || join(this.srcDir, "styles", "\*_", "_.css"),
@@ -56,7 +56,9 @@
 - [ ] Review build process efficiency
 - [ ] Check Docker configuration
 - [ ] Validate nginx configuration
+    - [ ] focus on app.mydomain.com and host name
 - [ ] Test deployment process
+- [ ] redirect html (index.html) don't take into account the port when redirecting to fr or en (maybe find a better nginx ? trick ?)
 
 ## Documentation
 
