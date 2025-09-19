@@ -1,0 +1,120 @@
+@layer components {
+  /* Logo hover animation */
+  .logo-link {
+    transition: transform 0.2s ease;
+  }
+
+  .logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  /* Navigation link transitions */
+  .navbar-nav a {
+    /* Smooth transitions */
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  /* Dropdown toggle transitions */
+  .nav-dropdown-toggle {
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  /* More toggle transitions */
+  .nav-more-toggle {
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  /* Mobile menu toggle transitions */
+  .mobile-menu-toggle {
+    transition: background-color 0.2s ease;
+  }
+
+  .hamburger-line {
+    transition: all 0.3s ease;
+  }
+
+  /* Dropdown menu animations */
+  .nav-dropdown-menu {
+    /* Animation */
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  .nav-dropdown-menu.dropdown-active {
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  /* More dropdown animations */
+  .nav-more-dropdown {
+    /* Animation properties */
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  .nav-more:hover .nav-more-dropdown,
+  .nav-more:focus-within .nav-more-dropdown {
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  .nav-more-dropdown.open {
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  /* Main navbar mobile animations */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      /* Animation properties */
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s;
+    }
+
+    .navbar-nav.open,
+    .header.mobile-menu-open .navbar-nav {
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s;
+    }
+  }
+
+  /* Accessibility & Motion Reduction */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-more-dropdown,
+    .navbar-nav,
+    .navbar-nav a,
+    .mobile-menu-toggle,
+    .mobile-menu-toggle .hamburger-line {
+      transition: none !important;
+    }
+
+    .nav-more-dropdown.open {
+      transform: none;
+    }
+
+    .navbar-nav.open {
+      transform: none;
+    }
+  }
+}

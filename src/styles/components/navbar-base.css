@@ -1,0 +1,106 @@
+@layer components {
+  /* Regular DOM styles for navbar */
+  .site-header {
+    display: block;
+    background: var(--navbar-bg);
+    color: var(--brand-fg);
+    font-family: var(--font-family-primary);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0px;
+    z-index: 100;
+    height: 5.5rem;
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "logo nav lang mobile-toggle";
+    align-items: stretch;
+    gap: var(--space-3);
+    padding-left: 2rem;
+    height: 100%;
+    backdrop-filter: blur(15px);
+  }
+
+  /* New: force vertical layout when header has mobile-menu-open (SSR / accessibility state) */
+  .header.mobile-menu-open nav[aria-label="Main navigation"] {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 0; /* vertical list tight like mobile */
+  }
+
+  .header.mobile-menu-open nav[aria-label="Main navigation"] a {
+    width: 100%;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--canard) 20%, transparent);
+    align-items: center; /* reset stretch */
+    height: auto;
+  }
+
+  .header.mobile-menu-open nav[aria-label="Main navigation"] a:last-child {
+    border-bottom: none;
+  }
+
+  /* Logo styles */
+  .logo-link {
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .landing_page__logo {
+    display: block;
+    width: 5.32519rem;
+    flex-shrink: 0;
+  }
+
+  .landing_page__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .navbar-nav {
+    grid-area: nav;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr auto auto auto auto auto;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap; /* was wrap; enforce single line so JS can measure overflow */
+    height: 100%;
+  }
+
+  .navbar-nav > a,
+  .navbar-nav > .nav-item-dropdown {
+    /* Default: show all nav items */
+    display: flex !important;
+    justify-self: end;
+  }
+
+  .navbar-nav > .nav-start {
+    justify-self: start;
+  }
+
+  .navbar-nav > .nav-end {
+    justify-self: end;
+  }
+
+  .navbar-nav::after {
+    content: "";
+    width: 1px;
+    height: 2.25rem; /* 36px converted to rem */
+    background-color: var(--canard);
+    margin-left: var(--space-3);
+    align-self: center;
+  }
+}
