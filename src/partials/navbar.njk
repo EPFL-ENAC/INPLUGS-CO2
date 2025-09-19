@@ -88,9 +88,108 @@
     </div>
     {% endif %}
     {% endfor %}
+
+    <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation menu">
+        <div class="mobile-background-blur"></div>
+        
+        <div class="mobile-menu-header">
+            <div class="mobile-menu-logo">
+                CO₂
+            </div>
+            <button class="mobile-menu-close" aria-label="Close mobile menu">✕</button>
+        </div>
+
+        <div class="mobile-language-selector">
+            {% for loc in alternates %}
+            {% if page.routes[loc] %}
+            <span class="mobile-language" data-lang="{{ loc }}">{{ loc | upper }}</span>
+            {% if not loop.last %}<span>|</span>{% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <nav class="mobile-navbar-nav" aria-label="Mobile main navigation">
+            {% for item in navItems %}
+            {% if not item.hidden %}
+            <div class="mobile-menu-section">
+                <div class="mobile-section-title">{{ item.key | capitalize }}</div>
+                <a href="{{ item.path }}" class="mobile-menu-item mobile-nav-{{ item.key }} {% if 'align' in item %}mobile-nav-{{ item.align
+                    }}{% endif %}" {% if page.key==item.key %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}"
+                    data-nav-item="{{ item.key }}">{{ item.title }}</a>
+                {% if item.anchors %}
+                <div class="mobile-nav-dropdown-menu" aria-label="{{ item.title }} sections">
+                    {% for anchor in item.anchors %}
+                    <a href="{{ item.path + "#" + anchor.id }}" class="mobile-menu-item mobile-nav-dropdown-item">{{ anchor.title }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </nav>
+    </div>
 </div>
 <script>
-    //* JavaScript to handle dropdowns and mobile menu toggle
+    // JavaScript to handle dropdowns and mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        
+        if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
+            // Toggle mobile menu
+            mobileMenuToggle.addEventListener('click', function() {
+                const isOpen = mobileMenu.classList.contains('open');
+                mobileMenu.classList.toggle('open');
+                mobileMenuToggle.classList.toggle('open');
+                mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            
+            // Close mobile menu
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+                mobileMenuToggle.classList.remove('open');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+            
+            // Close menu when clicking on menu items
+            const mobileMenuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenu.classList.remove('open');
+                    mobileMenuToggle.classList.remove('open');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Close menu when clicking outside
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove('open');
+                    mobileMenuToggle.classList.remove('open');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Language switching
+        const mobileLanguages = document.querySelectorAll('.mobile-language');
+        mobileLanguages.forEach(lang => {
+            lang.addEventListener('click', function() {
+                const langCode = this.getAttribute('data-lang');
+                const link = document.querySelector(`a[data-lang="${langCode}"]`);
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
 </script>
 <script type="speculationrules">
 {
