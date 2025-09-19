@@ -1,0 +1,13 @@
+/* 
+ * INPLUGS Core Styles
+ * 
+ * This file imports all the base styles needed for every page.
+ * These styles are combined into a single core bundle during the build process.
+ */
+
+/* Import all base styles */
+@import "./00-reset.css";
+@import "./01-tokens.css";
+@import "./02-layout.css";
+@import "./03-utilities.css";
+@import "./04-components.css";

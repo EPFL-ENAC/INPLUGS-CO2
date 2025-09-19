@@ -56,7 +56,7 @@
 - [ ] Review build process efficiency
 - [ ] Check Docker configuration
 - [ ] Validate nginx configuration
-    - [ ] focus on app.mydomain.com and host name
+  - [ ] focus on app.mydomain.com and host name
 - [ ] Test deployment process
 - [ ] redirect html (index.html) don't take into account the port when redirecting to fr or en (maybe find a better nginx ? trick ?)
 

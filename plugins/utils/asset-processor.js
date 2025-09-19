@@ -233,36 +233,39 @@ export class AssetProcessor {
     if (visited.has(cssFilePath)) {
       return []; // Prevent circular dependencies
     }
-    
+
     visited.add(cssFilePath);
     const dependencies = [cssFilePath]; // Include the file itself
-    
+
     try {
-      const content = readFileSync(cssFilePath, 'utf8');
-      
+      const content = readFileSync(cssFilePath, "utf8");
+
       // Match @import statements
       const importRegex = /@import\s+(?:url\()?["'](.*?)(?:["']\)?);?/g;
       let match;
-      
+
       while ((match = importRegex.exec(content)) !== null) {
         const importPath = match[1];
-        
+
         // Skip external URLs and absolute paths
-        if (importPath.startsWith('http') || importPath.startsWith('/')) {
+        if (importPath.startsWith("http") || importPath.startsWith("/")) {
           continue;
         }
-        
+
         // Resolve relative path
         const resolvedPath = resolve(dirname(cssFilePath), importPath);
-        
+
         // Recursively resolve dependencies
         const nestedDeps = this.resolveCssDependencies(resolvedPath, visited);
         dependencies.push(...nestedDeps);
       }
     } catch (error) {
-      console.warn(`⚠️  Failed to resolve CSS dependencies for ${cssFilePath}:`, error.message);
+      console.warn(
+        `⚠️  Failed to resolve CSS dependencies for ${cssFilePath}:`,
+        error.message,
+      );
     }
-    
+
     return dependencies;
   }
 
@@ -273,24 +276,27 @@ export class AssetProcessor {
    */
   async concatenateCssDependencies(entryFilePath) {
     const dependencies = this.resolveCssDependencies(entryFilePath);
-    let concatenatedContent = '';
-    
+    let concatenatedContent = "";
+
     // Use a Set to avoid duplicate files
     const uniqueDependencies = [...new Set(dependencies)];
-    
+
     for (const filePath of uniqueDependencies) {
       try {
         if (existsSync(filePath)) {
-          const content = readFileSync(filePath, 'utf8');
+          const content = readFileSync(filePath, "utf8");
           // Remove @import statements since we're concatenating
-          const cleanedContent = content.replace(/@import\s+(?:url\()?["'].*?(?:["']\)?);?/g, '');
-          concatenatedContent += cleanedContent + '\n';
+          const cleanedContent = content.replace(
+            /@import\s+(?:url\()?["'].*?(?:["']\)?);?/g,
+            "",
+          );
+          concatenatedContent += cleanedContent + "\n";
         }
       } catch (error) {
         console.warn(`⚠️  Failed to read CSS file ${filePath}:`, error.message);
       }
     }
-    
+
     return concatenatedContent;
   }
 
@@ -455,22 +461,43 @@ export class AssetProcessor {
       return;
     }
 
+    // Define core CSS files that should be excluded from individual processing
+    // These are bundled in core.css
+    // TODO: Make this configurable if needed, or detect automatically via convention?
+    // to be honest for instance components/navbar.css imports tokens, utilities, layout...
+    // should be excluded too since they are already in navbar.css imported
+
+    const coreCssFiles = [
+      "00-reset.css",
+      "01-tokens.css",
+      "02-layout.css",
+      "03-utilities.css",
+      "04-components.css",
+    ];
+
     // Calculate base path for preserving directory structure
     const cssBasePath = join(this.srcDir, "assets", "css");
 
     // Process each CSS file individually with dependency resolution
     for (const filePath of cssFiles) {
+      const fileName = basename(filePath);
+
+      // Skip core CSS files as they're already bundled in core.css
+      if (coreCssFiles.includes(fileName)) {
+        continue;
+      }
+
       if (!existsSync(filePath)) continue;
       try {
         // Preserve directory structure by calculating relative path
         const relativePath = filePath.replace(cssBasePath + "/", "");
-        const fileName = basename(filePath);
         const dirName = dirname(relativePath);
-        
+
         // Concatenate CSS with its dependencies
-        const concatenatedContent = await this.concatenateCssDependencies(filePath);
+        const concatenatedContent =
+          await this.concatenateCssDependencies(filePath);
         const processedContent = await this.minifyCSS(concatenatedContent);
-        
+
         // Generate hash based on the concatenated content
         const hash = generateHash(processedContent);
 
@@ -493,7 +520,8 @@ export class AssetProcessor {
 
         if (this.isProduction) {
           const savings = (
-            ((concatenatedContent.length - processedContent.length) / concatenatedContent.length) *
+            ((concatenatedContent.length - processedContent.length) /
+              concatenatedContent.length) *
             100
           ).toFixed(1);
           console.log(
