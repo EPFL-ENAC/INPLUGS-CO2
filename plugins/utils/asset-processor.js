@@ -329,51 +329,16 @@ export class AssetProcessor {
           ext,
         );
 
-        if (isImage && this.isProduction) {
-          const buf = readFileSync(sourcePath);
-          const hash = generateHash(buf);
-          const outputs = { fs: { main: targetPath, webp: null } };
-          if (!this.#isImageStale(sourcePath, hash, outputs)) {
-            console.log(`  ⏭️  ${relativePath} (cached)`);
-            continue;
-          }
-          const result = await this.optimizeImage(sourcePath, targetPath);
-          if ([".png", ".jpg", ".jpeg"].includes(ext)) {
-            outputs.webp = targetPath.replace(ext, ".webp");
-          }
-          this.#updateImageCache(sourcePath, hash, outputs);
-
-          let sizeInfo = "";
-          if (result.originalSize > 0) {
-            const savings = (
-              ((result.originalSize - result.optimizedSize) /
-                result.originalSize) *
-              100
-            ).toFixed(1);
-            sizeInfo = ` (${result.originalSize}B → ${result.optimizedSize}B, -${savings}%)`;
-            if (result.webpSize) {
-              const webpSavings = (
-                ((result.originalSize - result.webpSize) /
-                  result.originalSize) *
-                100
-              ).toFixed(1);
-              sizeInfo += ` + ${result.webpPath} (-${webpSavings}%)`;
-            }
-          }
-          console.log(
-            `  🖼️  ${relativePath} → ${relativePath} [${result.format}]${sizeInfo}`,
-          );
-        } else {
-          // fast copy only when needed
-          const needCopy =
-            !existsSync(targetPath) ||
-            (existsSync(targetPath) &&
-              statSync(targetPath).mtimeMs < statSync(sourcePath).mtimeMs);
-          if (needCopy) copyFileSync(sourcePath, targetPath);
-          console.log(
-            `  ✓ ${relativePath} → ${relativePath}${needCopy ? "" : " (unchanged)"}`,
-          );
-        }
+        // For public assets, we don't optimize images during build
+        // fast copy only when needed
+        const needCopy =
+          !existsSync(targetPath) ||
+          (existsSync(targetPath) &&
+            statSync(targetPath).mtimeMs < statSync(sourcePath).mtimeMs);
+        if (needCopy) copyFileSync(sourcePath, targetPath);
+        console.log(
+          `  ✓ ${relativePath} → ${relativePath}${needCopy ? "" : " (unchanged)"}`,
+        );
       }
     };
 

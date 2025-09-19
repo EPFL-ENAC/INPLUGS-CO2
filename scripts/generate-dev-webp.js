@@ -6,34 +6,54 @@ import path from "path";
 import fs from "fs/promises";
 
 /**
- * Generate basic WebP versions of PNG images for development
+ * Generate basic WebP versions of PNG/JPG/JPEG images for development
  * No optimization, just format conversion for <picture> element testing
+ * Processes both public/ and src/assets/ directories
  */
 
 const PUBLIC_DIR = "public";
-const IMAGES_PATTERN = `${PUBLIC_DIR}/**/*.png`;
+const ASSETS_DIR = "src/assets";
+const PUBLIC_IMAGES_PATTERN = `${PUBLIC_DIR}/**/*.{png,jpg,jpeg}`;
+const ASSETS_IMAGES_PATTERN = `${ASSETS_DIR}/**/*.{png,jpg,jpeg}`;
 
 async function generateDevWebP() {
   console.log("🔄 Generating basic WebP files for development...");
 
   try {
-    // Find all PNG files in public directory
-    const pngFiles = await glob(IMAGES_PATTERN);
+    // Find all PNG/JPG/JPEG files in both public and src/assets directories
+    const publicImageFiles = await glob(PUBLIC_IMAGES_PATTERN);
+    const assetsImageFiles = await glob(ASSETS_IMAGES_PATTERN);
+    const allImageFiles = [...publicImageFiles, ...assetsImageFiles];
 
-    if (pngFiles.length === 0) {
-      console.log("ℹ️  No PNG files found in public directory");
+    if (allImageFiles.length === 0) {
+      console.log(
+        "ℹ️  No PNG/JPG/JPEG files found in public or src/assets directories",
+      );
       return;
     }
 
-    console.log(`📁 Found ${pngFiles.length} PNG files`);
+    console.log(
+      `📁 Found ${allImageFiles.length} image files (${publicImageFiles.length} in public/, ${assetsImageFiles.length} in src/assets/)`,
+    );
 
-    // Convert each PNG to WebP (basic quality, no optimization)
-    for (const pngFile of pngFiles) {
-      const webpFile = pngFile.replace(".png", ".webp");
+    // Convert each image to WebP (basic quality, no optimization)
+    for (const imageFile of allImageFiles) {
+      // Determine WebP filename based on original extension
+      let webpFile;
+      if (imageFile.endsWith(".png")) {
+        webpFile = imageFile.replace(".png", ".webp");
+      } else if (imageFile.endsWith(".jpg")) {
+        webpFile = imageFile.replace(".jpg", ".webp");
+      } else if (imageFile.endsWith(".jpeg")) {
+        webpFile = imageFile.replace(".jpeg", ".webp");
+      } else {
+        // Skip unsupported formats
+        continue;
+      }
 
       try {
-        // Check if WebP already exists and is newer than PNG
-        const pngStats = await fs.stat(pngFile);
+        // Check if WebP already exists and is newer than source image
+        const imageStats = await fs.stat(imageFile);
         let webpStats;
         try {
           webpStats = await fs.stat(webpFile);
@@ -41,21 +61,21 @@ async function generateDevWebP() {
           // WebP doesn't exist, we'll create it
         }
 
-        if (webpStats && webpStats.mtime > pngStats.mtime) {
+        if (webpStats && webpStats.mtime > imageStats.mtime) {
           console.log(
             `⏭️  Skipping ${path.basename(webpFile)} (already up to date)`,
           );
           continue;
         }
 
-        // Convert PNG to WebP with basic quality (fast conversion)
-        await sharp(pngFile)
+        // Convert image to WebP with basic quality (fast conversion)
+        await sharp(imageFile)
           .webp({ quality: 80, effort: 1 }) // Low effort = fast conversion
           .toFile(webpFile);
 
         console.log(`✅ Generated ${path.basename(webpFile)}`);
       } catch (error) {
-        console.error(`❌ Error converting ${pngFile}:`, error.message);
+        console.error(`❌ Error converting ${imageFile}:`, error.message);
       }
     }
 

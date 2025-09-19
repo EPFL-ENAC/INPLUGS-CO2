@@ -1079,6 +1079,71 @@ The asset processor automatically:
 - Maintains original formats as fallbacks
 - Organizes assets in the distribution directory with hashed filenames
 
+## 🖼️ Image Processing Workflow
+
+This project uses a streamlined image processing workflow that separates development and production concerns:
+
+### Public vs Src/Assets Images
+
+- **Public Directory (`public/`)**: Contains static assets that are copied directly to the output directory without processing. These assets maintain their original filenames and are served as-is.
+- **Src/Assets Directory (`src/assets/`)**: Contains source assets that are processed, optimized, and hashed during the build process.
+
+### Development Workflow
+
+During development, use the `generate-dev-webp.js` script to create WebP versions of your images for testing:
+
+```bash
+# Generate WebP versions of all PNG/JPG/JPEG images in both public/ and src/assets/ directories
+npm run webp:dev
+```
+
+This script:
+
+- Processes images in both `public/` and `src/assets/` directories
+- Converts PNG, JPG, and JPEG files to WebP format
+- Only processes images that don't have a newer WebP version already
+- Runs automatically when you start the development server (`npm run dev`)
+
+### Production Workflow
+
+During production builds (`npm run build`):
+
+1. **Src/Assets Images**: Processed and optimized by the AssetProcessor
+   - Images are compressed and resized
+   - WebP versions are generated
+   - Filenames are hashed for cache busting
+
+2. **Public Images**: Copied as-is without optimization
+   - Maintains original filenames and quality
+   - No WebP generation (should be done manually if needed)
+
+### Favicon Generation
+
+When you update the logo, regenerate favicons using:
+
+```bash
+# Using Makefile target
+make favicons
+
+# Or directly
+./generate-favicons.sh
+```
+
+This script:
+
+- Generates all required favicon sizes from the source logo
+- Creates both PNG and WebP versions of favicons
+- Updates the ICO file with multiple resolutions
+
+### When to Use Each Tool
+
+- **Development**: Run `npm run webp:dev` to generate WebP versions for testing responsive images
+- **Logo Updates**: Run `make favicons` to regenerate all favicon sizes
+- **Production Builds**: AssetProcessor automatically handles optimization of `src/assets/` images
+- **Public Assets**: Place assets that should not be processed in the `public/` directory
+
+This workflow ensures efficient development while maintaining full control over asset optimization.
+
 ## 📚 Related Projects
 
 - [Vite](https://github.com/vitejs/vite) - Build tool

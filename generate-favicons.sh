@@ -27,6 +27,16 @@ magick "logo/logo_inplugs_756x604.png" \
   \( -clone 0 -resize 48x48 -gravity center -extent 48x48 \) \
   -delete 0 favicon/favicon.ico
 
+# Generate WebP versions of all PNG favicons
+echo "🔄 Generating WebP versions of favicons..."
+for png_file in favicon/*.png; do
+  if [ -f "$png_file" ]; then
+    webp_file="${png_file%.png}.webp"
+    echo "  🔄 Converting $(basename "$png_file") to WebP..."
+    magick "$png_file" "$webp_file"
+  fi
+done
+
 echo "✅ All favicons generated successfully!"
 echo "📊 Generated files:"
 ls -la favicon/

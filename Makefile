@@ -63,6 +63,10 @@ recreate: down ## Recreate Docker containers (down + build + up)
 	@echo "$(GREEN)✓ Containers recreated$(NC)"
 
 ##@ Utilities
+favicons: ## Generate favicons from logo
+	@echo "$(GREEN)Generating favicons...$(NC)"
+	./generate-favicons.sh
+
 lint: ## Run linting
 	@echo "$(GREEN)Running linter...$(NC)"
 	npm run lint || echo "$(YELLOW)No lint script found$(NC)"
