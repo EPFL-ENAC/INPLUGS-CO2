@@ -2,19 +2,50 @@
   /* Logo hover animation */
   .logo-link {
     transition: transform 0.2s ease;
-  }
 
-  .logo-link:hover {
-    transform: scale(1.05);
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
   /* Navigation link transitions */
-  .navbar-nav a {
-    /* Smooth transitions */
-    transition:
-      opacity 0.2s ease,
-      background-color 0.2s ease,
-      transform 0.2s ease;
+  .navbar-nav {
+    a {
+      /* Smooth transitions */
+      transition:
+        opacity 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    /* Main navbar mobile animations */
+    @media (max-width: 768px) {
+      /* Animation properties */
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s;
+
+      &.open,
+      .header.mobile-menu-open & {
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          visibility 0.3s;
+      }
+    }
+
+    /* Accessibility & Motion Reduction */
+    @media (prefers-reduced-motion: reduce) {
+      &,
+      a {
+        transition: none !important;
+      }
+
+      &.open {
+        transform: none;
+      }
+    }
   }
 
   /* Dropdown toggle transitions */
@@ -34,10 +65,18 @@
   /* Mobile menu toggle transitions */
   .mobile-menu-toggle {
     transition: background-color 0.2s ease;
-  }
 
-  .hamburger-line {
-    transition: all 0.3s ease;
+    .hamburger-line {
+      transition: all 0.3s ease;
+    }
+
+    /* Accessibility & Motion Reduction */
+    @media (prefers-reduced-motion: reduce) {
+      &,
+      .hamburger-line {
+        transition: none !important;
+      }
+    }
   }
 
   /* Dropdown menu animations */
@@ -47,13 +86,20 @@
       opacity 0.2s ease,
       transform 0.2s ease,
       visibility 0.2s;
-  }
 
-  .nav-dropdown-menu.dropdown-active {
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      visibility 0.2s;
+    &.dropdown-active {
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
+    }
+
+    /* Accessibility & Motion Reduction */
+    @media (prefers-reduced-motion: reduce) {
+      &.open {
+        transform: none;
+      }
+    }
   }
 
   /* More dropdown animations */
@@ -63,58 +109,29 @@
       opacity 0.2s ease,
       transform 0.2s ease,
       visibility 0.2s;
-  }
 
-  .nav-more:hover .nav-more-dropdown,
-  .nav-more:focus-within .nav-more-dropdown {
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      visibility 0.2s;
-  }
-
-  .nav-more-dropdown.open {
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      visibility 0.2s;
-  }
-
-  /* Main navbar mobile animations */
-  @media (max-width: 768px) {
-    .navbar-nav {
-      /* Animation properties */
+    .nav-more:hover &,
+    .nav-more:focus-within & {
       transition:
-        opacity 0.3s ease,
-        transform 0.3s ease,
-        visibility 0.3s;
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
     }
 
-    .navbar-nav.open,
-    .header.mobile-menu-open .navbar-nav {
+    &.open {
       transition:
-        opacity 0.3s ease,
-        transform 0.3s ease,
-        visibility 0.3s;
-    }
-  }
-
-  /* Accessibility & Motion Reduction */
-  @media (prefers-reduced-motion: reduce) {
-    .nav-more-dropdown,
-    .navbar-nav,
-    .navbar-nav a,
-    .mobile-menu-toggle,
-    .mobile-menu-toggle .hamburger-line {
-      transition: none !important;
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s;
     }
 
-    .nav-more-dropdown.open {
-      transform: none;
-    }
-
-    .navbar-nav.open {
-      transform: none;
+    /* Accessibility & Motion Reduction */
+    @media (prefers-reduced-motion: reduce) {
+      &,
+      &.open {
+        transition: none !important;
+        transform: none;
+      }
     }
   }
 }

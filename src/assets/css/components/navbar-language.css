@@ -6,40 +6,40 @@
     align-items: center;
     gap: 0.5rem;
     opacity: 0.9;
-  }
 
-  .lang svg {
-    fill: var(--canard, #1a586c);
-    width: 19px;
-    height: 27px;
-    opacity: 0.8;
-    display: block;
-    margin-top: 7px;
-  }
+    svg {
+      fill: var(--canard, #1a586c);
+      width: 19px;
+      height: 27px;
+      opacity: 0.8;
+      display: block;
+      margin-top: 7px;
+    }
 
-  .lang a {
-    color: var(--canard, #1a586c);
-    font-family: var(--font-family-primary);
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.75px;
-    text-decoration: none;
-    padding: 0.15rem 0.35rem;
-    border-radius: 6px;
-  }
+    a {
+      color: var(--canard, #1a586c);
+      font-family: var(--font-family-primary);
+      font-size: 25px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.75px;
+      text-decoration: none;
+      padding: 0.15rem 0.35rem;
+      border-radius: 6px;
 
-  .lang a:hover,
-  .lang a:focus-visible {
-    background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
-    opacity: 1;
-  }
+      &:hover,
+      &:focus-visible {
+        background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
+        opacity: 1;
+      }
 
-  /* Desktop: Show only alternate language */
-  @media (min-width: 769px) {
-    .lang a.current {
-      display: none;
+      /* Desktop: Show only alternate language */
+      @media (min-width: 769px) {
+        &.current {
+          display: none;
+        }
+      }
     }
   }
 }

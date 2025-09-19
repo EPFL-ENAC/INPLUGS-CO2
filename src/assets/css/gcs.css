@@ -2,10 +2,8 @@
   :host {
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
-    --canard: #1a586c;
     --vert-turquoise: #5bad91;
     --blanc-cass: #f4f0eb;
-    --canard: #1a586c;
     --noir: #000;
     --blanc: #fff;
     display: block;
@@ -53,7 +51,7 @@
     line-height: 6rem;
     /* 101.136% */
     letter-spacing: -5.28px;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-3);
   }
 
   /*  todo: make h3 and p common element like screen-title */
@@ -65,6 +63,7 @@
     font-weight: 700;
     letter-spacing: -2.1px;
     margin: 0px;
+    margin-top: var(--space-3);
   }
 
   .screen-1 p {
@@ -73,6 +72,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-top: var(--space-2);
   }
 
   h2.title-2 i {
@@ -92,7 +92,7 @@
     grid-template-columns: 548fr 1090fr;
     /* ratio-based scaling */
     grid-template-rows: 567fr auto;
-    gap: 1rem;
+    gap: var(--space-3);
     /* optional */
   }
 
