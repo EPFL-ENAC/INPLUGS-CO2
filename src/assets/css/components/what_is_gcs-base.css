@@ -1,0 +1,60 @@
+@layer components {
+  /* ---------- Full Page Layout (what_is_gcs.njk) ---------- */
+  .landing_page.is-full-page {
+    padding: 0;
+    gap: 0;
+    grid-template-columns: 1fr;
+    position: relative;
+    min-height: auto;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .landing_page.is-full-page .landing_page__content {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .landing_page.is-full-page .landing_page__visual {
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    overflow-x: hidden;
+  }
+
+  /* Target the SVG directly */
+  .landing_page.is-full-page .landing_page__visual svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* If you have a svg-container class */
+  .svg-container {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(0deg, #978c6f, #00aad8);
+  }
+
+  .svg-container svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .landing_page.is-full-page .landing_page__visual picture {
+    width: auto;
+    height: auto;
+    max-width: none;
+    display: block;
+  }
+
+  .landing_page.is-full-page .landing_page__visual img {
+    width: auto;
+    height: auto;
+    max-width: none;
+    display: block;
+    object-fit: none;
+    object-position: center;
+  }
+}

@@ -1,7 +1,6 @@
 {% extends "main.njk" %}
 {% block content %}
-    <index-content>
-    <template shadowrootmode="open">
+    <div class="index-content">
         <link rel="stylesheet"
               href='{{ asset("/assets/styles/landing_page.css") }}'>
         <section class="landing_page">
@@ -12,7 +11,5 @@
             </div>
             <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
         </section>
-        <!-- <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script> -->
-    </template>
-    </index-content>
+    </div>
 {% endblock %}

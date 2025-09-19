@@ -1,0 +1,67 @@
+@layer components {
+  /* ---------- Minimap ---------- */
+  .minimap {
+    position: fixed;
+    top: 10rem;
+    right: 3.5rem;
+    width: 146px;
+    z-index: 15;
+    pointer-events: none;
+    opacity: 0.8;
+    /* Border removed - will be applied to active marker instead */
+  }
+
+  .minimap-border {
+    border: 2px solid var(--blanc-cass, #f4f0eb);
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(244, 240, 235, 0.5);
+  }
+
+  .minimap img {
+    /* aspect-ratio: 33/88; */
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Scroll Mini Markers ---------- */
+  .scroll-mini-marker {
+    color: var(--blanc-cass, #f4f0eb);
+    /* legends */
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    position: absolute;
+    left: 10px;
+    z-index: 16;
+    /* Above minimap image but below buttons */
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in-out;
+    pointer-events: visible;
+    cursor: pointer;
+  }
+
+  /* Individual marker positions */
+  #scroll-minimap-marker-1 {
+    top: 2px;
+  }
+
+  #scroll-minimap-marker-2 {
+    top: 100px;
+  }
+
+  #scroll-minimap-marker-3 {
+    top: 219px;
+  }
+
+  #scroll-minimap-marker-4 {
+    top: 179px;
+  }
+
+  #scroll-minimap-marker-5 {
+    top: 145px;
+  }
+}

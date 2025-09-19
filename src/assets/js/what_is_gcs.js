@@ -4,21 +4,20 @@
  * Progressive enhancement: links work normally, enhanced with View Transitions when supported
  */
 
-class LandingPageController {
+class WhatIsGCSController {
   constructor() {
-    // Get the shadow root
-    const indexContent = document.querySelector("index-content");
-    this.shadowRoot = indexContent && indexContent.shadowRoot;
+    // Get the index content element (now a regular div, not a custom element with shadow DOM)
+    const indexContent = document.querySelector(".index-content");
 
-    // Check if we have access to the shadow root
-    if (!this.shadowRoot) {
-      console.error("Could not access shadow root");
+    // Check if we have access to the index content
+    if (!indexContent) {
+      console.error("Could not find index content element");
       return;
     }
 
-    this.landingPageSection = this.shadowRoot.querySelector(".landing_page");
-    this.ctaButton = this.shadowRoot.querySelector(".btn-cta");
-    this.backButton = this.shadowRoot.querySelector(".btn-back");
+    this.WhatIsGCSSection = indexContent.querySelector(".landing_page");
+    this.ctaButton = indexContent.querySelector(".btn-cta");
+    this.backButton = indexContent.querySelector(".btn-back");
     this.isFullPage = false;
 
     // Check for View Transition API support
@@ -60,7 +59,7 @@ class LandingPageController {
   }
 
   init() {
-    if (!this.landingPageSection) return;
+    if (!this.WhatIsGCSSection) return;
 
     // Determine current page
     this.isFullPage = window.location.pathname.includes("what_is_gcs");
@@ -96,24 +95,22 @@ class LandingPageController {
   }
 
   initScrollNavigation() {
-    // Get scroll navigation buttons from shadow root
-    this.scrollUpBtn = this.shadowRoot.getElementById("scroll-up-btn");
-    this.scrollDownBtn = this.shadowRoot.getElementById("scroll-down-btn");
+    // Get scroll navigation buttons directly from the document
+    this.scrollUpBtn = document.getElementById("scroll-up-btn");
+    this.scrollDownBtn = document.getElementById("scroll-down-btn");
 
-    // Get scroll markers from shadow root
+    // Get scroll markers directly from the document
     for (let i = 1; i <= 5; i++) {
-      const marker = this.shadowRoot.getElementById(`scroll-marker-${i}`);
+      const marker = document.getElementById(`scroll-marker-${i}`);
       if (marker) {
         this.scrollMarkers.push(marker);
       }
     }
 
-    // Get minimap markers from shadow root
+    // Get minimap markers directly from the document
     this.minimapMarkers = [];
     for (let i = 1; i <= 5; i++) {
-      const marker = this.shadowRoot.getElementById(
-        `scroll-minimap-marker-${i}`,
-      );
+      const marker = document.getElementById(`scroll-minimap-marker-${i}`);
       if (marker) {
         this.minimapMarkers.push(marker);
 
@@ -128,9 +125,9 @@ class LandingPageController {
       this.scrollDownBtn &&
       this.scrollMarkers.length > 0
     ) {
-      // Get info boxes from shadow root
+      // Get info boxes directly from the document
       for (let i = 1; i <= 5; i++) {
-        const infoBox = this.shadowRoot.getElementById(`info-box-${i}`);
+        const infoBox = document.getElementById(`info-box-${i}`);
         if (infoBox) {
           this.infoBoxes.push(infoBox);
         }
@@ -357,7 +354,7 @@ class LandingPageController {
     // Only enhance with View Transitions if supported and motion allowed
     if (this.supportsViewTransitions && !this.prefersReducedMotion) {
       event.preventDefault();
-      this.navigateToLandingPage();
+      this.navigateToWhatIsGCS();
     }
     // Otherwise, let the regular link navigation happen
   }
@@ -368,7 +365,7 @@ class LandingPageController {
 
     // Go back to landing page on Escape key
     if (event.key === "Escape") {
-      this.navigateToLandingPage();
+      this.navigateToWhatIsGCS();
     }
     // Scroll to next step on Space key or Right Arrow
     else if (
@@ -396,7 +393,7 @@ class LandingPageController {
     document.startViewTransition(navigation);
   }
 
-  navigateToLandingPage() {
+  navigateToWhatIsGCS() {
     const navigation = () => {
       window.location.href = "/landing_page";
     };
@@ -492,8 +489,8 @@ class LandingPageController {
 // Initialize when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
-    new LandingPageController();
+    new WhatIsGCSController();
   });
 } else {
-  new LandingPageController();
+  new WhatIsGCSController();
 }

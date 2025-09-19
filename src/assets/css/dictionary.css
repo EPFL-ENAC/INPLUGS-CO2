@@ -1,12 +1,9 @@
 @layer components {
-  :root {
+  .data-content {
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;
     --vert-turquoise: #5bad91;
-  }
-
-  :host {
     --blanc-cass: #f4f0eb;
     --canard: #1a586c;
     --vert-turquoise: #5bad91;
@@ -17,7 +14,6 @@
     color: var(--noir);
     box-shadow: var(--shadow);
   }
-
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;

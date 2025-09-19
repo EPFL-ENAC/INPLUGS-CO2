@@ -1,5 +1,5 @@
 @layer components {
-  :host {
+  .gcs-content {
     --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --vert-turquoise: #5bad91;
@@ -9,12 +9,9 @@
     display: block;
     background: var(--brand-bg);
     color: var(--brand-fg);
-    --font-family-primary:
-      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, sans-serif;
-    font-family: var(--font-family-primary);
     --navbar-height: 161px;
   }
+  @import "./components/gcs-faq.css";
 
   /* Smooth scrolling */
   html {

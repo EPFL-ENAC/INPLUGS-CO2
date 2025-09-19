@@ -1,7 +1,6 @@
 {% extends 'layouts/main.njk' %}
 {% block content %}
-    <links-content>
-    <template shadowrootmode="open">
+    <div class="links-content">
         <link rel="stylesheet" href='{{ asset("/assets/styles/links.css") }}'>
         <main class="links_page">
             <section class="links-intro">
@@ -54,6 +53,5 @@
                 </ul>
             </section>
         </main>
-    </template>
-    </links-content>
+    </div>
 {% endblock %}

@@ -1,0 +1,18 @@
+@layer components {
+  /* ---------- Accessibility & Motion Reduction ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .landing_page,
+    .landing_page__visual img,
+    .landing_page__visual picture,
+    .landing_page__content,
+    .info-boxes,
+    .info-box,
+    .btn-close {
+      transition: none !important;
+    }
+
+    .landing_page.is-state2 .info-box {
+      transform: none;
+    }
+  }
+}

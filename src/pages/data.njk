@@ -1,9 +1,8 @@
 {% extends "main.njk" %}
 {% block content %}
-    <data-content>
-        <template shadowrootmode="open">
-            <link rel="stylesheet" href='{{ asset("/assets/styles/data.css") }}'>
-            <main class="data_page">
+    <div class="data-content">
+        <link rel="stylesheet" href='{{ asset("/assets/styles/data.css") }}'>
+        <main class="data_page">
                 <section class="title" id="gcs-numbers">
                     <h1 class="data_title">{{ t("data.title") | safe }}</h1>
                     <div class="compteur_wrapper">
@@ -21,6 +20,5 @@
                 </section>
             </main>
             <!-- <script type="module" src='{{ asset("/assets/js/data.js") }}'></script> -->
-        </template>
-    </data-content>
+    </div>
 {% endblock %}

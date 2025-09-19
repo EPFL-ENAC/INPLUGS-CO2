@@ -1,7 +1,6 @@
 {% extends "main.njk" %}
 {% block content %}
-    <about-content>
-    <template shadowrootmode="open">
+    <div class="about-content">
         <link rel="stylesheet" href='{{ asset("/assets/styles/about.css") }}'>
         <main class="about_page">
             <section class="about-intro">
@@ -103,6 +102,5 @@
                 </ul>
             </section>
         </main>
-    </template>
-    </about-content>
+    </div>
 {% endblock %}
