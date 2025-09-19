@@ -126,7 +126,8 @@
 
     /* Animation */
     opacity: 0;
-    transform: translateY(-10px) translateZ(0) translateX(0px);
+    transform: translateY(-10px) translateX(var(--dropdown-left-position, 0px))
+      scale(0.95);
     transition:
       opacity 0.2s ease,
       transform 0.2s ease,
@@ -137,7 +138,8 @@
       display: flex;
       flex-direction: column;
       opacity: 1;
-      transform: translateY(0) translateX(var(--dropdown-left-position, 0px));
+      transform: translateY(0) translateX(var(--dropdown-left-position, 0px))
+        scale(1);
       visibility: visible;
     }
   }

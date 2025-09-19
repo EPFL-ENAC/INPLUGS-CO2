@@ -96,7 +96,7 @@
 
     /* Accessibility & Motion Reduction */
     @media (prefers-reduced-motion: reduce) {
-      &.open {
+      &.dropdown-active {
         transform: none;
       }
     }
