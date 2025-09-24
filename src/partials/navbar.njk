@@ -22,6 +22,13 @@
                 <a href="{{ item.path }}" class="nav-{{ item.key }} nav-dropdown-toggle" {% if page.key==item.key
                     %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}" data-nav-item="{{ item.key }}">{{
                     item.title }}</a>
+                <div class="nav-dropdown-menu nav-{{ item.key }}-dropdown-menu" id="nav-{{ item.key }}-dropdown-menu" aria-label="{{ item.title
+                    }} sections">
+                    <!-- Dropdown items specific to each main nav item -->
+                    {% for anchor in item.anchors %}
+                    <a href="{{ item.path + "#" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
+                    {% endfor %}
+                </div>
             </div>
             {% else %}
             <!-- Regular nav item -->
@@ -76,18 +83,6 @@
             <span class="hamburger-line"></span>
         </button>
     </header>
-
-    {% for item in navItems %}
-    {% if not item.hidden and item.anchors %}
-    <div class="nav-dropdown-menu nav-{{ item.key }}-dropdown-menu" id="nav-{{ item.key }}-dropdown-menu" aria-label="{{ item.title
-        }} sections">
-        <!-- Dropdown items specific to each main nav item -->
-        {% for anchor in item.anchors %}
-        <a href="{{ item.path + "#" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% endfor %}
 
     <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation menu">
         <div class="mobile-background-blur"></div>

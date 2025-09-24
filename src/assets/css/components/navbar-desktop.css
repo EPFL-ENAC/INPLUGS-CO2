@@ -112,8 +112,8 @@
     background: color-mix(in srgb, var(--navbar-bg) 80%, transparent);
 
     /* Backdrop filter with fallbacks */
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    backdrop-filter: blur(12px) saturate(120%);
+    /* -webkit-backdrop-filter: blur(12px) saturate(120%);
+    backdrop-filter: blur(12px) saturate(120%); */
 
     /* Ensure proper layering */
     isolation: isolate;
@@ -134,7 +134,30 @@
       visibility 0.2s;
     visibility: hidden;
 
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      z-index: -1;
+    }
+
     &.dropdown-active {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      transform: translateY(0) translateX(var(--dropdown-left-position, 0px))
+        scale(1);
+      visibility: visible;
+    }
+
+    .nav-item-dropdown:hover &,
+    .nav-item-dropdown:focus-within & {
       display: flex;
       flex-direction: column;
       opacity: 1;
@@ -157,7 +180,7 @@
     &:hover,
     &:focus-visible {
       background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
-      backdrop-filter: blur(10px);
+      /* backdrop-filter: blur(10px); */
     }
 
     &[aria-current="page"] {
@@ -250,19 +273,19 @@
         opacity: 1;
         outline: none;
         background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
-        backdrop-filter: blur(10px);
+        /* backdrop-filter: blur(10px); */
       }
 
       &:focus-visible {
         outline: 2px solid var(--canard);
         outline-offset: 2px;
-        backdrop-filter: blur(10px);
+        /* backdrop-filter: blur(10px); */
       }
 
       &[aria-expanded="true"] {
         opacity: 1;
         background: color-mix(in oklab, var(--brand-fg) 12%, transparent);
-        backdrop-filter: blur(10px);
+        /* backdrop-filter: blur(10px); */
       }
     }
 
@@ -272,7 +295,7 @@
       right: 0;
       background: var(--navbar-bg);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      /* backdrop-filter: blur(10px); */
       border-radius: var(--radius);
       padding: var(--space-2);
       min-width: 200px;

@@ -12,6 +12,17 @@
     height: 5.5rem;
   }
 
+  .header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
   .header {
     display: grid;
     grid-template-columns: auto 1fr auto auto;
@@ -20,7 +31,7 @@
     gap: var(--space-3);
     padding-left: 2rem;
     height: 100%;
-    backdrop-filter: blur(15px);
+    /* backdrop-filter: blur(15px); */
 
     /* New: force vertical layout when header has mobile-menu-open (SSR / accessibility state) */
     &.mobile-menu-open {
