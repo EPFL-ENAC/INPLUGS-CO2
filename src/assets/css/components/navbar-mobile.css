@@ -79,7 +79,7 @@
     background: rgba(244, 240, 235, 0.8);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    
+
     /* Safe area support for notched devices */
     padding-top: calc(var(--space-3) + env(safe-area-inset-top));
     padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
@@ -247,20 +247,20 @@
     .navbar__mobile-menu {
       /* Further adjustments for smaller screens */
       padding: var(--space-2) var(--space-2);
-      
+
       /* Safe area support for notched devices */
       padding-top: calc(var(--space-2) + env(safe-area-inset-top));
       padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
     }
-    
+
     .navbar__mobile-menu-header {
       margin-bottom: var(--space-2);
     }
-    
+
     .navbar__mobile-language-selector {
       margin-bottom: var(--space-2);
     }
-    
+
     .navbar__mobile-menu-section {
       margin-bottom: var(--space-2);
     }
@@ -352,16 +352,16 @@
       padding-top: calc(var(--space-2) + env(safe-area-inset-top));
       padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
     }
-    
+
     .navbar__mobile-menu-item {
       padding: 0.75rem 1rem;
     }
-    
+
     .navbar__mobile-dropdown-item {
       padding: 0.5rem 1rem 0.5rem 1.5rem;
     }
   }
-  
+
   /* Mobile Logo Adjustments */
   @media (max-width: 860px) {
     .navbar {
