@@ -123,7 +123,7 @@
                 {% if item.anchors %}
                 <div class="navbar__mobile-dropdown-menu" aria-label="{{ item.title }} sections">
                     {% for anchor in item.anchors %}
-                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__mobile-menu-item navbar__mobile-dropdown-item">{{ anchor.title }}</a>
+                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__mobile-menu-item navbar__mobile-dropdown-item" onclick="document.getElementById('navbar-mobile-toggle').checked = false">{{ anchor.title }}</a>
                     {% endfor %}
                 </div>
                 {% endif %}
