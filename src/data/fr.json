@@ -1,5 +1,7 @@
 {
-  "site": { "name": "GCS" },
+  "site": {
+    "name": "GCS"
+  },
   "nav": {
     "home": "Accueil",
     "gcs": "GCS",
@@ -10,7 +12,9 @@
     "about": "À propos",
     "contact": "Contact"
   },
-  "home": { "title": "Bienvenue sur GCS" },
+  "home": {
+    "title": "Bienvenue sur GCS"
+  },
   "homepage": {
     "title": "INPLUGS-CO2:",
     "subtitle": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre l'enfouissement du CO₂",
@@ -36,11 +40,57 @@
     }
   },
   "gcs": {
-    "title": "GCS • Quoi & Pourquoi",
-    "why": "Pourquoi le GCS ?",
-    "what": "Qu'est-ce que le GCS ?",
-    "world": "Le GCS dans le monde",
-    "ch": "Le GCS en Suisse"
+    "why": {
+      "title": "Pourquoi le stockage géologique du carbone ?",
+      "subtitle_1": "Atténuer le changement climatique",
+      "text_1": "Le CO₂ est un gaz à effet de serre majeur. Le stockage géologique aide à réduire les émissions des industries lourdes (p. ex. acier, ciment, centrales électriques) difficiles à décarboner.",
+      "subtitle_2": "Contribuer aux objectifs de neutralité carbone",
+      "text_2": "La plupart des modèles climatiques montrent qu’il est impossible d’atteindre la neutralité carbone sans une forme de captage et stockage du carbone, en particulier pour les secteurs difficiles à décarboner.",
+      "subtitle_3": "Stockage à long terme",
+      "text_3": "Les formations géologiques profondes (comme des gisements d’hydrocarbures épuisés ou des aquifères salins profonds) peuvent piéger le CO₂ pendant des milliers à des millions d’années."
+    },
+    "ongoing": "Projets en cours",
+    "under_construction": "Projets en construction",
+    "planned": "Projets prévus et capacité 2030–2050",
+    "projects": "projets",
+    "project": "projet",
+    "MtCO2_per_year": "Mt CO₂/an",
+    "world": {
+      "north_america": "Amérique du Nord",
+      "europe": "Europe",
+      "middle_east": "Moyen-Orient",
+      "china": "Chine",
+      "australia": "Australie",
+      "south_america": "Amérique du Sud",
+      "africa": "Afrique",
+      "title": "GCS<br/> dans le <i>monde</i>",
+      "text_1": "En 2024, 53 projets de CCS sont en opération, permettant de stocker environ 55 MtCO₂ par an, soit une moyenne de 1,5 MtCO₂ par projet. Si l’on considère les objectifs de neutralité carbone à l’horizon 2040, il faudrait environ 2 500 projets supplémentaires à l’échelle mondiale pour capturer les 40 gigatonnes de CO₂ par an estimées nécessaires à cette échéance. (Sources: IEA and AAGP)",
+      "image_alt": "Carte des projets mondiaux de stockage géologique du carbone"
+    },
+    "swiss": {
+      "title": "Stockage géologique du carbone en Suisse",
+      "text_1": "La Suisse explore activement le stockage géologique du carbone dans le cadre de sa stratégie climatique, avec plusieurs initiatives et études en cours.",
+      "initiative_1": {
+        "name": "Recherche suisse sur le CSC",
+        "description": "Les institutions de recherche suisses mènent des études sur la faisabilité du stockage du CO₂ dans des aquifères salins profonds et des gisements d’hydrocarbures épuisés."
+      },
+      "initiative_2": {
+        "name": "Projets pilotes",
+        "description": "Des projets pilotes sont développés pour tester les technologies de captage et de stockage du CO₂ dans divers secteurs industriels."
+      },
+      "initiative_3": {
+        "name": "Cadre réglementaire",
+        "description": "La Suisse travaille à l’établissement d’un cadre réglementaire garantissant une mise en œuvre sûre et efficace du stockage géologique du carbone."
+      }
+    },
+    "faq": {
+      "title": "Foire aux questions",
+      "q1": {
+        "question": "Le stockage géologique du carbone est-il sûr ?",
+        "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
+      }
+    },
+    "title": "GCS • Quoi et pourquoi"
   },
   "data": {
     "title": "GCS en <span class=\"canard\">nombres</span>",
@@ -97,7 +147,13 @@
       "definition": "Lorem Ipsum"
     }
   },
-  "links": { "title": "Liens utiles" },
-  "about": { "title": "À propos" },
-  "contact": { "title": "Contact" }
+  "links": {
+    "title": "Liens utiles"
+  },
+  "about": {
+    "title": "À propos"
+  },
+  "contact": {
+    "title": "Contact"
+  }
 }

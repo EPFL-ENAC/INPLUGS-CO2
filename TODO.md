@@ -73,6 +73,8 @@
       options.imagePattern ||
       join(this.srcDir, "assets", "_.{svg,png,jpg,jpeg,webp,gif}"),
       };
+- [ ] Add node dependencies in module!
+- [ ] Okay, we need to verify json validity in plugin to display feedback to user!
 
 ## Site Structure & Navigation
 
