@@ -115,9 +115,9 @@
             {% for item in navItems %}
             {% if not item.hidden %}
             <div class="navbar__mobile-menu-section">
-                <div class="navbar__mobile-section-title">{{ item.key | capitalize }}</div>
+
                 <!-- Menu items that close the menu when clicked -->
-                <a href="{{ item.path }}" class="navbar__mobile-menu-item navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align
+                <a href="{{ item.path }}" class="navbar__mobile-menu-item-path navbar__mobile-menu-item navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align
                     }}{% endif %}" {% if page.key==item.key %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}"
                     data-nav-item="{{ item.key }}">{{ item.title }}</a>
                 {% if item.anchors %}

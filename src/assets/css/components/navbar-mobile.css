@@ -172,15 +172,6 @@
     margin-bottom: 25px;
   }
 
-  .navbar__mobile-section-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
   .navbar__mobile-menu-item {
     color: #2c5f2d;
     font-size: 16px;
@@ -195,6 +186,14 @@
     touch-action: manipulation;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  .navbar__mobile-menu-item-path {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .navbar__mobile-menu-item:hover,
