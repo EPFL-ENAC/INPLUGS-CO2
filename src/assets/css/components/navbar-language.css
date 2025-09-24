@@ -1,45 +1,54 @@
 @layer components {
-  /* Language switcher */
-  .lang {
+  /* Language Switcher */
+  .navbar__language {
     grid-area: lang;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     opacity: 0.9;
+  }
 
-    svg {
-      fill: var(--canard, #1a586c);
-      width: 19px;
-      height: 27px;
-      opacity: 0.8;
-      display: block;
-      margin-top: 7px;
-    }
+  .navbar__language-icon {
+    fill: var(--navbar-link-color);
+    width: 19px;
+    height: 27px;
+    opacity: 0.8;
+    display: block;
+    margin-top: 7px;
+  }
 
-    a {
-      color: var(--canard, #1a586c);
-      font-family: var(--font-family-primary);
-      font-size: 25px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: -0.75px;
-      text-decoration: none;
-      padding: 0.15rem 0.35rem;
-      border-radius: 6px;
+  .navbar__language-link {
+    color: var(--navbar-link-color);
+    font-family: var(--navbar-font-family);
+    font-size: var(--navbar-font-size);
+    font-style: normal;
+    font-weight: var(--navbar-font-weight);
+    line-height: normal;
+    letter-spacing: -0.75px;
+    text-decoration: none;
+    padding: 0.15rem 0.35rem;
+    border-radius: var(--navbar-item-border-radius);
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      background-color var(--navbar-transition-duration) var(--navbar-transition-easing);
+  }
 
-      &:hover,
-      &:focus-visible {
-        background: color-mix(in oklab, var(--brand-fg) 15%, transparent);
-        opacity: 1;
-      }
+  .navbar__language-link:hover,
+  .navbar__language-link:focus-visible {
+    background: var(--navbar-link-hover-bg);
+    opacity: 1;
+    outline: none;
+  }
 
-      /* Desktop: Show only alternate language */
-      @media (min-width: 769px) {
-        &.current {
-          display: none;
-        }
-      }
+  .navbar__language-link:focus-visible {
+    outline: 2px solid var(--navbar-link-color);
+    outline-offset: 2px;
+  }
+
+  /* Desktop: Show only alternate language */
+  @media (min-width: 769px) {
+    .navbar__language-link.current {
+      display: none;
     }
   }
 }

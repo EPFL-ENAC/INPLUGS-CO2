@@ -4,7 +4,6 @@
     scroll-behavior: smooth;
   }
   .data-content {
-    --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;
     --vert-turquoise: #5bad91;

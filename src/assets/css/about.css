@@ -124,7 +124,7 @@
     background-color: #ea580c;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .about_page {
       padding: 1rem;
     }

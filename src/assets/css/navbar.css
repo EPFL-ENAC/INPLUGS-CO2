@@ -1,23 +1,21 @@
 /* 
  * INPLUGS Navbar Component Styles
  * 
- * This file imports all the modularized navbar component styles.
- * The original monolithic navbar.css file has been split into:
- * - navbar-base.css: Core navbar structure and layout
- * - navbar-desktop.css: Desktop-specific styles
- * - navbar-mobile.css: Mobile-specific styles
+ * Restructured navbar styles with improved organization and consistency.
+ * Files are organized by component following BEM methodology:
+ * - navbar-core.css: Core navbar structure, layout, and shared styles
+ * - navbar-navigation.css: Navigation links and dropdowns
  * - navbar-language.css: Language switcher styles
+ * - navbar-mobile.css: Mobile-specific styles and overrides
  * - navbar-animations.css: All animation and transition styles
- * - navbar-dropdowns.css: Reserved for future dropdown-specific enhancements
  */
 
 /* Import all navbar component styles */
-@import "./components/navbar-base.css";
-@import "./components/navbar-desktop.css";
-@import "./components/navbar-mobile.css";
+@import "./components/navbar-core.css";
+@import "./components/navbar-navigation.css";
 @import "./components/navbar-language.css";
+@import "./components/navbar-mobile.css";
 @import "./components/navbar-animations.css";
-@import "./components/navbar-dropdowns.css";
 
 /* Maintain backward compatibility */
 @layer components;
