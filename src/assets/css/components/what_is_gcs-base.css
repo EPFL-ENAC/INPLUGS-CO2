@@ -1,5 +1,13 @@
 @layer components {
   /* ---------- Full Page Layout (what_is_gcs.njk) ---------- */
+  html,
+  body {
+    height: 500vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
   .landing_page.is-full-page {
     padding: 0;
     gap: 0;
@@ -7,7 +15,7 @@
     position: relative;
     min-height: auto;
     width: 100%;
-    overflow-x: hidden;
+    height: 500vh;
   }
 
   .landing_page.is-full-page .landing_page__content {
@@ -15,46 +23,52 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
+
   .landing_page.is-full-page .landing_page__visual {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100vh;
     z-index: 1;
-    overflow-x: hidden;
   }
 
   /* Target the SVG directly */
   .landing_page.is-full-page .landing_page__visual svg {
     width: 100%;
-    height: auto;
+    height: 4287px;
     display: block;
   }
 
   /* If you have a svg-container class */
   .svg-container {
     width: 100%;
-    height: auto;
+    height: 4287px;
     background: linear-gradient(0deg, #978c6f, #00aad8);
   }
 
   .svg-container svg {
     width: 100%;
-    height: auto;
+    height: 4287px;
     display: block;
   }
+
   .landing_page.is-full-page .landing_page__visual picture {
-    width: auto;
-    height: auto;
-    max-width: none;
+    width: 100%;
+    height: 4287px;
     display: block;
   }
 
   .landing_page.is-full-page .landing_page__visual img {
-    width: auto;
-    height: auto;
-    max-width: none;
+    width: 100%;
+    height: 4287px;
     display: block;
-    object-fit: none;
-    object-position: center;
+    object-fit: cover;
+  }
+
+  /* Step sections for scroll-based navigation */
+  .step-section {
+    height: 100vh;
+    width: 100%;
   }
 }

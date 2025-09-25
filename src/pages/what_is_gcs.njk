@@ -4,12 +4,14 @@
         <link rel="stylesheet" href='{{ asset("/assets/styles/what_is_gcs.css") }}'>
         <section class="landing_page is-full-page">
             <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
-            <!-- Scroll position markers for navigation buttons -->
-            <div id="scroll-marker-1" class="scroll-marker"></div>
-            <div id="scroll-marker-2" class="scroll-marker"></div>
-            <div id="scroll-marker-3" class="scroll-marker"></div>
-            <div id="scroll-marker-4" class="scroll-marker"></div>
-            <div id="scroll-marker-5" class="scroll-marker"></div>
+            
+            <!-- Sections for scroll-based navigation -->
+            <section class="step-section" data-step="1"></section>
+            <section class="step-section" data-step="2"></section>
+            <section class="step-section" data-step="3"></section>
+            <section class="step-section" data-step="4"></section>
+            <section class="step-section" data-step="5"></section>
+            
             <div class="info-boxes">
                 <div id="info-box-1"
                      class="info-box"
