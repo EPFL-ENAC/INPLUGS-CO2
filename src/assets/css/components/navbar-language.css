@@ -30,7 +30,8 @@
     border-radius: var(--navbar-item-border-radius);
     transition:
       opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
-      background-color var(--navbar-transition-duration) var(--navbar-transition-easing);
+      background-color var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
   }
 
   .navbar__language-link:hover,
