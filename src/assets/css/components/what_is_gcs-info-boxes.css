@@ -9,22 +9,26 @@
     left: 1rem;
     z-index: 10;
     pointer-events: none;
+    --font-size-info-box: 30px;
+    --font-weight-info-box: 600;
+    font-size: var(--font-size-info-box);
+    line-height: var(--font-size-info-box);
+    font-weight: var(--font-weight-info-box);
+    font-style: normal;
+    /* Responsive font sizing */
   }
 
   .info-box {
     border-radius: 12px;
     padding: 1.5rem;
     max-width: 834px;
+    min-width: 500px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px) scale(1);
+    transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     background: rgba(26, 88, 108, 0.5);
     backdrop-filter: blur(15px);
     color: var(--blanc-cass, #f4f0eb);
-    font-size: 60px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 60px;
     letter-spacing: -1.8px;
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -40,29 +44,23 @@
 
   .info-box p {
     color: var(--blanc-cass, #f4f0eb);
-    font-size: 60px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 60px;
     letter-spacing: -1.8px;
     margin: 0px;
   }
 
   .info-box i {
     color: var(--vert-punchy, #90e036);
-    font-size: 60px;
     font-style: normal;
-    line-height: 60px;
     font-weight: 800;
     letter-spacing: -1.8px;
   }
 
   .info-box h3 {
     color: var(--blanc-cass, #f4f0eb);
-    font-size: 60px;
+    font-size: var(--font-size-info-box);
     font-style: normal;
-    font-weight: 600;
-    line-height: 60px;
+    font-weight: var(--font-weight-info-box);
+    line-height: var(--font-size-info-box);
     letter-spacing: -1.8px;
     margin: 0px;
   }
@@ -85,7 +83,28 @@
   .info-box.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     pointer-events: auto;
+  }
+
+  /* Enhanced visual feedback for step transitions */
+  .info-box.transitioning-in {
+    transform: translateY(0) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .info-box.transitioning-out {
+    transform: translateY(5px) scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* Scroll momentum feedback styles */
+  body.high-momentum .info-box.active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
+  }
+
+  body.low-momentum .info-box.active {
+    transform: translateY(0) scale(1.01);
   }
 }

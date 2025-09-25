@@ -10,6 +10,8 @@ class WhatIsGCSController {
     this.minimapMarkers = [];
     this.currentStep = 1;
     this.totalSteps = 5;
+    this.isScrolling = false;
+    this.scrollMomentum = 0;
 
     // SVG positions from bottom (in pixels)
     this.svgPositions = [
@@ -67,11 +69,10 @@ class WhatIsGCSController {
     // Add keyboard event listeners
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
-    // Add scroll event listener for parallax effect
+    // Add scroll event listener for parallax effect and momentum tracking
     window.addEventListener("scroll", this.onScroll.bind(this));
 
-    // Initial update
-    this.updateUI();
+    // Track scroll momentum for better feedback\n    this.setupScrollMomentumTracking();\n\n    // Create progress indicator\n    this.createProgressIndicator();\n\n    // Initial update\n    this.updateUI();\n    this.updateProgressIndicator();
   }
 
   handleKeyDown(event) {
@@ -96,14 +97,86 @@ class WhatIsGCSController {
     }
   }
 
+  setupScrollMomentumTracking() {
+    let lastScrollTime = Date.now();
+    let lastScrollY = window.scrollY;
+
+    const trackMomentum = () => {
+      const now = Date.now();
+      const currentScrollY = window.scrollY;
+      const timeDelta = now - lastScrollTime;
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+      if (timeDelta > 0) {
+        this.scrollMomentum = scrollDelta / timeDelta;
+      }
+
+      lastScrollTime = now;
+      lastScrollY = currentScrollY;
+
+      requestAnimationFrame(trackMomentum);
+    };
+
+    requestAnimationFrame(trackMomentum);
+  }
+
+  createProgressIndicator() {
+    // Create a progress bar for user feedback
+    const progressContainer = document.createElement("div");
+    progressContainer.className = "scroll-progress-container";
+    progressContainer.innerHTML = `
+      <div class="scroll-progress-bar">
+        <div class="scroll-progress-fill"></div>
+      </div>
+      <div class="scroll-step-indicator">
+        <span class="current-step">${this.currentStep}</span>
+        <span class="step-separator">/</span>
+        <span class="total-steps">${this.totalSteps}</span>
+      </div>
+    `;
+
+    document.body.appendChild(progressContainer);
+
+    this.progressContainer = progressContainer;
+    this.progressFill = progressContainer.querySelector(
+      ".scroll-progress-fill",
+    );
+    this.currentStepElement = progressContainer.querySelector(".current-step");
+  }
+
+  updateProgressIndicator() {
+    if (this.progressFill && this.currentStepElement) {
+      const progress = (this.currentStep / this.totalSteps) * 100;
+      this.progressFill.style.width = `${progress}%`;
+      this.currentStepElement.textContent = this.currentStep;
+    }
+  }
+
   goToStep(step) {
     // Validate step
     if (step < 1 || step > this.totalSteps) {
       return;
     }
 
+    // Prevent multiple simultaneous transitions
+    if (this.isScrolling) {
+      return;
+    }
+
+    this.isScrolling = true;
+
     // Store the target step
     this.targetStep = step;
+
+    // Add visual feedback
+    if (this.progressContainer) {
+      this.progressContainer.classList.add("scrolling");
+    }
+
+    // Add haptic feedback on supported devices
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
 
     // Calculate target scroll position (each section is 100vh)
     const targetPosition = (step - 1) * window.innerHeight;
@@ -117,12 +190,19 @@ class WhatIsGCSController {
     // Update SVG position immediately using target step
     this.updateSvgPosition(step);
 
-    // Use a more sophisticated approach to handle UI updates
-    // Wait for scroll to complete or timeout after 600ms
+    // Update progress indicator immediately
+    this.currentStep = step;
+    this.updateProgressIndicator();
+    this.updateUI();
+
+    // Add step transition effect to info boxes
+    this.addStepTransitionEffect(step);
+
+    // Wait for scroll completion with faster timeout
     this.waitForScrollCompletion(targetPosition, () => {
-      // Ensure we're still on the target step before updating UI
-      if (this.currentStep === this.targetStep) {
-        this.updateUI();
+      this.isScrolling = false;
+      if (this.progressContainer) {
+        this.progressContainer.classList.remove("scrolling");
       }
     });
   }
@@ -139,8 +219,11 @@ class WhatIsGCSController {
     if (clampedStep !== this.currentStep) {
       this.currentStep = clampedStep;
       this.updateSvgPosition();
-      // Update UI immediately for scroll events
       this.updateUI();
+      this.updateProgressIndicator();
+
+      // Add momentum-based feedback
+      this.addScrollMomentumFeedback();
     }
   }
 
@@ -152,43 +235,88 @@ class WhatIsGCSController {
       // Get target position for the specified step
       const targetPosition = this.svgPositions[targetStep - 1];
 
-      // Apply smooth transition
-      background.style.transition = "transform 0.6s ease-out";
+      // Apply ultra-fast transition (80ms)
+      background.style.transition =
+        "transform 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       background.style.transform = `translateY(-${targetPosition}px)`;
     }
   }
 
+  addStepTransitionEffect(targetStep) {
+    // Add smooth transition effect to info boxes
+    this.infoBoxes.forEach((infoBox, index) => {
+      const stepNumber = index + 1;
+
+      if (stepNumber === targetStep) {
+        // Animate in the active box
+        infoBox.style.transform = "scale(1.05)";
+        setTimeout(() => {
+          infoBox.style.transform = "scale(1)";
+        }, 80);
+      } else if (stepNumber === this.currentStep && stepNumber !== targetStep) {
+        // Animate out the previous box
+        infoBox.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          infoBox.style.transform = "scale(1)";
+        }, 80);
+      }
+    });
+  }
+
+  addScrollMomentumFeedback() {
+    // Visual feedback based on scroll momentum
+    const momentumClass =
+      this.scrollMomentum > 2 ? "high-momentum" : "low-momentum";
+    document.body.classList.add(momentumClass);
+
+    setTimeout(() => {
+      document.body.classList.remove(momentumClass);
+    }, 200);
+  }
+
   updateUI() {
-    // Update info box visibility
+    // Update info box visibility with enhanced transitions
     this.infoBoxes.forEach((infoBox, index) => {
       if (index + 1 === this.currentStep) {
         infoBox.classList.add("active");
+        infoBox.style.transition =
+          "all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       } else {
         infoBox.classList.remove("active");
       }
     });
 
-    // Update navigation buttons
+    // Update navigation buttons with enhanced feedback
     if (this.prevButton) {
       this.prevButton.disabled = this.currentStep === 1;
+      this.prevButton.style.opacity = this.currentStep === 1 ? "0.3" : "1";
+      this.prevButton.style.transition = "all 0.08s ease";
     }
 
     if (this.nextButton) {
       this.nextButton.disabled = this.currentStep === this.totalSteps;
+      this.nextButton.style.opacity =
+        this.currentStep === this.totalSteps ? "0.3" : "1";
+      this.nextButton.style.transition = "all 0.08s ease";
     }
 
-    // Update minimap markers
+    // Update minimap markers with fast transitions
     this.minimapMarkers.forEach((marker, index) => {
+      marker.style.transition =
+        "all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+
       if (index + 1 === this.currentStep) {
         marker.classList.add("minimap-border");
+        marker.style.transform = "scale(1.15)";
       } else {
         marker.classList.remove("minimap-border");
+        marker.style.transform = "scale(1)";
       }
     });
   }
 
   /**
-   * Waits for scroll completion or times out after 600ms
+   * Waits for scroll completion with ultra-fast timeout (200ms)
    * @param {number} targetPosition - The target scroll position
    * @param {Function} callback - Function to call when scroll is complete
    */
@@ -196,42 +324,36 @@ class WhatIsGCSController {
     let scrollTimeout;
     let lastPosition = window.scrollY;
     let scrollAttempts = 0;
-    const maxScrollAttempts = 50; // Prevent infinite loops
+    const maxScrollAttempts = 20; // Reduced for faster response
 
     const checkScroll = () => {
-      // Clear any existing timeout
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
-      // Check if we've reached the target position or if scrolling has stopped
       const currentPosition = window.scrollY;
       const distanceToTarget = Math.abs(currentPosition - targetPosition);
 
-      // If we're close enough to the target or if scrolling has stopped, update UI
+      // More aggressive completion detection for faster response
       if (
-        distanceToTarget < 2 ||
-        (currentPosition === lastPosition && scrollAttempts > 2)
+        distanceToTarget < 5 ||
+        (currentPosition === lastPosition && scrollAttempts > 1)
       ) {
-        this.currentStep = this.targetStep;
         callback();
         return;
       }
 
-      // Continue checking if we haven't exceeded max attempts
       if (scrollAttempts < maxScrollAttempts) {
         lastPosition = currentPosition;
         scrollAttempts++;
-        scrollTimeout = setTimeout(checkScroll, 20); // Check every 20ms
+        scrollTimeout = setTimeout(checkScroll, 10); // Check every 10ms for faster response
       } else {
-        // Timeout - update UI anyway
-        this.currentStep = this.targetStep;
         callback();
       }
     };
 
-    // Start checking after a brief delay to allow scroll to initiate
-    scrollTimeout = setTimeout(checkScroll, 20);
+    // Start checking immediately for ultra-fast response
+    scrollTimeout = setTimeout(checkScroll, 5);
   }
 }
 
