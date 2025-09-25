@@ -10,6 +10,7 @@
     color: var(--brand-fg);
     --navbar-height: 161px;
   }
+
   @import "./components/gcs-faq.css";
 
   /* Smooth scrolling */
@@ -20,7 +21,8 @@
   /* Styles de base pour toutes les sections */
   main section {
     /* min-height: calc(100vh - var(--navbar-height)); */
-    min-height: 100dvh; /* full viewport height minus navbar */
+    min-height: 100dvh;
+    /* full viewport height minus navbar */
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -28,7 +30,14 @@
     padding-left: 5rem;
     padding-right: 5rem;
     /* should probably be a padding of the page */
-    scroll-margin-top: 6rem; /* Offset for sticky navbar (5.5rem height + buffer) */
+    scroll-margin-top: 6rem;
+    /* Offset for sticky navbar (5.5rem height + buffer) */
+  }
+  @media screen and (max-width: 860px) {
+    main section {
+      /* Further adjustments for smaller screens */
+      padding: var(--space-2) var(--space-2);
+    }
   }
 
   .screen-1 {
@@ -40,7 +49,8 @@
   .screen-title {
     margin: 0;
     font-family: var(--font-family-primary);
-    font-size: 6rem; /* was 176px or 11rem*/
+    font-size: 6rem;
+    /* was 176px or 11rem*/
     /* font-size: 100px; */
     font-style: normal;
     font-weight: 900;
@@ -53,7 +63,8 @@
   /*  todo: make h3 and p common element like screen-title */
   .screen-1 h3 {
     font-family: var(--font-family-primary);
-    font-size: 5.5rem; /* was 70px */
+    font-size: 5.5rem;
+    /* was 70px */
     line-height: 5.5rem;
     font-style: normal;
     font-weight: 700;
@@ -64,7 +75,8 @@
 
   .screen-1 p {
     font-family: var(--font-family-primary);
-    font-size: 2rem; /* was 30px */
+    font-size: 2rem;
+    /* was 30px */
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -83,13 +95,28 @@
     font-style: inherit;
   }
 
-  .screen-3 {
+  .gcs-world {
     display: grid;
-    grid-template-columns: 548fr 1090fr;
-    /* ratio-based scaling */
+    grid-template-columns: 1fr 4fr;
     grid-template-rows: 567fr auto;
     gap: var(--space-3);
-    /* optional */
+    justify-items: center;
+  }
+
+
+  @media (max-width: 860px) {
+    .gcs-world .screen-title {
+      font-size: 1rem;
+      list-style: none;
+      line-height: normal;
+    }
+
+    .gcs-world {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      justify-items: center;
+    }
   }
 
   .screen-title.title-3 {
@@ -109,18 +136,45 @@
     color: var(--vert-turquoise, #5bad91);
   }
 
+  .screen-4 {
+    background-color: var(--blanc-cass);
+    color: var(--black-70);
+    padding: 0 5rem 0 5rem;
+  }
+
+  .screen-5 {
+    background-color: var(--vert-turquoise);
+    color: var(--blanc-cass);
+    padding: 0 5rem 0 5rem;
+  }
+
   .theme-turquoise {
     background-color: var(--vert-turquoise);
     color: var(--blanc-cass);
   }
 
   .theme-white-dark {
-    background-color: var(--blanc);
-    color: var(--noir);
+    background-color: var(--blanc-cass);
+    color: var(--black-70);
   }
 
   .theme-canard {
     background-color: var(--canard);
     color: var(--blanc-cass);
+  }
+
+  #world-map-container,
+  #switzerland-map-container {
+    width: 100%;
+    height: 600px;
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 860px) {
+
+    #world-map-container,
+    #switzerland-map-container {
+      height: 400px;
+    }
   }
 }
