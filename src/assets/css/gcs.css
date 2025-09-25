@@ -1,6 +1,5 @@
 @layer components {
   .gcs-content {
-    --breakpoint-mobile: 680px;
     --breakpoint-landing-page: 860px;
     --vert-turquoise: #5bad91;
     --blanc-cass: #f4f0eb;

@@ -1,8 +1,8 @@
-<div class="site-header">
+<div class="navbar">
     <link rel="stylesheet" href='{{ asset("/assets/styles/navbar.css") }}'>
-    <header class="header flex items-center justify-between px-2 py-1">
-        <a href="/{{ locale }}/" class="logo-link" aria-label="Go to homepage">
-            <picture class="landing_page__logo">
+    <header class="navbar__container">
+        <a href="/{{ locale }}/" class="navbar__logo-link" aria-label="Go to homepage">
+            <picture class="navbar__logo">
                 <!-- WebP source -->
                 <source type="image/webp" srcset="{{ asset(" /assets/images/logo/logo_inplugs_86x68.webp") }}">
                 <!-- PNG fallback -->
@@ -10,7 +10,7 @@
                     height="68">
             </picture>
         </a>
-        <nav aria-label="Main navigation" class="navbar-nav flex items-center">
+        <nav aria-label="Main navigation" class="navbar__nav">
             {% set navOrder = [] %}
             {% for item in navItems %}
             {% if not item.hidden %}
@@ -18,21 +18,27 @@
             {% if item.anchors !== undefined %}
             <!-- Nav item with dropdown -->
             <div
-                class="nav-item-dropdown nav-{{ item.key }}-dropdown {% if 'align' in item %}nav-{{ item.align }}{% endif %}">
-                <a href="{{ item.path }}" class="nav-{{ item.key }} nav-dropdown-toggle" {% if page.key==item.key
-                    %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}" data-nav-item="{{ item.key }}">{{
-                    item.title }}</a>
-                <div class="nav-dropdown-menu nav-{{ item.key }}-dropdown-menu" id="nav-{{ item.key }}-dropdown-menu" aria-label="{{ item.title
+                class="navbar__dropdown navbar__dropdown--{{ item.key }} navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align }}{% endif %}">
+                <button class="navbar__dropdown-toggle" {% if page.key==item.key
+                    %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}" data-nav-item="{{ item.key }}" aria-haspopup="true" aria-expanded="false">{{
+                    item.title }}
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="navbar__dropdown-menu navbar__dropdown-menu--left" aria-label="{{ item.title
                     }} sections">
                     <!-- Dropdown items specific to each main nav item -->
                     {% for anchor in item.anchors %}
-                    <a href="{{ item.path + "#" + anchor.id }}" class="nav-dropdown-item">{{ anchor.title }}</a>
+                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__link">{{ anchor.title }}</a>
                     {% endfor %}
                 </div>
             </div>
             {% else %}
             <!-- Regular nav item -->
-            <a href="{{ item.path }}" class="nav-{{ item.key }} {% if 'align' in item %}nav-{{ item.align }}{% endif %}"
+            <a href="{{ item.path }}" class="navbar__link navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align }}{% endif %}"
                 {% if page.key==item.key %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}"
                 data-nav-item="{{ item.key }}">{{ item.title }}</a>
             {% endif %}
@@ -41,8 +47,8 @@
             <!-- Embed canonical order for JS (locale agnostic keys) -->
             <script type="application/json" id="nav-order">{{ navOrder | dump | safe }}</script>
             <!-- More dropdown for collapsed navigation items -->
-            <div class="nav-more">
-                <button class="nav-more-toggle" aria-expanded="false" aria-haspopup="true"
+            <div class="navbar__dropdown navbar__dropdown--more">
+                <button class="navbar__dropdown-toggle" aria-expanded="false" aria-haspopup="true"
                     aria-label="More navigation options">
                     More
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -51,70 +57,62 @@
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <div class="nav-more-dropdown" id="nav-more-dropdown">
+                <div class="navbar__dropdown-menu navbar__dropdown-menu--right">
                     <!-- Collapsed navigation items will be moved here by JavaScript -->
                     {% set navOrder = [] %}
                     {% for item in navItems %}
                     {% if not item.hidden %}
                     {% set _ = navOrder.push(item.key) %}
-                    <a href="{{ item.path }}" class="nav-{{ item.key }}" {% if page.key==item.key %}aria-current="page"
+                    <a href="{{ item.path }}" class="navbar__link navbar__item--{{ item.key }}" {% if page.key==item.key %}aria-current="page"
                         {% endif %} data-order="{{ loop.index0 }}" data-nav-item="{{ item.key }}">{{ item.title }}</a>
                     {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </nav>
-        <div class="lang flex items-center" role="navigation" aria-label="Language switcher">
-            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="50 70 412 412" aria-hidden="true">
+        <div class="navbar__language" role="navigation" aria-label="Language switcher">
+            <svg class="navbar__language-icon" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="50 70 412 412" aria-hidden="true">
                 <path
                     d="M349 149q3 25 3 43t-3 43h72q6 -23 6 -43t-6 -43h-72zM311 31q19 35 30 76h63q-16 -27 -39.5 -46.5t-53.5 -29.5zM306 149h-100q-3 23 -3 43t3 43h100q3 -25 3 -43t-3 -43zM256 22q-28 41 -41 85h82q-13 -44 -41 -85zM171 277h-63q16 27 39.5 46.5t53.5 29.5q-18 -33 -30 -76zM108 107h63q12 -43 30 -76q30 10 -53.5 29.5t-39.5 46.5zM91 149q-6 23 -6 43t6 43h72q-3 -25 -3 -43t3 -43h-72zM256 362q28 -41 41 -85h-82q13 44 41 85zM404 277h-63q-11 41 -30 76q30 -10 53.5 -29.5t39.5 -46.5zM256 405q-58 0 -107 -28.5t-77.5 -77.5t-28.5 -107q0 -42 16 -81.5t46 -69.5t69.5 -46t81.5 -16t81.5 16t69.5 46t46 69.5t16 81.5t-16 81.5t-46 69.5t-69.5 46t-81.5 16z" />
             </svg>
             {% for loc in alternates %}
             {% if page.routes[loc] %}
-            <a data-lang="{{ loc }}" href="{{ page.routes[loc] }}" {% if locale==loc %}class="current" {% else
-                %}class="alternate" {% endif %} aria-label="Switch to {{ loc | upper }} language">{{ loc | upper }}</a>
+            <a data-lang="{{ loc }}" href="{{ page.routes[loc] }}" class="navbar__language-link {% if locale==loc %}current{% else
+                %}alternate{% endif %}" aria-label="Switch to {{ loc | upper }} language">{{ loc | upper }}</a>
             {% endif %}
             {% endfor %}
         </div>
-        <!-- Mobile menu button - add this for mobile -->
-        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-        </button>
+        <!-- Mobile menu toggle label -->
+        <label for="navbar-mobile-toggle" class="navbar__mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="navbar__mobile-toggle-line"></span>
+            <span class="navbar__mobile-toggle-line"></span>
+            <span class="navbar__mobile-toggle-line"></span>
+        </label>
     </header>
 
-    <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation menu">
-        <div class="mobile-background-blur"></div>
-        
-        <div class="mobile-menu-header flex justify-between items-center mb-2">
-            <div class="mobile-menu-logo flex items-center">
+    <!-- Hidden checkbox for CSS-only mobile menu toggle -->
+    <input type="checkbox" id="navbar-mobile-toggle" class="navbar__mobile-checkbox" hidden="hidden" aria-hidden="true">
+    
+    <div class="navbar__mobile-menu" id="mobile-menu" aria-label="Mobile navigation menu">
+        <div class="navbar__mobile-menu-header">
+            <div class="navbar__mobile-menu-logo">
                 CO₂
             </div>
-            <button class="mobile-menu-close" aria-label="Close mobile menu">✕</button>
+            <label for="navbar-mobile-toggle" class="navbar__mobile-menu-close" aria-label="Close mobile menu">✕</label>
         </div>
 
-        <div class="mobile-language-selector flex items-center mb-2">
-            {% for loc in alternates %}
-            {% if page.routes[loc] %}
-            <span class="mobile-language" data-lang="{{ loc }}">{{ loc | upper }}</span>
-            {% if not loop.last %}<span>|</span>{% endif %}
-            {% endif %}
-            {% endfor %}
-        </div>
-
-        <nav class="mobile-navbar-nav" aria-label="Mobile main navigation">
+        <nav class="navbar__mobile-nav" aria-label="Mobile main navigation">
             {% for item in navItems %}
             {% if not item.hidden %}
-            <div class="mobile-menu-section mb-2">
-                <div class="mobile-section-title">{{ item.key | capitalize }}</div>
-                <a href="{{ item.path }}" class="mobile-menu-item mobile-nav-{{ item.key }} {% if 'align' in item %}mobile-nav-{{ item.align
+            <div class="navbar__mobile-menu-section">
+                <!-- Menu items that close the menu when clicked -->
+                <a href="{{ item.path }}" class="navbar__mobile-menu-item-path navbar__mobile-menu-item navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align
                     }}{% endif %}" {% if page.key==item.key %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}"
                     data-nav-item="{{ item.key }}">{{ item.title }}</a>
                 {% if item.anchors %}
-                <div class="mobile-nav-dropdown-menu" aria-label="{{ item.title }} sections">
+                <div class="navbar__mobile-dropdown-menu" aria-label="{{ item.title }} sections">
                     {% for anchor in item.anchors %}
-                    <a href="{{ item.path + "#" + anchor.id }}" class="mobile-menu-item mobile-nav-dropdown-item">{{ anchor.title }}</a>
+                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__mobile-menu-item navbar__mobile-dropdown-item">{{ anchor.title }}</a>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -125,67 +123,28 @@
     </div>
 </div>
 <script>
-    // JavaScript to handle dropdowns and mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    // Auto-close mobile menu when clicking anchor links
+    document.addEventListener('DOMContentLoaded', function () {
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuClose = document.querySelector('.mobile-menu-close');
-        
-        if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
-            // Toggle mobile menu
-            mobileMenuToggle.addEventListener('click', function() {
-                const isOpen = mobileMenu.classList.contains('open');
-                mobileMenu.classList.toggle('open');
-                mobileMenuToggle.classList.toggle('open');
-                mobileMenuToggle.setAttribute('aria-expanded', !isOpen);
-                
-                // Prevent body scroll when menu is open
-                document.body.style.overflow = isOpen ? '' : 'hidden';
-            });
-            
-            // Close mobile menu
-            mobileMenuClose.addEventListener('click', function() {
-                mobileMenu.classList.remove('open');
-                mobileMenuToggle.classList.remove('open');
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
-            });
-            
-            // Close menu when clicking on menu items
-            const mobileMenuItems = mobileMenu.querySelectorAll('.mobile-menu-item');
-            mobileMenuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    mobileMenu.classList.remove('open');
-                    mobileMenuToggle.classList.remove('open');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
+        const mobileToggle = document.getElementById('navbar-mobile-toggle');
+
+        if (mobileMenu && mobileToggle) {
+            // Close mobile menu when clicking any link that contains a hash
+            mobileMenu.addEventListener('click', function (e) {
+                const link = e.target.closest('a');
+                if (!link) return;
+                if (!link.href.includes('#')) return;
+
+                // Yield to the browser so it can perform the default anchor navigation,
+                // then close the menu on the next animation frame (minimal delay).
+                requestAnimationFrame(() => {
+                    mobileToggle.checked = false;
                 });
             });
-            
-            // Close menu when clicking outside
-            mobileMenu.addEventListener('click', function(e) {
-                if (e.target === mobileMenu) {
-                    mobileMenu.classList.remove('open');
-                    mobileMenuToggle.classList.remove('open');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.style.overflow = '';
-                }
-            });
         }
-        
-        // Language switching
-        const mobileLanguages = document.querySelectorAll('.mobile-language');
-        mobileLanguages.forEach(lang => {
-            lang.addEventListener('click', function() {
-                const langCode = this.getAttribute('data-lang');
-                const link = document.querySelector(`a[data-lang="${langCode}"]`);
-                if (link) {
-                    window.location.href = link.getAttribute('href');
-                }
-            });
-        });
     });
 </script>
+
 <script type="speculationrules">
 {
   "prerender": [{

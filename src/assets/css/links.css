@@ -59,7 +59,7 @@
     text-decoration: underline;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .links_page {
       padding: 1rem;
     }

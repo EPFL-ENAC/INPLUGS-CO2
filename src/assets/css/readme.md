@@ -172,7 +172,7 @@ Well-organized partial templates
 2. Use `@layer components` to respect the hierarchy
 3. Import the CSS within the component's template
 4. Access design tokens via CSS custom properties
-5. Use raw pixel values for breakpoints (documented in the example file)
+5. **Important**: Use raw pixel values for breakpoints in media queries - CSS custom properties cannot be used directly in media query conditions (they're documented in the example file for reference only)
 
 ### **For Global Styles:**
 

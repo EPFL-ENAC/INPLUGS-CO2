@@ -1,5 +1,5 @@
 /* ---------- Mobile adjustments for State 2 ---------- */
-/* NOTE: Same var() limitation, using literal 680px. */
+/* NOTE: Using --breakpoint-mobile-small value (680px) for very small screens. */
 @media (max-width: 680px) {
   .info-box {
     max-width: 240px;
