@@ -101,15 +101,6 @@
             <label for="navbar-mobile-toggle" class="navbar__mobile-menu-close" aria-label="Close mobile menu">✕</label>
         </div>
 
-        <!-- <div class="navbar__mobile-language-selector">
-            {% for loc in alternates %}
-            {% if page.routes[loc] %}
-            <span class="navbar__mobile-language" data-lang="{{ loc }}">{{ loc | upper }}</span>
-            {% if not loop.last %}<span>|</span>{% endif %}
-            {% endif %}
-            {% endfor %}
-        </div> -->
-
         <nav class="navbar__mobile-nav" aria-label="Mobile main navigation">
             {% for item in navItems %}
             {% if not item.hidden %}
