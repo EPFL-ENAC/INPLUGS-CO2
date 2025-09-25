@@ -123,7 +123,7 @@
                 {% if item.anchors %}
                 <div class="navbar__mobile-dropdown-menu" aria-label="{{ item.title }} sections">
                     {% for anchor in item.anchors %}
-                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__mobile-menu-item navbar__mobile-dropdown-item" onclick="document.getElementById('navbar-mobile-toggle').checked = false">{{ anchor.title }}</a>
+                    <a href="{{ item.path + "#" + anchor.id }}" class="navbar__mobile-menu-item navbar__mobile-dropdown-item">{{ anchor.title }}</a>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -133,6 +133,29 @@
         </nav>
     </div>
 </div>
+<script>
+    // Auto-close mobile menu when clicking anchor links
+    document.addEventListener('DOMContentLoaded', function () {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggle = document.getElementById('navbar-mobile-toggle');
+
+        if (mobileMenu && mobileToggle) {
+            // Close mobile menu when clicking any link that contains a hash
+            mobileMenu.addEventListener('click', function (e) {
+                const link = e.target.closest('a');
+                if (!link) return;
+                if (!link.href.includes('#')) return;
+
+                // Yield to the browser so it can perform the default anchor navigation,
+                // then close the menu on the next animation frame (minimal delay).
+                requestAnimationFrame(() => {
+                    mobileToggle.checked = false;
+                });
+            });
+        }
+    });
+</script>
+
 <script type="speculationrules">
 {
   "prerender": [{
