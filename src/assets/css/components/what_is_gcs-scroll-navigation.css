@@ -17,7 +17,7 @@
     border-radius: 58.772px;
     border: none;
     background: rgba(170, 249, 84, 0.29);
-    backdrop-filter: blur(2.5px);
+    /* backdrop-filter: blur(2.5px); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,7 @@
 
   .scroll-nav-button:enabled {
     background: rgba(144, 224, 54, 0.7);
-    backdrop-filter: blur(2.5px);
+    /* backdrop-filter: blur(2.5px); */
   }
 
   .scroll-nav-button:disabled {

@@ -6,26 +6,6 @@
     padding: 1.25rem;
   }
 
-  .info-box:nth-child(1) {
-    top: 10%;
-    left: 5%;
-  }
-
-  .info-box:nth-child(2) {
-    top: 20%;
-    right: 5%;
-  }
-
-  .info-box:nth-child(3) {
-    bottom: 25%;
-    left: 5%;
-  }
-
-  .info-box:nth-child(4) {
-    bottom: 15%;
-    right: 5%;
-  }
-
   .btn-close {
     top: 1rem;
     right: 1rem;
