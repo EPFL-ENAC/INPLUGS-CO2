@@ -3,19 +3,22 @@
   /* These boxes provide key information about GCS in an engaging manner */
 
   /* ---------- Info Boxes ---------- */
-  .info-boxes {
-    position: fixed;
-    bottom: 1rem;
-    left: 1rem;
-    z-index: 10;
-    pointer-events: none;
+  /* Info boxes are now contained within their respective step sections */
+  .step-section {
     --font-size-info-box: 30px;
     --font-weight-info-box: 600;
     font-size: var(--font-size-info-box);
     line-height: var(--font-size-info-box);
     font-weight: var(--font-weight-info-box);
     font-style: normal;
-    /* Responsive font sizing */
+    /* for desktop */
+    padding: 0rem var(--padding-desktop-horizontal);
+  }
+
+  @media screen and (max-width: 860px) {
+    .step-section {
+      padding: 0rem var(--padding-mobile-horizontal);
+    }
   }
 
   .info-box {
@@ -33,14 +36,17 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    visibility: visible;
     pointer-events: none;
-    /* Ensure info boxes stay within the container */
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    /* Position relative within step section */
+    position: relative;
+    /* /* margin-left: 1rem; */
+    margin-bottom: 4rem;
   }
+
+  /* Info boxes are now positioned within their step sections */
+  /* No individual positioning needed - handled by step-section layout */
 
   .info-box p {
     color: var(--blanc-cass, #f4f0eb);
