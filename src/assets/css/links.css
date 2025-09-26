@@ -84,6 +84,11 @@
     .article_txt:nth-child(8) {
       order: 8;
     }
+
+    .article_txt {
+      font-size: 1.2rem;
+      border-bottom: 1px solid gray;
+    }
   }
 
   @media (min-width: 481px) {
