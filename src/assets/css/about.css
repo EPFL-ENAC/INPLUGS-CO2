@@ -22,7 +22,8 @@
     align-self: center;
   }
 
-  .missions, .values{
+  .missions,
+  .values {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
@@ -52,7 +53,7 @@
   }
 
   .values_title {
-        font-family: var(--font-family-primary);
+    font-family: var(--font-family-primary);
     font-size: 5rem;
     font-style: normal;
     font-weight: 900;
@@ -114,9 +115,4 @@
     grid-row: 3;
     grid-column: 3;
   }
-
-
-
-
-
 }
