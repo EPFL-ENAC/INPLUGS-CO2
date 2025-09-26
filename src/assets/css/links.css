@@ -1,5 +1,4 @@
 @layer components {
-  
   .articles {
     background-color: white;
   }
@@ -17,11 +16,11 @@
     }
 
     .info_title {
-      color:white;
+      color: white;
     }
 
     .ipcc_title {
-      color:white;
+      color: white;
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 0;
@@ -35,7 +34,7 @@
     }
 
     .ipcc_text {
-      color:white;
+      color: white;
       order: 2;
     }
 
@@ -56,24 +55,38 @@
       gap: 2rem;
     }
 
-    .article_img{
+    .article_img {
       width: 100%;
       height: auto;
     }
 
-  .article_img:nth-child(1) { order: 1; }
-  .article_txt:nth-child(5) { order: 2; }
-  .article_img:nth-child(2) { order: 3; }
-  .article_txt:nth-child(6) { order: 4; }
-  .article_img:nth-child(3) { order: 5; }
-  .article_txt:nth-child(7) { order: 6; }
-  .article_img:nth-child(4) { order: 7; }
-  .article_txt:nth-child(8) { order: 8; }
-
+    .article_img:nth-child(1) {
+      order: 1;
+    }
+    .article_txt:nth-child(5) {
+      order: 2;
+    }
+    .article_img:nth-child(2) {
+      order: 3;
+    }
+    .article_txt:nth-child(6) {
+      order: 4;
+    }
+    .article_img:nth-child(3) {
+      order: 5;
+    }
+    .article_txt:nth-child(7) {
+      order: 6;
+    }
+    .article_img:nth-child(4) {
+      order: 7;
+    }
+    .article_txt:nth-child(8) {
+      order: 8;
+    }
   }
 
   @media (min-width: 481px) {
-
     section > * {
       margin-left: 5rem;
       margin-right: 5rem;
