@@ -40,6 +40,9 @@
       }
     }
   },
+  "whatisgcs": {
+    "title": "How does GCS work?"
+  },
   "gcs": {
     "why": {
       "title": "Why Geological Carbon Storage ?",
