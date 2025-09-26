@@ -24,7 +24,7 @@
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<i>Captured</i> CO₂ is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth env. 700-800m"
+        "description": "<i>Captured</i> CO₂ is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
@@ -32,11 +32,11 @@
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO₂ is <i>less dense</i> than the existing water in the pores and starts migrating upwards"
+        "description": "The injected CO₂ is <i>less dense</i> than the existing water in the pores of the reservoir, and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, a geological layer above the reservoir, that acts as a <i>hydromechanical barrier</i>"
       }
     }
   },
