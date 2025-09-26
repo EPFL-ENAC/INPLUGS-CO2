@@ -74,7 +74,7 @@
 
   /* Step sections for scroll-based navigation */
   .step-section {
-    height: calc(100vh - var(--navbar-height));
+    height: calc(100dvh - var(--navbar-height));
     width: 100%;
     position: relative;
     display: flex;
@@ -82,5 +82,20 @@
     justify-content: flex-start;
     padding-bottom: 8rem;
     z-index: 10;
+  }
+  .step-section[data-step="1"] {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: baseline;
+  }
+
+  .step-section[data-step="1"] title {
+    display: block;
+    font:
+      700 4.8rem/1.2 "Archivo",
+      sans-serif;
+    padding: 0;
+
+    color: var(--canard, #1a586c);
   }
 }

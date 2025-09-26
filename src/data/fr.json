@@ -35,6 +35,9 @@
       }
     }
   },
+  "whatisgcs": {
+    "title": "Comment fonctionne le GCS ?"
+  },
   "gcs": {
     "title": "GCS • Quoi & Pourquoi",
     "why": "Pourquoi le GCS ?",

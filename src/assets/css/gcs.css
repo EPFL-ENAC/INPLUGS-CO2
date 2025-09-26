@@ -9,6 +9,13 @@
     background: var(--brand-bg);
     color: var(--brand-fg);
     --navbar-height: 161px;
+
+    --step-0: 1rem;
+    --step-1: 1.333rem;
+    --step-2: 1.777rem;
+    --step-3: 2.369rem;
+    --step-4: 3.157rem;
+    --step-5: 4.209rem;
   }
   @import "./components/gcs-faq.css";
 
@@ -40,35 +47,45 @@
   .screen-title {
     margin: 0;
     font-family: var(--font-family-primary);
-    font-size: 6rem; /* was 176px or 11rem*/
     /* font-size: 100px; */
+    /* font-size: 6rem; was 176px or 11rem */
+    /* font-size: calc(var(--step-5) + 2vw); */
+    font-size: clamp(2.5rem, 2rem + 2vw, var(--step-5));
     font-style: normal;
     font-weight: 900;
-    line-height: 6rem;
+    line-height: 1.1;
     /* 101.136% */
-    letter-spacing: -5.28px;
+    letter-spacing: -2.28px;
     margin-bottom: var(--space-3);
+    max-width: 60ch;
   }
 
   /*  todo: make h3 and p common element like screen-title */
   .screen-1 h3 {
     font-family: var(--font-family-primary);
-    font-size: 5.5rem; /* was 70px */
-    line-height: 5.5rem;
+    /* font-size: 5.5rem; was 70px */
+    /* font-size: calc(3rem + 2vw);
+    line-height: calc(3rem + 2vw); */
+    font-size: clamp(2rem, 1.5rem + 1.5vw, var(--step-4));
+    line-height: 1.6;
     font-style: normal;
     font-weight: 700;
     letter-spacing: -2.1px;
     margin: 0px;
     margin-top: var(--space-3);
+    max-width: 60ch;
   }
 
   .screen-1 p {
     font-family: var(--font-family-primary);
-    font-size: 2rem; /* was 30px */
+    /* font-size: 2rem; was 30px */
+    /* font-size: calc(1.5rem + 2vw); */
+    /* line-height: calc(1.5rem + 2vw); */
+    font-size: clamp(1.2rem, 1rem + 1vw, var(--step-2));
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
     margin-top: var(--space-2);
+    max-width: 60ch;
   }
 
   h2.title-2 i {

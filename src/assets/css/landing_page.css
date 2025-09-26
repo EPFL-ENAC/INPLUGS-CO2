@@ -38,6 +38,7 @@
     color: #fff;
   }
 
+  /* // TODO FONT problem */
   .landing_page__content h1 {
     margin: 0 0 2rem;
     font:
@@ -69,9 +70,7 @@
     font-weight: inherit;
   }
   h1 i,
-  h2 i {
-    color: var(--canard, #1a586c);
-  }
+  h2 i,
   h1 span::first-letter,
   h2 span::first-letter {
     color: var(--canard, #1a586c);
