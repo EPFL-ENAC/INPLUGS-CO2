@@ -17,25 +17,29 @@
   },
   "homepage": {
     "title": "INPLUGS-CO2:",
-    "subtitle": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre l'enfouissement du CO₂",
+    "subtitle": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre comment l'enfouissement du CO₂ fonctionne",
     "button": "En savoir plus",
     "image_alt": "Illustration du stockage géologique de CO₂",
     "info_boxes": {
-      "injection": {
-        "title": "Injection de CO₂",
-        "description": "Apprenez comment le dioxyde de carbone est injecté en toute sécurité dans les formations géologiques souterraines pour un stockage à long terme."
+      "box1": {
+        "title": "CO₂ capture",
+        "description": "Le CO₂ est <i>capturé</i> directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
       },
-      "formations": {
-        "title": "Formations rocheuses",
-        "description": "Découvrez les types spécifiques de couches rocheuses qui constituent des sites de stockage idéaux pour le CO₂ capturé."
+      "box2": {
+        "title": "CO₂ compression & injection",
+        "description": "Le CO₂ <i>capturé</i> est comprimé sous forme <i>liquide</i> ou <i>supercritique</i> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
       },
-      "monitoring": {
-        "title": "Systèmes de surveillance",
-        "description": "Explorez les technologies avancées utilisées pour surveiller et vérifier l'intégrité du stockage de CO₂ au fil du temps."
+      "box3": {
+        "title": "CO₂ storage",
+        "description": "Le CO₂ est injecté dans une couche géologique <i>poreuse</i> appelée <i>réservoir</i>."
       },
-      "safety": {
-        "title": "Sécurité environnementale",
-        "description": "Comprenez les multiples mesures de sécurité et protocoles qui protègent l'environnement et les communautés."
+      "box4": {
+        "title": "CO₂ migration",
+        "description": "Le CO₂ injecté est moins <i>dense</i> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
+      },
+      "box5": {
+        "title": "CO₂ trapping",
+        "description": "Le CO₂ <i>flottant</i> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <i>caprock</i>, une autre couche géologique qui agit comme une <i>barrière hydromécanique</i>."
       }
     }
   },

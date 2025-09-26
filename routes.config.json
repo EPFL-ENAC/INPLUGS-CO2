@@ -71,7 +71,10 @@
         "en": "/dictionary",
         "fr": "/dictionnaire"
       },
-      "title": "Dictionary",
+      "title": {
+        "en": "Dictionary",
+        "fr": "Dictionnaire"
+      },
       "themeColor": "#FFF",
       "anchors": {
         "en": [{ "id": "references", "title": "References" }],
