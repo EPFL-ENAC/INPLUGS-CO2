@@ -1,144 +1,122 @@
 @layer components {
-  .about_page {
-    padding: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+  section > * {
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-bottom: 5rem;
   }
-
-  .about_page h1 {
-    color: #f97316;
-    font-size: 2.5rem;
+  section {
+    min-height: 1vh;
+  }
+  .missions_title {
+    font-family: var(--font-family-primary);
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.96px;
     margin-bottom: 1rem;
+    margin-top: 3rem;
+    color: #087065;
+    grid-column: 1;
+    grid-row: 1/3;
+    align-self: center;
   }
 
-  .about_page h2 {
-    color: #f97316;
-    font-size: 2rem;
-    margin: 2rem 0 1rem 0;
-  }
-
-  .about_page h3 {
-    color: #1a586c;
-    font-size: 1.5rem;
-    margin: 1.5rem 0 1rem 0;
-  }
-
-  .about_page .about-intro p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-
-  .about_page section {
-    margin-bottom: 3rem;
-  }
-
-  .about_page section p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    color: #555;
-    line-height: 1.6;
-  }
-
-  .team-members {
+  .missions, .values{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    align-items: center;
     gap: 2rem;
-    margin-top: 1.5rem;
   }
 
-  .team-member {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
+  .missions {
+    border-bottom: 1px solid gray;
   }
 
-  .team-member h3 {
-    color: #1a586c;
-    margin-bottom: 0.5rem;
+  .values {
+    margin-top: 2.5rem;
   }
 
-  .team-member p {
-    color: #666;
-    font-style: italic;
+  .missions_img {
+    grid-column: 2; /* Second column */
+    grid-row: 1; /* First row */
+    max-width: 15rem;
+    height: auto;
+    align-self: center;
   }
 
-  ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
+  .missions_text {
+    grid-column: 2; /* Second column */
+    grid-row: 2; /* Second row */
   }
 
-  li {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    line-height: 1.5;
+  .values_title {
+        font-family: var(--font-family-primary);
+    font-size: 5rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.96px;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+    color: #087065;
+    grid-column: 2;
+    grid-row: 1/3;
+    align-self: center;
   }
 
-  strong {
-    color: #1a586c;
+  .values_img {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 15rem;
+    height: auto;
+    align-self: center;
   }
 
-  .form-group {
-    margin-bottom: 1.5rem;
+  .values_text {
+    grid-column: 1;
+    grid-row: 2;
   }
 
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #1a586c;
+  .team {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2rem;
   }
 
-  input,
-  textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
+  .team_member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
   }
 
-  input:focus,
-  textarea:focus {
-    outline: none;
-    border-color: #3dd0ff;
-    box-shadow: 0 0 0 2px rgba(61, 208, 255, 0.2);
+  .member_info {
+    background-color: lightgray;
+    padding: 1rem;
+    font-size: 0.5rem;
+    margin-top: 0.5rem;
   }
 
-  button {
-    background-color: #f97316;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  .team_member.first {
+    grid-row: 1;
+    grid-column: 3;
   }
 
-  button:hover,
-  button:focus {
-    background-color: #ea580c;
+  .team_member.middle {
+    grid-row: 2;
+    grid-column: 3.5;
   }
 
-  @media (max-width: 860px) {
-    .about_page {
-      padding: 1rem;
-    }
-
-    .about_page h1 {
-      font-size: 2rem;
-    }
-
-    .about_page h2 {
-      font-size: 1.75rem;
-    }
-
-    .team-members {
-      grid-template-columns: 1fr;
-    }
+  .team_member.last {
+    grid-row: 3;
+    grid-column: 3;
   }
+
+
+
+
+
 }
