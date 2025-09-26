@@ -88,7 +88,7 @@
         "en": "Useful links",
         "fr": "Liens utiles"
       },
-      "themeColor": "#3dd0ff",
+      "themeColor": "#087065",
       "anchors": {
         "en": [
           { "id": "news", "title": "News" },
@@ -112,7 +112,7 @@
         "en": "About",
         "fr": "À propos"
       },
-      "themeColor": "#f97316",
+      "themeColor": "#FFF",
       "anchors": {
         "en": [
           { "id": "team", "title": "The team" },

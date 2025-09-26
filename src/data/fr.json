@@ -150,13 +150,30 @@
       "definition": "Lorem Ipsum"
     }
   },
-  "links": {
-    "title": "Liens utiles"
+  "links": { 
+    "info": "Restez informé·e ! Notre équipe partage ses liens, articles préférés sur cette page  ",
+    "ipcc": "IIPC",
+    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+    "articles_title": "Selected Articles",
+    "articles":{
+      "article1": {
+        "title": "Le titre de l'article",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article2": {
+        "title": "Le titre de l'article",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article3": {
+        "title": "Le titre de l'article mais long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article4": {
+        "title": "Le titre de l'article mais long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      }
+    } 
   },
-  "about": {
-    "title": "À propos"
-  },
-  "contact": {
-    "title": "Contact"
-  }
+  "about": { "title": "À propos" },
+  "contact": { "title": "Contact" }
 }

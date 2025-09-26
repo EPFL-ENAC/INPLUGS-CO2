@@ -1,75 +1,84 @@
 @layer components {
-  .links_page {
+
+  section {
+    margin-left: 5rem;
+    margin-right: 5rem; 
+    padding-bottom: 5rem;
+  }
+
+  section.ipcc {
+    background-color: #087065;
+  }
+
+  .ipcc_wrapper {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 10rem;
+  }
+  .ipcc_text {
+    color: white;
+    background-color: gray !important;
     padding: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
   }
-
-  .links_page h2 {
-    color: #3dd0ff;
-    font-size: 2.5rem;
+  h1{
+    color: white;
+    font-family: var(--font-family-primary);
+    font-size: 7em;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.92px;
     margin-bottom: 1rem;
+    margin-top: 3rem;
   }
 
-  .links_page .links-intro p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    color: #333;
+  h2{
+    color: white;
+    font-family: var(--font-family-primary);
+    font-size: 1.75em;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.92px;
   }
 
-  .links_page section {
-    margin-bottom: 3rem;
+  .ipcc_img {
+    height: 100%;
+    width: auto;
   }
 
-  .links_page h3 {
-    color: #1a586c;
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  h1.articles_title{
+    color: black;
+    font-weight: bold;
   }
 
-  .links_page section p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    color: #555;
+  .articles_wrapper {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3rem;
   }
 
-  .links_page ul {
-    list-style-type: none;
-    padding: 0;
+  .articles{
+    background-color: white;    
   }
 
-  .links_page li {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+  .article_title {
+    font-size: 1.5rem;
+    border-top: 1px solid black;
+    max-width: 20rem;
   }
 
-  .links_page a {
-    color: #3dd0ff;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
+  .article_description {
+    font-size: 1.5rem;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    max-width: 20rem;
   }
 
-  .links_page a:hover,
-  .links_page a:focus {
-    color: #1a586c;
-    text-decoration: underline;
-  }
-
-  @media (max-width: 860px) {
-    .links_page {
-      padding: 1rem;
-    }
-
-    .links_page h2 {
-      font-size: 2rem;
-    }
-
-    .links_page h3 {
-      font-size: 1.5rem;
-    }
+  .article_img {
+    max-width: 20rem;
+    height: auto;
   }
 }
