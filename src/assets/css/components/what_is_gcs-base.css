@@ -8,7 +8,7 @@
 
   html,
   body {
-    height: 500vh;
+    height: 600vh;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@
     position: relative;
     min-height: auto;
     width: 100%;
-    height: 500vh;
+    height: 600vh;
   }
 
   .landing_page.is-full-page .landing_page__content {
@@ -101,5 +101,64 @@
     padding: 15px;
 
     color: var(--canard, #1a586c);
+  }
+
+  /* ---------- Step 0: Title Screen ---------- */
+  .step-section[data-step="0"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: var(--navbar-height, 6rem);
+    cursor: pointer;
+  }
+
+  .step-section[data-step="0"] .info-box {
+    max-width: none;
+    min-width: auto;
+    text-align: center;
+    background: rgba(26, 88, 108, 0.8);
+    backdrop-filter: blur(20px);
+  }
+
+  .step-section[data-step="0"] h1 {
+    font:
+      700 4.8rem/1.2 "Archivo",
+      sans-serif;
+    color: var(--blanc-cass, #f4f0eb);
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Hide minimap on step 0 */
+  .minimap {
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  /* Info box visibility control based on current step */
+  .step-section[data-step="1"] .info-box,
+  .step-section[data-step="2"] .info-box,
+  .step-section[data-step="3"] .info-box,
+  .step-section[data-step="4"] .info-box,
+  .step-section[data-step="5"] .info-box {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  /* Show info boxes when not on step 0 */
+  body:not([data-current-step="0"]) .step-section .info-box {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Exception for step 0 info box - always show */
+  body[data-current-step="0"] .step-section[data-step="0"] .info-box {
+    opacity: 1;
+    visibility: visible;
   }
 }
