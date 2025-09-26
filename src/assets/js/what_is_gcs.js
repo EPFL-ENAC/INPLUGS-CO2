@@ -77,8 +77,26 @@ class WhatIsGCSController {
       }
     });
 
+    // Run on load + resize
+    this.updateSvgAspectRatio();
+    window.addEventListener("resize", this.updateSvgAspectRatio);
+
     // Initial update
     this.updateUI();
+  }
+
+  updateSvgAspectRatio() {
+    console.log("changing SVG aspect ratio!");
+    const svg = document.querySelector(".landing_page__visual svg");
+    if (svg) {
+      if (window.innerWidth < 1930) {
+        svg.setAttribute("preserveAspectRatio", "xMaxYMin slice");
+      } else {
+        svg.setAttribute("preserveAspectRatio", "xMidYMax meet");
+      }
+    } else {
+      console.warn("SVG element not found for aspect ratio update");
+    }
   }
 
   goToStep(step) {
@@ -98,6 +116,14 @@ class WhatIsGCSController {
   updateSvgPosition() {
     const background = document.querySelector(".landing_page__visual");
     if (background) {
+      // Add smooth transition if not already set
+      if (!background.style.transition) {
+        // equivalent of easeout but easeOutQuint
+        // background.style.transition = "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
+        background.style.transition =
+          "transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)";
+      }
+
       const targetPosition = this.svgPositions[this.currentStep - 1];
       background.style.transform = `translateY(-${targetPosition}px)`;
     }
