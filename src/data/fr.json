@@ -39,6 +39,9 @@
       }
     }
   },
+  "whatisgcs": {
+    "title": "Comment fonctionne le GCS ?"
+  },
   "gcs": {
     "why": {
       "title": "Pourquoi le stockage géologique du carbone ?",

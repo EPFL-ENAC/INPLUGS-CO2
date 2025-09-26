@@ -20,7 +20,7 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO₂ is directly <i>captured</i> from large emitters before being released in the atmosphere"
+        "description": "CO₂ is <i>captured</i> directly from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
@@ -39,6 +39,9 @@
         "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
       }
     }
+  },
+  "whatisgcs": {
+    "title": "How does GCS work?"
   },
   "gcs": {
     "why": {

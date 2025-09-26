@@ -4,15 +4,16 @@
         <link rel="stylesheet" href='{{ asset("/assets/styles/what_is_gcs.css") }}'>
         <section class="landing_page is-full-page">
             <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
-            <!-- Scroll position markers for navigation buttons -->
-            <div id="scroll-marker-1" class="scroll-marker"></div>
-            <div id="scroll-marker-2" class="scroll-marker"></div>
-            <div id="scroll-marker-3" class="scroll-marker"></div>
-            <div id="scroll-marker-4" class="scroll-marker"></div>
-            <div id="scroll-marker-5" class="scroll-marker"></div>
-            <div class="info-boxes">
+            
+            <!-- Sections for scroll-based navigation with embedded info boxes -->
+            <section class="step-section" data-step="0">
+                <div class="info-box info-box-0">
+                    <h1>{{ t("whatisgcs.title") }}</h1>
+                </div>
+            </section>
+            <section class="step-section" data-step="1">
                 <div id="info-box-1"
-                     class="info-box"
+                     class="info-box info-box-1"
                      alt="{{ t("homepage.info_boxes.box1.title") }}: {{ t("homepage.info_boxes.box1.description") | safe }}">
                     <h3>1.</h3>
                     <p>{{ t("homepage.info_boxes.box1.description") | safe }}</p>
@@ -20,8 +21,11 @@
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
+            </section>
+            
+            <section class="step-section" data-step="2">
                 <div id="info-box-2"
-                     class="info-box"
+                     class="info-box info-box-2"
                      alt="{{ t("homepage.info_boxes.box2.title") }}: {{ t("homepage.info_boxes.box2.description") | safe }}">
                     <h3>2.</h3>
                     <p>{{ t("homepage.info_boxes.box2.description") | safe }}</p>
@@ -29,8 +33,11 @@
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
+            </section>
+            
+            <section class="step-section" data-step="3">
                 <div id="info-box-3"
-                     class="info-box"
+                     class="info-box info-box-3"
                      alt="{{ t("homepage.info_boxes.box3.title") }}: {{ t("homepage.info_boxes.box3.description") | safe }}">
                     <h3>3.</h3>
                     <p>{{ t("homepage.info_boxes.box3.description") | safe }}</p>
@@ -38,8 +45,11 @@
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
+            </section>
+            
+            <section class="step-section" data-step="4">
                 <div id="info-box-4"
-                     class="info-box"
+                     class="info-box info-box-4"
                      alt="{{ t("homepage.info_boxes.box4.title") }}: {{ t("homepage.info_boxes.box4.description") | safe }}">
                     <h3>4.</h3>
                     <p>{{ t("homepage.info_boxes.box4.description") | safe }}</p>
@@ -47,8 +57,11 @@
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
+            </section>
+            
+            <section class="step-section" data-step="5">
                 <div id="info-box-5"
-                     class="info-box"
+                     class="info-box info-box-5"
                      alt="{{ t("homepage.info_boxes.box5.title") }}: {{ t("homepage.info_boxes.box5.description") | safe }}">
                     <h3>5.</h3>
                     <p>{{ t("homepage.info_boxes.box5.description") | safe }}</p>
@@ -56,7 +69,7 @@
                         <use href="#my-icon"></use>
                     </svg>
                 </div>
-            </div>
+            </section>
         </section>
         <!-- Scroll Navigation Buttons -->
         <div class="scroll-nav-buttons">

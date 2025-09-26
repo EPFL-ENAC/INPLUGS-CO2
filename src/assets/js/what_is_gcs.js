@@ -1,488 +1,204 @@
 /**
- * Landing Page Navigation Controller
- * Handles the transition between landing page and full page using View Transitions
- * Progressive enhancement: links work normally, enhanced with View Transitions when supported
+ * Simple scroll-based controller for what_is_gcs page
+ * Natural scroll behavior with basic SVG positioning
  */
 
 class WhatIsGCSController {
   constructor() {
-    // Get the index content element (now a regular div, not a custom element with shadow DOM)
-    const indexContent = document.querySelector(".index-content");
+    this.currentStep = 0;
+    this.totalSteps = 5;
 
-    // Check if we have access to the index content
-    if (!indexContent) {
-      console.error("Could not find index content element");
-      return;
-    }
-
-    this.WhatIsGCSSection = indexContent.querySelector(".landing_page");
-    this.ctaButton = indexContent.querySelector(".btn-cta");
-    this.backButton = indexContent.querySelector(".btn-back");
-    this.isFullPage = false;
-
-    // Check for View Transition API support
-    this.supportsViewTransitions = "startViewTransition" in document;
-
-    // Check for reduced motion preference
-    this.prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    // Scroll navigation elements
-    this.scrollUpBtn = null;
-    this.scrollDownBtn = null;
-    this.scrollMarkers = [];
-    this.currentStep = 1;
-    this.infoBoxes = [];
-
-    // Touch swipe variables
-    this.touchStartX = 0;
-    this.touchEndX = 0;
-    this.swipeThreshold = 20; // Minimum swipe distance in pixels
-
-    // Throttling variables for scroll updates
-    this.ticking = false;
-    this.lastStep = -1;
-
-    // Debounce timer for minimap updates
-    this.minimapUpdateTimer = null;
-    /* we could optimize via other strategies
-
-    1. Throttle the scroll event handler using requestAnimationFrame
-    2. Optimize the getCurrentStep method to reduce computational overhead
-    3. Track the last calculated step to prevent unnecessary updates
-    4. Improve marker updates to minimize DOM manipulations
-    */
-    this.minimapDebounceDelay = 20; // milliseconds
+    // SVG positions from bottom (in pixels)
+    this.svgPositions = [
+      // 0.00 * 4287, // Step 0: Title screen - 0% from top
+      0.0 * 4287, // Step 1: Intro - 0% from top (same as step 0 initially)
+      0.05 * 4287, // Step 2: Box 1 - 4% from top
+      0.38 * 4287, // Step 3: Box 2 - 38% from top
+      0.72 * 4287, // Step 4: Box 3 - 72% from top
+      0.67 * 4287, // Step 5: Box 4 - 67% from top
+      0.58 * 4287, // Step 6: Box 5 - 58% from top
+    ];
 
     this.init();
   }
 
   init() {
-    if (!this.WhatIsGCSSection) return;
+    // Navigation buttons
+    const prevButton = document.getElementById("scroll-up-btn");
+    const nextButton = document.getElementById("scroll-down-btn");
 
-    // Determine current page
-    this.isFullPage = window.location.pathname.includes("what_is_gcs");
-
-    // Enhance CTA button with View Transitions if on landing page
-    if (this.ctaButton && !this.isFullPage) {
-      this.ctaButton.addEventListener("click", this.handleCTAClick.bind(this));
+    if (prevButton) {
+      prevButton.addEventListener("click", () => {
+        this.goToStep(this.currentStep - 1);
+      });
     }
 
-    // Enhance back button with View Transitions if on full page
-    if (this.backButton && this.isFullPage) {
-      this.backButton.addEventListener(
-        "click",
-        this.handleBackClick.bind(this),
-      );
+    if (nextButton) {
+      nextButton.addEventListener("click", () => {
+        this.goToStep(this.currentStep + 1);
+      });
     }
 
-    // Listen for escape key to go back to landing page
-    if (this.isFullPage) {
-      document.addEventListener("keydown", this.handleKeyDown.bind(this));
-
-      // Initialize scroll navigation
-      this.initScrollNavigation();
-
-      // Scroll to the first marker (4% position) on page load
-      this.scrollToFirstMarkerOnLoad();
-
-      // Add touch event listeners for mobile swipe navigation
-      document.addEventListener("touchstart", this.handleTouchStart.bind(this));
-      document.addEventListener("touchmove", this.handleTouchMove.bind(this));
-      document.addEventListener("touchend", this.handleTouchEnd.bind(this));
-    }
-  }
-
-  initScrollNavigation() {
-    // Get scroll navigation buttons directly from the document
-    this.scrollUpBtn = document.getElementById("scroll-up-btn");
-    this.scrollDownBtn = document.getElementById("scroll-down-btn");
-
-    // Get scroll markers directly from the document
-    for (let i = 1; i <= 5; i++) {
-      const marker = document.getElementById(`scroll-marker-${i}`);
-      if (marker) {
-        this.scrollMarkers.push(marker);
-      }
-    }
-
-    // Get minimap markers directly from the document
-    this.minimapMarkers = [];
+    // Minimap markers
     for (let i = 1; i <= 5; i++) {
       const marker = document.getElementById(`scroll-minimap-marker-${i}`);
       if (marker) {
-        this.minimapMarkers.push(marker);
-
         marker.addEventListener("click", () => {
-          this.scrollToStep(i);
+          this.goToStep(i);
         });
       }
     }
 
-    if (
-      this.scrollUpBtn &&
-      this.scrollDownBtn &&
-      this.scrollMarkers.length > 0
-    ) {
-      // Get info boxes directly from the document
-      for (let i = 1; i <= 5; i++) {
-        const infoBox = document.getElementById(`info-box-${i}`);
-        if (infoBox) {
-          this.infoBoxes.push(infoBox);
+    // Add click handler for step 0 to advance to step 1
+    const step0Section = document.querySelector('.step-section[data-step="0"]');
+    if (step0Section) {
+      step0Section.addEventListener("click", () => {
+        if (this.currentStep === 0) {
+          this.goToStep(1);
         }
-      }
-
-      // Add event listeners
-      this.scrollUpBtn.addEventListener("click", () =>
-        this.scrollToStep(this.currentStep - 1),
-      );
-      this.scrollDownBtn.addEventListener("click", () =>
-        this.scrollToStep(this.currentStep + 1),
-      );
-
-      // Update minimap markers on scroll (don't update navigation step)
-      window.addEventListener("scroll", () => {
-        this.onScroll();
-      });
-
-      // Initial update
-      this.updateScrollButtons();
-      this.updateMinimapMarkers();
-
-      // Use double requestAnimationFrame to ensure DOM is fully rendered
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          this.updateInfoBoxVisibility();
-        });
       });
     }
-  }
 
-  removeEventListeners() {
-    // Remove all event listeners to prevent memory leaks
-    if (this.ctaButton) {
-      this.ctaButton.removeEventListener("click", this.handleCTAClick);
-    }
-    if (this.backButton) {
-      this.backButton.removeEventListener("click", this.handleBackClick);
-    }
-    document.removeEventListener("keydown", this.handleKeyDown);
-    if (this.scrollUpBtn) {
-      this.scrollUpBtn.removeEventListener("click", this.scrollToStep);
-    }
-    if (this.scrollDownBtn) {
-      this.scrollDownBtn.removeEventListener("click", this.scrollToStep);
-    }
-    window.removeEventListener("scroll", this.onScroll);
-    document.removeEventListener("touchstart", this.handleTouchStart);
-    document.removeEventListener("touchmove", this.handleTouchMove);
-    document.removeEventListener("touchend", this.handleTouchEnd);
-    this.minimapMarkers.forEach((marker, index) => {
-      marker.removeEventListener("click", () => {
-        this.scrollToStep(index + 1);
-      });
-    });
-  }
+    // Update body data attribute for CSS targeting
+    document.body.setAttribute("data-current-step", this.currentStep);
 
-  // call removeEventListeners when navigating away
-  // window.addEventListener("beforeunload", this.removeEventListeners.bind(this));
-  getCurrentStep() {
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const viewportCenter = scrollPosition + windowHeight / 2;
-
-    // Find the step that is most visible based on a scoring system
-    // Now focusing only on info boxes instead of trying to correlate with scroll markers
-    let bestScore = -Infinity;
-    let bestStep = 1;
-
-    // Loop through info boxes directly instead of scroll markers
-    for (let i = 0; i < this.infoBoxes.length; i++) {
-      const infoBox = this.infoBoxes[i];
-
-      // Calculate visibility metrics for the info box
-      let visibilityRatio = 0;
-      let centerDistance = 0;
-      let elementTop = 0;
-      let elementBottom = 0;
-
-      if (infoBox) {
-        // For info boxes, calculate how much is visible in viewport
-        const rect = infoBox.getBoundingClientRect();
-        elementTop = rect.top + scrollPosition;
-        elementBottom = rect.bottom + scrollPosition;
-
-        // Calculate intersection with viewport
-        const visibleTop = Math.max(scrollPosition, elementTop);
-        const visibleBottom = Math.min(
-          scrollPosition + windowHeight,
-          elementBottom,
+    // Keyboard navigation
+    document.addEventListener("keydown", (event) => {
+      if (event.key === " ") {
+        event.preventDefault();
+        this.goToStep(
+          event.shiftKey ? this.currentStep - 1 : this.currentStep + 1,
         );
-        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const elementHeight = elementBottom - elementTop;
-
-        visibilityRatio = elementHeight > 0 ? visibleHeight / elementHeight : 0;
-
-        // Distance from element center to viewport center
-        const elementCenter = (elementTop + elementBottom) / 2;
-        centerDistance = Math.abs(viewportCenter - elementCenter);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        this.goToStep(this.currentStep + 1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        this.goToStep(this.currentStep - 1);
       }
+    });
 
-      // Calculate score (higher is better)
-      // Prefer elements that are more visible and closer to center
-      // Enhanced scoring: heavily prioritize fully visible elements
-      let score = 0;
-      const centerScore = 1 / (1 + centerDistance / 1000);
+    // Simple scroll listener
+    window.addEventListener("scroll", () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      let newStep;
 
-      if (visibilityRatio >= 0.95) {
-        // If almost fully visible, prioritize center proximity heavily (90% center, 10% visibility)
-        score = visibilityRatio * 0.1 + centerScore * 0.9;
-      } else if (visibilityRatio >= 0.5) {
-        // If moderately visible, balance visibility and center proximity (60% visibility, 40% center)
-        score = visibilityRatio * 0.6 + centerScore * 0.4;
+      if (scrollPosition < windowHeight * 0.1) {
+        newStep = 0; // Stay at step 0 until significant scroll
       } else {
-        // If barely visible, prioritize visibility heavily (80% visibility, 20% center)
-        score = visibilityRatio * 0.8 + centerScore * 0.2;
+        // Steps 1-5 correspond to scroll sections 1-5
+        newStep = Math.floor(scrollPosition / windowHeight);
+        newStep = Math.max(1, newStep); // Ensure we don't go below step 1 after leaving step 0
       }
 
-      if (score > bestScore) {
-        bestScore = score;
-        bestStep = i + 1; // Step number corresponds to info box index + 1
+      const clampedStep = Math.max(0, Math.min(this.totalSteps, newStep));
+
+      if (clampedStep !== this.currentStep) {
+        this.currentStep = clampedStep;
+        this.updateSvgPosition();
+        this.updateUI();
+        document.body.setAttribute("data-current-step", this.currentStep);
       }
-    }
+    });
 
-    return bestStep;
+    // Run on load + resize
+    this.updateSvgAspectRatio();
+    window.addEventListener("resize", this.updateSvgAspectRatio);
+
+    // Initial update
+    this.updateUI();
   }
 
-  updateScrollButtons() {
-    // Disable/enable buttons based on current step
-    // We use the stored currentStep for navigation, not the visually detected step
-    if (this.scrollUpBtn) {
-      this.scrollUpBtn.disabled = this.currentStep === 1;
-    }
-
-    if (this.scrollDownBtn) {
-      this.scrollDownBtn.disabled =
-        this.currentStep === this.scrollMarkers.length;
-    }
-  }
-
-  updateMinimapMarkers() {
-    // Clear existing timer
-    if (this.minimapUpdateTimer) {
-      clearTimeout(this.minimapUpdateTimer);
-    }
-
-    // Set new timer
-    this.minimapUpdateTimer = setTimeout(() => {
-      // Get current step based on scroll position (visually closest)
-      const visuallyClosestStep = this.getCurrentStep();
-
-      // Update currentStep to match the visually closest step
-      this.currentStep = visuallyClosestStep;
-
-      // Only update if the step has changed
-      if (visuallyClosestStep === this.lastStep) {
-        return;
+  updateSvgAspectRatio() {
+    console.log("changing SVG aspect ratio!");
+    const svg = document.querySelector(".landing_page__visual svg");
+    if (svg) {
+      if (window.innerWidth < 1930) {
+        svg.setAttribute("preserveAspectRatio", "xMaxYMin slice");
+      } else {
+        svg.setAttribute("preserveAspectRatio", "xMidYMax meet");
       }
-
-      // Update the last step
-      this.lastStep = visuallyClosestStep;
-
-      // Update minimap markers to highlight the visually closest step
-      this.minimapMarkers.forEach((marker, index) => {
-        if (index + 1 === visuallyClosestStep) {
-          marker.classList.add("minimap-border");
-        } else {
-          marker.classList.remove("minimap-border");
-        }
-      });
-    }, this.minimapDebounceDelay);
+    } else {
+      console.warn("SVG element not found for aspect ratio update");
+    }
   }
 
-  scrollToStep(step) {
+  goToStep(step) {
     // Validate step
-    if (step < 1 || step > this.scrollMarkers.length) {
+    if (step < 0 || step > this.totalSteps) {
       return;
     }
 
-    // Get target position
-    const targetMarker = this.scrollMarkers[step - 1];
-    if (!targetMarker) {
-      return;
-    }
+    this.currentStep = step;
+    document.body.setAttribute("data-current-step", step);
 
-    // Scroll to position
-    const targetPosition = targetMarker.offsetTop;
+    // Calculate scroll position:
+    // Step 0: scroll to top (0)
+    // Step 1: scroll to 1st section (1 * windowHeight)
+    // Step 2: scroll to 2nd section (2 * windowHeight)
+    // etc.
+    const targetPosition = step * window.innerHeight;
 
-    // Use smooth scrolling
-    // SCROLL BEHAVIOR "instant" TO AVOID INTERFERING WITH VIEW TRANSITIONS
-    // SCROLL BEHAVIOR "smooth" CAUSES JANK WITH VIEW TRANSITIONS
     window.scrollTo({
       top: targetPosition,
       behavior: "smooth",
     });
 
-    // Update current step
-    this.currentStep = step;
-
-    // Update UI elements after a short delay to allow scroll to complete
-    // This ensures the UI is updated based on the actual scroll position
-    setTimeout(() => {
-      this.updateUIElements();
-    }, 300); // Slightly longer than typical scroll duration
+    this.updateUI();
+    this.updateSvgPosition();
   }
 
-  scrollToFirstMarkerOnLoad() {
-    // Small delay to ensure everything is rendered
-    setTimeout(() => {
-      this.scrollToStep(1);
-    }, 100);
-  }
-
-  handleCTAClick(event) {
-    // Only enhance with View Transitions if supported and motion allowed
-    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
-      event.preventDefault();
-      this.navigateToFullPage();
-    }
-    // Otherwise, let the regular link navigation happen
-  }
-
-  handleBackClick(event) {
-    // Only enhance with View Transitions if supported and motion allowed
-    if (this.supportsViewTransitions && !this.prefersReducedMotion) {
-      event.preventDefault();
-      this.navigateToWhatIsGCS();
-    }
-    // Otherwise, let the regular link navigation happen
-  }
-
-  handleKeyDown(event) {
-    // Only handle keys on the interactive landing page
-    if (!this.isFullPage) return;
-
-    // Go back to landing page on Escape key
-    if (event.key === "Escape") {
-      this.navigateToWhatIsGCS();
-    }
-    // Scroll to next step on Space key or Right Arrow
-    else if (
-      (event.key === " " && !event.shiftKey) ||
-      event.key === "ArrowRight"
-    ) {
-      event.preventDefault(); // Prevent default space behavior (scrolling)
-      this.scrollToStep(this.currentStep + 1);
-    }
-    // Scroll to previous step on Shift+Space or Left Arrow
-    else if (
-      (event.key === " " && event.shiftKey) ||
-      event.key === "ArrowLeft"
-    ) {
-      event.preventDefault(); // Prevent default space behavior (scrolling)
-      this.scrollToStep(this.currentStep - 1);
-    }
-  }
-
-  navigateToFullPage() {
-    const navigation = () => {
-      window.location.href = "/what_is_gcs";
-    };
-
-    document.startViewTransition(navigation);
-  }
-
-  navigateToWhatIsGCS() {
-    const navigation = () => {
-      window.location.href = "/landing_page";
-    };
-
-    document.startViewTransition(navigation);
-  }
-
-  handleTouchStart(event) {
-    // Only handle touch events on the interactive landing page
-    if (!this.isFullPage) return;
-
-    // Store the initial touch position
-    this.touchStartX = event.changedTouches[0].screenX;
-  }
-
-  handleTouchMove(event) {
-    // Only handle touch events on the interactive landing page
-    if (!this.isFullPage) return;
-
-    // Prevent scrolling during swipe gesture
-    event.preventDefault();
-  }
-
-  handleTouchEnd(event) {
-    // Only handle touch events on the interactive landing page
-    if (!this.isFullPage) return;
-
-    // Store the final touch position
-    this.touchEndX = event.changedTouches[0].screenX;
-
-    // Calculate the swipe distance
-    const swipeDistance = this.touchStartX - this.touchEndX;
-
-    // Check if swipe distance exceeds threshold
-    if (Math.abs(swipeDistance) > this.swipeThreshold) {
-      // Swipe right - go to previous step
-      if (swipeDistance < 0) {
-        this.scrollToStep(this.currentStep - 1);
+  updateSvgPosition() {
+    const background = document.querySelector(".landing_page__visual");
+    if (background) {
+      // Add smooth transition if not already set
+      if (!background.style.transition) {
+        // equivalent of easeout but easeOutQuint
+        // background.style.transition = "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
+        background.style.transition =
+          "transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
-      // Swipe left - go to next step
-      else {
-        this.scrollToStep(this.currentStep + 1);
+
+      const targetPosition = this.svgPositions[this.currentStep];
+      background.style.transform = `translateY(-${targetPosition}px)`;
+    }
+  }
+
+  updateUI() {
+    // Update navigation buttons
+    const prevButton = document.getElementById("scroll-up-btn");
+    const nextButton = document.getElementById("scroll-down-btn");
+
+    if (prevButton) {
+      prevButton.disabled = this.currentStep === 0;
+      prevButton.style.opacity = this.currentStep === 0 ? "0.3" : "1";
+    }
+
+    if (nextButton) {
+      nextButton.disabled = this.currentStep === this.totalSteps;
+      nextButton.style.opacity =
+        this.currentStep === this.totalSteps ? "0.3" : "1";
+    }
+
+    // Handle minimap visibility - hide at step 0
+    const minimap = document.querySelector(".minimap");
+    if (minimap) {
+      minimap.style.opacity = this.currentStep === 0 ? "0" : "0.8";
+      minimap.style.pointerEvents = this.currentStep === 0 ? "none" : "auto";
+    }
+
+    // Update minimap markers (only for steps 1-5)
+    for (let i = 1; i <= this.totalSteps; i++) {
+      const marker = document.getElementById(`scroll-minimap-marker-${i}`);
+      if (marker) {
+        if (i === this.currentStep) {
+          marker.classList.add("minimap-border");
+        } else {
+          marker.classList.remove("minimap-border");
+        }
       }
     }
-  }
-
-  /**
-   * Throttled scroll handler using requestAnimationFrame
-   */
-  onScroll() {
-    if (!this.ticking) {
-      requestAnimationFrame(() => {
-        this.updateUIElements();
-        this.ticking = false;
-      });
-      this.ticking = true;
-    }
-  }
-
-  /**
-   * Unified method to update all UI elements based on current scroll position
-   */
-  updateUIElements() {
-    // Recalculate current step based on actual scroll position
-    this.currentStep = this.getCurrentStep();
-
-    // Update all UI elements
-    this.updateInfoBoxVisibility();
-    this.updateScrollButtons();
-    this.updateMinimapMarkers();
-  }
-
-  /**
-   * Update info box visibility based on current step
-   */
-  updateInfoBoxVisibility() {
-    // Check if infoBoxes are initialized
-    if (!this.infoBoxes || this.infoBoxes.length === 0) {
-      return;
-    }
-
-    // Update all info boxes
-    this.infoBoxes.forEach((infoBox, index) => {
-      if (index + 1 === this.currentStep) {
-        infoBox.classList.add("visible");
-      } else {
-        infoBox.classList.remove("visible");
-      }
-    });
   }
 }
 
