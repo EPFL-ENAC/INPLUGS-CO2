@@ -57,6 +57,9 @@
     --font-family-primary:
       Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
       Arial, sans-serif;
+    --font-family-lookalike:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Ubuntu",
+      "Cantarell", Arial, sans-serif;
     --font-family-system:
       system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
       sans-serif;
