@@ -34,15 +34,16 @@
 
   /* ---------- Left column ---------- */
   .landing_page__content {
-    align-self: start;
+    align-self: center;
     color: #fff;
     display: grid;
-    grid-auto-columns: max-content;
-    max-width: 40ch;
+    grid-auto-columns: auto;
   }
   @media screen and (max-width: 860px) {
     .landing_page__content {
       justify-items: center;
+      align-self: start;
+      text-align: center;
     }
     .landing_page__content h1,
     .landing_page__content h2 {
@@ -116,8 +117,18 @@
   .landing_page__visual {
     position: relative;
     z-index: 1;
+
+    width: 100%;
+    /*  10 rem is padding of content + navbar */
+    height: calc(100dvh - 10rem);
+    overflow: hidden;
   }
 
+  .landing_page__visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
   .landing_page__visual img,
   .landing_page__visual picture {
     min-width: 390px;
