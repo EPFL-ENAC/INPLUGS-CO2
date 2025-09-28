@@ -10,11 +10,10 @@
     opacity: 0.8;
     /* Border removed - will be applied to active marker instead */
   }
-  @media  screen and (min-width: 1930px) {
+  @media screen and (min-width: 1930px) {
     .minimap {
       right: calc(50% - 1930px / 2 + 7rem);
     }
-    
   }
   .minimap-border {
     border: 2px solid var(--blanc-cass, #f4f0eb);
@@ -31,7 +30,7 @@
 
   @media screen and (max-width: 860px) {
     .minimap {
-      right:auto;
+      right: auto;
       left: 2rem;
       /* height: 30px; */
       top: 2rem;
@@ -42,9 +41,7 @@
       width: auto;
       display: block;
     }
-    
   }
-
 
   /* ---------- Scroll Mini Markers ---------- */
   .scroll-mini-marker {
@@ -66,14 +63,13 @@
     cursor: pointer;
   }
 
-
-   @media screen and (max-width: 860px) {
+  @media screen and (max-width: 860px) {
     .scroll-mini-marker {
       font-size: 15px;
       left: 8px;
       padding: 1px 4px;
     }
-   }
+  }
   /* Individual marker positions */
   #scroll-minimap-marker-1 {
     /* top: 2px; */
