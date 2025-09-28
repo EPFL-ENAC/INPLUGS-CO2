@@ -146,6 +146,7 @@ class WhatIsGCSController {
     });
 
     this.updateUI();
+
     this.updateSvgPosition();
   }
 
@@ -197,6 +198,49 @@ class WhatIsGCSController {
         } else {
           marker.classList.remove("minimap-border");
         }
+      }
+    }
+
+    // Handle reservoir-too-complex visibility (hidden at step 3, shown at steps 4 and 5)
+    const reservoirTooComplex = document.querySelector(
+      '[data-name="reservoir-too-complex"]',
+    );
+
+    if (reservoirTooComplex) {
+      // Add smooth transition if not already set
+      if (!reservoirTooComplex.style.transition) {
+        reservoirTooComplex.style.transition =
+          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+      }
+
+      if (this.currentStep === 3) {
+        // Hide at step 3
+        reservoirTooComplex.style.opacity = "0";
+        // Use setTimeout to delay visibility change until after opacity transition
+        setTimeout(() => {
+          if (this.currentStep === 3) {
+            // Check step again in case it changed
+            reservoirTooComplex.style.visibility = "hidden";
+          }
+        }, 400);
+      } else if (this.currentStep === 4 || this.currentStep === 5) {
+        // Show at steps 4 and 5
+        reservoirTooComplex.style.visibility = "visible";
+        reservoirTooComplex.style.opacity = "0.7"; // Restore original opacity
+      }
+    }
+    // handle caprock visibility
+    const caprock = document.querySelector('[data-name="5_caprock_shadow"]');
+    if (caprock) {
+      // Add smooth transition if not already set
+      if (!caprock.style.transition) {
+        caprock.style.transition =
+          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+      }
+      if (this.currentStep === 5) {
+        caprock.style.opacity = "1";
+      } else {
+        caprock.style.opacity = "0"; // Restore original opacity
       }
     }
   }
