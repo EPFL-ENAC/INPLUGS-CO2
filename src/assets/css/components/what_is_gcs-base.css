@@ -11,12 +11,12 @@
       max-width: 1930px;
       min-width: 1930px;
     }
-  }
 
-  main.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    main.container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   html,
