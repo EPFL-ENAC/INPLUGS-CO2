@@ -19,6 +19,9 @@ class WhatIsGCSController {
       0.58 * 4287, // Step 6: Box 5 - 58% from top
     ];
 
+    // Initialize from URL hash if present
+    this.initializeFromHash();
+
     this.init();
   }
 
@@ -78,6 +81,12 @@ class WhatIsGCSController {
       }
     });
 
+    // Hash change listener for direct navigation
+    window.addEventListener("hashchange", () => {
+      this.initializeFromHash();
+      this.goToStep(this.currentStep);
+    });
+
     // Simple scroll listener
     window.addEventListener("scroll", () => {
       const scrollPosition = window.scrollY;
@@ -97,7 +106,7 @@ class WhatIsGCSController {
       if (clampedStep !== this.currentStep) {
         this.currentStep = clampedStep;
         this.updateSvgPosition();
-        this.updateUI();
+        this.updateUI(false); // Pass false to prevent URL update during scroll
         document.body.setAttribute("data-current-step", this.currentStep);
       }
     });
@@ -108,6 +117,14 @@ class WhatIsGCSController {
 
     // Initial update
     this.updateUI();
+
+    // If we initialized from hash, go to that step to position everything correctly
+    if (window.location.hash && window.location.hash.startsWith("#step")) {
+      // Use setTimeout to ensure DOM is ready and positioning works correctly
+      setTimeout(() => {
+        this.goToStep(this.currentStep);
+      }, 50);
+    }
   }
 
   updateSvgAspectRatio() {
@@ -121,6 +138,20 @@ class WhatIsGCSController {
       }
     } else {
       console.warn("SVG element not found for aspect ratio update");
+    }
+  }
+
+  initializeFromHash() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#step")) {
+      const stepNumber = parseInt(hash.replace("#step", ""));
+      if (
+        !isNaN(stepNumber) &&
+        stepNumber >= 0 &&
+        stepNumber <= this.totalSteps
+      ) {
+        this.currentStep = stepNumber;
+      }
     }
   }
 
@@ -166,7 +197,15 @@ class WhatIsGCSController {
     }
   }
 
-  updateUI() {
+  updateUI(updateUrl = true) {
+    // Update URL hash if requested
+    if (updateUrl) {
+      const newHash = `#step${this.currentStep}`;
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(null, null, newHash);
+      }
+    }
+
     // Update navigation buttons
     const prevButton = document.getElementById("scroll-up-btn");
     const nextButton = document.getElementById("scroll-down-btn");
@@ -242,7 +281,7 @@ class WhatIsGCSController {
             flecheReservoir.style.visibility = "hidden";
             co2PointsReservoirTopLine.style.visibility = "hidden";
           }
-        }, 400);
+        }, 200);
       } else if (this.currentStep === 4 || this.currentStep === 5) {
         // Show at steps 4 and 5
         reservoirTooComplex.style.visibility = "visible";
