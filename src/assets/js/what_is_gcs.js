@@ -205,6 +205,12 @@ class WhatIsGCSController {
     const reservoirTooComplex = document.querySelector(
       '[data-name="reservoir-too-complex"]',
     );
+    const flecheReservoir = document.querySelector(
+      '[data-name="flèche reservoir"]',
+    );
+    const co2PointsReservoirTopLine = document.querySelector(
+      '[data-name="co2 points reservoir top line"]',
+    );
 
     if (reservoirTooComplex) {
       // Add smooth transition if not already set
@@ -212,23 +218,45 @@ class WhatIsGCSController {
         reservoirTooComplex.style.transition =
           "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
+      if (!flecheReservoir.style.transition) {
+        flecheReservoir.style.transition =
+          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+      }
+      if (!co2PointsReservoirTopLine.style.transition) {
+        co2PointsReservoirTopLine.style.transition =
+          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+      }
+
+      // also handle the arrow and the co2 points line the same way
 
       if (this.currentStep === 3) {
         // Hide at step 3
         reservoirTooComplex.style.opacity = "0";
+        flecheReservoir.style.opacity = "0";
+        co2PointsReservoirTopLine.style.opacity = "0";
         // Use setTimeout to delay visibility change until after opacity transition
         setTimeout(() => {
           if (this.currentStep === 3) {
             // Check step again in case it changed
             reservoirTooComplex.style.visibility = "hidden";
+            flecheReservoir.style.visibility = "hidden";
+            co2PointsReservoirTopLine.style.visibility = "hidden";
           }
         }, 400);
       } else if (this.currentStep === 4 || this.currentStep === 5) {
         // Show at steps 4 and 5
         reservoirTooComplex.style.visibility = "visible";
         reservoirTooComplex.style.opacity = "0.7"; // Restore original opacity
+
+        // show fleche and co2 points line too
+        flecheReservoir.style.visibility = "visible";
+        flecheReservoir.style.opacity = "1"; // Restore original opacity
+
+        co2PointsReservoirTopLine.style.visibility = "visible";
+        co2PointsReservoirTopLine.style.opacity = "1"; // Restore original opacity
       }
     }
+
     // handle caprock visibility
     const caprock = document.querySelector('[data-name="5_caprock_shadow"]');
     if (caprock) {
