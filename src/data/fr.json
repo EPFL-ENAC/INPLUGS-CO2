@@ -189,20 +189,37 @@
     },
     "team": {
       "title": "L'équipe",
-      "member": [
-        {
+      "member": {
+        "Eleni": {
           "name": "Eleni",
-          "role": "Scientifique, EPFL"
+          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
         },
-        {
-          "name": "Elonora",
-          "role": "Project manager, Nesol"
+        "Helene": {
+          "name": "Hélène",
+          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
         },
-        {
+        "Laetitia": {
+          "name": "Laetitia",
+          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+        },
+        "Marc": {
+          "name": "Marc",
+          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+        },
+        "Pierre": {
+          "name": "Pierre",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+        },
+        "Charlie": {
           "name": "Charlie",
-          "role": "Software Engineer, EPFL"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+        },
+        "Hugo": {
+          "name": "Hugo",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
         }
-      ]
+
+      }
     }
   },
   "contact": { "title": "Contact" }
