@@ -10,6 +10,12 @@
     z-index: 20;
   }
 
+  @media screen and (min-width: 1930px) {
+    .scroll-nav-buttons {
+      right: calc(50% - 1930px / 2 + 3rem);
+    }
+  }
+
   .scroll-nav-button {
     width: 58.772px;
     height: 58.772px;
