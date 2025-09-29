@@ -89,8 +89,9 @@
                 about.funding.text_1: Carbon Removel Booster, powered by Innosuisse
                 about.funding.text_2: and the Swiss Federal Office of Energy (SFOE) in the frame of the EnRUp-GCS (EPFL) project
                 -->
-                <h1 class="funding_title">{{ t("about.funding.title") |safe }}</h1>
+                <h1 class="funding_title_section">{{ t("about.funding.title") }}</h1>
                 <div class="about__funding">
+                    <p class="funding_title">{{ t("about.funding.text_0") |safe }}</p>
                     <p class="funding_text">{{ t("about.funding.text_1") }}</p>
                     <picture class="funding_logo">
                         <source srcset="{{ asset("/assets/images/about/CarbonRemovalBooster.webp") }}" type="image/webp">

@@ -47,7 +47,7 @@ class TermTooltip extends HTMLElement {
       <div class="term-modal-backdrop"></div>
       <div class="term-modal-content">
         <div class="term-modal-header">
-          <h2>${i18nData?.title || `Term: ${term}`}</h2>
+          <h2>${i18nData?.title || `${term}`}</h2>
           <button class="term-modal-close" aria-label="Close">&times;</button>
           <a href="/${this.currentLang}/dictionary#${term}" class="term-modal-link">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

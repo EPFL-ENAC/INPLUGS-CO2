@@ -112,8 +112,8 @@ const worldMapData = [
 
 // Switzerland map data
 const switzerlandMapData = [
-  { name: "Valais", A: 1, B: 0, C: 0 },
-  { name: "Grison", A: 1, B: 0, C: 0 },
+  { name: "Valais", A: 0, B: 0, C: 0 },
+  { name: "Grison", A: 0, B: 0, C: 0 },
   { name: "Jura", A: 0, B: 1, C: 0 },
   { name: "Zurich", A: 0, B: 1, C: 1 },
 ];
@@ -385,9 +385,9 @@ function initMaps() {
       formatter: function (params) {
         const data = params.data;
         return `${data.name}<br/>
-                Goals (A): ${data.A}<br/>
-                Ongoing (B): ${data.B}<br/>
-                Future (C): ${data.C}`;
+                Goals: ${data.A}<br/>
+                Ongoing: ${data.B}<br/>
+                Future: ${data.C}`;
       },
     },
     // legend: {

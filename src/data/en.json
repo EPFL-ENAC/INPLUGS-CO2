@@ -103,16 +103,16 @@
     "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
     "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "dictionary": {
-    "title": "Dictionnaire",
-    "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
+  "": {
+    "title": "Glossary",
+    "description": "",
     "gcs": {
       "term": "GCS",
       "definition": "Lorem Ipsum"
     },
     "caprock": {
       "term": "Caprock",
-      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+      "definition": "Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
     },
     "density": {
       "term": "Density",
@@ -156,11 +156,7 @@
   },
   "about": {
     "missions": {
-      "title": "Missions",
-      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
-    },
-    "values": {
-      "title": "Valeurs",
+      "title": "Mission & Valeurs",
       "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
     },
     "team": {
@@ -197,7 +193,8 @@
       }
     },
     "funding": {
-      "title": "<i>INPLUGS-CO₂</i> has received financial support by",
+      "title": "Funding",
+      "text_0": "<i>INPLUGS-CO₂</i> has received financial support by",
       "text_1": "Carbon Removel Booster, powered by Innosuisse",
       "text_2": "and the Swiss Federal Office of Energy (SFOE) in the frame of the EnRUp-GCS (EPFL) project"
     },
@@ -224,8 +221,5 @@
         "name": "Eleni Stavropoulou"
       }
     }
-  },
-  "contact": {
-    "title": "Contact"
   }
 }

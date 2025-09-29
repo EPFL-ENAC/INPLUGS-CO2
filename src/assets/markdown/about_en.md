@@ -1,6 +1,6 @@
-# INPLUGS-CO2 aims to contribute to raising awareness on the topic of geological CO2 storage, its
+# About
 
-risks and urgency.
+INPLUGS-CO2 aims to contribute to raising awareness on the topic of geological CO2 storage, its risks and urgency.
 
 It targets two maing groups:
 

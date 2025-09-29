@@ -27,6 +27,8 @@
     padding: var(--space-3);
     max-width: 800px;
     min-width: 800px;
+
+    background-color: white;
   }
 
   .faq summary {

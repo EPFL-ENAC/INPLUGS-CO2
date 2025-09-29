@@ -108,7 +108,7 @@
   },
   "dictionary": {
     "title": "Dictionnaire",
-    "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
+    "description": "L'essentiel pour comprendre",
     "gcs": {
       "term": "GCS",
       "definition": "Lorem Ipsum"
@@ -180,11 +180,7 @@
   },
   "about": {
     "missions": {
-      "title": "Missions",
-      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
-    },
-    "values": {
-      "title": "Valeurs",
+      "title": "Mission et valeurs",
       "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
     },
     "team": {
