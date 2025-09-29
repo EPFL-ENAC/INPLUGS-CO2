@@ -130,7 +130,6 @@
 - [ ] Document build process
 - [ ] Add comments to complex code sections
 
-
 ## Quentin
 
 - [ ] positionner les cartes de la page about
