@@ -14,6 +14,30 @@ import { parse } from "path";
 import { glob } from "glob";
 import { generateHash } from "./locale-utils.js";
 
+// Image file extensions supported for optimization
+const OPTIMIZABLE_IMAGE_EXTENSIONS = [
+  ".svg",
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".gif",
+  ".avif",
+];
+
+// Image file extensions that can be converted to WebP
+const WEBP_CONVERTIBLE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".avif"];
+
+// Image file extensions recognized for copying (includes all optimizable formats)
+const COPYABLE_IMAGE_EXTENSIONS = [
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".svg",
+  ".avif",
+];
+
 /**
  * AssetProcessor - A flexible asset processing utility using glob patterns
  * - Incremental: caches image hashes & outputs; skips unchanged work
@@ -40,7 +64,7 @@ export class AssetProcessor {
           "assets",
           "images",
           "**",
-          "*.{svg,png,jpg,jpeg,webp,gif}",
+          `*.{${OPTIMIZABLE_IMAGE_EXTENSIONS.map((ext) => ext.slice(1)).join(",")}}`,
         ),
     };
 
@@ -120,9 +144,9 @@ export class AssetProcessor {
     // Register main asset
     this.manifest[mainLogical] = mainPhysical;
 
-    // Optional webp sibling (for png/jpg/jpeg)
+    // Optional webp sibling (for png/jpg/jpeg/avif)
     let webpPhysical = null;
-    if ([".png", ".jpg", ".jpeg"].includes(extLower)) {
+    if (WEBP_CONVERTIBLE_EXTENSIONS.includes(extLower)) {
       const webpLogical = `${publicImgDir}/${name}.webp`;
       webpPhysical = this.isProduction
         ? `${publicImgDir}/${name}.${hash}.webp`
@@ -319,7 +343,7 @@ export class AssetProcessor {
       if (ext === ".svg") {
         optimizedBuffer = originalBuffer;
         outputFormat = "svg (copied)";
-      } else if ([".png", ".jpg", ".jpeg"].includes(ext)) {
+      } else if (WEBP_CONVERTIBLE_EXTENSIONS.includes(ext)) {
         const webpPath = outputPath.replace(ext, ".webp");
         optimizedBuffer = await sharp(originalBuffer)
           .webp({ quality: 75, effort: 6, lossless: false })
@@ -331,6 +355,10 @@ export class AssetProcessor {
         if (ext === ".png") {
           originalOptimized = await sharp(originalBuffer)
             .png({ quality: 85, compressionLevel: 9, effort: 10 })
+            .toBuffer();
+        } else if (ext === ".avif") {
+          originalOptimized = await sharp(originalBuffer)
+            .avif({ quality: 75, effort: 6 })
             .toBuffer();
         } else {
           originalOptimized = await sharp(originalBuffer)
@@ -403,9 +431,7 @@ export class AssetProcessor {
         if (!item.isFile() || shouldExclude(relativePath)) continue;
 
         const ext = extname(item.name).toLowerCase();
-        const isImage = [".png", ".jpg", ".jpeg", ".webp", ".svg"].includes(
-          ext,
-        );
+        const isImage = COPYABLE_IMAGE_EXTENSIONS.includes(ext);
 
         // For public assets, we don't optimize images during build
         // fast copy only when needed

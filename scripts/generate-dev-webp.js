@@ -13,8 +13,8 @@ import fs from "fs/promises";
 
 const PUBLIC_DIR = "public";
 const ASSETS_DIR = "src/assets";
-const PUBLIC_IMAGES_PATTERN = `${PUBLIC_DIR}/**/*.{png,jpg,jpeg}`;
-const ASSETS_IMAGES_PATTERN = `${ASSETS_DIR}/**/*.{png,jpg,jpeg}`;
+const PUBLIC_IMAGES_PATTERN = `${PUBLIC_DIR}/**/*.{png,jpg,jpeg,avif}`;
+const ASSETS_IMAGES_PATTERN = `${ASSETS_DIR}/**/*.{png,jpg,jpeg,avif}`;
 
 async function generateDevWebP() {
   console.log("🔄 Generating basic WebP files for development...");
@@ -46,6 +46,8 @@ async function generateDevWebP() {
         webpFile = imageFile.replace(".jpg", ".webp");
       } else if (imageFile.endsWith(".jpeg")) {
         webpFile = imageFile.replace(".jpeg", ".webp");
+      } else if (imageFile.endsWith(".avif")) {
+        webpFile = imageFile.replace(".avif", ".webp");
       } else {
         // Skip unsupported formats
         continue;
