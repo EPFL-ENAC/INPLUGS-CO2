@@ -3,4 +3,12 @@
   @import "./components/about-missions-values.css";
   @import "./components/about-contact-form.css";
   @import "./components/about-funding.css";
+
+  /* section about */
+  section.about_intro {
+    min-height: 1vh;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding-bottom: 5rem;
+  }
 }

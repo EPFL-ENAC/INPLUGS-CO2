@@ -78,7 +78,7 @@
                 </div>
                 <div class="values">
                     <h1 class="values_title">{{ t("about.values.title") }}</h1>
-                    <img class="values_img" src="about:blank" alt="Values Image">
+                    <img class="values_img"  src="{{ asset("/assets/images/about/values.webp") }}" alt="Values Image">
                     <p class="values_text">{{ t("about.values.text") }}</p>
                 </div>
             </section>
@@ -140,8 +140,8 @@
                     </ol>
                     <picture>
                         <!-- qr code of iban -->
-                        <source srcset="{{ asset("/assets/images/about/qr_code_iban.svg") }}" type="image/svg+xml">
-                        <img src="{{ asset("/assets/images/about/qr_code_iban.png") }}" alt="QR Code IBAN"> 
+                        <source srcset="{{ asset("/assets/images/about/fake-qr.webp") }}" type="image/svg+xml">
+                        <img src="{{ asset("/assets/images/about/fake-qr.png") }}" alt="QR Code IBAN"> 
                     </picture>
                 </div>
             </section>

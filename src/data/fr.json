@@ -224,7 +224,32 @@
       "title": "<i>INPLUGS-CO₂</i> a reçu un soutien financier de",
       "text_1": "Carbon Removal Booster, soutenu par Innosuisse",
       "text_2": "et le Bureau fédéral de l'énergie (BFE) dans le cadre du projet EnRUp-GCS (EPFL)"
+    },
+    "contact": {
+      "title": "Formulaire de contact",
+      "form": {
+        "name": "Nom",
+        "name_placeholder": "Nom",
+        "email": "Email",
+        "email_placeholder": "Email",
+        "message": "Message",
+        "message_placeholder": "Message",
+        "submit": "Soumettre"
+      }
+    },
+    "support": {
+      "title": "Support",
+      "iban": {
+        "title": "Soutenez notre initiative en faisant un don à",
+        "number": "IBAN: CH93 0076 2011 6238 5295 7"
+      },
+      "account_holder": {
+        "title": "Titulaire du compte",
+        "name": "Eleni Stavropoulou"
+      }
     }
   },
-  "contact": { "title": "Contact" }
+  "contact": {
+    "title": "Contact"
+  }
 }
