@@ -6,19 +6,6 @@
     z-index: 100001 !important;
   }
 
-  @media screen and (min-width: 1930px) {
-    .index-content {
-      max-width: 1930px;
-      min-width: 1930px;
-    }
-
-    main.container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
   html,
   body {
     height: 600vh;

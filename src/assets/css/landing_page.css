@@ -122,6 +122,21 @@
     /*  10 rem is padding of content + navbar */
     height: calc(100dvh - 10rem);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-height: 950px) {
+    .landing_page__visual {
+      height: calc(100dvh - 6rem);
+      align-items: start;
+    }
+  }
+
+  .svg-container {
+    width: 100%;
+    background: linear-gradient(0deg, #978c6f, #00aad8);
   }
 
   .landing_page__visual svg {

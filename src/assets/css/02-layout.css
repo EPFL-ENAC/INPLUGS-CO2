@@ -18,6 +18,20 @@
     padding-top: 2rem;
   }
 
+  @media screen and (min-width: 1930px) {
+    /* TODO: should be a global behavior */
+    .container .index-content {
+      max-width: 1930px;
+      min-width: 1930px;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   /* SVG Page Layout */
   .svg-page {
     margin: 0; /* in case user-agent styles add margins */
