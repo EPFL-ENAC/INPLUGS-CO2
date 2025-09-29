@@ -129,3 +129,8 @@
 - [ ] Update README with latest project info
 - [ ] Document build process
 - [ ] Add comments to complex code sections
+
+## Quentin
+
+- [ ] positionner les cartes de la page about
+- [ ] ajouter la section funding de la page about

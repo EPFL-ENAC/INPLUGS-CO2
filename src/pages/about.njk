@@ -3,6 +3,58 @@
     <div class="about-content">
         <link rel="stylesheet" href='{{ asset("/assets/styles/about.css") }}'>
         <main class="about_page">
+            <section class="team">
+                <h1 class="team_title">{{ t("about.team.title") }}</h1>
+                <div class="team_member eleni">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Eleni_Stavropoulou.png") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Eleni.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Eleni.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member helene">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Helene_Morciaux.jpeg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Helene.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Helene.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member laetitia">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Laetitia_Dallenbach.jpg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Laetitia.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Laetitia.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member marc">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Marc_Borboen.jpg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Marc.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Marc.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member pierre">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Pierre_Guilbert.jpg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Pierre.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Pierre.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member charlie">
+                    <img class="member_img" src="{{ asset("/assets/images/about/photo_charlie.png") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Charlie.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Charlie.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member hugo">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Hugo_Solleder.jpg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Hugo.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Hugo.role") }} </h3>
+                    </div>
+                </div>
+            </section>
             <section class="missions_values">
                 <div class="missions">
                     <h1 class="missions_title">{{ t("about.missions.title") }}</h1>
@@ -15,29 +67,6 @@
                     <p class="values_text">{{ t("about.values.text") }}</p>
                 </div>
             </section>
-            <section class="team">
-                <h1 class="team_title">{{ t("about.team.title") }}</h1>
-                <div class="team_member first">
-                    <img class="member_img" src="{{ asset("/assets/images/about/photo_eleni.png") }}" alt="Member Image">
-                    <div class="member_info">
-                        <h2 class="member_name"> {{ t("about.team.member[0].name") }} </h2>
-                        <h3 class="member_role"> {{ t("about.team.member[0].role") }} </h3>
-                    </div>
-                </div>
-                <div class="team_member middle">
-                    <img class="member_img" src="{{ asset("/assets/images/about/photo_eleonora.png") }}" alt="Member Image">
-                    <div class="member_info">
-                        <h2 class="member_name"> {{ t("about.team.member[1].name") }} </h2>
-                        <h3 class="member_role"> {{ t("about.team.member[1].role") }} </h3>
-                    </div>
-                </div>
-                <div class="team_member last">
-                    <img class="member_img" src="{{ asset("/assets/images/about/photo_charlie.png") }}" alt="Member Image">
-                    <div class="member_info">
-                        <h2 class="member_name"> {{ t("about.team.member[2].name") }} </h2>
-                        <h3 class="member_role"> {{ t("about.team.member[2].role") }} </h3>
-                    </div>
-                </div>
         </main>
     </div>
 {% endblock %}
