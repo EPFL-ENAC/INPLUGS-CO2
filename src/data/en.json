@@ -36,7 +36,7 @@
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, a geological layer above the reservoir, that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <i>hydromechanical barrier</i>"
       }
     }
   },
@@ -106,47 +106,47 @@
   "dictionary": {
     "title": "Dictionnaire",
     "description": "Quelques mots aidant à la compréhension du monde de l’enfouissement du CO2",
-    "item1": {
+    "gcs": {
       "term": "GCS",
       "definition": "Lorem Ipsum"
     },
-    "item2": {
+    "caprock": {
       "term": "Caprock",
       "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
     },
-    "item3": {
+    "density": {
       "term": "Density",
       "definition": "Lorem Ipsum"
     },
-    "item4": {
+    "dissolution": {
       "term": "Dissolution",
       "definition": "Lorem Ipsum"
     },
-    "item5": {
+    "gaz": {
       "term": "Gaz",
       "definition": "Lorem Ipsum"
     },
-    "item6": {
+    "injection_co2": {
       "term": "Injection de CO2",
       "definition": "Lorem Ipsum"
     },
-    "item7": {
+    "liquid": {
       "term": "Liquide",
       "definition": "Lorem Ipsum"
     },
-    "item8": {
+    "mineralisation": {
       "term": "Minéralisation",
       "definition": "Lorem Ipsum"
     },
-    "item9": {
+    "net_zero": {
       "term": "Net zero (neutralité carbone)",
       "definition": "Lorem Ipsum"
     },
-    "item10": {
+    "permeable": {
       "term": "Pérméabilité",
       "definition": "Lorem Ipsum"
     },
-    "item11": {
+    "pilot_project": {
       "term": "Pilot project",
       "definition": "Lorem Ipsum"
     }

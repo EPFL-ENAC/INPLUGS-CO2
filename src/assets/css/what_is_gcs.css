@@ -5,6 +5,7 @@
   @import "./components/what_is_gcs-scroll-markers.css";
   /* ---------- Info Boxes ---------- */
   @import "./components/what_is_gcs-info-boxes.css";
+  @import "./components/what_is_gcs-info-boxes-modal.css";
 
   @import "./components/what_is_gcs-scroll-navigation.css";
 

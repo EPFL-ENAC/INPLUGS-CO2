@@ -1,0 +1,125 @@
+@layer components {
+  .term-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .term-modal.active {
+    opacity: 1;
+  }
+
+  .term-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .term-modal-content {
+    position: relative;
+    display: flex;
+    width: 689px;
+    padding: 20px 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(91, 173, 145, 0.5);
+    backdrop-filter: blur(6.5px);
+    border-radius: 12px;
+    max-height: 80vh;
+    overflow: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    flex-direction: column;
+  }
+
+  .term-modal.active .term-modal-content {
+    transform: translateY(0);
+  }
+
+  .term-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .term-modal-header h2 {
+    margin: 0;
+    flex: 1;
+    color: var(--blanc-cass, #f4f0eb);
+    font-family: Archivo;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.75px;
+  }
+
+  .term-modal-close {
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--blanc-cass, #f4f0eb);
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+
+  .term-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .term-modal-link {
+    color: var(--vert-punchy, #90e036);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+
+  .term-modal-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .term-modal-body {
+    width: 100%;
+  }
+
+  .term-modal-body p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--blanc-cass, #f4f0eb);
+    font-family: Archivo;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.75px;
+  }
+}
