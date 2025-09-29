@@ -1,4 +1,13 @@
 @layer components {
+  .about__support {
+    width: 100%;
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    justify-content: center;
+    align-items: center;
+  }
+
   /* Support-us details */
   .about__support details {
     display: flex;

@@ -443,6 +443,7 @@ export class AssetProcessor {
     await this.processCSSFiles(assetsDir);
     await this.processJSFiles(assetsDir);
     await this.processImages(assetsDir);
+    await this.processMarkdown(assetsDir);
 
     this.#saveManifest();
     this.#saveCache();
@@ -697,6 +698,82 @@ export class AssetProcessor {
           `  ✓ ${fileName} → assets/images/${basename(outputs.fs.main)}`,
         );
       }
+    }
+  }
+
+  // ---------- Markdown (no hashing in prod for now) ----------
+  async processMarkdown(assetsDir) {
+    const mdDir = join(assetsDir, "markdown");
+    if (!existsSync(mdDir)) mkdirSync(mdDir, { recursive: true });
+
+    const mdFiles = await glob(
+      join(this.srcDir, "assets", "markdown", "**", "*.md"),
+    );
+    if (mdFiles.length === 0) {
+      console.log(
+        `  ℹ️  No markdown files found in assets/markdown directory.`,
+      );
+      return;
+    }
+
+    const markdownBasePath = join(this.srcDir, "assets", "markdown");
+
+    for (const mdPath of mdFiles) {
+      if (!existsSync(mdPath)) continue;
+
+      const relativePath = mdPath.replace(markdownBasePath + "/", "");
+      const fileName = basename(mdPath);
+      const dirName = dirname(relativePath);
+      const content = readFileSync(mdPath, "utf8");
+      const hash = generateHash(content);
+
+      // Generate hashes for templates
+      const name = basename(fileName, ".md");
+      const unsafeKey = `${name}Hash`;
+      const safeKey = `${this.#toSafeKey(name)}Hash`;
+
+      this.assetHashes[unsafeKey] = hash;
+      this.assetHashes[safeKey] = hash;
+
+      const outputFileName = this.isProduction
+        ? fileName.replace(".md", `.${hash}.md`)
+        : fileName;
+
+      // Preserve directory structure in output
+      const outputDir = join(mdDir, dirName);
+      if (!existsSync(outputDir)) {
+        mkdirSync(outputDir, { recursive: true });
+      }
+
+      const outputPath = join(outputDir, outputFileName);
+
+      // Clean up the directory name to avoid leading dots
+      const cleanDirName = dirName === "." ? "" : dirName;
+
+      const needCopy =
+        !this.isProduction ||
+        !existsSync(outputPath) ||
+        (existsSync(outputPath) &&
+          statSync(outputPath).mtimeMs < statSync(mdPath).mtimeMs);
+
+      if (needCopy) {
+        copyFileSync(mdPath, outputPath);
+
+        if (this.isProduction) {
+          console.log(
+            `  📝 ${relativePath} → assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`,
+          );
+        } else {
+          console.log(
+            `  ✓ ${relativePath} → assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`,
+          );
+        }
+      } else {
+        console.log(`  ↺ ${relativePath} (unchanged)`);
+      }
+
+      this.manifest[`/assets/markdown/${relativePath}`] =
+        `/assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
     }
   }
 }
