@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.15s ease;
   }
 
   .term-modal.active {
@@ -26,6 +26,14 @@
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition:
+      opacity 0.1s ease,
+      backdrop-filter 0.1s ease;
+  }
+
+  .term-modal.active .term-modal-backdrop {
+    opacity: 1;
   }
 
   .term-modal-content {
@@ -43,7 +51,7 @@
     overflow: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     transform: translateY(20px);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease 0.05s;
     flex-direction: column;
   }
 

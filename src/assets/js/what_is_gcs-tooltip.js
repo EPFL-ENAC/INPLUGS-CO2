@@ -77,7 +77,7 @@ class TermTooltip extends HTMLElement {
       setTimeout(() => {
         modal.remove();
         document.body.style.overflow = "";
-      }, 300);
+      }, 30);
     };
 
     modal.querySelector(".term-modal-close").addEventListener("click", close);
