@@ -155,7 +155,52 @@
     "title": "Useful links"
   },
   "about": {
-    "title": "About"
+    "missions": {
+      "title": "Missions",
+      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+    },
+    "values": {
+      "title": "Valeurs",
+      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+    },
+    "team": {
+      "title": "L'équipe",
+      "member": {
+        "Eleni": {
+          "name": "Eleni",
+          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
+        },
+        "Helene": {
+          "name": "Hélène",
+          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
+        },
+        "Laetitia": {
+          "name": "Laetitia",
+          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+        },
+        "Marc": {
+          "name": "Marc",
+          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+        },
+        "Pierre": {
+          "name": "Pierre",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+        },
+        "Charlie": {
+          "name": "Charlie",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+        },
+        "Hugo": {
+          "name": "Hugo",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+        }
+      }
+    },
+    "funding": {
+      "title": "<i>INPLUGS-CO₂</i> has received financial support by",
+      "text_1": "Carbon Removel Booster, powered by Innosuisse",
+      "text_2": "and the Swiss Federal Office of Energy (SFOE) in the frame of the EnRUp-GCS (EPFL) project"
+    }
   },
   "contact": {
     "title": "Contact"

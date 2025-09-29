@@ -1,0 +1,10 @@
+@layer components {
+  .about__funding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+}

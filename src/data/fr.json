@@ -219,6 +219,11 @@
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
         }
       }
+    },
+    "funding": {
+      "title": "<i>INPLUGS-CO₂</i> a reçu un soutien financier de",
+      "text_1": "Carbon Removal Booster, soutenu par Innosuisse",
+      "text_2": "et le Bureau fédéral de l'énergie (BFE) dans le cadre du projet EnRUp-GCS (EPFL)"
     }
   },
   "contact": { "title": "Contact" }

@@ -1,0 +1,61 @@
+@layer components {
+  /* --- general section styling --- */
+  .about__contact-form,
+  .about__support {
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .about__contact-form label {
+    font-weight: bold;
+    margin-top: 1rem;
+    display: block;
+  }
+
+  .about__contact-form input,
+  .about__contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: #e0e0e0;
+    border: none;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .about__contact-form textarea {
+    min-height: 6rem;
+    resize: vertical;
+  }
+
+  .about__contact-form button {
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    background: black;
+    color: white;
+  }
+
+  /* --- GRID LAYOUT --- */
+  section#contact-form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+
+  /* Left side headings */
+  section#contact-form > title {
+    font-size: clamp(2rem, 3vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  /* Right side content box uses flex */
+  .about__contact-form,
+  details {
+    display: flex;
+    flex-direction: column;
+  }
+}
