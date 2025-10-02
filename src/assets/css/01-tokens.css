@@ -79,7 +79,19 @@
     navigation: auto;
   }
 
-  /* Font Face Declarations - Archivo Family */
+  /* Font Face Declarations - Archivo Family 
+     Based on actual usage:
+     - 900: Black (headings)
+     - 700: Bold (emphasis)
+     - 600: SemiBold (cards, navbar)
+     - 500: Medium (buttons)
+     - 400: Regular (normal text)
+     - 300: Light (lighter text)
+     
+     Note: All font weights are loaded via JavaScript in src/layouts/main.njk
+     Italic variants are defined but not currently used in any CSS rules.
+     Font loading optimized to only load used weights for better performance.
+  */
   @font-face {
     font-family: "Archivo";
     src: url("/assets/fonts/Archivo/Archivo-Regular.woff2") format("woff2");
@@ -158,6 +170,14 @@
     src: url("/assets/fonts/Archivo/Archivo-BoldItalic.woff2") format("woff2");
     font-weight: 700;
     font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Archivo";
+    src: url("/assets/fonts/Archivo/Archivo-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
     font-display: swap;
   }
 }
