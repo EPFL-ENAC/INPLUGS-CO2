@@ -29,13 +29,12 @@
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0 5rem 0 5rem;
   }
 
   /* ---------- Left column ---------- */
   .landing_page__content {
     align-self: center;
-    color: #fff;
+    color: var(--brand-fg);
     display: grid;
     grid-auto-columns: auto;
   }
@@ -56,7 +55,7 @@
   .landing_page__content h1 {
     margin: 0 0 2rem;
     font:
-      700 4.8rem/1.2 "Helvetica Neue",
+      900 4.8rem/1.2 "Archivo",
       sans-serif;
     max-width: 40ch;
     text-wrap: balance; /* balance lines if wrapping */
@@ -67,7 +66,7 @@
   .landing_page__content h2 {
     margin: 0 0 2rem;
     font:
-      700 2.8rem/1.2 "Helvetica Neue",
+      700 2.8rem/1.2 "Archivo",
       sans-serif;
     max-width: 40ch;
     text-wrap: balance; /* balance lines if wrapping */
@@ -89,14 +88,16 @@
   h2 span::first-letter {
     color: var(--canard, #1a586c);
   }
-
+  h1 {
+    font-weight: 900;
+  }
   .btn-cta,
   .btn-back {
     display: inline-block;
     padding: 1rem 2.25rem;
     font: 600 1rem/1 sans-serif;
-    background: #9af640; /* bright green button */
-    color: #000;
+    background: var(--lime-bright);
+    color: var(--black);
     border-radius: 0.25rem;
     text-decoration: none;
     transition: transform 0.2s ease;
@@ -109,8 +110,8 @@
   }
 
   .btn-back {
-    background: rgba(255, 255, 255, 0.9);
-    color: #000;
+    background: color-mix(in srgb, var(--white), transparent 10%);
+    color: var(--black);
   }
 
   /* ---------- Right column ---------- */

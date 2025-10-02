@@ -7,8 +7,6 @@
   /* section about */
   section.about_intro {
     min-height: 1vh;
-    margin-left: 5rem;
-    margin-right: 5rem;
     padding-bottom: 5rem;
   }
 }

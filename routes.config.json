@@ -121,15 +121,13 @@
           { "id": "team", "title": "The team" },
           { "id": "mission-values", "title": "Mission and Values" },
           { "id": "funding", "title": "Funding" },
-          { "id": "contact-form", "title": "Contact form" },
-          { "id": "support-us", "title": "Support us" }
+          { "id": "contact-form", "title": "Contact form" }
         ],
         "fr": [
           { "id": "team", "title": "L'équipe" },
           { "id": "mission-values", "title": "Mission et Valeurs" },
           { "id": "funding", "title": "Financement" },
-          { "id": "contact-form", "title": "Formulaire de contact" },
-          { "id": "support-us", "title": "Nous soutenir" }
+          { "id": "contact-form", "title": "Formulaire de contact" }
         ]
       }
     }

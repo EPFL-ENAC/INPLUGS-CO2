@@ -9,7 +9,7 @@
   }
   .about__contact-form h2 {
     font-size: clamp(4rem, 6rem + 2vw, 6rem);
-    font-weight: 700;
+    font-weight: 900;
     text-wrap-mode: wrap;
     text-wrap-style: pretty;
     align-self: start;

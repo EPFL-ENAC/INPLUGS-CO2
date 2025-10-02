@@ -34,20 +34,11 @@
     flex-direction: column;
     justify-content: left;
     align-items: left;
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-  @media screen and (max-width: 860px) {
-    main section {
-      /* Further adjustments for smaller screens */
-      padding: var(--space-2) var(--space-2);
-    }
   }
 
   .screen-1 {
     background-color: var(--vert-turquoise);
     color: var(--blanc-cass);
-    padding: 0 5rem 0 5rem;
   }
 
   .screen-title {
@@ -149,13 +140,11 @@
   .screen-4 {
     background-color: var(--blanc-cass);
     color: var(--black-70);
-    padding: 0 5rem 0 5rem;
   }
 
   .screen-5 {
     background-color: var(--vert-turquoise);
     color: var(--blanc-cass);
-    padding: 0 5rem 0 5rem;
   }
 
   .theme-turquoise {

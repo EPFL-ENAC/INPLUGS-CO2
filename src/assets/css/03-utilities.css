@@ -10,6 +10,14 @@
 
   section[id] {
     scroll-margin-top: var(--scroll-offset);
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  @media screen and (max-width: 860px) {
+    section[id] {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
   }
 
   /* Spacing Utilities */
