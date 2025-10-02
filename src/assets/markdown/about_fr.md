@@ -1,4 +1,6 @@
-# INPLUGS-CO2 a pour objectif de contribuer à la sensibilisation au stockage géologique du CO₂, à ses risques et à l'urgence de la problématique.
+# About
+
+INPLUGS-CO2 a pour objectif de contribuer à la sensibilisation au stockage géologique du CO₂, à ses risques et à l'urgence de la problématique.
 
 Il s'adresse à deux publics principaux :
 

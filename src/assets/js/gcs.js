@@ -111,6 +111,7 @@ const worldMapData = [
 ];
 
 // Switzerland map data
+
 const switzerlandMapData = [
   { name: "Valais", A: 0, B: 0, C: 0 },
   { name: "Grison", A: 0, B: 0, C: 0 },
