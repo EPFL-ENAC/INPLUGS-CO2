@@ -19,7 +19,7 @@
             <!-- Nav item with dropdown -->
             <div
                 class="navbar__dropdown navbar__dropdown--{{ item.key }} navbar__item--{{ item.key }} {% if 'align' in item %}navbar__item--{{ item.align }}{% endif %}">
-                <button class="navbar__dropdown-toggle" {% if page.key==item.key
+                <a href="{{ item.path }}" class="navbar__dropdown-toggle" {% if page.key==item.key
                     %}aria-current="page" {% endif %} data-order="{{ loop.index0 }}" data-nav-item="{{ item.key }}" aria-haspopup="true" aria-expanded="false">{{
                     item.title }}
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
                         <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                </button>
+                </a>
                 <div class="navbar__dropdown-menu navbar__dropdown-menu--left" aria-label="{{ item.title
                     }} sections">
                     <!-- Dropdown items specific to each main nav item -->
