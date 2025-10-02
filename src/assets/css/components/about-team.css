@@ -24,6 +24,7 @@
     height: fit-content;
     gap: 0;
     height: 100%;
+    background-color: lightgray;
   }
 
   .member_img {
@@ -34,10 +35,9 @@
   }
 
   .member_info {
-    background-color: lightgray;
     padding: 1rem;
     font-size: 0.85rem;
-    margin-top: auto;
+    margin-top: 0;
     width: 100%;
   }
 
