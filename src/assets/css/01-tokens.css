@@ -72,7 +72,7 @@
     --transition-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     /* cf navbar-core.css for scroll offset */
 
-    color-scheme: light dark;
+    color-scheme: light;
   }
 
   @view-transition {
