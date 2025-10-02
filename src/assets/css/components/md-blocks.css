@@ -1,16 +1,10 @@
 @layer components {
-  @import "./components/about-team.css";
-  @import "./components/about-missions-values.css";
-  @import "./components/about-contact-form.css";
-  @import "./components/about-funding.css";
-
-  /* section about */
-  section.about_intro {
-    min-height: 1vh;
-    padding-bottom: 5rem;
+  /* // Minimizing FOUC https://md-block.verou.me/ */
+  md-block:not([rendered]) {
+    display: none;
   }
 
-  h1 {
+  md-block[rendered] h1 {
     display: block;
     font-size: clamp(4rem, 6rem + 2vw, 6rem);
     font-weight: 900;
@@ -20,7 +14,7 @@
     justify-self: center;
   }
 
-  h2 {
+  md-block[rendered] h2 {
     display: block;
     font-size: clamp(2.25rem, 3.157rem + 2vw, 3.157rem);
     font-weight: 700;

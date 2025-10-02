@@ -1,0 +1,147 @@
+/* =========================
+   Global Theme Tokens
+   ========================= */
+
+:root {
+  /* Light theme (default) */
+  --bg-h: 210;
+  --bg-s: 20%;
+  --bg-l: 98%;
+
+  --surface-h: 210;
+  --surface-s: 20%;
+  --surface-l: 95%;
+
+  --text-h: 210;
+  --text-s: 20%;
+  --text-l: 15%;
+
+  --muted-h: 210;
+  --muted-s: 10%;
+  --muted-l: 40%;
+
+  --accent-h: 220;
+  --accent-s: 80%;
+  --accent-l: 50%;
+
+  --border-h: 210;
+  --border-s: 10%;
+  --border-l: 80%;
+
+  /* system-level hint: both schemes supported */
+  color-scheme: light dark;
+}
+
+/* =========================
+   Dark Theme
+   ========================= */
+
+[data-theme="dark"] {
+  --bg-l: 8%;
+  --surface-l: 12%;
+  --text-l: 92%;
+  --muted-l: 65%;
+  --accent-l: 60%;
+  --border-l: 25%;
+  color-scheme: dark;
+}
+
+/* =========================
+   Derived Tokens (HSL)
+   ========================= */
+
+:root {
+  --bg: hsl(var(--bg-h) var(--bg-s) var(--bg-l));
+  --surface: hsl(var(--surface-h) var(--surface-s) var(--surface-l));
+  --text: hsl(var(--text-h) var(--text-s) var(--text-l));
+  --muted: hsl(var(--muted-h) var(--muted-s) var(--muted-l));
+  --accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --border: hsl(var(--border-h) var(--border-s) var(--border-l));
+}
+
+/* =========================
+   Base Elements
+   ========================= */
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Accent for native form controls */
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress {
+  accent-color: var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+/* Surfaces (cards, panels) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+/* Muted text */
+.muted {
+  color: var(--muted);
+}
+
+/* =========================
+   Accessibility Support
+   ========================= */
+
+/* High contrast users */
+@media (prefers-contrast: more) {
+  :root {
+    --border-l: 15%; /* stronger borders */
+    --muted-l: 20%; /* higher contrast text */
+  }
+  [data-theme="dark"] {
+    --border-l: 85%;
+    --muted-l: 90%;
+  }
+}
+
+/* Windows forced colors mode */
+@media (forced-colors: active) {
+  :root {
+    background: Canvas;
+    color: CanvasText;
+  }
+  a {
+    color: LinkText;
+  }
+  button {
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+  }
+}

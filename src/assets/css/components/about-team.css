@@ -5,6 +5,9 @@
   }
 
   .team {
+    display: block;
+  }
+  .team_members {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     /* each row exactly 500px tall */
