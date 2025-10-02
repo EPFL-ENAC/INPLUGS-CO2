@@ -5,7 +5,11 @@
   }
 
   .section {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: var(--scroll-offset);
+  }
+
+  section[id] {
+    scroll-margin-top: var(--scroll-offset);
   }
 
   /* Spacing Utilities */

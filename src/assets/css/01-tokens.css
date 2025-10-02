@@ -70,6 +70,7 @@
     --transition-duration-medium: 0.3s;
     --transition-easing-standard: ease;
     --transition-easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    /* cf navbar-core.css for scroll offset */
 
     color-scheme: light dark;
   }
