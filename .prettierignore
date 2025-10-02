@@ -8,6 +8,9 @@ npm-shrinkwrap.json
 .python-version
 *mp4
 *webm
+*woff2
+*woof
+*license
 
 # Python files and environments
 backend/.venv/*
