@@ -69,8 +69,14 @@
       },
       "themeColor": "#FFF",
       "anchors": {
-        "en": [{ "id": "references", "title": "References" }],
-        "fr": [{ "id": "references", "title": "Références" }]
+        "en": [
+          { "id": "references", "title": "References" },
+          { "id": "dictionary", "title": "Glossary" }
+        ],
+        "fr": [
+          { "id": "references", "title": "Références" },
+          { "id": "glossaire", "title": "Glossaire" }
+        ]
       }
     },
     {

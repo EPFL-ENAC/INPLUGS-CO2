@@ -20,23 +20,23 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO₂ is <i>captured</i> directly from large emitters before being released in the atmosphere"
+        "description": "CO₂ is <term-tooltip term=\"captured\">captured</term-tooltip> directly from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<i>Captured</i> CO₂ is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth 700-800m"
+        "description": "<term-tooltip term=\"captured\">Captured</term-tooltip> CO₂ is compressed to <term-tooltip term=\"liquid\">liquid</term-tooltip> or <term-tooltip term=\"supercritical\">supercritical</term-tooltip> form and injected in the subsurface at min. depth 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "CO₂ is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
+        "description": "CO₂ is injected in a <term-tooltip term=\"porous\">porous</term-tooltip> geological layer that is called <term-tooltip term=\"reservoir\">reservoir</term-tooltip>"
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO₂ is <i>less dense</i> than the existing water in the pores of the reservoir, and starts migrating upwards"
+        "description": "The injected CO₂ is <term-tooltip term=\"less dense\">less dense</term-tooltip> than the existing water in the pores of the reservoir, and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <term-tooltip term=\"buoyant\">buoyant</term-tooltip> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <term-tooltip term=\"hydromechanical barrier\">hydromechanical barrier</term-tooltip>"
       }
     }
   },
@@ -149,6 +149,40 @@
     "pilot_project": {
       "term": "Pilot project",
       "definition": "Lorem Ipsum"
+    },
+    "captured": {
+      "term": "Captured",
+      "definition": "Lorem ipsum"
+    },
+    "supercritical": {
+      "term": "Supercritical",
+      "definition": "Lorem ipsum"
+    },
+    "porous": {
+      "term": "Porous",
+      "definition": "Lorem ipsum"
+    },
+    "reservoir": {
+      "term": "Reservoir",
+      "definition": "Lorem ipsum"
+    },
+    "less dense": {
+      "term": "Less dense",
+      "definition": "Lorem ipsum"
+    },
+    "buoyant": {
+      "term": "Buoyant",
+      "definition": "Lorem ipsum"
+    },
+    "hydromechanical barrier": {
+      "term": "Hydromechanical barrier",
+      "definition": "Lorem ipsum"
+    },
+    "references": {
+      "title": "References",
+      "link1": "Link 1",
+      "link2": "Link 2",
+      "link3": "Link 3"
     }
   },
   "links": {
