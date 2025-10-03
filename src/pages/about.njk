@@ -110,7 +110,7 @@
             <!-- contact-form -->
             <section id="{{ navItemsMap.about.anchors[3].id }}" class="about__{{ navItemsMap.about.anchors[3].id }}">
                 <h2>{{ t("about.contact.title") }}</h2>
-                <form class="about__contact-form">
+                <form class="about__contact-form" method="post" enctype="text/plain" action="mailto:lms-inplugs@epfl.ch">
                     <!-- name -->
                     <label for="name">{{ t("about.contact.form.name") }}</label>
                     <input type="text" id="name" name="name" placeholder="{{ t("about.contact.form.name_placeholder") }}" required>
