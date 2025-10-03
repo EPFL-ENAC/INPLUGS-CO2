@@ -1174,8 +1174,8 @@ All pages are in the `src/pages/` folder:
 
 Open both language files in a text editor:
 
-- `src/data/en.json` (English text)
-- `src/data/fr.json` (French text)
+- [src/data/en.json](src/data/en.json) (English text)
+- [src/data/fr.json](src/data/fr.json) (French text)
 
 #### 3. Find the Text to Change
 
@@ -1266,9 +1266,9 @@ Change the text in **both** language files:
 ```
 
 **Step 3**: Change both files:
-
+- English (src/data/en.json)
 ```json
-// English (src/data/en.json)
+
 {
   "homepage": {
     "hero": {
@@ -1276,8 +1276,10 @@ Change the text in **both** language files:
     }
   }
 }
+```
+- French (src/data/fr.json)
+```json
 
-// French (src/data/fr.json)
 {
   "homepage": {
     "hero": {
