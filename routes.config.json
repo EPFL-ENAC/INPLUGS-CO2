@@ -71,11 +71,11 @@
       "anchors": {
         "en": [
           { "id": "references", "title": "References" },
-          { "id": "dictionary", "title": "Glossary" }
+          { "id": "glossary", "title": "Glossary" }
         ],
         "fr": [
           { "id": "references", "title": "Références" },
-          { "id": "glossaire", "title": "Glossaire" }
+          { "id": "glossary", "title": "Glossaire" }
         ]
       }
     },
