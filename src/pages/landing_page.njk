@@ -1,47 +1,15 @@
 {% extends "main.njk" %}
 {% block content %}
-    <index-content>
-    <template shadowrootmode="open">
+    <div class="index-content">
         <link rel="stylesheet"
               href='{{ asset("/assets/styles/landing_page.css") }}'>
-        <link rel="stylesheet" href='{{ asset("/assets/styles/landing_page_svg_animate.css") }}'>
-
-        <section class="landing_page">
+        <section class="landing_page" id="home">
             <div class="landing_page__content">
-                <h1>{{ t("homepage.title")|safe }}</h1>
-                <a href="/landing_page_interactive" class="btn-cta">{{ t("homepage.button") }}</a>
+                <h1>{{ t("homepage.title") |safe }}</h1>
+                <h2>{{ t("homepage.subtitle") |safe }}</h2>
+                <a href="/what_is_gcs" class="btn-cta">{{ t("homepage.button") }}</a>
             </div>
-            <div class="landing_page__visual">
-                {% include "landing_svg.njk" %}
-                <!-- <video 
-                autoplay 
-                muted 
-                loop 
-                playsinline 
-                preload="auto"
-                style="width: 100%; height: auto; object-fit: cover;">
-                
-                <source src="{{ asset("/assets/videos/output-400px.webm") }}" type="video/webm">
-                <source src="{{ asset("/assets/videos/animation-optimized.mp4") }}" type="video/mp4">
-                </video> -->
-                <!-- <picture>
-                    <source type="image/webp"
-                            srcset="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 800w,
-                                    /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.webp 1600w"
-                            sizes="(min-width: 800px) 800px,
-                                   100vw">
-                    <source type="image/png"
-                            srcset="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 800w,
-                                    /assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png 1600w"
-                            sizes="(min-width: 800px) 800px,
-                                   100vw">
-                    <img src="/assets/images/landing-page/INPLUG_illustration_cylindre_sansechelle%201_clear_sky.png"
-                         alt="{{ t("homepage.image_alt") }}"
-                         loading="lazy"
-                         decoding="async">
-                </picture> -->
-            </section>
-            <!-- <script type="module" src='{{ asset("/assets/js/landing-page.js") }}'></script> -->
-        </template>
-        </index-content>
-    {% endblock %}
+            <div class="landing_page__visual">{% include "landing_svg.njk" %}</div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+@layer components {
+  .data-content {
+    --breakpoint-landing-page: 860px;
+    --canard: #1a586c;
+    --vert-turquoise: #5bad91;
+    --blanc-cass: #f4f0eb;
+    --canard: #1a586c;
+    --vert-turquoise: #5bad91;
+    --noir: #000;
+    --blanc: #fff;
+    display: block;
+    background: var(--blanc);
+    color: var(--noir);
+    box-shadow: var(--shadow);
+  }
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Styles de base pour toutes les sections */
+  main section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+  }
+
+  summary {
+    color: var(--vert-turquoise);
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  summary {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    /*change bullet style*/
+    list-style-type: circle;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: var(--canard);
+    text-decoration: none;
+    font-size: 2rem;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+}

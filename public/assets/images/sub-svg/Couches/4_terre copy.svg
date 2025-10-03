@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1930 1355.66">
+  <defs>
+    <pattern id="Nouvelle_nuance_de_motif_11" data-name="Nouvelle nuance de motif 11" x="0" y="0" width="188.25" height="188.25" patternTransform="translate(-864.21 -758.98)" patternUnits="userSpaceOnUse" viewBox="0 0 188.25 188.25">
+      <g>
+        <rect width="188.25" height="188.25" style="fill: none;"/>
+        <rect x="175.79" y="175.79" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-12.46" y="175.79" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-200.71" y="175.79" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="175.79" y="-12.46" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-12.46" y="-12.46" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-200.71" y="-12.46" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="175.79" y="-200.71" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-12.46" y="-200.71" width="213.18" height="213.18" style="fill: #30566b;"/>
+        <rect x="-200.71" y="-200.71" width="213.18" height="213.18" style="fill: #30566b;"/>
+      </g>
+    </pattern>
+    <pattern id="_5bleufoncé" data-name="5bleufoncé" x="0" y="0" width="72.2" height="71.54" patternTransform="translate(1291.64 -758.98)" patternUnits="userSpaceOnUse" viewBox="0 0 72.2 71.54">
+      <g>
+        <rect width="72.2" height="71.54" style="fill: none;"/>
+        <g>
+          <path d="M54.36,8.4c-.82,0-1.65-.36-2.29-.91-.55-.64-.91-1.47-.91-2.29s.37-1.65.91-2.29c1.2-1.2,3.39-1.2,4.59,0,.56.64.92,1.47.92,2.29s-.37,1.65-.92,2.29c-.64.55-1.46.91-2.29.91Z" style="fill: #082738;"/>
+          <path d="M70.41,54.26c-.82,0-1.65-.36-2.29-.91-.55-.64-.91-1.47-.91-2.29s.37-1.65.91-2.29c1.38-1.2,3.31-1.2,4.5,0,.65.64,1.01,1.47,1.01,2.29s-.37,1.65-.92,2.29c-.64.55-1.46.91-2.29.91Z" style="fill: #082738;"/>
+        </g>
+        <path d="M-1.79,54.26c-.82,0-1.65-.36-2.29-.91-.55-.64-.91-1.47-.91-2.29s.37-1.65.91-2.29c1.38-1.2,3.31-1.2,4.5,0,.65.64,1.01,1.47,1.01,2.29s-.37,1.65-.92,2.29c-.64.55-1.46.91-2.29.91Z" style="fill: #082738;"/>
+      </g>
+    </pattern>
+  </defs>
+  <g id="illu_cylindre_motif" data-name="illu cylindre motif">
+    <g id="couches">
+      <g id="_4_terre" data-name="4_terre">
+        <path d="M1930,1248.59V107.07S1930,0,965,0,0,107.07,0,107.07v1141.52s0,107.07,965,107.07,965-107.07,965-107.07Z" style="fill: url(#Nouvelle_nuance_de_motif_11);"/>
+        <path d="M1930,1248.59V107.07S1930,0,965,0,0,107.07,0,107.07v1141.52s0,107.07,965,107.07,965-107.07,965-107.07Z" style="fill: url(#_5bleufoncé);"/>
+      </g>
+    </g>
+  </g>
+</svg>

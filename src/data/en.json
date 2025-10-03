@@ -1,5 +1,7 @@
 {
-  "site": { "name": "GCS" },
+  "site": {
+    "name": "GCS"
+  },
   "nav": {
     "home": "Home",
     "gcs": "GCS",
@@ -11,34 +13,38 @@
     "contact": "Contact"
   },
   "homepage": {
-    "title": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO2</i> helps you understand CO2 storage.",
+    "title": "<i>INPLUGS-CO₂</i>",
+    "subtitle": "The <i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <span>Storage</span> of <i>CO₂</i> helps you understand how this technology works.",
     "button": "Learn more",
-    "image_alt": "Geological CO2 storage illustration",
+    "image_alt": "Geological CO₂ storage illustration",
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO2 is directly <i>captured</i> from large emitters before being released in the atmosphere"
+        "description": "CO₂ is <term-tooltip term=\"captured\">captured</term-tooltip> directly from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<i>Captured</i> CO2 is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth env. 700-800m"
+        "description": "<term-tooltip term=\"captured\">Captured</term-tooltip> CO₂ is compressed to <term-tooltip term=\"liquid\">liquid</term-tooltip> or <term-tooltip term=\"supercritical\">supercritical</term-tooltip> form and injected in the subsurface at min. depth 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "CO2 is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
+        "description": "CO₂ is injected in a <term-tooltip term=\"porous\">porous</term-tooltip> geological layer that is called <term-tooltip term=\"reservoir\">reservoir</term-tooltip>"
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO2 is <i>less dense</i> than the existing water in the pores and starts migrating upwards"
+        "description": "The injected CO₂ is <term-tooltip term=\"less dense\">less dense</term-tooltip> than the existing water in the pores of the reservoir, and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO2 is stopped from escaping to the surface thanks to the existence of the <i>caprock</i>, another geological layer that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <term-tooltip term=\"buoyant\">buoyant</term-tooltip> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <term-tooltip term=\"hydromechanical barrier\">hydromechanical barrier</term-tooltip>"
       }
     }
   },
+  "whatisgcs": {
+    "title": "How does GCS work?"
+  },
   "gcs": {
-    "page_1": {
+    "why": {
       "title": "Why Geological Carbon Storage ?",
       "subtitle_1": "Mitigating Climate Change",
       "text_1": "CO₂ is a major greenhouse gas. Geological storage helps reduce emissions from heavy industries (e.g., steel, cement, power plants) that are difficult to decarbonize.",
@@ -47,38 +53,25 @@
       "subtitle_3": "Long-Term Storage",
       "text_3": "Deep geological formations (like depleted oil and gas fields or deep saline aquifers) can trap CO₂ for thousands to millions of years."
     },
-    "page_2": {
-      "title": "What is <i>Geological</i> <i>Carbon</i> <i>Storage</i>?",
-      "subtitle_1": "Capture",
-      "text_1": "CO₂ is captured from industrial processes or directly from the air using technologies like chemical absorption or adsorption.",
-      "subtitle_2": "Transport",
-      "text_2": "The captured CO₂ is compressed into a supercritical fluid and transported via pipelines or ships to storage sites.",
-      "subtitle_3": "Injection",
-      "text_3": "At the storage site, CO₂ is injected deep underground (typically 800 meters or more) into porous rock formations sealed by impermeable cap rocks.",
-      "subtitle_4": "Monitoring",
-      "text_4": "Advanced monitoring techniques (like seismic surveys and well logging) ensure the CO₂ remains securely stored and detect any potential leaks."
-    },
-    "page_3": {
+    "ongoing": "Ongoing projects",
+    "under_construction": "Under construction projects",
+    "planned": "Planned projects and capacity 2030-2050",
+    "projects": "projects",
+    "project": "project",
+    "MtCO2_per_year": "Mt CO₂/yr",
+    "world": {
+      "north_america": "North America",
+      "europe": "Europe",
+      "middle_east": "Middle East",
+      "china": "China",
+      "australia": "Australia",
+      "south_america": "South America",
+      "africa": "Africa",
       "title": "GCS<br/> in the <i>World</i>",
-      "text_1": "Several large-scale geological carbon storage projects are operational worldwide, demonstrating the feasibility and safety of this technology.",
-      "legend_1": "Storage capacity",
-      "legend_2": "Existing GCS sites",
-      "legend_3": "Planned projects and capacity 2030-2050",
-      "image_alt": "Map of global geological carbon storage projects",
-      "project_1": {
-        "name": "Sleipner (Norway)",
-        "description": "Operational since 1996, Sleipner is one of the longest-running CCS projects, injecting about 1 million tonnes of CO₂ annually into a saline aquifer beneath the North Sea."
-      },
-      "project_2": {
-        "name": "Quest (Canada)",
-        "description": "Since 2015, Quest has captured and stored over 5 million tonnes of CO₂ from oil sands operations in Alberta, showcasing CCS in the energy sector."
-      },
-      "project_3": {
-        "name": "Gorgon (Australia)",
-        "description": "The Gorgon project began injecting CO₂ in 2019, aiming to store up to 4 million tonnes per year from its LNG operations."
-      }
+      "text_1": "In 2025?, 53 CCS projects are in operation, enabling the storage of approximately 55 MtCO₂ per year, or an average of 1.5 MtCO₂ per project. Considering the carbon neutrality targets for 2040, approximately 2,500 additional projects would be needed worldwide to capture the estimated 40 gigatons of CO₂ per year required by that date. (Sources: IEA and AAGP)",
+      "image_alt": "Map of global geological carbon storage projects"
     },
-    "page_4": {
+    "swiss": {
       "title": "Geological Carbon Storage in Switzerland",
       "text_1": "Switzerland is actively exploring geological carbon storage as part of its climate strategy, with several initiatives and studies underway.",
       "initiative_1": {
@@ -92,22 +85,215 @@
       "initiative_3": {
         "name": "Regulatory Framework",
         "description": "Switzerland is working on establishing a regulatory framework to ensure the safe and effective implementation of geological carbon storage."
+      },
+      "map_title": "Map of potential geological carbon storage sites in Switzerland",
+      "goal": "Goals",
+      "ongoing": "Ongoing",
+      "future": "Future"
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Frequently Asked Questions",
+      "q1": {
+        "question": "Is geological carbon storage safe?",
+        "answer": "Yes, when properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
+      },
+      "q2": {
+        "question": "How does GCS work?",
+        "answer": "GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored."
+      },
+      "q3": {
+        "question": "Is GCS safe?",
+        "answer": "Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure."
       }
     },
-    "title": "GCS • What & Why",
-    "why": "Why is GCS?",
-    "what": "What is GCS?",
-    "world": "GCS in the world",
-    "ch": "GCS in Switzerland"
+    "title": "GCS • What & Why"
   },
-  "education": {
-    "title": "Education",
-    "carbon": "Carbon team",
-    "workshops": "Workshops",
-    "visits": "Visits"
+  "data": {
+    "title": "GCS in <span class=\"canard\">numbers</span>",
+    "compteur_title": "Counter to come",
+    "title2": "SPHINCS",
+    "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
+    "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "dictionary": { "title": "Dictionary" },
-  "links": { "title": "Useful links" },
-  "about": { "title": "About" },
-  "contact": { "title": "Contact" }
+  "dictionary": {
+    "title": "Glossary",
+    "description": "Essentials terms to understand Geological Carbon Storage (GCS).",
+    "gcs": {
+      "term": "GCS",
+      "definition": "Lorem Ipsum"
+    },
+    "caprock": {
+      "term": "Caprock",
+      "definition": "Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+    },
+    "density": {
+      "term": "Density",
+      "definition": "Lorem Ipsum"
+    },
+    "dissolution": {
+      "term": "Dissolution",
+      "definition": "Lorem Ipsum"
+    },
+    "gaz": {
+      "term": "Gaz",
+      "definition": "Lorem Ipsum"
+    },
+    "injection_co2": {
+      "term": "Injection de CO2",
+      "definition": "Lorem Ipsum"
+    },
+    "liquid": {
+      "term": "Liquide",
+      "definition": "Lorem Ipsum"
+    },
+    "mineralisation": {
+      "term": "Minéralisation",
+      "definition": "Lorem Ipsum"
+    },
+    "net_zero": {
+      "term": "Net zero (neutralité carbone)",
+      "definition": "Lorem Ipsum"
+    },
+    "permeable": {
+      "term": "Permeable",
+      "definition": "Lorem Ipsum"
+    },
+    "pilot_project": {
+      "term": "Pilot project",
+      "definition": "Lorem Ipsum"
+    },
+    "captured": {
+      "term": "Captured",
+      "definition": "Lorem ipsum"
+    },
+    "supercritical": {
+      "term": "Supercritical",
+      "definition": "Lorem ipsum"
+    },
+    "porous": {
+      "term": "Porous",
+      "definition": "Lorem ipsum"
+    },
+    "reservoir": {
+      "term": "Reservoir",
+      "definition": "Lorem ipsum"
+    },
+    "less dense": {
+      "term": "Less dense",
+      "definition": "Lorem ipsum"
+    },
+    "buoyant": {
+      "term": "Buoyant",
+      "definition": "Lorem ipsum"
+    },
+    "hydromechanical barrier": {
+      "term": "Hydromechanical barrier",
+      "definition": "Lorem ipsum"
+    },
+    "references": {
+      "title": "References",
+      "link1": "Link 1",
+      "link2": "Link 2",
+      "link3": "Link 3"
+    }
+  },
+  "links": {
+    "info": "Stay informed ! Our team shares its favorite links and articles on this page.",
+    "ipcc": "IPCC",
+    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+    "articles_title": "Selected Articles",
+    "articles": {
+      "article1": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article2": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article3": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article4": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      }
+    }
+  },
+  "about": {
+    "missions": {
+      "title": "Mission & Valeurs",
+      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+    },
+    "team": {
+      "title": "L'équipe",
+      "member": {
+        "Eleni": {
+          "name": "Eleni",
+          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
+        },
+        "Helene": {
+          "name": "Hélène",
+          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
+        },
+        "Laetitia": {
+          "name": "Laetitia",
+          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+        },
+        "Marc": {
+          "name": "Marc",
+          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+        },
+        "Pierre": {
+          "name": "Pierre",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+        },
+        "Charlie": {
+          "name": "Charlie",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+        },
+        "Hugo": {
+          "name": "Hugo",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Trainee, ENAC-IT4Research, EPFL - Contributed to programming the website's architecture"
+        }
+      }
+    },
+    "funding": {
+      "title": "Funding",
+      "text_0": "<i>INPLUGS-CO₂</i> has received financial support by",
+      "text_1": "Carbon Removel Booster, powered by Innosuisse",
+      "text_2": "and the Swiss Federal Office of Energy (SFOE) in the frame of the EnRUp-GCS (EPFL) project"
+    },
+    "contact": {
+      "title": "Contact form",
+      "form": {
+        "name": "Name",
+        "name_placeholder": "Name",
+        "email": "Email",
+        "email_placeholder": "Email",
+        "message": "Message",
+        "message_placeholder": "Message",
+        "submit": "Submit"
+      },
+      "subtitle": "Join us",
+      "text": "Should you be more specifically interested in partnering with us, please note that the LMS-INPLUGS is indeed willing to team up with businesses, philanthropic organizations and individuals in order to meet its short terms goals and achieve its long-term missions."
+    },
+    "support": {
+      "title": "Support",
+      "iban": {
+        "title": "Support our initiative by making a donation to",
+        "number": "IBAN: CH93 0076 2011 6238 5295 7"
+      },
+      "account_holder": {
+        "title": "Account Holder",
+        "name": "Eleni Stavropoulou"
+      }
+    }
+  }
 }

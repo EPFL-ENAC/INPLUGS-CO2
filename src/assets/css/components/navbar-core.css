@@ -1,0 +1,150 @@
+@layer components {
+  /* CSS Custom Properties for Navbar Theming */
+  :root {
+    --navbar-bg: rgba(244, 240, 235, 0.4);
+    --navbar-fg: var(--brand-fg);
+    --navbar-link-color: var(--canard);
+    --navbar-link-hover-bg: color-mix(
+      in oklab,
+      var(--brand-fg) 12%,
+      transparent
+    );
+    --navbar-border-color: var(--canard);
+    --navbar-shadow: var(--shadow);
+    --navbar-height: 5.5rem;
+    --scroll-offset: calc(var(--navbar-height) + 0.5rem);
+
+    --navbar-z-index: 100;
+    --navbar-mobile-height: 4rem;
+
+    /* Typography */
+    --navbar-font-family: var(--font-family-primary);
+    --navbar-font-size: 1.5625rem;
+    --navbar-font-weight: 400;
+    --navbar-font-weight-bold: 700;
+    --navbar-letter-spacing: -0.04688rem;
+
+    /* Spacing */
+    --navbar-padding-x: 2rem;
+    --navbar-padding-y: 0.5rem;
+    --navbar-gap: var(--space-3);
+    --navbar-item-padding-x: 0.4rem;
+    --navbar-item-padding-y: 0;
+    --navbar-item-border-radius: 6px;
+
+    /* Transitions */
+    --navbar-transition-duration: 0.2s;
+    --navbar-transition-easing: ease;
+  }
+
+  /* Base Navbar Structure */
+  .navbar {
+    display: block;
+    background: var(--navbar-bg);
+    color: var(--navbar-fg);
+    font-family: var(--navbar-font-family);
+    box-shadow: var(--navbar-shadow);
+    position: sticky;
+    top: 0;
+    z-index: var(--navbar-z-index);
+    height: var(--navbar-height);
+  }
+
+  .navbar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
+
+  .navbar__container {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "logo nav lang mobile-toggle";
+    align-items: stretch;
+    gap: var(--navbar-gap);
+    padding-left: var(--navbar-padding-x);
+    height: 100%;
+  }
+
+  /* Logo Styles */
+  .navbar__logo-link {
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform var(--navbar-transition-duration)
+      var(--navbar-transition-easing);
+  }
+
+  .navbar__logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .navbar__logo {
+    display: block;
+    width: 5.32519rem;
+    flex-shrink: 0;
+  }
+
+  .navbar__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Shared Link Styles */
+  .navbar__link {
+    color: var(--navbar-link-color);
+    font-family: var(--navbar-font-family);
+    font-size: var(--navbar-font-size);
+    font-style: normal;
+    font-weight: var(--navbar-font-weight);
+    line-height: normal;
+    letter-spacing: var(--navbar-letter-spacing);
+    text-decoration: none;
+    opacity: 0.9;
+    padding: var(--navbar-item-padding-y) var(--navbar-item-padding-x);
+    border-radius: var(--navbar-item-border-radius);
+    white-space: nowrap;
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      background-color var(--navbar-transition-duration)
+        var(--navbar-transition-easing),
+      transform var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  .navbar__link:hover,
+  .navbar__link:focus-visible {
+    opacity: 1;
+    outline: none;
+    background: var(--navbar-link-hover-bg);
+  }
+
+  .navbar__link[aria-current="page"] {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: var(--navbar-font-weight-bold);
+    line-height: normal;
+  }
+
+  /* Focus States for Accessibility */
+  .navbar__link:focus-visible,
+  .navbar__button:focus-visible {
+    outline: 2px solid var(--navbar-link-color);
+    outline-offset: 2px;
+  }
+
+  /* Progressive Font Enhancement */
+  .fonts-loaded-1 .navbar__link,
+  .fonts-loaded-1 .navbar__button {
+    font-family: var(--font-family-primary);
+  }
+}

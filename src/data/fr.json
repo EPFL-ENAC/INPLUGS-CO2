@@ -1,5 +1,7 @@
 {
-  "site": { "name": "GCS" },
+  "site": {
+    "name": "GCS"
+  },
   "nav": {
     "home": "Accueil",
     "gcs": "GCS",
@@ -10,45 +12,294 @@
     "about": "À propos",
     "contact": "Contact"
   },
-  "home": { "title": "Bienvenue sur GCS" },
+  "home": {
+    "title": "Bienvenue sur GCS"
+  },
   "homepage": {
-    "title": "L'<i>In</i>teractive <i>Pl</i>atform for <i>U</i>nderstanding <span>Geological</span> <i>Storage</i> of <i>CO2</i> t'aide à comprendre l'enfouissement du CO2",
+    "title": "<i>INPLUGS-CO₂</i>",
+    "subtitle": "L'<i>In</i>teractive <i>Pl</i>atform for <span>Understanding</span> <span>Geological</span> <i>Storage</i> of <i>CO₂</i> t'aide à comprendre comment l'enfouissement du CO₂ fonctionne",
     "button": "En savoir plus",
-    "image_alt": "Illustration du stockage géologique de CO2",
+    "image_alt": "Illustration du stockage géologique de CO₂",
     "info_boxes": {
-      "injection": {
-        "title": "Injection de CO2",
-        "description": "Apprenez comment le dioxyde de carbone est injecté en toute sécurité dans les formations géologiques souterraines pour un stockage à long terme."
+      "box1": {
+        "title": "CO₂ capture",
+        "description": "Le CO₂ est <term-tooltip term=\"capturé\">capturé</term-tooltip> directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
       },
-      "formations": {
-        "title": "Formations rocheuses",
-        "description": "Découvrez les types spécifiques de couches rocheuses qui constituent des sites de stockage idéaux pour le CO2 capturé."
+      "box2": {
+        "title": "CO₂ compression & injection",
+        "description": "Le CO₂ <term-tooltip term=\"capturé\">capturé</term-tooltip> est comprimé sous forme <term-tooltip term=\"liquide\">liquide</term-tooltip> ou <term-tooltip term=\"supercritique\">supercritique</term-tooltip> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
       },
-      "monitoring": {
-        "title": "Systèmes de surveillance",
-        "description": "Explorez les technologies avancées utilisées pour surveiller et vérifier l'intégrité du stockage de CO2 au fil du temps."
+      "box3": {
+        "title": "CO₂ storage",
+        "description": "Le CO₂ est injecté dans une couche géologique <term-tooltip term=\"poreuse\">poreuse</term-tooltip> appelée <term-tooltip term=\"réservoir\">réservoir</term-tooltip>."
       },
-      "safety": {
-        "title": "Sécurité environnementale",
-        "description": "Comprenez les multiples mesures de sécurité et protocoles qui protègent l'environnement et les communautés."
+      "box4": {
+        "title": "CO₂ migration",
+        "description": "Le CO₂ injecté est moins <term-tooltip term=\"dense\">dense</term-tooltip> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
+      },
+      "box5": {
+        "title": "CO₂ trapping",
+        "description": "Le CO₂ <term-tooltip term=\"flottant\">flottant</term-tooltip> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <term-tooltip term=\"caprock\">caprock</term-tooltip>, une autre couche géologique qui agit comme une <term-tooltip term=\"barrière hydromécanique\">barrière hydromécanique</term-tooltip>."
       }
     }
   },
+  "whatisgcs": {
+    "title": "Comment fonctionne le GCS ?"
+  },
   "gcs": {
-    "title": "GCS • Quoi & Pourquoi",
-    "why": "Pourquoi le GCS ?",
-    "what": "Qu'est-ce que le GCS ?",
-    "world": "Le GCS dans le monde",
-    "ch": "Le GCS en Suisse"
+    "why": {
+      "title": "Pourquoi le stockage géologique du carbone ?",
+      "subtitle_1": "Atténuer le changement climatique",
+      "text_1": "Le CO₂ est un gaz à effet de serre majeur. Le stockage géologique aide à réduire les émissions des industries lourdes (p. ex. acier, ciment, centrales électriques) difficiles à décarboner.",
+      "subtitle_2": "Contribuer aux objectifs de neutralité carbone",
+      "text_2": "La plupart des modèles climatiques montrent qu’il est impossible d’atteindre la neutralité carbone sans une forme de captage et stockage du carbone, en particulier pour les secteurs difficiles à décarboner.",
+      "subtitle_3": "Stockage à long terme",
+      "text_3": "Les formations géologiques profondes (comme des gisements d’hydrocarbures épuisés ou des aquifères salins profonds) peuvent piéger le CO₂ pendant des milliers à des millions d’années."
+    },
+    "ongoing": "Projets en cours",
+    "under_construction": "Projets en construction",
+    "planned": "Projets prévus et capacité 2030–2050",
+    "projects": "projets",
+    "project": "projet",
+    "MtCO2_per_year": "Mt CO₂/an",
+    "world": {
+      "north_america": "Amérique du Nord",
+      "europe": "Europe",
+      "middle_east": "Moyen-Orient",
+      "china": "Chine",
+      "australia": "Australie",
+      "south_america": "Amérique du Sud",
+      "africa": "Afrique",
+      "title": "GCS<br/> dans le <i>monde</i>",
+      "text_1": "En 2024, 53 projets de CCS sont en opération, permettant de stocker environ 55 MtCO₂ par an, soit une moyenne de 1,5 MtCO₂ par projet. Si l’on considère les objectifs de neutralité carbone à l’horizon 2040, il faudrait environ 2 500 projets supplémentaires à l’échelle mondiale pour capturer les 40 gigatonnes de CO₂ par an estimées nécessaires à cette échéance. (Sources: IEA and AAGP)",
+      "image_alt": "Carte des projets mondiaux de stockage géologique du carbone"
+    },
+    "swiss": {
+      "title": "Stockage géologique du carbone en Suisse",
+      "text_1": "La Suisse explore activement le stockage géologique du carbone dans le cadre de sa stratégie climatique, avec plusieurs initiatives et études en cours.",
+      "initiative_1": {
+        "name": "Recherche suisse sur le CSC",
+        "description": "Les institutions de recherche suisses mènent des études sur la faisabilité du stockage du CO₂ dans des aquifères salins profonds et des gisements d’hydrocarbures épuisés."
+      },
+      "initiative_2": {
+        "name": "Projets pilotes",
+        "description": "Des projets pilotes sont développés pour tester les technologies de captage et de stockage du CO₂ dans divers secteurs industriels."
+      },
+      "initiative_3": {
+        "name": "Cadre réglementaire",
+        "description": "La Suisse travaille à l’établissement d’un cadre réglementaire garantissant une mise en œuvre sûre et efficace du stockage géologique du carbone."
+      },
+      "map_title": "Données suisses sur le stockage géologique du carbone",
+      "goal": "Objectifs",
+      "ongoing": "En cours",
+      "future": "Futur"
+    },
+    "faq": {
+      "title": "Foire aux questions",
+      "subtitle": "Questions fréquemment posées",
+      "q1": {
+        "question": "Le stockage géologique du carbone est-il sûr ?",
+        "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
+      },
+      "q2": {
+        "question": "Comment fonctionne le stockage géologique du carbone ?",
+        "answer": "Le stockage géologique du carbone fonctionne en capturant le CO₂ à sa source, en le comprimant, en le transportant vers un site de stockage, puis en l’injectant dans des formations rocheuses profondes où il est stocké de manière permanente."
+      },
+      "q3": {
+        "question": "Le stockage géologique du carbone est-il sûr ?",
+        "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
+      }
+    },
+    "title": "GCS • Quoi et pourquoi"
   },
-  "education": {
-    "title": "Éducation",
-    "carbon": "Équipe carbone",
-    "workshops": "Ateliers",
-    "visits": "Visites"
+  "data": {
+    "title": "GCS en <span class=\"canard\">nombres</span>",
+    "compteur_title": "Compteur à venir",
+    "title2": "SPHINCS",
+    "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
+    "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "dictionary": { "title": "Dictionnaire" },
-  "links": { "title": "Liens utiles" },
-  "about": { "title": "À propos" },
-  "contact": { "title": "Contact" }
+  "dictionary": {
+    "title": "Dictionnaire",
+    "description": "L'essentiel pour comprendre",
+    "gcs": {
+      "term": "GCS",
+      "definition": "Lorem Ipsum"
+    },
+    "caprock": {
+      "term": "Caprock",
+      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+    },
+    "dense": {
+      "term": "Dense",
+      "definition": "Lorem Ipsum"
+    },
+    "dissolution": {
+      "term": "Dissolution",
+      "definition": "Lorem Ipsum"
+    },
+    "gaz": {
+      "term": "Gaz",
+      "definition": "Lorem Ipsum"
+    },
+    "injection_co2": {
+      "term": "Injection de CO2",
+      "definition": "Lorem Ipsum"
+    },
+    "liquid": {
+      "term": "Liquide",
+      "definition": "Lorem Ipsum"
+    },
+    "mineralisation": {
+      "term": "Minéralisation",
+      "definition": "Lorem Ipsum"
+    },
+    "net_zero": {
+      "term": "Net zero (neutralité carbone)",
+      "definition": "Lorem Ipsum"
+    },
+    "permeable": {
+      "term": "Pérméabilité",
+      "definition": "Lorem Ipsum"
+    },
+    "pilot_project": {
+      "term": "Projet pilote",
+      "definition": "Lorem Ipsum"
+    },
+    "capturé": {
+      "term": "Capturé",
+      "definition": "Lorem ipsum"
+    },
+    "liquide": {
+      "term": "Liquide",
+      "definition": "Lorem ipsum"
+    },
+    "supercritique": {
+      "term": "Supercritique",
+      "definition": "Lorem ipsum"
+    },
+    "poreuse": {
+      "term": "Poreuse",
+      "definition": "Lorem ipsum"
+    },
+    "réservoir": {
+      "term": "Réservoir",
+      "definition": "Lorem ipsum"
+    },
+    "flottant": {
+      "term": "Flottant",
+      "definition": "Lorem ipsum"
+    },
+    "barrière hydromécanique": {
+      "term": "Barrière hydromécanique",
+      "definition": "Lorem ipsum"
+    },
+    "references": {
+      "title": "Références",
+      "link1": "Lien 1",
+      "link2": "Lien 2",
+      "link3": "Lien 3"
+    }
+  },
+  "links": {
+    "info": "Restez informé·e ! Notre équipe partage ses liens, articles préférés sur cette page  ",
+    "ipcc": "IPCC",
+    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+    "articles_title": "Articles sélectionnés",
+    "articles": {
+      "article1": {
+        "title": "Le titre de l'article",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article2": {
+        "title": "Le titre de l'article",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article3": {
+        "title": "Le titre de l'article mais long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article4": {
+        "title": "Le titre de l'article mais long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      }
+    }
+  },
+  "about": {
+    "missions": {
+      "title": "Mission et valeurs",
+      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+    },
+    "team": {
+      "title": "L'équipe",
+      "member": {
+        "Eleni": {
+          "name": "Eleni",
+          "role": "Collaboratrice scientifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
+        },
+        "Helene": {
+          "name": "Hélène",
+          "role": "Vérification et synthèse des sources de données GCS, révision du texte du site web"
+        },
+        "Laetitia": {
+          "name": "Laetitia",
+          "role": "Stagiaire Interactive Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
+        },
+        "Marc": {
+          "name": "Marc",
+          "role": "Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
+        },
+        "Pierre": {
+          "name": "Pierre",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmation du site web"
+        },
+        "Charlie": {
+          "name": "Charlie",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Gestion de la livraison du site web"
+        },
+        "Hugo": {
+          "name": "Hugo",
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Cogestion de la livraison du site web"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Stagiaire, ENAC-IT4Research, EPFL - Contribution à la programmation du site web"
+        }
+      }
+    },
+    "funding": {
+      "title": "Financement",
+      "text_0": "<i>INPLUGS-CO₂</i> a reçu un soutien financier de",
+      "text_1": "Carbon Removal Booster, soutenu par Innosuisse",
+      "text_2": "et le Bureau fédéral de l'énergie (BFE) dans le cadre du projet EnRUp-GCS (EPFL)"
+    },
+    "contact": {
+      "title": "Formulaire de contact",
+      "form": {
+        "name": "Nom",
+        "name_placeholder": "Nom",
+        "email": "Email",
+        "email_placeholder": "Email",
+        "message": "Message",
+        "message_placeholder": "Message",
+        "submit": "Soumettre"
+      },
+      "subtitle": "Rejoignez-nous",
+      "text": "Si vous êtes intéressé par un partenariat avec nous, sachez que LMS-INPLUGS est disposé à collaborer avec des entreprises, des organisations philanthropiques et des particuliers afin d'atteindre ses objectifs à court terme et de réaliser ses missions à long terme."
+    },
+    "support": {
+      "title": "Support",
+      "iban": {
+        "title": "Soutenez notre initiative en faisant un don à",
+        "number": "IBAN: CH93 0076 2011 6238 5295 7"
+      },
+      "account_holder": {
+        "title": "Titulaire du compte",
+        "name": "Eleni Stavropoulou"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact"
+  }
 }

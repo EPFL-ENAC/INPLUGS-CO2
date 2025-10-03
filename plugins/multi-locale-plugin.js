@@ -48,6 +48,7 @@ import {
   loadRoutesConfig,
   loadLocaleData,
   loadMetaData,
+  getRoutePath,
 } from "./utils/locale-utils.js";
 
 export function multiLocalePlugin(options = {}) {
@@ -95,10 +96,10 @@ export function multiLocalePlugin(options = {}) {
   let isProduction = false;
   let currentOutputDir = outputDir; // Will be set based on mode
 
-  // Initialize component modules
+  // Initialize component modules with correct output directory
   const assetProcessor = new AssetProcessor({
     srcDir,
-    outputDir: currentOutputDir,
+    outputDir: isProduction ? outputDir : devOutputDir, // Use correct directory based on mode
     copyPublic,
   });
 
@@ -244,7 +245,7 @@ export function multiLocalePlugin(options = {}) {
     // Discover pages with co-located variants
     const allFiles = glob.sync(`${pagesDir}/**/*.njk`);
     const byBase = new Map(); // basePath => { default: file, variants: {en:file,fr:file} }
-
+    console.log("generatePages allFiles", allFiles);
     for (const f of allFiles) {
       const rel = f.replace(`${pagesDir}/`, "");
       const m = rel.match(LOCALE_RE);
@@ -304,9 +305,9 @@ export function multiLocalePlugin(options = {}) {
       // Data files
       `${dataDir}/**/*.json`,
       // CSS files
-      `${srcDir}/styles/**/*.css`,
+      `${srcDir}/assets/css/**/*.css`,
       // JS files
-      "public/js/**/*.js",
+      `${srcDir}/assets/js/**/*.js`,
       // Asset files that might affect the build
       `${srcDir}/assets/**/*`,
     ];
@@ -572,19 +573,22 @@ export function multiLocalePlugin(options = {}) {
 
         // Load routes configuration for URL matching
         const routesConfig = loadRoutesConfig();
-        const routes = routesConfig.routes || {};
+        const routesList = routesConfig.routes || [];
 
         // Try to match the URL to a route in any locale
         for (const locale of locales) {
-          const localeRoutes = routes[locale] || [];
-          for (const route of localeRoutes) {
-            // Check if URL matches this route (with or without trailing slash)
-            const routePath = route.path.replace(/\/$/, "");
-            const urlPath = url.replace(/\/$/, "");
+          for (const route of routesList) {
+            // Get the actual path for this locale
+            const routePath = getRoutePath(route.key, locale, routesConfig);
+            if (!routePath) continue;
 
-            if (routePath === urlPath) {
+            // Check if URL matches this route (with or without trailing slash)
+            const cleanRoutePath = routePath.replace(/\/$/, "");
+            const cleanUrlPath = url.replace(/\/$/, "");
+
+            if (cleanRoutePath === cleanUrlPath) {
               // Convert route path to file path using same logic as renderOne
-              let filePath = route.path.replace(/^\//, "").replace(/\/$/, "");
+              let filePath = routePath.replace(/^\//, "").replace(/\/$/, "");
               if (!filePath) filePath = "index";
 
               // For index routes, place them in the locale directory structure
@@ -600,6 +604,31 @@ export function multiLocalePlugin(options = {}) {
                 res.setHeader("Content-Type", "text/html");
                 res.end(html);
                 return;
+              }
+            }
+
+            // Also check if URL matches route path without .html extension
+            if (!url.endsWith(".html")) {
+              const urlWithHtml = url + ".html";
+              if (cleanRoutePath === urlWithHtml.replace(/\/$/, "")) {
+                // Convert route path to file path using same logic as renderOne
+                let filePath = routePath.replace(/^\//, "").replace(/\/$/, "");
+                if (!filePath) filePath = "index";
+
+                // For index routes, place them in the locale directory structure
+                if (filePath === "en" || filePath === "fr") {
+                  filePath = filePath + "/index";
+                }
+
+                if (!filePath.endsWith(".html")) filePath += ".html";
+
+                const fullPath = join(currentOutputDir, filePath);
+                if (existsSync(fullPath)) {
+                  const html = readFileSync(fullPath, "utf8");
+                  res.setHeader("Content-Type", "text/html");
+                  res.end(html);
+                  return;
+                }
               }
             }
           }
@@ -664,19 +693,22 @@ export function multiLocalePlugin(options = {}) {
 
         // Load routes configuration for URL matching
         const routesConfig = loadRoutesConfig();
-        const routes = routesConfig.routes || {};
+        const routesList = routesConfig.routes || [];
 
         // Try to match the URL to a route in any locale
         for (const locale of locales) {
-          const localeRoutes = routes[locale] || [];
-          for (const route of localeRoutes) {
-            // Check if URL matches this route (with or without trailing slash)
-            const routePath = route.path.replace(/\/$/, "");
-            const urlPath = url.replace(/\/$/, "");
+          for (const route of routesList) {
+            // Get the actual path for this locale
+            const routePath = getRoutePath(route.key, locale, routesConfig);
+            if (!routePath) continue;
 
-            if (routePath === urlPath) {
+            // Check if URL matches this route (with or without trailing slash)
+            const cleanRoutePath = routePath.replace(/\/$/, "");
+            const cleanUrlPath = url.replace(/\/$/, "");
+
+            if (cleanRoutePath === cleanUrlPath) {
               // Convert route path to file path using same logic as renderOne
-              let filePath = route.path.replace(/^\//, "").replace(/\/$/, "");
+              let filePath = routePath.replace(/^\//, "").replace(/\/$/, "");
               if (!filePath) filePath = "index";
 
               // For index routes, place them in the locale directory structure
@@ -692,6 +724,31 @@ export function multiLocalePlugin(options = {}) {
                 res.setHeader("Content-Type", "text/html");
                 res.end(html);
                 return;
+              }
+            }
+
+            // Also check if URL matches route path without .html extension
+            if (!url.endsWith(".html")) {
+              const urlWithHtml = url + ".html";
+              if (cleanRoutePath === urlWithHtml.replace(/\/$/, "")) {
+                // Convert route path to file path using same logic as renderOne
+                let filePath = routePath.replace(/^\//, "").replace(/\/$/, "");
+                if (!filePath) filePath = "index";
+
+                // For index routes, place them in the locale directory structure
+                if (filePath === "en" || filePath === "fr") {
+                  filePath = filePath + "/index";
+                }
+
+                if (!filePath.endsWith(".html")) filePath += ".html";
+
+                const fullPath = join(currentOutputDir, filePath);
+                if (existsSync(fullPath)) {
+                  const html = readFileSync(fullPath, "utf8");
+                  res.setHeader("Content-Type", "text/html");
+                  res.end(html);
+                  return;
+                }
               }
             }
           }

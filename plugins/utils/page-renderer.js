@@ -9,6 +9,7 @@ import {
   rewriteLinksWithRoutes,
   loadLocaleData,
   loadMetaData,
+  getRouteProperty,
 } from "../utils/locale-utils.js";
 
 export class PageRenderer {
@@ -78,10 +79,12 @@ export class PageRenderer {
     }
 
     // Get route data to access theme color
-    const routes = routesConfig.routes || {};
-    const localeRoutes = routes[locale] || [];
-    const currentRoute = localeRoutes.find((r) => r.key === pageKey);
-    const themeColor = currentRoute?.themeColor;
+    const routes = routesConfig.routes || [];
+    const currentRoute = routes.find((r) => r.key === pageKey);
+    // Use getRouteProperty to handle both primitive and object values
+    const themeColor = currentRoute
+      ? getRouteProperty(currentRoute, "themeColor", locale)
+      : undefined;
 
     // Convert route path to file path (remove leading slash, ensure .html extension)
     let filePath = routePath.replace(/^\//, "").replace(/\/$/, "");
@@ -106,16 +109,28 @@ export class PageRenderer {
 
     // Set the global translator for this render
     this.setCurrentTranslator(translator);
-
     try {
       // Get navigation items from routes config for current locale
-      const navItems = (routesConfig.routes?.[locale] || [])
-        .filter((route) => !route.hidden) // Filter out hidden routes
-        .map((route) => ({
-          key: route.key,
-          title: route.title,
-          path: route.path,
-        }));
+      const navItemsMap = {};
+      const navItems = (routesConfig.routes || [])
+        .filter((route) => {
+          // Check if route is hidden for this locale
+          const hidden = getRouteProperty(route, "hidden", locale);
+          return !hidden;
+        })
+        .map((route) => {
+          // Transform route for this locale
+          const result = {
+            ...route,
+            key: route.key,
+            path: getRoutePath(route.key, locale, routesConfig),
+            title: getRouteProperty(route, "title", locale),
+            themeColor: getRouteProperty(route, "themeColor", locale),
+            anchors: getRouteProperty(route, "anchors", locale),
+          };
+          navItemsMap[result.key] = result;
+          return result;
+        });
 
       let html = this.env.render(templateName, {
         locale,
@@ -133,6 +148,7 @@ export class PageRenderer {
           ),
         ),
         navItems, // Navigation items from routes config
+        navItemsMap, // Navigation items map for easy access by key
         meta: metaData, // Meta data from meta.json
         currentPage: routePath,
         themeColor, // Page-specific theme color

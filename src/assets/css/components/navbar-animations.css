@@ -1,0 +1,98 @@
+@layer components {
+  /* Enhanced Animations and Transitions */
+
+  /* Logo Hover Animation */
+  .navbar__logo-link {
+    transition: transform var(--navbar-transition-duration)
+      var(--navbar-transition-easing);
+  }
+
+  .navbar__logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  /* Navigation Link Transitions */
+  .navbar__link {
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      background-color var(--navbar-transition-duration)
+        var(--navbar-transition-easing),
+      transform var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  /* Navigation Container Mobile Animations */
+  .navbar__nav {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s;
+  }
+
+  /* Dropdown Toggle Transitions */
+  .navbar__dropdown-toggle {
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      background-color var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  /* Mobile Menu Toggle Transitions */
+  .navbar__mobile-toggle {
+    transition: background-color var(--navbar-transition-duration)
+      var(--navbar-transition-easing);
+  }
+
+  .navbar__mobile-toggle-line {
+    transition: all 0.3s ease;
+  }
+
+  /* Dropdown Menu Animations */
+  .navbar__dropdown-menu {
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      transform var(--navbar-transition-duration)
+        var(--navbar-transition-easing),
+      visibility var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  .navbar__dropdown:hover .navbar__dropdown-menu,
+  .navbar__dropdown:focus-within .navbar__dropdown-menu {
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      transform var(--navbar-transition-duration)
+        var(--navbar-transition-easing),
+      visibility var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  /* More Dropdown Animations */
+  .navbar__dropdown:hover .navbar__dropdown-menu,
+  .navbar__dropdown:focus-within .navbar__dropdown-menu {
+    transition:
+      opacity var(--navbar-transition-duration) var(--navbar-transition-easing),
+      transform var(--navbar-transition-duration)
+        var(--navbar-transition-easing),
+      visibility var(--navbar-transition-duration)
+        var(--navbar-transition-easing);
+  }
+
+  /* Accessibility & Motion Reduction */
+  @media (prefers-reduced-motion: reduce) {
+    .navbar__logo-link,
+    .navbar__link,
+    .navbar__dropdown-toggle,
+    .navbar__mobile-toggle,
+    .navbar__mobile-toggle-line,
+    .navbar__dropdown-menu,
+    .navbar__nav {
+      transition: none !important;
+    }
+
+    .navbar__dropdown:hover .navbar__dropdown-menu,
+    .navbar__dropdown:focus-within .navbar__dropdown-menu {
+      transform: none;
+    }
+  }
+}

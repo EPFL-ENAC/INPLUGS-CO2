@@ -1,0 +1,1 @@
+- we need to be able to have i18n inside the js somehow

@@ -1,0 +1,165 @@
+@layer components {
+  /* ---------- Full Page Layout (what_is_gcs.njk) ---------- */
+
+  /* Fix navbar z-index to ensure it appears above all page elements */
+  .navbar {
+    z-index: 100001 !important;
+  }
+
+  html,
+  body {
+    height: 600vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .landing_page.is-full-page {
+    padding: 0;
+    gap: 0;
+    grid-template-columns: 1fr;
+    position: relative;
+    min-height: auto;
+    width: 100%;
+    height: 600vh;
+  }
+
+  .landing_page.is-full-page .landing_page__content {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .landing_page.is-full-page .landing_page__visual {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+  }
+
+  /* Target the SVG directly */
+  .landing_page.is-full-page .landing_page__visual svg {
+    width: 100%;
+    height: 4287px;
+    display: block;
+  }
+
+  /* If you have a svg-container class */
+  .svg-container {
+    width: 100%;
+    height: 4287px;
+    background: linear-gradient(0deg, #978c6f, #00aad8);
+  }
+
+  .svg-container svg {
+    width: 100%;
+    height: 4287px;
+    display: block;
+  }
+
+  .landing_page.is-full-page .landing_page__visual picture {
+    width: 100%;
+    height: 4287px;
+    display: block;
+  }
+
+  .landing_page.is-full-page .landing_page__visual img {
+    width: 100%;
+    height: 4287px;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Step sections for scroll-based navigation */
+  .step-section {
+    height: calc(100dvh - var(--navbar-height));
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding-bottom: 8rem;
+    z-index: 10;
+  }
+
+  .step-section[data-step="1"] {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: baseline;
+  }
+
+  .step-section[data-step="1"] title {
+    display: block;
+    font:
+      700 4.8rem/1.2 "Archivo",
+      sans-serif;
+    /* padding: 0; */
+    backdrop-filter: blur(15px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius);
+    padding: 15px;
+
+    color: var(--canard, #1a586c);
+  }
+
+  /* ---------- Step 0: Title Screen ---------- */
+  .step-section[data-step="0"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: var(--navbar-height, 6rem);
+    cursor: pointer;
+  }
+
+  .step-section[data-step="0"] .info-box {
+    max-width: none;
+    min-width: auto;
+    text-align: center;
+    background: rgba(26, 88, 108, 0.8);
+    backdrop-filter: blur(20px);
+  }
+
+  .step-section[data-step="0"] h1 {
+    font:
+      900 4.8rem/1.2 "Archivo",
+      sans-serif;
+    color: var(--blanc-cass, #f4f0eb);
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Hide minimap on step 0 */
+  .minimap {
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  /* Info box visibility control based on current step */
+  .step-section[data-step="1"] .info-box,
+  .step-section[data-step="2"] .info-box,
+  .step-section[data-step="3"] .info-box,
+  .step-section[data-step="4"] .info-box,
+  .step-section[data-step="5"] .info-box {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  /* Show info boxes when not on step 0 */
+  body:not([data-current-step="0"]) .step-section .info-box {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Exception for step 0 info box - always show */
+  body[data-current-step="0"] .step-section[data-step="0"] .info-box {
+    opacity: 1;
+    visibility: visible;
+  }
+}

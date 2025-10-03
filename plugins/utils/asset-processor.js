@@ -1,5 +1,5 @@
 // asset-processor.js
-import { join, dirname, basename, extname } from "path";
+import { join, dirname, basename, extname, resolve } from "path";
 import {
   readFileSync,
   writeFileSync,
@@ -13,6 +13,30 @@ import {
 import { parse } from "path";
 import { glob } from "glob";
 import { generateHash } from "./locale-utils.js";
+
+// Image file extensions supported for optimization
+const OPTIMIZABLE_IMAGE_EXTENSIONS = [
+  ".svg",
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".gif",
+  ".avif",
+];
+
+// Image file extensions that can be converted to WebP
+const WEBP_CONVERTIBLE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".avif"];
+
+// Image file extensions recognized for copying (includes all optimizable formats)
+const COPYABLE_IMAGE_EXTENSIONS = [
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".svg",
+  ".avif",
+];
 
 /**
  * AssetProcessor - A flexible asset processing utility using glob patterns
@@ -30,11 +54,18 @@ export class AssetProcessor {
     this.assetHashes = {};
     this.manifest = {};
     this.patterns = {
-      css: options.cssPattern || join(this.srcDir, "styles", "*.css"),
-      js: options.jsPattern || "public/js/*.js",
+      css:
+        options.cssPattern || join(this.srcDir, "assets", "css", "**", "*.css"),
+      js: options.jsPattern || join(this.srcDir, "assets", "js", "**", "*.js"),
       images:
         options.imagePattern ||
-        join(this.srcDir, "assets", "*.{svg,png,jpg,jpeg,webp,gif}"),
+        join(
+          this.srcDir,
+          "assets",
+          "images",
+          "**",
+          `*.{${OPTIMIZABLE_IMAGE_EXTENSIONS.map((ext) => ext.slice(1)).join(",")}}`,
+        ),
     };
 
     this.cacheFile =
@@ -113,9 +144,9 @@ export class AssetProcessor {
     // Register main asset
     this.manifest[mainLogical] = mainPhysical;
 
-    // Optional webp sibling (for png/jpg/jpeg)
+    // Optional webp sibling (for png/jpg/jpeg/avif)
     let webpPhysical = null;
-    if ([".png", ".jpg", ".jpeg"].includes(extLower)) {
+    if (WEBP_CONVERTIBLE_EXTENSIONS.includes(extLower)) {
       const webpLogical = `${publicImgDir}/${name}.webp`;
       webpPhysical = this.isProduction
         ? `${publicImgDir}/${name}.${hash}.webp`
@@ -215,6 +246,84 @@ export class AssetProcessor {
     }
   }
 
+  // ---------- CSS Dependency Resolution ----------
+  /**
+   * Resolves CSS @import statements and returns all dependencies
+   * @param {string} cssFilePath - Path to the CSS file
+   * @param {Set} visited - Set of already visited files to prevent circular dependencies
+   * @returns {Array} Array of resolved file paths
+   */
+  resolveCssDependencies(cssFilePath, visited = new Set()) {
+    if (visited.has(cssFilePath)) {
+      return []; // Prevent circular dependencies
+    }
+
+    visited.add(cssFilePath);
+    const dependencies = [cssFilePath]; // Include the file itself
+
+    try {
+      const content = readFileSync(cssFilePath, "utf8");
+
+      // Match @import statements
+      const importRegex = /@import\s+(?:url\()?["'](.*?)(?:["']\)?);?/g;
+      let match;
+
+      while ((match = importRegex.exec(content)) !== null) {
+        const importPath = match[1];
+
+        // Skip external URLs and absolute paths
+        if (importPath.startsWith("http") || importPath.startsWith("/")) {
+          continue;
+        }
+
+        // Resolve relative path
+        const resolvedPath = resolve(dirname(cssFilePath), importPath);
+
+        // Recursively resolve dependencies
+        const nestedDeps = this.resolveCssDependencies(resolvedPath, visited);
+        dependencies.push(...nestedDeps);
+      }
+    } catch (error) {
+      console.warn(
+        `⚠️  Failed to resolve CSS dependencies for ${cssFilePath}:`,
+        error.message,
+      );
+    }
+
+    return dependencies;
+  }
+
+  /**
+   * Reads and concatenates all CSS files in the dependency chain
+   * @param {string} entryFilePath - Path to the entry CSS file
+   * @returns {string} Concatenated CSS content
+   */
+  async concatenateCssDependencies(entryFilePath) {
+    const dependencies = this.resolveCssDependencies(entryFilePath);
+    let concatenatedContent = "";
+
+    // Use a Set to avoid duplicate files
+    const uniqueDependencies = [...new Set(dependencies)];
+
+    for (const filePath of uniqueDependencies) {
+      try {
+        if (existsSync(filePath)) {
+          const content = readFileSync(filePath, "utf8");
+          // Remove @import statements since we're concatenating
+          const cleanedContent = content.replace(
+            /@import\s+(?:url\()?["'].*?(?:["']\)?);?/g,
+            "",
+          );
+          concatenatedContent += cleanedContent + "\n";
+        }
+      } catch (error) {
+        console.warn(`⚠️  Failed to read CSS file ${filePath}:`, error.message);
+      }
+    }
+
+    return concatenatedContent;
+  }
+
   // ---------- Images ----------
   async optimizeImage(inputPath, outputPath) {
     if (!this.isProduction) {
@@ -234,7 +343,7 @@ export class AssetProcessor {
       if (ext === ".svg") {
         optimizedBuffer = originalBuffer;
         outputFormat = "svg (copied)";
-      } else if ([".png", ".jpg", ".jpeg"].includes(ext)) {
+      } else if (WEBP_CONVERTIBLE_EXTENSIONS.includes(ext)) {
         const webpPath = outputPath.replace(ext, ".webp");
         optimizedBuffer = await sharp(originalBuffer)
           .webp({ quality: 75, effort: 6, lossless: false })
@@ -246,6 +355,10 @@ export class AssetProcessor {
         if (ext === ".png") {
           originalOptimized = await sharp(originalBuffer)
             .png({ quality: 85, compressionLevel: 9, effort: 10 })
+            .toBuffer();
+        } else if (ext === ".avif") {
+          originalOptimized = await sharp(originalBuffer)
+            .avif({ quality: 75, effort: 6 })
             .toBuffer();
         } else {
           originalOptimized = await sharp(originalBuffer)
@@ -318,55 +431,18 @@ export class AssetProcessor {
         if (!item.isFile() || shouldExclude(relativePath)) continue;
 
         const ext = extname(item.name).toLowerCase();
-        const isImage = [".png", ".jpg", ".jpeg", ".webp", ".svg"].includes(
-          ext,
+        const isImage = COPYABLE_IMAGE_EXTENSIONS.includes(ext);
+
+        // For public assets, we don't optimize images during build
+        // fast copy only when needed
+        const needCopy =
+          !existsSync(targetPath) ||
+          (existsSync(targetPath) &&
+            statSync(targetPath).mtimeMs < statSync(sourcePath).mtimeMs);
+        if (needCopy) copyFileSync(sourcePath, targetPath);
+        console.log(
+          `  ✓ ${relativePath} → ${relativePath}${needCopy ? "" : " (unchanged)"}`,
         );
-
-        if (isImage && this.isProduction) {
-          const buf = readFileSync(sourcePath);
-          const hash = generateHash(buf);
-          const outputs = { fs: { main: targetPath, webp: null } };
-          if (!this.#isImageStale(sourcePath, hash, outputs)) {
-            console.log(`  ⏭️  ${relativePath} (cached)`);
-            continue;
-          }
-          const result = await this.optimizeImage(sourcePath, targetPath);
-          if ([".png", ".jpg", ".jpeg"].includes(ext)) {
-            outputs.webp = targetPath.replace(ext, ".webp");
-          }
-          this.#updateImageCache(sourcePath, hash, outputs);
-
-          let sizeInfo = "";
-          if (result.originalSize > 0) {
-            const savings = (
-              ((result.originalSize - result.optimizedSize) /
-                result.originalSize) *
-              100
-            ).toFixed(1);
-            sizeInfo = ` (${result.originalSize}B → ${result.optimizedSize}B, -${savings}%)`;
-            if (result.webpSize) {
-              const webpSavings = (
-                ((result.originalSize - result.webpSize) /
-                  result.originalSize) *
-                100
-              ).toFixed(1);
-              sizeInfo += ` + ${result.webpPath} (-${webpSavings}%)`;
-            }
-          }
-          console.log(
-            `  🖼️  ${relativePath} → ${relativePath} [${result.format}]${sizeInfo}`,
-          );
-        } else {
-          // fast copy only when needed
-          const needCopy =
-            !existsSync(targetPath) ||
-            (existsSync(targetPath) &&
-              statSync(targetPath).mtimeMs < statSync(sourcePath).mtimeMs);
-          if (needCopy) copyFileSync(sourcePath, targetPath);
-          console.log(
-            `  ✓ ${relativePath} → ${relativePath}${needCopy ? "" : " (unchanged)"}`,
-          );
-        }
       }
     };
 
@@ -381,6 +457,10 @@ export class AssetProcessor {
     }
 
     console.log("🎨 Processing styled assets...");
+    // Ensure output directory exists
+    if (!existsSync(this.outputDir)) {
+      mkdirSync(this.outputDir, { recursive: true });
+    }
     const assetsDir = join(this.outputDir, "assets");
     if (!existsSync(assetsDir)) mkdirSync(assetsDir, { recursive: true });
 
@@ -389,6 +469,7 @@ export class AssetProcessor {
     await this.processCSSFiles(assetsDir);
     await this.processJSFiles(assetsDir);
     await this.processImages(assetsDir);
+    await this.processMarkdown(assetsDir);
 
     this.#saveManifest();
     this.#saveCache();
@@ -407,59 +488,84 @@ export class AssetProcessor {
       return;
     }
 
-    let combinedCssContent = "";
-    let totalOriginalSize = 0;
-    let totalMinifiedSize = 0;
+    // Define core CSS files that should be excluded from individual processing
+    // These are bundled in core.css
+    // TODO: Make this configurable if needed, or detect automatically via convention?
+    // to be honest for instance components/navbar.css imports tokens, utilities, layout...
+    // should be excluded too since they are already in navbar.css imported
 
+    const coreCssFiles = [
+      "00-reset.css",
+      "01-tokens.css",
+      "02-layout.css",
+      "03-utilities.css",
+      "04-components.css",
+    ];
+
+    // Calculate base path for preserving directory structure
+    const cssBasePath = join(this.srcDir, "assets", "css");
+
+    // Process each CSS file individually with dependency resolution
     for (const filePath of cssFiles) {
-      if (!existsSync(filePath)) continue;
-      const content = readFileSync(filePath, "utf8");
-      combinedCssContent += content;
-      totalOriginalSize += content.length;
-    }
-
-    const minifiedCombinedContent = await this.minifyCSS(combinedCssContent);
-    const cssHash = minifiedCombinedContent
-      ? generateHash(minifiedCombinedContent)
-      : "";
-    if (cssHash) this.assetHashes.cssHash = cssHash;
-
-    for (const filePath of cssFiles) {
-      if (!existsSync(filePath)) continue;
       const fileName = basename(filePath);
-      const content = readFileSync(filePath, "utf8");
-      const processedContent = await this.minifyCSS(content);
-      totalMinifiedSize += processedContent.length;
 
-      const outputFileName = this.isProduction
-        ? fileName.replace(".css", `.${cssHash}.css`)
-        : fileName;
-      this.manifest[`/assets/styles/${fileName}`] =
-        `/assets/styles/${outputFileName}`;
-
-      writeFileSync(join(cssDir, outputFileName), processedContent);
-
-      if (this.isProduction) {
-        const savings = (
-          ((content.length - processedContent.length) / content.length) *
-          100
-        ).toFixed(1);
-        console.log(
-          `  🎨 ${fileName} → assets/styles/${outputFileName} (${content.length}B → ${processedContent.length}B, -${savings}%)`,
-        );
-      } else {
-        console.log(`  ✓ ${fileName} → assets/styles/${outputFileName}`);
+      // Skip core CSS files as they're already bundled in core.css
+      if (coreCssFiles.includes(fileName)) {
+        continue;
       }
-    }
 
-    if (this.isProduction && totalOriginalSize > 0) {
-      const totalSavings = (
-        ((totalOriginalSize - totalMinifiedSize) / totalOriginalSize) *
-        100
-      ).toFixed(1);
-      console.log(
-        `📊 CSS optimization summary: ${totalOriginalSize}B → ${totalMinifiedSize}B (-${totalSavings}%)`,
-      );
+      if (!existsSync(filePath)) continue;
+      try {
+        // Preserve directory structure by calculating relative path
+        const relativePath = filePath.replace(cssBasePath + "/", "");
+        const dirName = dirname(relativePath);
+
+        // Concatenate CSS with its dependencies
+        const concatenatedContent =
+          await this.concatenateCssDependencies(filePath);
+        const processedContent = await this.minifyCSS(concatenatedContent);
+
+        // Generate hash based on the concatenated content
+        const hash = generateHash(processedContent);
+
+        const outputFileName = this.isProduction
+          ? fileName.replace(".css", `.${hash}.css`)
+          : fileName;
+
+        // Preserve directory structure in output
+        const outputDir = join(cssDir, dirName);
+        if (!existsSync(outputDir)) {
+          mkdirSync(outputDir, { recursive: true });
+        }
+
+        // Clean up the directory name to avoid leading dots
+        const cleanDirName = dirName === "." ? "" : dirName;
+        this.manifest[`/assets/styles/${relativePath}`] =
+          `/assets/styles/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
+
+        writeFileSync(join(outputDir, outputFileName), processedContent);
+
+        if (this.isProduction) {
+          const savings = (
+            ((concatenatedContent.length - processedContent.length) /
+              concatenatedContent.length) *
+            100
+          ).toFixed(1);
+          console.log(
+            `  🎨 ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName} (${concatenatedContent.length}B → ${processedContent.length}B, -${savings}%)`,
+          );
+        } else {
+          console.log(
+            `  ✓ ${relativePath} → assets/styles/${dirName ? dirName + "/" : ""}${outputFileName}`,
+          );
+        }
+      } catch (error) {
+        console.warn(
+          `⚠️  Failed to process CSS file ${filePath}:`,
+          error.message,
+        );
+        continue;
+      }
     }
   }
 
@@ -476,10 +582,16 @@ export class AssetProcessor {
       return;
     }
 
+    // Calculate base path for preserving directory structure
+    const jsBasePath = join(this.srcDir, "assets", "js");
+
     for (const jsPath of jsFiles) {
       if (!existsSync(jsPath)) continue;
 
+      // Preserve directory structure by calculating relative path
+      const relativePath = jsPath.replace(jsBasePath + "/", "");
       const fileName = basename(jsPath);
+      const dirName = dirname(relativePath);
       const content = readFileSync(jsPath, "utf8");
       const minifiedContent = await this.minifyJS(content);
       const hash = generateHash(minifiedContent);
@@ -495,18 +607,30 @@ export class AssetProcessor {
       const outputFileName = this.isProduction
         ? fileName.replace(".js", `.${hash}.js`)
         : fileName;
-      writeFileSync(join(jsDir, outputFileName), minifiedContent);
-      this.manifest[`/assets/js/${fileName}`] = `/assets/js/${outputFileName}`;
+
+      // Preserve directory structure in output
+      const outputDir = join(jsDir, dirName);
+      if (!existsSync(outputDir)) {
+        mkdirSync(outputDir, { recursive: true });
+      }
+
+      // Clean up the directory name to avoid leading dots
+      const cleanDirName = dirName === "." ? "" : dirName;
+      writeFileSync(join(outputDir, outputFileName), minifiedContent);
+      this.manifest[`/assets/js/${relativePath}`] =
+        `/assets/js/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
       if (this.isProduction) {
         const savings = (
           ((content.length - minifiedContent.length) / content.length) *
           100
         ).toFixed(1);
         console.log(
-          `  ⚡ ${fileName} → assets/js/${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`,
+          `  ⚡ ${relativePath} → assets/js/${dirName ? dirName + "/" : ""}${outputFileName} (${content.length}B → ${minifiedContent.length}B, -${savings}%)`,
         );
       } else {
-        console.log(`  ✓ ${fileName} → assets/js/${outputFileName}`);
+        console.log(
+          `  ✓ ${relativePath} → assets/js/${dirName ? dirName + "/" : ""}${outputFileName}`,
+        );
       }
     }
   }
@@ -600,6 +724,82 @@ export class AssetProcessor {
           `  ✓ ${fileName} → assets/images/${basename(outputs.fs.main)}`,
         );
       }
+    }
+  }
+
+  // ---------- Markdown (no hashing in prod for now) ----------
+  async processMarkdown(assetsDir) {
+    const mdDir = join(assetsDir, "markdown");
+    if (!existsSync(mdDir)) mkdirSync(mdDir, { recursive: true });
+
+    const mdFiles = await glob(
+      join(this.srcDir, "assets", "markdown", "**", "*.md"),
+    );
+    if (mdFiles.length === 0) {
+      console.log(
+        `  ℹ️  No markdown files found in assets/markdown directory.`,
+      );
+      return;
+    }
+
+    const markdownBasePath = join(this.srcDir, "assets", "markdown");
+
+    for (const mdPath of mdFiles) {
+      if (!existsSync(mdPath)) continue;
+
+      const relativePath = mdPath.replace(markdownBasePath + "/", "");
+      const fileName = basename(mdPath);
+      const dirName = dirname(relativePath);
+      const content = readFileSync(mdPath, "utf8");
+      const hash = generateHash(content);
+
+      // Generate hashes for templates
+      const name = basename(fileName, ".md");
+      const unsafeKey = `${name}Hash`;
+      const safeKey = `${this.#toSafeKey(name)}Hash`;
+
+      this.assetHashes[unsafeKey] = hash;
+      this.assetHashes[safeKey] = hash;
+
+      const outputFileName = this.isProduction
+        ? fileName.replace(".md", `.${hash}.md`)
+        : fileName;
+
+      // Preserve directory structure in output
+      const outputDir = join(mdDir, dirName);
+      if (!existsSync(outputDir)) {
+        mkdirSync(outputDir, { recursive: true });
+      }
+
+      const outputPath = join(outputDir, outputFileName);
+
+      // Clean up the directory name to avoid leading dots
+      const cleanDirName = dirName === "." ? "" : dirName;
+
+      const needCopy =
+        !this.isProduction ||
+        !existsSync(outputPath) ||
+        (existsSync(outputPath) &&
+          statSync(outputPath).mtimeMs < statSync(mdPath).mtimeMs);
+
+      if (needCopy) {
+        copyFileSync(mdPath, outputPath);
+
+        if (this.isProduction) {
+          console.log(
+            `  📝 ${relativePath} → assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`,
+          );
+        } else {
+          console.log(
+            `  ✓ ${relativePath} → assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`,
+          );
+        }
+      } else {
+        console.log(`  ↺ ${relativePath} (unchanged)`);
+      }
+
+      this.manifest[`/assets/markdown/${relativePath}`] =
+        `/assets/markdown/${cleanDirName ? cleanDirName + "/" : ""}${outputFileName}`;
     }
   }
 }

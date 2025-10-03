@@ -1,7 +1,6 @@
 // vite.config.js
 import { defineConfig } from "vite";
 import { createMultiLocalePlugin } from "./plugins/multi-locale-plugin.js";
-import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
   plugins: [
@@ -37,41 +36,6 @@ export default defineConfig({
         }
       },
     },
-    // Image optimization plugin
-    ViteImageOptimizer({
-      png: {
-        quality: 85
-      },
-      jpeg: {
-        quality: 85
-      },
-      jpg: {
-        quality: 85
-      },
-      tiff: {
-        quality: 85
-      },
-      gif: {},
-      webp: {
-        quality: 85
-      },
-      avif: {
-        quality: 85
-      },
-      svg: {
-        multipass: true,
-        plugins: [
-          {
-            name: 'preset-default',
-            params: {
-              overrides: {
-                removeViewBox: false,
-              },
-            },
-          },
-        ],
-      },
-    })
   ],
   // Don't use publicDir since we're handling our own static generation
   publicDir: false,
@@ -81,13 +45,13 @@ export default defineConfig({
     // Don't empty the directory since our plugin creates files there
     emptyOutDir: false,
     // Enable minification
-    minify: 'terser',
+    minify: "terser",
     // Terser options for JS minification
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
-      }
+        drop_debugger: true,
+      },
     },
     // CSS minification
     cssMinify: true,

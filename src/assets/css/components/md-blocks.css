@@ -1,0 +1,26 @@
+@layer components {
+  /* // Minimizing FOUC https://md-block.verou.me/ */
+  md-block:not([rendered]) {
+    display: none;
+  }
+
+  md-block[rendered] h1 {
+    display: block;
+    font-size: clamp(4rem, 6rem + 2vw, 6rem);
+    font-weight: 900;
+    text-wrap-mode: wrap;
+    text-wrap-style: pretty;
+    align-self: start;
+    justify-self: center;
+  }
+
+  md-block[rendered] h2 {
+    display: block;
+    font-size: clamp(2.25rem, 3.157rem + 2vw, 3.157rem);
+    font-weight: 700;
+    text-wrap-mode: wrap;
+    text-wrap-style: pretty;
+    align-self: start;
+    justify-self: center;
+  }
+}

@@ -1,0 +1,135 @@
+@layer components {
+  /* This file contains styles for the informational boxes that appear on the landing page */
+  /* These boxes provide key information about GCS in an engaging manner */
+
+  /* ---------- Info Boxes ---------- */
+  /* Info boxes are now contained within their respective step sections */
+  .step-section {
+    --font-size-info-box: 30px;
+    --font-weight-info-box: 600;
+    font-size: var(--font-size-info-box);
+    line-height: var(--font-size-info-box);
+    font-weight: var(--font-weight-info-box);
+    font-style: normal;
+    /* for desktop */
+    padding: 0rem var(--padding-desktop-horizontal);
+  }
+
+  @media screen and (max-width: 860px) {
+    .step-section {
+      padding: 0rem var(--padding-mobile-horizontal);
+    }
+  }
+
+  .info-box {
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 834px;
+    min-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    transform: translateY(20px) scale(1);
+    transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: rgba(26, 88, 108, 0.5);
+    backdrop-filter: blur(15px);
+    color: var(--blanc-cass, #f4f0eb);
+    letter-spacing: -1.8px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
+    /* Position relative within step section */
+    position: relative;
+    /* /* margin-left: 1rem; */
+    margin-bottom: 4rem;
+  }
+
+  /* Info boxes are now positioned within their step sections */
+  /* No individual positioning needed - handled by step-section layout */
+
+  .info-box p {
+    color: var(--blanc-cass, #f4f0eb);
+    letter-spacing: -1.8px;
+    margin: 0px;
+  }
+
+  .info-box i {
+    color: var(--vert-punchy, #90e036);
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: -1.8px;
+  }
+
+  .info-box h3 {
+    color: var(--blanc-cass, #f4f0eb);
+    font-size: var(--font-size-info-box);
+    font-style: normal;
+    font-weight: var(--font-weight-info-box);
+    line-height: var(--font-size-info-box);
+    letter-spacing: -1.8px;
+    margin: 0px;
+  }
+
+  .icon-small {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icon-medium {
+    width: 45px;
+    height: 45px;
+  }
+
+  .icon-large {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Enable pointer events for interactive elements even when info-box is not active */
+  .info-box term-tooltip,
+  .info-box .term-link {
+    pointer-events: auto;
+  }
+
+  .info-box.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Enhanced visual feedback for step transitions */
+  .info-box.transitioning-in {
+    transform: translateY(0) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .info-box.transitioning-out {
+    transform: translateY(5px) scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* Scroll momentum feedback styles */
+  body.high-momentum .info-box.active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.18);
+  }
+
+  body.low-momentum .info-box.active {
+    transform: translateY(0) scale(1.01);
+  }
+
+  .info-box-0 {
+    font-weight: 900;
+    top: 5rem;
+    position: absolute;
+    left: 400px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    .info-box-0 {
+      left: 20%;
+    }
+  }
+}

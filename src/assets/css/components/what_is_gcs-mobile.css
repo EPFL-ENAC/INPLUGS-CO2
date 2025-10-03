@@ -1,0 +1,15 @@
+/* ---------- Mobile adjustments for State 2 ---------- */
+/* NOTE: Using --breakpoint-mobile-small value (680px) for very small screens. */
+@media (max-width: 680px) {
+  .info-box {
+    max-width: 240px;
+    padding: 1.25rem;
+  }
+
+  .btn-close {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}

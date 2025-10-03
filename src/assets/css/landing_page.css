@@ -1,0 +1,190 @@
+@layer components {
+  :root {
+    --breakpoint-landing-page: 860px;
+  }
+  :host {
+    display: block;
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+    --font-family-primary:
+      Archivo, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, sans-serif;
+    font-family: var(--font-family-primary);
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    font-family: var(--font-family-primary);
+  }
+
+  /* ---------- Grid layout ---------- */
+  .landing_page {
+    display: grid;
+    grid-template-columns: 1fr 420px; /* fluid text column | fixed image column */
+    gap: 3rem;
+    /* min-height: 100vh; full-screen feel */
+    /* padding: 3rem 5vw; */
+    background: var(--landing-page-blue);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ---------- Left column ---------- */
+  .landing_page__content {
+    align-self: center;
+    color: var(--brand-fg);
+    display: grid;
+    grid-auto-columns: auto;
+  }
+  @media screen and (max-width: 860px) {
+    .landing_page__content {
+      justify-items: center;
+      align-self: start;
+      text-align: center;
+    }
+    .landing_page__content h1,
+    .landing_page__content h2 {
+      text-align: center;
+      max-width: 20ch;
+    }
+  }
+
+  /* // TODO FONT problem */
+  .landing_page__content h1 {
+    margin: 0 0 2rem;
+    font:
+      900 4.8rem/1.2 "Archivo",
+      sans-serif;
+    max-width: 40ch;
+    text-wrap: balance; /* balance lines if wrapping */
+    text-wrap-mode: pretty; /* better line breaks */
+    display: inline-block; /* already needed for ::first-letter */
+  }
+
+  .landing_page__content h2 {
+    margin: 0 0 2rem;
+    font:
+      700 2.8rem/1.2 "Archivo",
+      sans-serif;
+    max-width: 40ch;
+    text-wrap: balance; /* balance lines if wrapping */
+    text-wrap-mode: pretty; /* better line breaks */
+    display: inline-block; /* already needed for ::first-letter */
+  }
+
+  h1 span,
+  h1 i,
+  h2 span,
+  h2 i {
+    font-style: inherit; /* keep normal style, just color first letter */
+    display: inline-block;
+    font-weight: inherit;
+  }
+  h1 i,
+  h2 i,
+  h1 span::first-letter,
+  h2 span::first-letter {
+    color: var(--canard, #1a586c);
+  }
+  h1 {
+    font-weight: 900;
+  }
+  .btn-cta,
+  .btn-back {
+    display: inline-block;
+    padding: 1rem 2.25rem;
+    font: 600 1rem/1 sans-serif;
+    background: var(--lime-bright);
+    color: var(--black);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    max-width: fit-content;
+  }
+
+  .btn-cta:hover,
+  .btn-back:hover {
+    transform: translateY(-3px);
+  }
+
+  .btn-back {
+    background: color-mix(in srgb, var(--white), transparent 10%);
+    color: var(--black);
+  }
+
+  /* ---------- Right column ---------- */
+  .landing_page__visual {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    /*  10 rem is padding of content + navbar */
+    height: calc(100dvh - 10rem);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-height: 950px) {
+    .landing_page__visual {
+      height: calc(100dvh - 6rem);
+      align-items: start;
+    }
+  }
+
+  .svg-container {
+    width: 100%;
+    background: linear-gradient(0deg, #978c6f, #00aad8);
+  }
+
+  .landing_page__visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .landing_page__visual img,
+  .landing_page__visual picture {
+    min-width: 390px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .landing_page__visual picture {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .landing_page__visual img {
+    display: block;
+    height: calc(100vh - 10rem);
+    /* object-fit: fill;
+    object-position: top; */
+    object-fit: cover;
+    object-position: top; /* crop from bottom first */
+  }
+
+  /* ---------- Mobile adjustments ---------- */
+  /* NOTE: CSS var() cannot be used inside media query conditions in current browsers, so we use the literal fallback value (860px). */
+  @media (max-width: 860px) {
+    .landing_page {
+      grid-template-columns: 1fr; /* single column */
+      gap: 0.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .landing_page__visual {
+      height: auto; /* let image size naturally */
+      margin-top: 2rem;
+    }
+    .landing_page__visual img {
+      width: 100%; /* full width on small screens */
+      height: auto;
+      object-fit: cover; /* or contain, etc. */
+      border-radius: 8px;
+    }
+  }
+}

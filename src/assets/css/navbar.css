@@ -1,0 +1,21 @@
+/* 
+ * INPLUGS Navbar Component Styles
+ * 
+ * Restructured navbar styles with improved organization and consistency.
+ * Files are organized by component following BEM methodology:
+ * - navbar-core.css: Core navbar structure, layout, and shared styles
+ * - navbar-navigation.css: Navigation links and dropdowns
+ * - navbar-language.css: Language switcher styles
+ * - navbar-mobile.css: Mobile-specific styles and overrides
+ * - navbar-animations.css: All animation and transition styles
+ */
+
+/* Import all navbar component styles */
+@import "./components/navbar-core.css";
+@import "./components/navbar-navigation.css";
+@import "./components/navbar-language.css";
+@import "./components/navbar-mobile.css";
+@import "./components/navbar-animations.css";
+
+/* Maintain backward compatibility */
+@layer components;

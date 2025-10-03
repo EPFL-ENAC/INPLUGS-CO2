@@ -8,6 +8,9 @@ npm-shrinkwrap.json
 .python-version
 *mp4
 *webm
+*woff2
+*woof
+*license
 
 # Python files and environments
 backend/.venv/*
@@ -61,3 +64,6 @@ CITATION.cff
 *.njk
 *.jinja
 *.j2
+
+# Images
+public/assets/images/*
