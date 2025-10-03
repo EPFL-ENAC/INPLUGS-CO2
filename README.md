@@ -1147,14 +1147,18 @@ This workflow ensures efficient development while maintaining full control over 
 ## 📝 How to Change Text in the App
 
 ### Quick Overview
+
 Text in this app is stored in 2 language files:
+
 - **English**: `src/data/en.json`
 - **French**: `src/data/fr.json`
 
 ### Step-by-Step Guide
 
 #### 1. Find the Page You Want to Change
+
 All pages are in the `src/pages/` folder:
+
 - `landing_page.njk` - Home page
 - `about.njk` - About page
 - `data.njk` - Data page
@@ -1162,12 +1166,16 @@ All pages are in the `src/pages/` folder:
 - `links.njk` - Links page
 
 #### 2. Open the Language Files
+
 Open both language files in a text editor:
+
 - `src/data/en.json` (English text)
 - `src/data/fr.json` (French text)
 
 #### 3. Find the Text to Change
+
 Language files are organized by page sections:
+
 ```json
 {
   "homepage": {
@@ -1186,19 +1194,21 @@ Language files are organized by page sections:
 ```
 
 #### 4. Locate the Text Key
+
 In the page file (`.njk`), look for text like this:
+
 ```html
-{{ t("homepage.title") }}
-{{ t("about.team") }}
-{{ t("data.subtitle") }}
+{{ t("homepage.title") }} {{ t("about.team") }} {{ t("data.subtitle") }}
 ```
 
 The part in quotes (`"homepage.title"`) tells you where to find the text in the language files.
 
 #### 5. Update the Text
+
 Change the text in **both** language files:
 
 **English** (`src/data/en.json`):
+
 ```json
 {
   "homepage": {
@@ -1208,6 +1218,7 @@ Change the text in **both** language files:
 ```
 
 **French** (`src/data/fr.json`):
+
 ```json
 {
   "homepage": {
@@ -1217,6 +1228,7 @@ Change the text in **both** language files:
 ```
 
 #### 6. Save and Test
+
 1. Save both files
 2. Refresh your browser
 3. Check both English and French versions
@@ -1231,11 +1243,13 @@ Change the text in **both** language files:
 ### 🔍 Example: Changing the Homepage Title
 
 **Step 1**: Open `src/pages/landing_page.njk` and find:
+
 ```html
 <h1>{{ t("homepage.hero.title") }}</h1>
 ```
 
 **Step 2**: Open `src/data/en.json` and find:
+
 ```json
 {
   "homepage": {
@@ -1247,6 +1261,7 @@ Change the text in **both** language files:
 ```
 
 **Step 3**: Change both files:
+
 ```json
 // English (src/data/en.json)
 {
@@ -1278,6 +1293,7 @@ Change the text in **both** language files:
 - ❌ Breaking the JSON structure with extra or missing brackets
 
 ### ✅ That's It!
+
 Text changes are that simple. Just remember: find the key in the page, update the text in both language files, save, and refresh!
 
 ## 📚 Related Projects
