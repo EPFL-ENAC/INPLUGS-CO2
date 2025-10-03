@@ -3,7 +3,7 @@
     <div class="links-content">
         <link rel="stylesheet" href='{{ asset("/assets/styles/links.css") }}'>
         <main class="links_page">
-            <section class="ipcc">
+            <section class="ipcc" id="news">
                 <h2 class="info_title"> {{ t("links.info")}} </h2>
                 <h1 class="ipcc_title"> {{ t("links.ipcc")}} </h1>
                 <div class="ipcc_wrapper">
@@ -11,7 +11,7 @@
                     <img class="ipcc_img" src="{{ asset("/assets/images/links/missing-image.jpg") }}" alt="IPCC Image">
                 </div>
             </section>
-            <section class="articles">
+            <section class="articles" id="articles">
                 <h1 class="articles_title"> {{ t("links.articles_title")}} </h1>
                 <div class="articles_wrapper">
                     <img class="article_img" src="about:blank" alt="Articles Image">

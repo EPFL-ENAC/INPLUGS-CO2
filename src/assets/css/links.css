@@ -1,4 +1,9 @@
 @layer components {
+  section > * {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
   .articles {
     background-color: white;
   }

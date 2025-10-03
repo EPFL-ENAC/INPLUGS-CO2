@@ -374,7 +374,7 @@ function initMaps() {
   // Create Switzerland map with geo-based approach
   const switzerlandOption = {
     title: {
-      text: "Switzerland Geological Carbon Storage Data",
+      text: `${i18n.swiss.map_title}`,
       left: "center",
       textStyle: {
         fontSize: 16,
@@ -415,7 +415,7 @@ function initMaps() {
     },
     series: [
       {
-        name: "Future",
+        name: `${i18n.swiss.future}`,
         type: "scatter",
         coordinateSystem: "geo",
         symbol: "circle",
@@ -433,7 +433,7 @@ function initMaps() {
         data: switzerlandPoints,
       },
       {
-        name: "Ongoing",
+        name: `${i18n.swiss.ongoing}`,
         type: "scatter",
         coordinateSystem: "geo",
         symbol: "circle",
@@ -451,7 +451,7 @@ function initMaps() {
         data: switzerlandPoints,
       },
       {
-        name: "Goals",
+        name: `${i18n.swiss.goal}`,
         type: "scatter",
         coordinateSystem: "geo",
         symbol: "circle",

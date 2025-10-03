@@ -41,4 +41,18 @@
     cursor: pointer;
     margin-bottom: 1rem;
   }
+
+  li {
+    /*change bullet style*/
+    list-style-type: circle;
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: var(--canard);
+    text-decoration: none;
+    font-size: 2rem;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
 }

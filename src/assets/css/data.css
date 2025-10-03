@@ -3,6 +3,31 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Hide all content */
+  main.data_page {
+    display: none;
+  }
+
+  /* Show construction message */
+  .data-content::after {
+    content: "🚧 Page Under Construction 🚧";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 8.5rem;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--blanc-cass, #f4f0eb);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--noir, #000);
+    text-align: center;
+    z-index: 1000;
+  }
+
   .data-content {
     --breakpoint-landing-page: 860px;
     --canard: #1a586c;

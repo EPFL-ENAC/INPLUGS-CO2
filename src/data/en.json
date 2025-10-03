@@ -20,23 +20,23 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO₂ is <i>captured</i> directly from large emitters before being released in the atmosphere"
+        "description": "CO₂ is <term-tooltip term=\"captured\">captured</term-tooltip> directly from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<i>Captured</i> CO₂ is compressed to <i>liquid</i> or <i>supercritical</i> form and injected in the subsurface at min. depth 700-800m"
+        "description": "<term-tooltip term=\"captured\">Captured</term-tooltip> CO₂ is compressed to <term-tooltip term=\"liquid\">liquid</term-tooltip> or <term-tooltip term=\"supercritical\">supercritical</term-tooltip> form and injected in the subsurface at min. depth 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "CO₂ is injected in a <i>porous</i> geological layer that is called <i>reservoir</i>"
+        "description": "CO₂ is injected in a <term-tooltip term=\"porous\">porous</term-tooltip> geological layer that is called <term-tooltip term=\"reservoir\">reservoir</term-tooltip>"
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO₂ is <i>less dense</i> than the existing water in the pores of the reservoir, and starts migrating upwards"
+        "description": "The injected CO₂ is <term-tooltip term=\"less dense\">less dense</term-tooltip> than the existing water in the pores of the reservoir, and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <i>buoyant</i> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <i>hydromechanical barrier</i>"
+        "description": "The <term-tooltip term=\"buoyant\">buoyant</term-tooltip> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <term-tooltip term=\"hydromechanical barrier\">hydromechanical barrier</term-tooltip>"
       }
     }
   },
@@ -85,13 +85,26 @@
       "initiative_3": {
         "name": "Regulatory Framework",
         "description": "Switzerland is working on establishing a regulatory framework to ensure the safe and effective implementation of geological carbon storage."
-      }
+      },
+      "map_title": "Map of potential geological carbon storage sites in Switzerland",
+      "goal": "Goals",
+      "ongoing": "Ongoing",
+      "future": "Future"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "FAQ",
+      "subtitle": "Frequently Asked Questions",
       "q1": {
         "question": "Is geological carbon storage safe?",
         "answer": "Yes, when properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
+      },
+      "q2": {
+        "question": "How does GCS work?",
+        "answer": "GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored."
+      },
+      "q3": {
+        "question": "Is GCS safe?",
+        "answer": "Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure."
       }
     },
     "title": "GCS • What & Why"
@@ -103,9 +116,9 @@
     "subtitle2": "<span class=\"turquoise\">S</span>caled-up <span class=\"turquoise\">Ph</span>ysical modell<span class=\"turquoise\">IN</span>g of <span class=\"turquoise\">C</span>O2 <span class=\"turquoise\">S</span>torage",
     "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
-  "": {
+  "dictionary": {
     "title": "Glossary",
-    "description": "",
+    "description": "Essentials terms to understand Geological Carbon Storage (GCS).",
     "gcs": {
       "term": "GCS",
       "definition": "Lorem Ipsum"
@@ -143,16 +156,71 @@
       "definition": "Lorem Ipsum"
     },
     "permeable": {
-      "term": "Pérméabilité",
+      "term": "Permeable",
       "definition": "Lorem Ipsum"
     },
     "pilot_project": {
       "term": "Pilot project",
       "definition": "Lorem Ipsum"
+    },
+    "captured": {
+      "term": "Captured",
+      "definition": "Lorem ipsum"
+    },
+    "supercritical": {
+      "term": "Supercritical",
+      "definition": "Lorem ipsum"
+    },
+    "porous": {
+      "term": "Porous",
+      "definition": "Lorem ipsum"
+    },
+    "reservoir": {
+      "term": "Reservoir",
+      "definition": "Lorem ipsum"
+    },
+    "less dense": {
+      "term": "Less dense",
+      "definition": "Lorem ipsum"
+    },
+    "buoyant": {
+      "term": "Buoyant",
+      "definition": "Lorem ipsum"
+    },
+    "hydromechanical barrier": {
+      "term": "Hydromechanical barrier",
+      "definition": "Lorem ipsum"
+    },
+    "references": {
+      "title": "References",
+      "link1": "Link 1",
+      "link2": "Link 2",
+      "link3": "Link 3"
     }
   },
   "links": {
-    "title": "Useful links"
+    "info": "Stay informed ! Our team shares its favorite links and articles on this page.",
+    "ipcc": "IPCC",
+    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+    "articles_title": "Selected Articles",
+    "articles": {
+      "article1": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article2": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article3": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article4": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      }
+    }
   },
   "about": {
     "missions": {
@@ -189,6 +257,10 @@
         "Hugo": {
           "name": "Hugo",
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Trainee, ENAC-IT4Research, EPFL - Contributed to programming the website's architecture"
         }
       }
     },
@@ -208,7 +280,9 @@
         "message": "Message",
         "message_placeholder": "Message",
         "submit": "Submit"
-      }
+      },
+      "subtitle": "Join us",
+      "text": "Should you be more specifically interested in partnering with us, please note that the LMS-INPLUGS is indeed willing to team up with businesses, philanthropic organizations and individuals in order to meet its short terms goals and achieve its long-term missions."
     },
     "support": {
       "title": "Support",

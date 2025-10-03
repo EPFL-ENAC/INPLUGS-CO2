@@ -54,14 +54,6 @@
       "title": "Data",
       "themeColor": "#FFF",
       "anchors": {
-        "en": [
-          { "id": "gcs-numbers", "title": "GCS in numbers" },
-          { "id": "sphincs", "title": "SPHINCS" }
-        ],
-        "fr": [
-          { "id": "gcs-numbers", "title": "GCS en nombres" },
-          { "id": "sphincs", "title": "SPHINCS" }
-        ],
         "hidden": false
       }
     },
@@ -77,8 +69,14 @@
       },
       "themeColor": "#FFF",
       "anchors": {
-        "en": [{ "id": "references", "title": "References" }],
-        "fr": [{ "id": "references", "title": "Références" }]
+        "en": [
+          { "id": "references", "title": "References" },
+          { "id": "glossary", "title": "Glossary" }
+        ],
+        "fr": [
+          { "id": "references", "title": "Références" },
+          { "id": "glossary", "title": "Glossaire" }
+        ]
       }
     },
     {

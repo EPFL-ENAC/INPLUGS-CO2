@@ -23,23 +23,23 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "Le CO₂ est <i>capturé</i> directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
+        "description": "Le CO₂ est <term-tooltip term=\"capturé\">capturé</term-tooltip> directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "Le CO₂ <i>capturé</i> est comprimé sous forme <i>liquide</i> ou <i>supercritique</i> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
+        "description": "Le CO₂ <term-tooltip term=\"capturé\">capturé</term-tooltip> est comprimé sous forme <term-tooltip term=\"liquide\">liquide</term-tooltip> ou <term-tooltip term=\"supercritique\">supercritique</term-tooltip> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "Le CO₂ est injecté dans une couche géologique <i>poreuse</i> appelée <i>réservoir</i>."
+        "description": "Le CO₂ est injecté dans une couche géologique <term-tooltip term=\"poreuse\">poreuse</term-tooltip> appelée <term-tooltip term=\"réservoir\">réservoir</term-tooltip>."
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "Le CO₂ injecté est moins <i>dense</i> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
+        "description": "Le CO₂ injecté est moins <term-tooltip term=\"dense\">dense</term-tooltip> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "Le CO₂ <i>flottant</i> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <i>caprock</i>, une autre couche géologique qui agit comme une <i>barrière hydromécanique</i>."
+        "description": "Le CO₂ <term-tooltip term=\"flottant\">flottant</term-tooltip> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <term-tooltip term=\"caprock\">caprock</term-tooltip>, une autre couche géologique qui agit comme une <term-tooltip term=\"barrière hydromécanique\">barrière hydromécanique</term-tooltip>."
       }
     }
   },
@@ -88,11 +88,24 @@
       "initiative_3": {
         "name": "Cadre réglementaire",
         "description": "La Suisse travaille à l’établissement d’un cadre réglementaire garantissant une mise en œuvre sûre et efficace du stockage géologique du carbone."
-      }
+      },
+      "map_title": "Données suisses sur le stockage géologique du carbone",
+      "goal": "Objectifs",
+      "ongoing": "En cours",
+      "future": "Futur"
     },
     "faq": {
       "title": "Foire aux questions",
+      "subtitle": "Questions fréquemment posées",
       "q1": {
+        "question": "Le stockage géologique du carbone est-il sûr ?",
+        "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
+      },
+      "q2": {
+        "question": "Comment fonctionne le stockage géologique du carbone ?",
+        "answer": "Le stockage géologique du carbone fonctionne en capturant le CO₂ à sa source, en le comprimant, en le transportant vers un site de stockage, puis en l’injectant dans des formations rocheuses profondes où il est stocké de manière permanente."
+      },
+      "q3": {
         "question": "Le stockage géologique du carbone est-il sûr ?",
         "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
       }
@@ -117,8 +130,8 @@
       "term": "Caprock",
       "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
     },
-    "density": {
-      "term": "Density",
+    "dense": {
+      "term": "Dense",
       "definition": "Lorem Ipsum"
     },
     "dissolution": {
@@ -150,15 +163,49 @@
       "definition": "Lorem Ipsum"
     },
     "pilot_project": {
-      "term": "Pilot project",
+      "term": "Projet pilote",
       "definition": "Lorem Ipsum"
+    },
+    "capturé": {
+      "term": "Capturé",
+      "definition": "Lorem ipsum"
+    },
+    "liquide": {
+      "term": "Liquide",
+      "definition": "Lorem ipsum"
+    },
+    "supercritique": {
+      "term": "Supercritique",
+      "definition": "Lorem ipsum"
+    },
+    "poreuse": {
+      "term": "Poreuse",
+      "definition": "Lorem ipsum"
+    },
+    "réservoir": {
+      "term": "Réservoir",
+      "definition": "Lorem ipsum"
+    },
+    "flottant": {
+      "term": "Flottant",
+      "definition": "Lorem ipsum"
+    },
+    "barrière hydromécanique": {
+      "term": "Barrière hydromécanique",
+      "definition": "Lorem ipsum"
+    },
+    "references": {
+      "title": "Références",
+      "link1": "Lien 1",
+      "link2": "Lien 2",
+      "link3": "Lien 3"
     }
   },
   "links": {
     "info": "Restez informé·e ! Notre équipe partage ses liens, articles préférés sur cette page  ",
     "ipcc": "IPCC",
     "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
-    "articles_title": "Selected Articles",
+    "articles_title": "Articles sélectionnés",
     "articles": {
       "article1": {
         "title": "Le titre de l'article",
@@ -188,31 +235,35 @@
       "member": {
         "Eleni": {
           "name": "Eleni",
-          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
+          "role": "Collaboratrice scentifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
         },
         "Helene": {
           "name": "Hélène",
-          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
+          "role": "Vérification et synthèse des sources de données GCS, révision du texte du site web"
         },
         "Laetitia": {
           "name": "Laetitia",
-          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+          "role": "Stagiaire Interactive Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
         },
         "Marc": {
           "name": "Marc",
-          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+          "role": "Collaboratrice scentifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
         },
         "Pierre": {
           "name": "Pierre",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmation du site web"
         },
         "Charlie": {
           "name": "Charlie",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Gestion de la livraison du site web"
         },
         "Hugo": {
           "name": "Hugo",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Cogestion de la livraison du site web"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Stagiaire, ENAC-IT4Research, EPFL - Contribution à la programmation du site web"
         }
       }
     },
@@ -232,7 +283,9 @@
         "message": "Message",
         "message_placeholder": "Message",
         "submit": "Soumettre"
-      }
+      },
+      "subtitle": "Rejoignez-nous",
+      "text": "Si vous êtes intéressé par un partenariat avec nous, sachez que LMS-INPLUGS est disposé à collaborer avec des entreprises, des organisations philanthropiques et des particuliers afin d'atteindre ses objectifs à court terme et de réaliser ses missions à long terme."
     },
     "support": {
       "title": "Support",

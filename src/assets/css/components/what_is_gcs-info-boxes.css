@@ -119,4 +119,17 @@
   body.low-momentum .info-box.active {
     transform: translateY(0) scale(1.01);
   }
+
+  .info-box-0 {
+    font-weight: 900;
+    top: 5rem;
+    position: absolute;
+    left: 400px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    .info-box-0 {
+      left: 20%;
+    }
+  }
 }
