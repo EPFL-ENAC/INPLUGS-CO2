@@ -92,7 +92,16 @@
     },
     "faq": {
       "title": "Foire aux questions",
+      "subtitle": "Questions fréquemment posées",
       "q1": {
+        "question": "Le stockage géologique du carbone est-il sûr ?",
+        "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
+      },
+      "q2": {
+        "question": "Comment fonctionne le stockage géologique du carbone ?",
+        "answer": "Le stockage géologique du carbone fonctionne en capturant le CO₂ à sa source, en le comprimant, en le transportant vers un site de stockage, puis en l’injectant dans des formations rocheuses profondes où il est stocké de manière permanente."
+      },
+      "q3": {
         "question": "Le stockage géologique du carbone est-il sûr ?",
         "answer": "Oui, lorsqu’il est correctement encadré, le stockage géologique du carbone est considéré comme sûr. Il consiste à injecter du CO₂ dans des formations rocheuses profondes bien caractérisées et surveillées afin d’éviter les fuites."
       }
@@ -192,7 +201,7 @@
     "info": "Restez informé·e ! Notre équipe partage ses liens, articles préférés sur cette page  ",
     "ipcc": "IPCC",
     "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
-    "articles_title": "Selected Articles",
+    "articles_title": "Articles séléctionnés",
     "articles": {
       "article1": {
         "title": "Le titre de l'article",
@@ -222,31 +231,35 @@
       "member": {
         "Eleni": {
           "name": "Eleni",
-          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
+          "role": "Collaboratrice scentifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
         },
         "Helene": {
           "name": "Hélène",
-          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
+          "role": "Vérification et synthèse des sources de données GCS, révision du texte du site web"
         },
         "Laetitia": {
           "name": "Laetitia",
-          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+          "role": "Stagiaire Interactive Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
         },
         "Marc": {
           "name": "Marc",
-          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+          "role": "Collaboratrice scentifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
         },
         "Pierre": {
           "name": "Pierre",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmation du site web"
         },
         "Charlie": {
           "name": "Charlie",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Gestion de la livraison du site web"
         },
         "Hugo": {
           "name": "Hugo",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Cogestion de la livraison du site web"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Stagiaire, ENAC-IT4Research, EPFL - Contribution à la programmation du site web"
         }
       }
     },

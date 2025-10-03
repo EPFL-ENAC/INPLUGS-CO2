@@ -88,10 +88,19 @@
       }
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "FAQ",
+      "subtitle": "Frequently Asked Questions",
       "q1": {
         "question": "Is geological carbon storage safe?",
         "answer": "Yes, when properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
+      },
+      "q2": {
+        "question": "How does GCS work?",
+        "answer": "GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored."
+      },
+      "q3": {
+        "question": "Is GCS safe?",
+        "answer": "Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure."
       }
     },
     "title": "GCS • What & Why"
@@ -143,7 +152,7 @@
       "definition": "Lorem Ipsum"
     },
     "permeable": {
-      "term": "Pérméabilité",
+      "term": "Permeable",
       "definition": "Lorem Ipsum"
     },
     "pilot_project": {
@@ -185,8 +194,29 @@
       "link3": "Link 3"
     }
   },
-  "links": {
-    "title": "Useful links"
+"links": {
+    "info": "Stay informed ! Our team shares its favorite links and articles on this page.",
+    "ipcc": "IPCC",
+    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
+    "articles_title": "Selected Articles",
+    "articles": {
+      "article1": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article2": {
+        "title": "Article's title",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article3": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      },
+      "article4": {
+        "title": "Article's title but long",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      }
+    }
   },
   "about": {
     "missions": {
@@ -223,6 +253,10 @@
         "Hugo": {
           "name": "Hugo",
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+        },
+        "Quentin": {
+          "name": "Quentin",
+          "role": "Trainee, ENAC-IT4Research, EPFL - Contributed to programming the website's architecture"
         }
       }
     },
