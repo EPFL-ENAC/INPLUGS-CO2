@@ -279,7 +279,9 @@
         "message": "Message",
         "message_placeholder": "Message",
         "submit": "Soumettre"
-      }
+      },
+      "subtitle": "Rejoignez-nous",
+      "text": "Si vous êtes intéressé par un partenariat avec nous, sachez que LMS-INPLUGS est disposé à collaborer avec des entreprises, des organisations philanthropiques et des particuliers afin d'atteindre ses objectifs à court terme et de réaliser ses missions à long terme."
     },
     "support": {
       "title": "Support",
