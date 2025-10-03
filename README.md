@@ -107,9 +107,9 @@ touch src/pages/contact.njk
 ```
 
 3. Add translations to your locale files:
-
+- [src/data/en.json](src/data/en.json)
 ```json
-// src/data/en.json
+
 {
   "contact": {
     "title": "Contact Us",
@@ -1150,8 +1150,13 @@ This workflow ensures efficient development while maintaining full control over 
 
 Text in this app is stored in 2 language files:
 
-- **English**: `src/data/en.json`
-- **French**: `src/data/fr.json`
+- **English**: - [src/data/en.json](src/data/en.json)
+- **French**: - [src/data/fr.json](src/data/fr.json)
+
+Text for the about page may be stored also in markdown document in 
+
+- **English**: - [src/assets/markdown](src/assets/markdown)
+- **French**: - [src/assets/markdown](src/assets/markdown)
 
 ### Step-by-Step Guide
 
