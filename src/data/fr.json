@@ -88,7 +88,11 @@
       "initiative_3": {
         "name": "Cadre réglementaire",
         "description": "La Suisse travaille à l’établissement d’un cadre réglementaire garantissant une mise en œuvre sûre et efficace du stockage géologique du carbone."
-      }
+      },
+      "map_title": "Données suisses sur le stockage géologique du carbone",
+      "goal": "Objectifs",
+      "ongoing": "En cours",
+      "future": "Futur"
     },
     "faq": {
       "title": "Foire aux questions",

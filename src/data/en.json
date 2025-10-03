@@ -85,7 +85,11 @@
       "initiative_3": {
         "name": "Regulatory Framework",
         "description": "Switzerland is working on establishing a regulatory framework to ensure the safe and effective implementation of geological carbon storage."
-      }
+      },
+      "map_title": "Map of potential geological carbon storage sites in Switzerland",
+      "goal": "Goals",
+      "ongoing": "Ongoing",
+      "future": "Future"
     },
     "faq": {
       "title": "FAQ",
