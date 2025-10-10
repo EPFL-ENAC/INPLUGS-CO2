@@ -1,8 +1,8 @@
 @layer components {
-  :root{
-    --canard: #1A586C;
+  :root {
+    --canard: #1a586c;
   }
-  
+
   section#team {
     min-height: 1vh;
     padding-bottom: 5rem;
@@ -59,7 +59,8 @@
     margin-bottom: 0;
   }
 
-  .member_status, .member_org{
+  .member_status,
+  .member_org {
     color: var(--canard);
   }
 
