@@ -27,12 +27,13 @@
   .team_member {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; /* Changed from center to stretch */
     text-align: left;
     height: fit-content;
     gap: 0;
     height: 100%;
-    background-color: lightgray;
+    max-width: 274px; /* Add max-width to constrain the entire member container */
+    margin: 0 auto; /* Center the member within the grid cell */
   }
 
   .team_member.empty {
@@ -47,11 +48,12 @@
   }
 
   .member_info {
-    padding: 1rem;
+    padding: 0.5rem; /* Add some padding for readability */
     font-size: 0.85rem;
-    margin-top: 0;
-    width: 100%;
-    justify-content: flex-end;
+    margin: 0;
+    width: 100%; /* This will now match the image width */
+    background-color: lightgray;
+    height:100%;
   }
 
   .member_name {
