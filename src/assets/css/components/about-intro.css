@@ -1,0 +1,37 @@
+@layer components {
+  /* section intro */
+  section.about_intro {
+    min-height: 1vh;
+    padding-bottom: 5rem;
+    padding-top: 5rem;
+    background-color: var(--blanc-cass);
+  }
+
+  h2.intro_subtitle {
+    font-size: 2rem;
+  }
+
+  h1.intro_title {
+    color: var(--vert);
+  }
+
+  .intro_text {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem; /* Add some space between the wrappers */
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .public_wrapper {
+    flex: 1; /* Make both wrappers take equal width */
+  }
+
+  .about_intro > h2 {
+    font-size: 1.5rem;
+  }
+
+  h3.public_title {
+    color: var(--vert);
+  }
+}
