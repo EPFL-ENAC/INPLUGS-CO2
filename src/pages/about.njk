@@ -12,9 +12,19 @@
         <main class="about_page">
             <!-- about section-->
              <section class="about_intro" id="about-intro">
-                <md-block src='{{ asset("/assets/markdown/about_" + locale + ".md") }}' class="about__intro">
-                    `{{ asset("/assets/markdown/about_" + locale + ".md") }}` was *not* found.
-                </md-block>
+                <h1 class="intro_title">{{ t("about.intro.title") }}</h1>
+                <h2 class="intro_subtitle">{{ t("about.intro.subtitle") }}</h2>
+                <div class="intro_text">
+                    <div class="public_wrapper">
+                        <h3 class="public_title">{{ t("about.intro.public.general.title") }}</h3>
+                        <div class=public_text>{{ t("about.intro.public.general.text") }}</div>
+                    </div>
+                    <div class=public_wrapper>
+                        <h3 class="public_title">{{ t("about.intro.public.academic.title") }}</h3>
+                        <div class=public_text>{{ t("about.intro.public.academic.text") }}</div>
+                    </div>
+                </div>
+                <h2 class="intro_subtitle">{{ t("about.intro.subtitle_2") }}</h2>
             </section>
             <!-- team section -->
             <section id="{{ navItemsMap.about.anchors[0].id }}" class="{{ navItemsMap.about.anchors[0].id }}">
@@ -67,6 +77,13 @@
                     <div class="member_info">
                         <h2 class="member_name"> {{ t("about.team.member.Hugo.name") }} </h2>
                         <h3 class="member_role"> {{ t("about.team.member.Hugo.role") }} </h3>
+                    </div>
+                </div>
+                <div class="team_member quentin">
+                    <img class="member_img" src="{{ asset("/assets/images/about/Quentin_Eschmann.jpg") }}" alt="Member Image">
+                    <div class="member_info">
+                        <h2 class="member_name"> {{ t("about.team.member.Quentin.name") }} </h2>
+                        <h3 class="member_role"> {{ t("about.team.member.Quentin.role") }} </h3>
                     </div>
                 </div>
                 </div>

@@ -1,15 +1,15 @@
 @layer components {
+  @import "./components/about-intro.css";
   @import "./components/about-team.css";
   @import "./components/about-missions-values.css";
   @import "./components/about-contact-form.css";
   @import "./components/about-funding.css";
 
-  /* section about */
-  section.about_intro {
+  section {
     min-height: 1vh;
-    padding-bottom: 5rem;
+    --vert: #087065;
   }
-
+  
   h1 {
     display: block;
     font-size: clamp(4rem, 6rem + 2vw, 6rem);
