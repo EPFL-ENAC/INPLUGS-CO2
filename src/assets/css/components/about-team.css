@@ -53,7 +53,7 @@
     margin: 0;
     width: 100%; /* This will now match the image width */
     background-color: lightgray;
-    height:100%;
+    height: 100%;
   }
 
   .member_name {
