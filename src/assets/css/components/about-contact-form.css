@@ -13,7 +13,7 @@
     text-wrap-mode: wrap;
     text-wrap-style: pretty;
     align-self: start;
-    justify-self: center;
+    justify-self: left;
   }
 
   .about__contact-form label {
