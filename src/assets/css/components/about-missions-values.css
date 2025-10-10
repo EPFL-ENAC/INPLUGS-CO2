@@ -1,4 +1,9 @@
 @layer components {
+
+  section.mission-values {
+    background-color: var(--vert-turquoise);
+  }
+
   .missions_title {
     font-family: var(--font-family-primary);
     font-size: 5rem;

@@ -1,4 +1,8 @@
 @layer components {
+  :root{
+    --canard: #1A586C;
+  }
+  
   section#team {
     min-height: 1vh;
     padding-bottom: 5rem;
@@ -9,7 +13,7 @@
   }
   .team_members {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     /* each row exactly 500px tall */
     /* grid-auto-rows: 500px; */
     grid-auto-rows: auto;
@@ -27,6 +31,10 @@
     background-color: lightgray;
   }
 
+  .team_member.empty {
+    visibility: hidden; /* or display: none; */
+  }
+
   .member_img {
     max-height: 274px;
     width: 100%;
@@ -39,10 +47,20 @@
     font-size: 0.85rem;
     margin-top: 0;
     width: 100%;
+    justify-content: flex-end;
   }
 
   .member_name {
     font-weight: bold;
+  }
+
+  .member_info h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .member_status, .member_org{
+    color: var(--canard);
   }
 
   /* responsive tweaks */
