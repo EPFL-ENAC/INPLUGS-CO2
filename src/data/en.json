@@ -223,50 +223,81 @@
     }
   },
   "about": {
+    "intro": {
+      "title":"About",
+      "subtitle": "INPLUGS-CO2 aims to contribute to raising awareness on the topic of geological CO2 storage, its risks and urgency.<br>It targets two main groups:",
+      "public": {
+        "general": {
+          "title": "General public",
+          "text": "those wishing to understand how GCS works, why the technology is interesting and potentially needed to reduce carbon emissions, and what are the risks and their mitigation."
+        },
+        "academic": {
+          "title": "Scientists/engineers",
+          "text": "experts from academia and industry who are looking for high quality open source data on GCS. This part of the website (starting early 2026) is designed around a novel metre-scale testbed in EPFL and can serve as a database for other GCS projects at pilot and demonstration scales."
+        }
+      },
+      "subtitle_2": "Main principles, key findings and live results will be actively shared with the broader public in order to promote safe implementation of CO2 storage at larger scales."
+    },
     "missions": {
       "title": "Mission & Valeurs",
-      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+      "text": "INPLUGS-CO2 is an independent initiative launched by researchers at EPFL that aims to share impartial information on geological CO2 storage technology. Due to human-induced climate change, reducing carbon emissions is becoming an increasingly urgent issue, and CCS technologies (including GCS) can have a significant impact in this regard. Our efforts aim to provide a solid foundation on how GCS works so that readers can form an objective opinion on the subject. In other words, INPLUGS-CO2's mission is not to promote GCS, but to inform the public about it using facts and data, in the hope that this will help society to be more aware and develop a critical mind in the face of the intense flow of often unverified information to which it is exposed."
     },
     "team": {
       "title": "L'équipe",
       "member": {
         "Eleni": {
           "name": "Eleni",
-          "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
+          "status": "Scientist",
+          "organisation": "Laboratory of Soil Mechanics, EPFL",
+          "role": "Conceived and leads INPLUGS-CO2"
         },
         "Helene": {
           "name": "Hélène",
-          "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
+          "status": "Geology student",
+          "organisation": "UNIL",
+          "role": "Fact checked and synthetisized GCS data sources, edited the text of the website"
         },
         "Laetitia": {
           "name": "Laetitia",
-          "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
+          "status": "Trainee Interactive Media Designer",
+          "organisation": "Mediacom, EPFL",
+          "role": "Designed the graphics of the website"
         },
         "Marc": {
           "name": "Marc",
-          "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
+          "status": "Graphic designer",
+          "organisation": "Mediacom, EPFL",
+          "role": "Supervised the design of the website's graphics"
         },
         "Pierre": {
           "name": "Pierre",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Programmed the website's architecture"
         },
         "Charlie": {
           "name": "Charlie",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Managed the delivery of the website"
         },
         "Hugo": {
           "name": "Hugo",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Co-managed the delivery of the website"
         },
         "Quentin": {
           "name": "Quentin",
-          "role": "Trainee, ENAC-IT4Research, EPFL - Contributed to programming the website's architecture"
+          "status": "Trainee",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Contributed to programming the website's architecture"
         }
       }
     },
     "funding": {
       "title": "Funding",
-      "text_0": "<i>INPLUGS-CO₂</i> has received financial support by",
+      "text_0": "INPLUGS-CO₂ has received financial support by",
       "text_1": "Carbon Removel Booster, powered by Innosuisse",
       "text_2": "and the Swiss Federal Office of Energy (SFOE) in the frame of the EnRUp-GCS (EPFL) project"
     },
