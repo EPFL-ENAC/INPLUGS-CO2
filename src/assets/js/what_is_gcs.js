@@ -301,8 +301,7 @@ class WhatIsGCSController {
     if (caprock) {
       // Add smooth transition if not already set
       if (!caprock.style.transition) {
-        caprock.style.transition =
-          "opacity 1s cubic-bezier(0.4, 0.0, 0.2, 1)";
+        caprock.style.transition = "opacity 1s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
       if (this.currentStep === 5) {
         caprock.style.opacity = "1";
