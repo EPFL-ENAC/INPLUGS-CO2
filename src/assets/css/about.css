@@ -9,7 +9,7 @@
     min-height: 1vh;
     --vert: #087065;
   }
-  
+
   h1 {
     display: block;
     font-size: clamp(4rem, 6rem + 2vw, 6rem);
