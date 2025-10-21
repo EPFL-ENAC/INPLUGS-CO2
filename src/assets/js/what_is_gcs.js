@@ -16,7 +16,7 @@ class WhatIsGCSController {
       0.38 * 4287, // Step 3: Box 2 - 38% from top
       0.72 * 4287, // Step 4: Box 3 - 72% from top
       0.67 * 4287, // Step 5: Box 4 - 67% from top
-      0.58 * 4287, // Step 6: Box 5 - 58% from top
+      0.54 * 4287, // Step 6: Box 5 - 58% from top
     ];
 
     // Initialize from URL hash if present
