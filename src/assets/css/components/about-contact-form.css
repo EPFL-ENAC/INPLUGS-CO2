@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
-    align-items: start;
+    align-items: center;
     margin-bottom: 3rem;
   }
 

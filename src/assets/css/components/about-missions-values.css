@@ -42,6 +42,7 @@
   .missions_text {
     grid-column: 2; /* Second column */
     grid-row: 2; /* Second row */
+    font-size: 1.5rem;
   }
 
   .values_title {
