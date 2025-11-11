@@ -47,11 +47,15 @@
     "why": {
       "title": "Why Geological Carbon Storage ?",
       "subtitle_1": "Mitigating Climate Change",
-      "text_1": "CO₂ is a major greenhouse gas. Geological storage helps reduce emissions from heavy industries (e.g., steel, cement, power plants) that are difficult to decarbonize.",
+      "text_1": "Carbon dioxyde (CO₂) is a transparent gas that naturally exists in the atmosphere as a trace, but its concentration has nearly doubled since its pre-industrial levels: from 0.028%, it has risen to 0.043%. This concentration increase is mainly due to human activity, predominantly related to burning of fossil fuels (coal, oil and natural gas). Because CO₂ is a greenhouse gas, i.e. it traps heat, increased CO₂ emissions are directly related and correlated to the earth’s verified temperature increase. Temperature increase (or global warming) is directly associated to the occurring climate change that has an increasingly large impact on the environment and weather extremes, as well as, on human societies and ecosystems. To mitigate global warming, and consequently climate change, the concentration of CO₂ in the atmosphere must stop rising and net-zero emissions must be achieved.",
       "subtitle_2": "Supports Net-Zero Goals",
-      "text_2": "Most climate models show we can’t reach net-zero emissions without some form of carbon capture and storage, especially for hard-to-abate sectors.",
-      "subtitle_3": "Long-Term Storage",
-      "text_3": "Deep geological formations (like depleted oil and gas fields or deep saline aquifers) can trap CO₂ for thousands to millions of years."
+      "text_2": "Net-zero emissions (NZE) of CO₂ are reached when carbon dioxyde emissions due to human activities are removed from the atmosphere and durably stored in geological, ocean or terrestrial reservoirs, or in products. To achieve NZE while maintaining the increasing energy demands, progress on clean energy transition (e.g. renewable energy) is necessary but not enough for now. Decarbonisation of hard-to-abate industry (e.g. cement) and power generation (e.g. gas power plants) sectors must be reached. To date, the only possible technology that offers CO₂ removal at relevant scales for reaching net-zero by 2050, i.e. 1 gigaton (Gt) of CO₂ per year, is geological storage of captured CO₂ because on the one hand, the required storage volumes are at geological scales (very large) and, on the other hand, CO₂ is injected and stored in the subsurface at high concentrations.",
+      "subtitle_3": "Large Storage Capacity",
+      "text_3": "Geological CO₂ storage (GCS) or carbon sequestration is the process of injecting and storing captured CO₂ in the earth’s subsurface. It is the final part of the Carbon Capture and Storage (CCS) chain for reducing human-caused CO₂ in the atmosphere. GCS usually refers to durable subsurface storage of CO₂ that is captured directly from point sources (e.g. cement factories) before being released in the atmosphere, but can also apply to CO₂ from direct air capture (DAC). In GCS, CO₂ is compressed before injected at pressures similar to the pressure that exists in the subsurface at the depth of the injection. Compressed CO₂ is denser and therefore, we can store more CO₂ mass at a given subsurface volume. Over a certain depth (700-800 m), i.e. over a certain pressure level (73 bar), CO₂ changes from gas to liquid and its density becomes 25 times higher than that in the atmosphere.This means that in depths over 700-800 m, we can store 25 times more CO₂.",
+      "subtitle_4": "Long-Term Storage",
+      "text_4": "Durable CO₂ storage in deep geological formations (like depleted oil and gas fields or deep saline aquifers) uses the means that nature used to maintain underground oil and gas over millions of years. CO₂ is injected in a porous reservoir that is overlayed by a nearly impermeable geological layer (called caprock) that stops CO₂2 leaking to the surface."
+      "subtitle_5": "History and current status",
+      "text_5": "The GCS technology was initially developped by the petrolean industry 50 years ago for enhancing  oil recovery by injecting captured CO₂ into the subsurface to push the remaining crude oil to the surface. Until today, around 80% of the CO₂ captured annually is used for enhanced oil recovery (EOR), this is why there is an urgent need to shift away from CO2-EOR for a achieving net-zero emissions. This urgency is considered in the planned storage agenda as of 2030, that announces 80% of its storage capacity dedicated to durable storage. This monumental shift from CO2-EOR towards dedicated CO₂ storage in the near future signals strengthened action towards net zero commitments."
     },
     "ongoing": "Ongoing projects",
     "under_construction": "Under construction projects",
@@ -68,12 +72,12 @@
       "south_america": "South America",
       "africa": "Africa",
       "title": "GCS<br/> in the <i>World</i>",
-      "text_1": "In 2025?, 53 CCS projects are in operation, enabling the storage of approximately 55 MtCO₂ per year, or an average of 1.5 MtCO₂ per project. Considering the carbon neutrality targets for 2040, approximately 2,500 additional projects would be needed worldwide to capture the estimated 40 gigatons of CO₂ per year required by that date. (Sources: IEA and AAGP)",
+      "text_1": "In 2025, 53 CCS projects are in operation, enabling the storage of approximately 55 MtCO₂ per year, or an average of 1.5 MtCO₂ per project. Considering the carbon neutrality targets for 2040, approximately 2,500 additional projects would be needed worldwide to capture the estimated 40 gigatons of CO₂ per year required by that date. (Sources: IEA and AAGP)",
       "image_alt": "Map of global geological carbon storage projects"
     },
     "swiss": {
       "title": "Geological Carbon Storage in Switzerland",
-      "text_1": "Switzerland is actively exploring geological carbon storage as part of its climate strategy, with several initiatives and studies underway.",
+      "text_1": "Switzerland is actively exploring geological carbon storage as part of its climate strategy, with several initiatives and pilot studies underway.",
       "initiative_1": {
         "name": "Swiss CCS Research",
         "description": "Swiss research institutions are conducting studies on the feasibility of CO₂ storage in deep saline aquifers and depleted oil and gas fields."
@@ -86,7 +90,7 @@
         "name": "Regulatory Framework",
         "description": "Switzerland is working on establishing a regulatory framework to ensure the safe and effective implementation of geological carbon storage."
       },
-      "map_title": "Map of potential geological carbon storage sites in Switzerland",
+      "map_title": "Map of potential geological carbon storage sites in Switzerland - NOT VALID",
       "goal": "Goals",
       "ongoing": "Ongoing",
       "future": "Future"
@@ -199,7 +203,7 @@
     }
   },
   "links": {
-    "info": "Stay informed ! Our team shares its favorite links and articles on this page.",
+    "info": "Stay informed ! Our team shares its favourite links and articles on this page.",
     "ipcc": "IPCC",
     "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
     "articles_title": "Selected Articles",
@@ -224,42 +228,42 @@
   },
   "about": {
     "missions": {
-      "title": "Mission & Valeurs",
+      "title": "Mission & Values",
       "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
     },
     "team": {
       "title": "L'équipe",
       "member": {
         "Eleni": {
-          "name": "Eleni",
+          "name": "Eleni Stavropoulou",
           "role": "Scientist, Laboratory of Soil Mechanics, EPFL - Conceived and leads INPLUGS-CO2"
         },
         "Helene": {
-          "name": "Hélène",
+          "name": "Hélène Morciaux",
           "role": "Geology student, UniL - Fact checked and synthetisized GCS data sources, edited the text of the website"
         },
         "Laetitia": {
-          "name": "Laetitia",
+          "name": "Laetitia Alice Dällenbach",
           "role": "Trainee Interactive Media Designer, Mediacom, EPFL - designed the graphics of the website"
         },
         "Marc": {
-          "name": "Marc",
+          "name": "Marc Borboën",
           "role": "Graphic designer, Mediacom, EPFL - supervised the design of the website's graphics"
         },
         "Pierre": {
-          "name": "Pierre",
+          "name": "Pierre Guilbert",
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmed the website's architecture"
         },
         "Charlie": {
-          "name": "Charlie",
+          "name": "Charlie Gisèle Weil",
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Managed the delivery of the website"
         },
         "Hugo": {
-          "name": "Hugo",
+          "name": "Hugo Louis Solleder",
           "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Co-managed the delivery of the website"
         },
         "Quentin": {
-          "name": "Quentin",
+          "name": "Quentin Eschmann",
           "role": "Trainee, ENAC-IT4Research, EPFL - Contributed to programming the website's architecture"
         }
       }
