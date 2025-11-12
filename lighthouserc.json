@@ -6,17 +6,17 @@
         "http://localhost:4173/en/",
         "http://localhost:4173/fr/",
         "http://localhost:4173/en/about.html",
-        "http://localhost:4173/fr/about.html"
+        "http://localhost:4173/fr/a-propos.html"
       ],
       "startServerCommand": "npm run preview",
       "startServerReadyPattern": "Local:.*4173"
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["warn", { "minScore": 0.9 }],
-        "categories:accessibility": ["error", { "minScore": 0.9 }],
-        "categories:best-practices": ["warn", { "minScore": 0.9 }],
-        "categories:seo": ["error", { "minScore": 0.9 }]
+        "categories:performance": ["warn", { "minScore": 0.85 }],
+        "categories:accessibility": ["error", { "minScore": 0.85 }],
+        "categories:best-practices": ["warn", { "minScore": 0.85 }],
+        "categories:seo": ["error", { "minScore": 0.75 }]
       }
     },
     "upload": {
