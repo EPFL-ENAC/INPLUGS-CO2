@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy package files for dependency installation
-COPY package.json npm-shrinkwrap.json ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN npm ci --ignore-scripts
