@@ -226,50 +226,81 @@
     }
   },
   "about": {
+    "intro": {
+      "title": "À propos",
+      "subtitle": "INPLUGS-CO2 a pour objectif de contribuer à la sensibilisation au stockage géologique du CO₂, à ses risques et à l'urgence de la problématique.<br>Il s'adresse à deux publics principaux :",
+      "public": {
+        "general": {
+          "title": "Grand public",
+          "text": "Personnes souhaitant comprendre comment fonctionne le stockage géologique du CO₂ (GCS), pourquoi cette technologie est intéressante et potentiellement nécessaire pour réduire les émissions de carbone, et quels sont les risques ainsi que les mesures d'atténuation."
+        },
+        "academic": {
+          "title": " Scientifiques et ingénieurs",
+          "text": "Experts du milieu universitaire et de l'industrie à la recherche de données open source de haute qualité sur le GCS. Cette partie du site (à partir du début de 2026) est conçue autour d'un nouveau banc d'essai métrique à l'EPFL et peut servir de base de données pour d'autres projets de GCS à l'échelle pilote et de démonstration."
+        }
+      },
+      "subtitle_2": "Les principes fondamentaux, les principaux résultats et les données en direct seront partagés activement avec le grand public afin de promouvoir une mise en œuvre sûre du stockage du CO₂ à plus grande échelle."
+    },
     "missions": {
-      "title": "Mission et valeurs",
-      "text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+      "title": "Missions & valeurs",
+      "text": "INPLUGS-CO2 est une initiative indépendante lancée par des chercheurs de l'EPFL qui vise à partager des informations impartiales sur la technologie du stockage géologique du CO2. En raison du changement climatique induit par l'homme, la réduction des émissions de carbone devient un sujet de plus en plus urgent et les technologies CCS (dont fait partie le GCS) peuvent avoir un impact significatif à cet égard. Nos efforts visent à fournir une base solide sur le fonctionnement du GCS afin que le lecteur puisse se forger une opinion objective à ce sujet. En d'autres termes, la mission d'INPLUGS-CO2 n'est pas de promouvoir le GCS, mais d'informer le public à son sujet à l'aide de faits et de données, dans l'espoir que cela aide la société à être plus consciente et à développer un esprit critique face au flux intense d'informations souvent non vérifiées auxquelles elle est exposée."
     },
     "team": {
       "title": "L'équipe",
       "member": {
         "Eleni": {
           "name": "Eleni",
-          "role": "Collaboratrice scientifique - Laboratoire de Mécanique des Sols - Conception et direction d'INPLUGS-CO2"
+          "status": "Collaboratrice scientifique",
+          "organisation": "Laboratoire de Mécanique des Sols",
+          "role": "Conception et direction d'INPLUGS-CO2"
         },
         "Helene": {
           "name": "Hélène",
-          "role": "Étudiante en géologie, UNIL - Vérification et synthèse des sources de données GCS, révision du texte du site web"
+          "status": "Étudiante en géologie",
+          "organisation": "UNIL",
+          "role": "Vérification et synthèse des sources de données GCS, révision du texte du site web"
         },
         "Laetitia": {
           "name": "Laetitia",
-          "role": "Apprentie Interactive Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
+          "status": "Apprentie Interactive Media Designer",
+          "organisation": "Mediacom, EPFL",
+          "role": "Conception des graphismes du site web"
         },
         "Marc": {
           "name": "Marc",
-          "role": "Media Designer, Mediacom, EPFL - Conception des graphismes du site web"
+          "status": "Media Designer",
+          "organisation": "Mediacom, EPFL",
+          "role": "Supervision de la conception des graphismes du site web"
         },
         "Pierre": {
           "name": "Pierre",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Programmation du site web"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Programmation du site web"
         },
         "Charlie": {
           "name": "Charlie",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Gestion de la livraison du site web"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Gestion de la livraison du site web"
         },
         "Hugo": {
           "name": "Hugo",
-          "role": "Research Software Engineer, ENAC-IT4Research, EPFL - Cogestion de la livraison du site web"
+          "status": "Research Software Engineer",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Cogestion de la livraison du site web"
         },
         "Quentin": {
           "name": "Quentin",
-          "role": "Stagiaire, ENAC-IT4Research, EPFL - Contribution à la programmation du site web"
+          "status": "Stagiaire",
+          "organisation": "ENAC-IT4Research, EPFL",
+          "role": "Contribution à la programmation du site web"
         }
       }
     },
     "funding": {
       "title": "Financement",
-      "text_0": "<i>INPLUGS-CO₂</i> a reçu un soutien financier de",
+      "text_0": "INPLUGS-CO₂ a reçu un soutien financier de",
       "text_1": "Carbon Removal Booster, soutenu par Innosuisse",
       "text_2": "et le Bureau fédéral de l'énergie (BFE) dans le cadre du projet EnRUp-GCS (EPFL)"
     },
@@ -285,7 +316,7 @@
         "submit": "Soumettre"
       },
       "subtitle": "Rejoignez-nous",
-      "text": "Si vous êtes intéressé par un partenariat avec nous, sachez que LMS-INPLUGS est disposé à collaborer avec des entreprises, des organisations philanthropiques et des particuliers afin d'atteindre ses objectifs à court terme et de réaliser ses missions à long terme."
+      "text": "Si vous êtes intéressé par un partenariat avec nous, sachez que LMS-INPLUGS est disposé à collaborer avec des entreprises, des organisations philanthropiques et des particuliers afin d'atteindre ses objectifs à court terme et de réaliser ses missions à long terme. Si vous souhaitez vous joindre à nos efforts pour sensibiliser le public et partager des données sur le stockage géologique du CO2, n'hésitez pas à nous contacter."
     },
     "support": {
       "title": "Support",

@@ -1,7 +1,15 @@
 @layer components {
+  :root {
+    --canard: #1a586c;
+  }
+
   section#team {
     min-height: 1vh;
     padding-bottom: 5rem;
+  }
+
+  .team_title {
+    color: var(--canard);
   }
 
   .team {
@@ -9,7 +17,8 @@
   }
   .team_members {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
     /* each row exactly 500px tall */
     /* grid-auto-rows: 500px; */
     grid-auto-rows: auto;
@@ -19,12 +28,17 @@
   .team_member {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; /* Changed from center to stretch */
     text-align: left;
     height: fit-content;
     gap: 0;
     height: 100%;
-    background-color: lightgray;
+    max-width: 274px; /* Add max-width to constrain the entire member container */
+    margin: 0 auto; /* Center the member within the grid cell */
+  }
+
+  .team_member.empty {
+    visibility: hidden; /* or display: none; */
   }
 
   .member_img {
@@ -35,14 +49,26 @@
   }
 
   .member_info {
-    padding: 1rem;
+    padding: 0.5rem; /* Add some padding for readability */
     font-size: 0.85rem;
-    margin-top: 0;
-    width: 100%;
+    margin: 0;
+    width: 100%; /* This will now match the image width */
+    background-color: lightgray;
+    height: 100%;
   }
 
   .member_name {
     font-weight: bold;
+  }
+
+  .member_info h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .member_status,
+  .member_org {
+    color: var(--canard);
   }
 
   /* responsive tweaks */

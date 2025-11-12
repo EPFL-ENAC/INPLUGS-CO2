@@ -189,7 +189,7 @@ class WhatIsGCSController {
         // equivalent of easeout but easeOutQuint
         // background.style.transition = "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
         background.style.transition =
-          "transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)";
+          "transform 1s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
 
       const targetPosition = this.svgPositions[this.currentStep];
@@ -255,15 +255,15 @@ class WhatIsGCSController {
       // Add smooth transition if not already set
       if (!reservoirTooComplex.style.transition) {
         reservoirTooComplex.style.transition =
-          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+          "opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
       if (!flecheReservoir.style.transition) {
         flecheReservoir.style.transition =
-          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+          "opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
       if (!co2PointsReservoirTopLine.style.transition) {
         co2PointsReservoirTopLine.style.transition =
-          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+          "opacity 2s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
 
       // also handle the arrow and the co2 points line the same way
@@ -301,8 +301,7 @@ class WhatIsGCSController {
     if (caprock) {
       // Add smooth transition if not already set
       if (!caprock.style.transition) {
-        caprock.style.transition =
-          "opacity 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)";
+        caprock.style.transition = "opacity 1s cubic-bezier(0.4, 0.0, 0.2, 1)";
       }
       if (this.currentStep === 5) {
         caprock.style.opacity = "1";
