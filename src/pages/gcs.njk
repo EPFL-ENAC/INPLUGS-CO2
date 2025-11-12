@@ -1,6 +1,7 @@
 {% extends "main.njk" %}
 {% block content %}
-    <div class="gcs-content">   <!-- Load ECharts from CDN -->
+    <div class="gcs-content">
+        <!-- Load ECharts from CDN -->
         <script src="https://unpkg.com/echarts@6.0.0/dist/echarts.min.js"></script>
         <script type="application/json" id="i18n-gcs">{{ gcs | dump | safe }}</script>
         <!-- Load our GCS module after ECharts is available -->
@@ -11,7 +12,8 @@
             <section id="{{ navItemsMap.gcs.anchors[0].id }}"
                      class="screen-1 theme-turquoise py-2 px-2"
                      aria-labelledby="title-1">
-                <h2 class="screen-title title-1" alt="{{ navItemsMap.gcs.anchors[0].title }}">{{ t("gcs.why.title") }}</h2>
+                <h2 class="screen-title title-1"
+                    alt="{{ navItemsMap.gcs.anchors[0].title }}">{{ t("gcs.why.title") }}</h2>
                 <!-- Contenu de l'écran 1 -->
                 <h3 class="mt-2">{{ t("gcs.why.subtitle_1") }}</h3>
                 <p class="mt-1">{{ t("gcs.why.text_1") }}</p>
@@ -21,37 +23,36 @@
                 <p class="mt-1">{{ t("gcs.why.text_3") }}</p>
             </section>
             <!-- World MAP-->
-            <section id="{{ navItemsMap.gcs.anchors[1].id }}" class="gcs-world screen-3 theme-canard py-2 px-2" aria-labelledby="title-3">
+            <section id="{{ navItemsMap.gcs.anchors[1].id }}"
+                     class="gcs-world screen-3 theme-canard py-2 px-2"
+                     aria-labelledby="title-3">
                 <h2 id="title-3" class="screen-title title-3">{{ t("gcs.world.title") |safe }}</h2>
                 <div id="world-map-container" style="width: 100%; height: 600px;"></div>
                 <p class="screen-main-text mt-2">{{ t("gcs.world.text_1") }}</p>
             </section>
             <!-- Switzerland MAP  -->
-            <section id="{{ navItemsMap.gcs.anchors[2].id }}" class="screen-4 theme-white-dark py-2 px-2" aria-labelledby="title-4">
+            <section id="{{ navItemsMap.gcs.anchors[2].id }}"
+                     class="screen-4 theme-white-dark py-2 px-2"
+                     aria-labelledby="title-4">
                 <h2 id="title-4" class="screen-title title-4">{{ t("gcs.swiss.title") }}</h2>
                 <div id="switzerland-map-container" style="width: 100%; height: 600px;"></div>
                 <!-- Contenu de l'écran 4 -->
             </section>
-            <section id="{{ navItemsMap.gcs.anchors[3].id }}" class="screen-5 faq py-2 px-2">
+            <section id="{{ navItemsMap.gcs.anchors[3].id }}"
+                     class="screen-5 faq py-2 px-2">
                 <h1 class="text-center">{{ t("gcs.faq.title") }}</h1>
                 <p class="text-center">{{ t("gcs.faq.subtitle") }}</p>
                 <details class="mb-1">
                     <summary>{{ t("gcs.faq.q1.question") }}</summary>
-                    <p>
-                        {{ t("gcs.faq.q1.answer") }}
-                    </p>
+                    <p>{{ t("gcs.faq.q1.answer") }}</p>
                 </details>
                 <details class="mb-1">
                     <summary>{{ t("gcs.faq.q2.question") }}</summary>
-                    <p>
-                        {{ t("gcs.faq.q2.answer") }}
-                    </p>
+                    <p>{{ t("gcs.faq.q2.answer") }}</p>
                 </details>
                 <details class="mb-1">
                     <summary>{{ t("gcs.faq.q3.question") }}</summary>
-                    <p>
-                        {{ t("gcs.faq.q3.answer") }}
-                    </p>
+                    <p>{{ t("gcs.faq.q3.answer") }}</p>
                 </details>
             </section>
         </main>

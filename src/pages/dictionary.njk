@@ -3,74 +3,70 @@
     <div class="data-content">
         <link rel="stylesheet" href='{{ asset("/assets/styles/dictionary.css") }}'>
         <main class="dictionary_page">
-                <section class="references" id="references">
-                    <h2> {{ t("dictionary.references.title") }} </h1>
-                    <ul>
-                        <li>
-                            <a href="about:blank">
-                                {{ t("dictionary.references.link1") }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="about:blank">
-                                {{ t("dictionary.references.link2") }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="about:blank">
-                                {{ t("dictionary.references.link3") }}
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <section class="dictionary" id="glossary">
-                    <h2 class="title">{{ t("dictionary.description") }}</h2>
-                    <details>
-                        <summary>{{ t("dictionary.gcs.term") }}</summary>
-                        <p>{{ t("dictionary.gcs.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="caprock">{{ t("dictionary.caprock.term") }}</summary>
-                        <p>{{ t("dictionary.caprock.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="density">{{ t("dictionary.density.term") }}</summary>
-                        <p>{{ t("dictionary.density.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="dissolution">{{ t("dictionary.dissolution.term") }}</summary>
-                        <p>{{ t("dictionary.dissolution.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="gaz">{{ t("dictionary.gaz.term") }}</summary>
-                        <p>{{ t("dictionary.gaz.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="injection_co2">{{ t("dictionary.injection_co2.term") }}</summary>
-                        <p>{{ t("dictionary.injection_co2.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="liquid">{{ t("dictionary.liquid.term") }}</summary>
-                        <p>{{ t("dictionary.liquid.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="mineralisation">{{ t("dictionary.mineralisation.term") }}</summary>
-                        <p>{{ t("dictionary.mineralisation.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="net_zero">{{ t("dictionary.net_zero.term") }}</summary>
-                        <p>{{ t("dictionary.net_zero.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="permeable">{{ t("dictionary.permeable.term") }}</summary>
-                        <p>{{ t("dictionary.permeable.definition") }}</p>
-                    </details>
-                    <details>
-                        <summary id="pilot_project">{{ t("dictionary.pilot_project.term") }}</summary>
-                        <p>{{ t("dictionary.pilot_project.definition") }}</p>
-                    </details>
-                </section>
-            </main>
-            <!-- <script type="module" src='{{ asset("/assets/js/dictionary.js") }}'></script> -->
+            <section class="references" id="references">
+                <h2>
+                    {{ t("dictionary.references.title") }}
+                </h1>
+                <ul>
+                    <li>
+                        <a href="about:blank">{{ t("dictionary.references.link1") }}</a>
+                    </li>
+                    <li>
+                        <a href="about:blank">{{ t("dictionary.references.link2") }}</a>
+                    </li>
+                    <li>
+                        <a href="about:blank">{{ t("dictionary.references.link3") }}</a>
+                    </li>
+                </ul>
+            </section>
+            <section class="dictionary" id="glossary">
+                <h2 class="title">{{ t("dictionary.description") }}</h2>
+                <details>
+                    <summary>{{ t("dictionary.gcs.term") }}</summary>
+                    <p>{{ t("dictionary.gcs.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="caprock">{{ t("dictionary.caprock.term") }}</summary>
+                    <p>{{ t("dictionary.caprock.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="density">{{ t("dictionary.density.term") }}</summary>
+                    <p>{{ t("dictionary.density.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="dissolution">{{ t("dictionary.dissolution.term") }}</summary>
+                    <p>{{ t("dictionary.dissolution.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="gaz">{{ t("dictionary.gaz.term") }}</summary>
+                    <p>{{ t("dictionary.gaz.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="injection_co2">{{ t("dictionary.injection_co2.term") }}</summary>
+                    <p>{{ t("dictionary.injection_co2.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="liquid">{{ t("dictionary.liquid.term") }}</summary>
+                    <p>{{ t("dictionary.liquid.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="mineralisation">{{ t("dictionary.mineralisation.term") }}</summary>
+                    <p>{{ t("dictionary.mineralisation.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="net_zero">{{ t("dictionary.net_zero.term") }}</summary>
+                    <p>{{ t("dictionary.net_zero.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="permeable">{{ t("dictionary.permeable.term") }}</summary>
+                    <p>{{ t("dictionary.permeable.definition") }}</p>
+                </details>
+                <details>
+                    <summary id="pilot_project">{{ t("dictionary.pilot_project.term") }}</summary>
+                    <p>{{ t("dictionary.pilot_project.definition") }}</p>
+                </details>
+            </section>
+        </main>
+        <!-- <script type="module" src='{{ asset("/assets/js/dictionary.js") }}'></script> -->
     </div>
 {% endblock %}
