@@ -100,15 +100,35 @@
       "subtitle": "Frequently Asked Questions",
       "q1": {
         "question": "Is geological carbon storage safe?",
-        "answer": "Yes, when properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
+        "answer": "When properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
       },
       "q2": {
-        "question": "How does GCS work?",
-        "answer": "GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored."
+        "question": "What can threaten safety in CO₂ storage??",
+        "answer": "answer coming soon."
       },
       "q3": {
-        "question": "Is GCS safe?",
-        "answer": "Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure."
+        "question": "Why do we need to cut CO₂ emissions if CO₂ is only 0.043% of the atmosphere?",
+        "answer": "CO₂ is a trace of the atmosphere's composition and its concentration has doubled since the industrial revolution. Even though the absolute number (0.043 %) is small, in relative terms, i.e. compared to its natural concentration in pre-industrial times (0.028 %) is very high. This high concentration increase is strictly related to human activity."
+      },
+      "q4": {
+        "question": "How much CO₂ do we need to remove to achieve net zero emissions?",
+        "answer": "To achieve net zero emissions we need to capture and store 1 Gt (1 billion tons) of CO₂ per year. Current CO₂ capture and storage capacity in the world is 50 Mt (million tons) of CO₂ per year."
+      },
+      "q5": {
+        "question": "What is the current CO₂ storage capacity in the world?",
+        "answer": "answer coming soon."
+      },
+      "q5": {
+        "question": "Are there CO₂ storage sites in Switzerland?",
+        "answer": "answer coming soon."
+      },
+      "q6": {
+        "question": "How does GCS work?",
+        "answer": "GCS imitates the way that nature has been storing oil and gas underground over million of years.Captured CO2 is compressed, transported and injectied into a deep underground porous rock formation (called reservoir). The reservoir formation must have on top of it a nearly impermeable rock formation (called caprock) to prevent CO2 leakage to the surface and ensure durable storage."
+      },
+      "q7": {
+        "question": "Where can we store CO2?",
+        "answer": "Geological CO2 storage sites include depleted oil and gas reservoirs, unminable coal systems and deep saline aquifers. These geological systems usually provide the necessary caprock-reservoir configuration that is needed for durable storage."
       }
     },
     "title": "GCS • What & Why"
@@ -125,59 +145,59 @@
     "description": "Essentials terms to understand Geological Carbon Storage (GCS).",
     "gcs": {
       "term": "GCS",
-      "definition": "Lorem Ipsum"
+      "definition": "Geological CO2 Storage. It is the last part of the Carbon Capture Utilisation and Storage (CCUS) chain for durably removing human-induced CO2 emissions from the atmosphere."
     },
     "caprock": {
       "term": "Caprock",
-      "definition": "Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+      "definition": "A resistant and nearly impermeable rock formation – often composed of clay or salt. This type of rock is very important in geological CO₂ storage because it prevents CO₂ leakage to the surface."
     },
     "density": {
       "term": "Density",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "dissolution": {
       "term": "Dissolution",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "gaz": {
-      "term": "Gaz",
-      "definition": "Lorem Ipsum"
+      "term": "Gas",
+      "definition": "coming soon"
     },
     "injection_co2": {
-      "term": "Injection de CO2",
-      "definition": "Lorem Ipsum"
+      "term": "CO₂ injection",
+      "definition": "coming soon"
     },
     "liquid": {
       "term": "Liquide",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "mineralisation": {
       "term": "Minéralisation",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "net_zero": {
-      "term": "Net zero (neutralité carbone)",
-      "definition": "Lorem Ipsum"
+      "term": "Net zero (carbon neutrality)",
+      "definition": "coming soon"
     },
     "permeable": {
       "term": "Permeable",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "pilot_project": {
       "term": "Pilot project",
-      "definition": "Lorem Ipsum"
+      "definition": "coming soon"
     },
     "captured": {
-      "term": "Captured",
-      "definition": "Lorem ipsum"
+      "term": "CO2 capture",
+      "definition": "coming soon"
     },
     "supercritical": {
       "term": "Supercritical",
-      "definition": "Lorem ipsum"
+      "definition": "coming soon"
     },
     "porous": {
       "term": "Porous",
-      "definition": "Lorem ipsum"
+      "definition": "coming soon"
     },
     "reservoir": {
       "term": "Reservoir",
@@ -185,15 +205,15 @@
     },
     "less dense": {
       "term": "Less dense",
-      "definition": "Lorem ipsum"
+      "definition": "coming soon"
     },
     "buoyant": {
       "term": "Buoyant",
-      "definition": "Lorem ipsum"
+      "definition": "coming soon"
     },
     "hydromechanical barrier": {
       "term": "Hydromechanical barrier",
-      "definition": "Lorem ipsum"
+      "definition": "coming soon"
     },
     "references": {
       "title": "References",
@@ -247,7 +267,7 @@
       "text": "INPLUGS-CO2 is an independent initiative launched by researchers at EPFL that aims to share impartial information on geological CO2 storage technology. Due to human-induced climate change, reducing carbon emissions is becoming an increasingly urgent issue, and CCS technologies (including GCS) can have a significant impact in this regard. Our efforts aim to provide a solid foundation on how GCS works so that readers can form an objective opinion on the subject. In other words, INPLUGS-CO2's mission is not to promote GCS, but to inform the public about it using facts and data, in the hope that this will help society to be more aware and develop a critical mind in the face of the intense flow of often unverified information to which it is exposed."
     },
     "team": {
-      "title": "L'équipe",
+      "title": "The team",
       "member": {
         "Eleni": {
           "name": "Eleni Stavropoulou",
