@@ -1,42 +1,61 @@
-{% extends 'layouts/main.njk' %}
+{% extends "layouts/main.njk" %}
 {% block content %}
-    <div class="links-content">
-        <link rel="stylesheet" href='{{ asset("/assets/styles/links.css") }}'>
-        <main class="links_page">
-            <section class="ipcc" id="news">
-                <h2 class="info_title">{{ t("links.info") }}</h2>
-                <h1 class="ipcc_title">{{ t("links.ipcc") }}</h1>
-                <div class="ipcc_wrapper">
-                    <span class="ipcc_text">{{ t("links.ipcc_text") }}</span>
-                    <img class="ipcc_img"
-                         src="{{ asset("/assets/images/links/missing-image.jpg") }}"
-                         alt="IPCC Image">
-                </div>
-            </section>
-            <section class="articles" id="articles">
-                <h1 class="articles_title">{{ t("links.articles_title") }}</h1>
-                <div class="articles_wrapper">
-                    <img class="article_img" src="about:blank" alt="Articles Image">
-                    <img class="article_img" src="about:blank" alt="Articles Image">
-                    <img class="article_img" src="about:blank" alt="Articles Image">
-                    <img class="article_img" src="about:blank" alt="Articles Image">
-                    <div class="article_txt">
-                        <h3 class="article_title">{{ t("links.articles.article1.title") }}</h3>
-                        <div class="article_description">{{ t("links.articles.article1.description") }}</div>
-                    </div>
-                    <div class="article_txt">
-                        <h3 class="article_title">{{ t("links.articles.article2.title") }}</h3>
-                        <div class="article_description">{{ t("links.articles.article2.description") }}</div>
-                    </div>
-                    <div class="article_txt">
-                        <h3 class="article_title">{{ t("links.articles.article3.title") }}</h3>
-                        <div class="article_description">{{ t("links.articles.article3.description") }}</div>
-                    </div>
-                    <div class="article_txt">
-                        <h3 class="article_title">{{ t("links.articles.article4.title") }}</h3>
-                        <div class="article_description">{{ t("links.articles.article4.description") }}</div>
-                    </div>
-                </section>
-            </main>
-        </div>
-    {% endblock %}
+  <div class="links-content">
+    <link rel="stylesheet" href='{{ asset("/assets/styles/links.css") }}'>
+    <main class="links_page">
+      <section class="news" id="news">
+        <h2 class="info_title">{{ t("links.info") }}</h2>
+      </section>
+      <section class="references" id="references">
+        <h1 class="references_title">{{ t("links.references.title") }}</h1>
+        <h2 class="references_group_title">{{ t("links.references.ieaghg.title") }}</h2>
+        <ul class="references_list">
+          <li>
+            <a href="{{ t("links.references.ieaghg.safe_storage.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.ieaghg.safe_storage.title") }}</a>
+          </li>
+          <li>
+            <a href="{{ t("links.references.ieaghg.site_catalogue.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.ieaghg.site_catalogue.title") }}</a>
+          </li>
+        </ul>
+        <h2 class="references_group_title">{{ t("links.references.iea.title") }}</h2>
+        <ul class="references_list">
+          <li>
+            <a href="{{ t("links.references.iea.projects_explorer.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.iea.projects_explorer.title") }}</a>
+          </li>
+          <li>
+            <a href="{{ t("links.references.iea.role_of_storage.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.iea.role_of_storage.title") }}</a>
+          </li>
+        </ul>
+        <h2 class="references_group_title">{{ t("links.references.ipcc.title") }}</h2>
+        <ul class="references_list">
+          <li>
+            <a href="{{ t("links.references.ipcc.ccs_report.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.ipcc.ccs_report.title") }}</a>
+          </li>
+          <li>
+            <a href="{{ t("links.references.ipcc.glossary.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.ipcc.glossary.title") }}</a>
+          </li>
+        </ul>
+        <h2 class="references_group_title">{{ t("links.references.journals.title") }}</h2>
+        <ul class="references_list">
+          <li>
+            <a href="{{ t("links.references.journals.planetary_limit.url") }}"
+               target="_blank"
+               rel="noopener">{{ t("links.references.journals.planetary_limit.title") }}</a>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+{% endblock %}
