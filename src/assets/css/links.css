@@ -39,19 +39,50 @@
   }
 
   @media (max-width: 480px) {
-    section > * {
+    section.news > * {
       margin-left: 1rem;
       margin-right: 1rem;
       padding-bottom: 2rem;
       padding-top: 2rem;
     }
+
+    section.references > * {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    .references_title {
+      margin-bottom: 1rem;
+    }
+
+    .references_group_title {
+      margin-bottom: 0.5rem;
+    }
+
+    .references_list {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
   }
 
   @media (min-width: 481px) {
-    section > * {
+    section.news > * {
       padding-bottom: 5rem;
       padding-top: 5rem;
       min-height: 2vh;
+    }
+
+    .references_title {
+      margin-bottom: 1rem;
+    }
+
+    .references_group_title {
+      margin-bottom: 0.5rem;
+    }
+
+    .references_list {
+      margin-top: 0;
+      margin-bottom: 2rem;
     }
 
     h1 {
