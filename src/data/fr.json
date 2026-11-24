@@ -23,23 +23,23 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "Le CO₂ est <term-tooltip term=\"capturé\">capturé</term-tooltip> directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
+        "description": "Le CO₂ est capturé directement auprès des grands émetteurs avant d'être relâché dans l'atmosphère."
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "Le CO₂ <term-tooltip term=\"capturé\">capturé</term-tooltip> est comprimé sous forme <term-tooltip term=\"liquide\">liquide</term-tooltip> ou <term-tooltip term=\"supercritique\">supercritique</term-tooltip> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
+        "description": "Le CO₂ capturé est comprimé sous forme <term-tooltip term=\"phases\">liquide</term-tooltip> ou <term-tooltip term=\"supercritical_co2\">supercritique</term-tooltip> et injecté dans le sous-sol à une profondeur minimale d'environ 700 à 800 m."
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "Le CO₂ est injecté dans une couche géologique <term-tooltip term=\"poreuse\">poreuse</term-tooltip> appelée <term-tooltip term=\"réservoir\">réservoir</term-tooltip>."
+        "description": "Le CO₂ est injecté dans une couche géologique <term-tooltip term=\"porosity\">poreuse</term-tooltip> appelée <term-tooltip term=\"reservoir\">réservoir</term-tooltip>."
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "Le CO₂ injecté est moins <term-tooltip term=\"dense\">dense</term-tooltip> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
+        "description": "Le CO₂ injecté est moins <term-tooltip term=\"buoyancy\">dense</term-tooltip> que l'eau présente dans les pores du réservoir et commence à migrer vers le haut."
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "Le CO₂ <term-tooltip term=\"flottant\">flottant</term-tooltip> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <term-tooltip term=\"caprock\">caprock</term-tooltip>, une autre couche géologique qui agit comme une <term-tooltip term=\"barrière hydromécanique\">barrière hydromécanique</term-tooltip>."
+        "description": "Le CO₂ <term-tooltip term=\"buoyancy\">flottant</term-tooltip> est empêché de s'échapper vers la surface grâce à l'existence de la roche de <term-tooltip term=\"caprock\">caprock</term-tooltip>, une autre couche géologique qui agit comme une <term-tooltip term=\"impermeable_rock\">barrière hydromécanique</term-tooltip>."
       }
     }
   },
@@ -120,108 +120,172 @@
     "sphincs_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
   },
   "dictionary": {
-    "title": "Dictionnaire",
-    "description": "L'essentiel pour comprendre",
-    "gcs": {
-      "term": "GCS",
-      "definition": "Lorem Ipsum"
+    "title": "Glossaire",
+    "description": "Termes essentiels pour comprendre le stockage géologique du CO₂ (GCS).",
+    "anthropogenic_emissions": {
+      "term": "Émissions anthropiques",
+      "definition": "Gaz à effet de serre libérés dans l'atmosphère du fait des activités humaines, tels que la combustion d'énergies fossiles, les procédés industriels et l'agriculture."
+    },
+    "brine": {
+      "term": "Saumure",
+      "definition": "Eau contenant une forte concentration de sels dissous, que l'on trouve couramment dans les formations rocheuses profondes."
+    },
+    "buoyancy": {
+      "term": "Flottabilité",
+      "definition": "Tendance d'un fluide moins dense à s'élever au-dessus d'un fluide plus dense. Sous terre, le CO₂ est souvent moins dense que l'eau environnante et tend donc à remonter jusqu'à ce qu'il soit piégé."
     },
     "caprock": {
-      "term": "Caprock",
-      "definition": "Caprock: Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+      "term": "Roche de couverture (caprock)",
+      "definition": "Couche rocheuse à haute résistance mécanique et quasi imperméable, qui agit comme un scellement naturel et empêche le CO₂ stocké sous terre de remonter vers la surface."
     },
-    "dense": {
-      "term": "Dense",
-      "definition": "Lorem Ipsum"
+    "ccus": {
+      "term": "CCUS",
+      "definition": "Captage, Utilisation et Stockage du Carbone – un ensemble de technologies qui captent le CO₂ issu de procédés industriels ou d'autres sources afin de le réutiliser dans des produits ou de le stocker profondément sous terre au lieu de le libérer dans l'atmosphère."
+    },
+    "density": {
+      "term": "Densité",
+      "definition": "Mesure de la masse contenue dans un volume donné d'une substance. Pour le CO₂, la densité varie selon la température et la pression, ce qui influence son comportement sous terre."
     },
     "dissolution": {
       "term": "Dissolution",
-      "definition": "Lorem Ipsum"
+      "definition": "Processus par lequel une substance se dissout dans une autre, comme le CO₂ qui se dissout dans l'eau présente dans les formations rocheuses souterraines."
     },
-    "gaz": {
-      "term": "Gaz",
-      "definition": "Lorem Ipsum"
+    "eor": {
+      "term": "EOR",
+      "definition": "Récupération Assistée du Pétrole – technique utilisée pour extraire du pétrole supplémentaire de gisements souterrains en injectant des substances telles que le CO₂ pour pousser le pétrole vers les puits de production. Cette technique n'est pas considérée comme faisant partie des efforts de réduction des émissions de carbone."
     },
-    "injection_co2": {
-      "term": "Injection de CO2",
-      "definition": "Lorem Ipsum"
+    "gcs": {
+      "term": "GCS",
+      "definition": "Stockage géologique du CO₂ : processus de stockage du CO₂ capté profondément sous terre dans des formations rocheuses adaptées afin de l'empêcher d'entrer dans l'atmosphère."
     },
-    "liquid": {
-      "term": "Liquide",
-      "definition": "Lorem Ipsum"
+    "hard_to_abate_emissions": {
+      "term": "Émissions difficiles à éliminer",
+      "definition": "Émissions de gaz à effet de serre difficiles à réduire ou à supprimer avec les technologies actuellement disponibles, en particulier dans des industries telles que le ciment, l'acier et la chimie, où les émissions font souvent partie intégrante des processus de production."
+    },
+    "impermeable_rock": {
+      "term": "Roche imperméable",
+      "definition": "Roche qui laisse passer très peu de fluides, voire aucun, ce qui en fait une barrière naturelle utile contre les mouvements du CO₂."
+    },
+    "injection": {
+      "term": "Injection",
+      "definition": "Processus consistant à pomper le CO₂ profondément sous terre, via des puits spécialement conçus, vers des formations rocheuses adaptées au stockage."
+    },
+    "injection_well": {
+      "term": "Puits d'injection",
+      "definition": "Puits spécialement conçu pour transporter le CO₂ depuis la surface jusqu'à une formation de stockage souterraine profonde."
     },
     "mineralisation": {
       "term": "Minéralisation",
-      "definition": "Lorem Ipsum"
+      "definition": "Processus naturel au cours duquel le CO₂ réagit avec les minéraux des roches pour former de nouveaux minéraux solides, piégeant définitivement le CO₂ sous terre."
     },
     "net_zero": {
-      "term": "Net zero (neutralité carbone)",
-      "definition": "Lorem Ipsum"
+      "term": "Zéro net",
+      "definition": "État dans lequel la quantité de gaz à effet de serre libérée dans l'atmosphère est équilibrée par la quantité retirée, de sorte qu'il n'y a pas d'augmentation globale des gaz à effet de serre atmosphériques."
     },
-    "permeable": {
-      "term": "Pérméabilité",
-      "definition": "Lorem Ipsum"
+    "permeability": {
+      "term": "Perméabilité / perméable",
+      "definition": "La perméabilité décrit la facilité avec laquelle les fluides, tels que l'eau ou le CO₂, peuvent se déplacer dans les espaces connectés d'une roche. Une roche perméable laisse les fluides s'écouler à travers elle."
+    },
+    "phases": {
+      "term": "Phases (du CO₂)",
+      "definition": "Les différentes formes physiques que peut prendre le CO₂ : gaz, liquide, solide et un état dense proche d'un fluide appelé supercritique. La forme dépend de la température et de la pression."
     },
     "pilot_project": {
       "term": "Projet pilote",
-      "definition": "Lorem Ipsum"
+      "definition": "Projet à échelle réduite conçu pour tester une technologie ou un procédé dans des conditions réelles avant de l'utiliser à plus grande échelle."
     },
-    "capturé": {
-      "term": "Capturé",
-      "definition": "Lorem ipsum"
+    "plume": {
+      "term": "Panache",
+      "definition": "Le panache de CO₂ est la zone d'une formation rocheuse souterraine occupée par le CO₂ injecté au fur et à mesure de sa diffusion dans les espaces poraux disponibles."
     },
-    "liquide": {
-      "term": "Liquide",
-      "definition": "Lorem ipsum"
+    "porosity": {
+      "term": "Porosité",
+      "definition": "La quantité d'espace vide, ou de pores, dans une roche. Ces espaces peuvent contenir des fluides tels que l'eau, le pétrole, le gaz naturel ou le CO₂ injecté."
     },
-    "supercritique": {
-      "term": "Supercritique",
-      "definition": "Lorem ipsum"
-    },
-    "poreuse": {
-      "term": "Poreuse",
-      "definition": "Lorem ipsum"
-    },
-    "réservoir": {
+    "reservoir": {
       "term": "Réservoir",
-      "definition": "Lorem ipsum"
+      "definition": "Formation rocheuse souterraine disposant d'un espace poral connecté suffisant pour contenir et laisser circuler des fluides, tels que l'eau, le pétrole, le gaz naturel ou le CO₂ stocké."
     },
-    "flottant": {
-      "term": "Flottant",
-      "definition": "Lorem ipsum"
+    "residual_emissions": {
+      "term": "Émissions résiduelles",
+      "definition": "Émissions de gaz à effet de serre qui subsistent après que des efforts ont été faits pour les réduire autant que raisonnablement possible, souvent parce qu'il est difficile de les éliminer complètement."
     },
-    "barrière hydromécanique": {
-      "term": "Barrière hydromécanique",
-      "definition": "Lorem ipsum"
+    "saline_aquifer": {
+      "term": "Aquifère salin",
+      "definition": "Formation rocheuse souterraine profonde contenant de l'eau salée dans ses pores, qui peut se prêter au stockage du CO₂."
     },
-    "references": {
-      "title": "Références",
-      "link1": "Lien 1",
-      "link2": "Lien 2",
-      "link3": "Lien 3"
+    "saturated_rock": {
+      "term": "Roche saturée",
+      "definition": "Roche dont les espaces poraux sont complètement remplis par un fluide, tel que l'eau, plutôt que par de l'air."
+    },
+    "storage_capacity": {
+      "term": "Capacité de stockage",
+      "definition": "Quantité estimée de CO₂ pouvant être stockée en toute sécurité dans une formation rocheuse souterraine donnée."
+    },
+    "storage_integrity": {
+      "term": "Intégrité du stockage",
+      "definition": "Capacité d'un site de stockage géologique à retenir de manière sûre le CO₂ injecté sur de longues périodes, sans fuite non intentionnelle."
+    },
+    "storage_locations": {
+      "term": "Sites de stockage",
+      "definition": "Formations géologiques souterraines adaptées au stockage sûr du CO₂ sur de longues périodes, telles que les formations salines profondes et les gisements de pétrole ou de gaz épuisés."
+    },
+    "supercritical_co2": {
+      "term": "CO₂ supercritique",
+      "definition": "Forme dense du dioxyde de carbone, proche d'un fluide, qui apparaît sous haute pression (> 71 bar) et haute température (> 32 °C) et combine les propriétés d'un gaz et d'un liquide. Cela permet au CO₂ de s'écouler plus facilement dans les roches souterraines que sous forme liquide, tout en occupant moins de place que sous forme gazeuse (car il est plus dense)."
+    },
+    "trapping_mechanisms": {
+      "term": "Mécanismes de piégeage",
+      "definition": "Processus physique ou chimique naturel qui maintient le CO₂ injecté sous terre et l'empêche de remonter vers la surface. Exemples : piégeage sous des roches imperméables (caprock – piégeage structural), dans les petits espaces poraux (piégeage résiduel), par dissolution dans l'eau (piégeage par dissolution) ou par formation de minéraux solides (piégeage minéral)."
+    },
+    "viscosity": {
+      "term": "Viscosité",
+      "definition": "Mesure de la facilité avec laquelle un fluide s'écoule. Par exemple, le miel a une viscosité plus élevée que l'eau car il s'écoule plus lentement."
     }
   },
   "links": {
     "info": "Restez informé·e ! Notre équipe partage ses liens, articles préférés sur cette page  ",
-    "ipcc": "IPCC",
-    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
-    "articles_title": "Articles sélectionnés",
-    "articles": {
-      "article1": {
-        "title": "Le titre de l'article",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+    "references": {
+      "title": "Références",
+      "ieaghg": {
+        "title": "IEAGHG – Agence internationale de l'énergie pour les gaz à effet de serre",
+        "safe_storage": {
+          "title": "Stockage sûr du CO₂",
+          "url": "https://ieaghg.org/publications/safe-storage-of-co2/"
+        },
+        "site_catalogue": {
+          "title": "Catalogue des sites de stockage de CO₂",
+          "url": "https://ieaghg.org/publications/co2-storage-site-catalogue/"
+        }
       },
-      "article2": {
-        "title": "Le titre de l'article",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "iea": {
+        "title": "AIE – Agence internationale de l'énergie",
+        "projects_explorer": {
+          "title": "Explorateur de projets CCUS",
+          "url": "https://www.iea.org/data-and-statistics/data-tools/ccus-projects-explorer"
+        },
+        "role_of_storage": {
+          "title": "Le rôle du stockage du CO₂",
+          "url": "https://www.iea.org/reports/the-role-of-co2-storage"
+        }
       },
-      "article3": {
-        "title": "Le titre de l'article mais long",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "ipcc": {
+        "title": "GIEC – Groupe d'experts intergouvernemental sur l'évolution du climat",
+        "ccs_report": {
+          "title": "Captage et stockage du dioxyde de carbone",
+          "url": "https://www.ipcc.ch/report/carbon-dioxide-capture-and-storage/"
+        },
+        "glossary": {
+          "title": "Glossaire (AR6 WGI, Annexe VII)",
+          "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_AnnexVII.pdf"
+        }
       },
-      "article4": {
-        "title": "Le titre de l'article mais long",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "journals": {
+        "title": "Publications scientifiques sélectionnées",
+        "planetary_limit": {
+          "title": "A prudent planetary limit for geologic carbon storage",
+          "url": "https://www.nature.com/articles/s41586-025-09423-y"
+        }
       }
     }
   },

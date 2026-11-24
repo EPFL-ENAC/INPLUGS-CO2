@@ -20,23 +20,23 @@
     "info_boxes": {
       "box1": {
         "title": "CO₂ capture",
-        "description": "CO₂ is <term-tooltip term=\"captured\">captured</term-tooltip> directly from large emitters before being released in the atmosphere"
+        "description": "CO₂ is captured directly from large emitters before being released in the atmosphere"
       },
       "box2": {
         "title": "CO₂ compression & injection",
-        "description": "<term-tooltip term=\"captured\">Captured</term-tooltip> CO₂ is compressed to <term-tooltip term=\"liquid\">liquid</term-tooltip> or <term-tooltip term=\"supercritical\">supercritical</term-tooltip> form and injected in the subsurface at min. depth 700-800m"
+        "description": "Captured CO₂ is compressed to <term-tooltip term=\"phases\">liquid</term-tooltip> or <term-tooltip term=\"supercritical_co2\">supercritical</term-tooltip> form and injected in the subsurface at min. depth 700-800m"
       },
       "box3": {
         "title": "CO₂ storage",
-        "description": "CO₂ is injected in a <term-tooltip term=\"porous\">porous</term-tooltip> geological layer that is called <term-tooltip term=\"reservoir\">reservoir</term-tooltip>"
+        "description": "CO₂ is injected in a <term-tooltip term=\"porosity\">porous</term-tooltip> geological layer that is called <term-tooltip term=\"reservoir\">reservoir</term-tooltip>"
       },
       "box4": {
         "title": "CO₂ migration",
-        "description": "The injected CO₂ is <term-tooltip term=\"less dense\">less dense</term-tooltip> than the existing water in the pores of the reservoir, and starts migrating upwards"
+        "description": "The injected CO₂ is <term-tooltip term=\"buoyancy\">less dense</term-tooltip> than the existing water in the pores of the reservoir, and starts migrating upwards"
       },
       "box5": {
         "title": "CO₂ trapping",
-        "description": "The <term-tooltip term=\"buoyant\">buoyant</term-tooltip> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <term-tooltip term=\"hydromechanical barrier\">hydromechanical barrier</term-tooltip>"
+        "description": "The <term-tooltip term=\"buoyancy\">buoyant</term-tooltip> CO₂ is stopped from escaping to the surface thanks to the existence of the <term-tooltip term=\"caprock\">caprock</term-tooltip>, a geological layer above the reservoir, that acts as a <term-tooltip term=\"impermeable_rock\">hydromechanical barrier</term-tooltip>"
       }
     }
   },
@@ -100,15 +100,35 @@
       "subtitle": "Frequently Asked Questions",
       "q1": {
         "question": "Is geological carbon storage safe?",
-        "answer": "Yes, when properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
+        "answer": "When properly managed, geological carbon storage is considered safe. It involves injecting CO₂ into deep underground rock formations that are well understood and monitored to prevent leaks."
       },
       "q2": {
-        "question": "How does GCS work?",
-        "answer": "GCS works by capturing CO2 at its source, compressing it, transporting it to a storage site, and injecting it into deep underground rock formations where it is permanently stored."
+        "question": "What can threaten safety in CO₂ storage??",
+        "answer": "answer coming soon."
       },
       "q3": {
-        "question": "Is GCS safe?",
-        "answer": "Yes, GCS is considered safe when properly implemented. The technology has been used for decades, and extensive monitoring ensures the stored CO2 remains secure."
+        "question": "Why do we need to cut CO₂ emissions if CO₂ is only 0.043% of the atmosphere?",
+        "answer": "CO₂ is a trace of the atmosphere's composition and its concentration has doubled since the industrial revolution. Even though the absolute number (0.043 %) is small, in relative terms, i.e. compared to its natural concentration in pre-industrial times (0.028 %) is very high. This high concentration increase is strictly related to human activity."
+      },
+      "q4": {
+        "question": "How much CO₂ do we need to remove to achieve net zero emissions?",
+        "answer": "To achieve net zero emissions we need to capture and store 1 Gt (1 billion tons) of CO₂ per year. Current CO₂ capture and storage capacity in the world is 50 Mt (million tons) of CO₂ per year."
+      },
+      "q5": {
+        "question": "What is the current CO₂ storage capacity in the world?",
+        "answer": "answer coming soon."
+      },
+      "q5": {
+        "question": "Are there CO₂ storage sites in Switzerland?",
+        "answer": "answer coming soon."
+      },
+      "q6": {
+        "question": "How does GCS work?",
+        "answer": "GCS imitates the way that nature has been storing oil and gas underground over million of years.Captured CO2 is compressed, transported and injectied into a deep underground porous rock formation (called reservoir). The reservoir formation must have on top of it a nearly impermeable rock formation (called caprock) to prevent CO2 leakage to the surface and ensure durable storage."
+      },
+      "q7": {
+        "question": "Where can we store CO2?",
+        "answer": "Geological CO2 storage sites include depleted oil and gas reservoirs, unminable coal systems and deep saline aquifers. These geological systems usually provide the necessary caprock-reservoir configuration that is needed for durable storage."
       }
     },
     "title": "GCS • What & Why"
@@ -122,107 +142,171 @@
   },
   "dictionary": {
     "title": "Glossary",
-    "description": "Essentials terms to understand Geological Carbon Storage (GCS).",
-    "gcs": {
-      "term": "GCS",
-      "definition": "Lorem Ipsum"
+    "description": "Essential terms to understand Geological Carbon Storage (GCS).",
+    "anthropogenic_emissions": {
+      "term": "Anthropogenic emissions",
+      "definition": "Greenhouse gases released into the atmosphere as a result of human activities, such as burning fossil fuels, industrial processes, and agriculture."
+    },
+    "brine": {
+      "term": "Brine",
+      "definition": "Water containing a high concentration of dissolved salts, commonly found in deep underground rock formations."
+    },
+    "buoyancy": {
+      "term": "Buoyancy",
+      "definition": "The tendency of a less dense fluid to rise above a denser one. Underground, CO₂ is often less dense than the surrounding water and therefore tends to move upwards until it is trapped."
     },
     "caprock": {
       "term": "Caprock",
-      "definition": "Couche géologique qui est imperméable - souvent composée d'argile ou de sel (gypse, halite). Ce type de roche est très important car empêche les fuite vers l'extérieur donc c'est un très bon piège."
+      "definition": "A layer of rock with high mechanical strength and nearly impermeable, that acts as a natural seal, preventing CO₂ stored underground from moving upwards towards the surface."
+    },
+    "ccus": {
+      "term": "CCUS",
+      "definition": "Carbon Capture Utilisation and Storage – a group of technologies that capture CO₂ from industrial processes or other sources so it can be reused in products or stored deep underground instead of being released into the atmosphere."
     },
     "density": {
       "term": "Density",
-      "definition": "Lorem Ipsum"
+      "definition": "A measure of how much mass is contained in a given volume of a substance. For CO₂, density changes depending on temperature and pressure, influencing how it behaves underground."
     },
     "dissolution": {
       "term": "Dissolution",
-      "definition": "Lorem Ipsum"
+      "definition": "The process in which one substance dissolves into another, such as CO₂ dissolving into water found in underground rock formations."
     },
-    "gaz": {
-      "term": "Gaz",
-      "definition": "Lorem Ipsum"
+    "eor": {
+      "term": "EOR",
+      "definition": "Enhanced Oil Recovery – a technique used to extract additional oil from underground reservoirs by injecting substances such as CO₂ to help move the oil towards production wells. This technique is not considered as part of the efforts for reducing carbon emissions."
     },
-    "injection_co2": {
-      "term": "Injection de CO2",
-      "definition": "Lorem Ipsum"
+    "gcs": {
+      "term": "GCS",
+      "definition": "The process of storing captured CO₂ deep underground in suitable rock formations to prevent it from entering the atmosphere."
     },
-    "liquid": {
-      "term": "Liquide",
-      "definition": "Lorem Ipsum"
+    "hard_to_abate_emissions": {
+      "term": "Hard-to-abate emissions",
+      "definition": "Greenhouse gas emissions that are difficult to reduce or eliminate using currently available technologies, particularly in industries such as cement, steel, and chemicals, where emissions are often an unavoidable part of production processes."
+    },
+    "impermeable_rock": {
+      "term": "Impermeable rock",
+      "definition": "Rock that allows very little or no fluid to pass through it, making it useful as a natural barrier to CO₂ movement."
+    },
+    "injection": {
+      "term": "Injection",
+      "definition": "The process of pumping CO₂ deep underground through specially designed wells into rock formations suitable for storage."
+    },
+    "injection_well": {
+      "term": "Injection well",
+      "definition": "A specially designed well used to transport CO₂ from the surface into a deep underground storage formation."
     },
     "mineralisation": {
-      "term": "Minéralisation",
-      "definition": "Lorem Ipsum"
+      "term": "Mineralisation",
+      "definition": "A natural process in which CO₂ reacts with minerals in rocks to form new, solid minerals, permanently trapping the CO₂ underground."
     },
     "net_zero": {
-      "term": "Net zero (neutralité carbone)",
-      "definition": "Lorem Ipsum"
+      "term": "Net Zero",
+      "definition": "A state in which the amount of greenhouse gases released into the atmosphere is balanced by the amount removed, resulting in no overall increase in atmospheric greenhouse gases."
     },
-    "permeable": {
-      "term": "Permeable",
-      "definition": "Lorem Ipsum"
+    "permeability": {
+      "term": "Permeability / permeable",
+      "definition": "Permeability describes how easily fluids, such as water or CO₂, can move through connected spaces in a rock. A permeable rock allows fluids to flow through it."
+    },
+    "phases": {
+      "term": "Phases (of CO₂)",
+      "definition": "The different physical forms CO₂ can take, including gas, liquid, solid, and a dense, fluid-like state called supercritical. The form depends on temperature and pressure."
     },
     "pilot_project": {
       "term": "Pilot project",
-      "definition": "Lorem Ipsum"
+      "definition": "A smaller-scale project designed to test a technology or process under real-world conditions before it is used on a larger scale."
     },
-    "captured": {
-      "term": "Captured",
-      "definition": "Lorem ipsum"
+    "plume": {
+      "term": "Plume",
+      "definition": "The CO₂ plume is the area within an underground rock formation occupied by injected CO₂ as it spreads through the available pore spaces."
     },
-    "supercritical": {
-      "term": "Supercritical",
-      "definition": "Lorem ipsum"
-    },
-    "porous": {
-      "term": "Porous",
-      "definition": "Lorem ipsum"
+    "porosity": {
+      "term": "Porosity",
+      "definition": "The amount of empty space, or pores, within a rock. These spaces can contain fluids such as water, oil, natural gas, or injected CO₂."
     },
     "reservoir": {
       "term": "Reservoir",
-      "definition": "Lorem ipsum"
+      "definition": "An underground rock formation with enough connected pore space to hold and allow the movement of fluids, such as water, oil, natural gas, or stored CO₂."
     },
-    "less dense": {
-      "term": "Less dense",
-      "definition": "Lorem ipsum"
+    "residual_emissions": {
+      "term": "Residual emissions",
+      "definition": "Greenhouse gas emissions that remain after efforts have been made to reduce them as much as reasonably possible, often because they are difficult to eliminate completely."
     },
-    "buoyant": {
-      "term": "Buoyant",
-      "definition": "Lorem ipsum"
+    "saline_aquifer": {
+      "term": "Saline aquifer",
+      "definition": "A deep underground rock formation containing salty water within its pores, which may be suitable for storing CO₂."
     },
-    "hydromechanical barrier": {
-      "term": "Hydromechanical barrier",
-      "definition": "Lorem ipsum"
+    "saturated_rock": {
+      "term": "Saturated rock",
+      "definition": "Rock whose pore spaces are completely filled with a fluid, such as water, rather than air."
     },
-    "references": {
-      "title": "References",
-      "link1": "Link 1",
-      "link2": "Link 2",
-      "link3": "Link 3"
+    "storage_capacity": {
+      "term": "Storage capacity",
+      "definition": "The estimated amount of CO₂ that can be safely stored in a particular underground rock formation."
+    },
+    "storage_integrity": {
+      "term": "Storage integrity",
+      "definition": "The ability of a geological storage site to retain injected CO₂ securely over long periods without unintended leakage."
+    },
+    "storage_locations": {
+      "term": "Storage locations",
+      "definition": "Underground geological formations suitable for safely storing CO₂ over long periods, such as deep saline formations and depleted oil or gas reservoirs."
+    },
+    "supercritical_co2": {
+      "term": "Supercritical CO₂",
+      "definition": "A dense, fluid-like form of carbon dioxide that occurs under high pressure (> 71 bar) and temperature (> 32 °C), combining properties of both a gas and a liquid. This allows CO₂ to flow through underground rocks more easily than in liquid form while occupying less space than it would as a gas (because it's denser)."
+    },
+    "trapping_mechanisms": {
+      "term": "Trapping mechanisms",
+      "definition": "A natural physical or chemical process that keeps injected CO₂ underground and prevents it from moving towards the surface. Examples include trapping beneath impermeable rocks (caprock – structural trapping), within tiny pore spaces (residual trapping), by dissolving in water (dissolution trapping), or by forming solid minerals (mineral trapping)."
+    },
+    "viscosity": {
+      "term": "Viscosity",
+      "definition": "A measure of how easily a fluid flows. For example, honey has a higher viscosity than water because it flows more slowly."
     }
   },
   "links": {
     "info": "Stay informed ! Our team shares its favourite links and articles on this page.",
-    "ipcc": "IPCC",
-    "ipcc_text": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.",
-    "articles_title": "Selected Articles",
-    "articles": {
-      "article1": {
-        "title": "Article's title",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+    "references": {
+      "title": "References",
+      "ieaghg": {
+        "title": "IEAGHG – International Energy Agency Greenhouse Gas",
+        "safe_storage": {
+          "title": "Safe Storage of CO₂",
+          "url": "https://ieaghg.org/publications/safe-storage-of-co2/"
+        },
+        "site_catalogue": {
+          "title": "CO₂ Storage Site Catalogue",
+          "url": "https://ieaghg.org/publications/co2-storage-site-catalogue/"
+        }
       },
-      "article2": {
-        "title": "Article's title",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "iea": {
+        "title": "IEA – International Energy Agency",
+        "projects_explorer": {
+          "title": "CCUS Projects Explorer",
+          "url": "https://www.iea.org/data-and-statistics/data-tools/ccus-projects-explorer"
+        },
+        "role_of_storage": {
+          "title": "The Role of CO₂ Storage",
+          "url": "https://www.iea.org/reports/the-role-of-co2-storage"
+        }
       },
-      "article3": {
-        "title": "Article's title but long",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "ipcc": {
+        "title": "IPCC – Intergovernmental Panel on Climate Change",
+        "ccs_report": {
+          "title": "Carbon Dioxide Capture and Storage",
+          "url": "https://www.ipcc.ch/report/carbon-dioxide-capture-and-storage/"
+        },
+        "glossary": {
+          "title": "Glossary (AR6 WGI, Annex VII)",
+          "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_AnnexVII.pdf"
+        }
       },
-      "article4": {
-        "title": "Article's title but long",
-        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci"
+      "journals": {
+        "title": "Selected scientific journal publications",
+        "planetary_limit": {
+          "title": "A prudent planetary limit for geologic carbon storage",
+          "url": "https://www.nature.com/articles/s41586-025-09423-y"
+        }
       }
     }
   },
@@ -247,7 +331,7 @@
       "text": "INPLUGS-CO2 is an independent initiative launched by researchers at EPFL that aims to share impartial information on geological CO2 storage technology. Due to human-induced climate change, reducing carbon emissions is becoming an increasingly urgent issue, and CCS technologies (including GCS) can have a significant impact in this regard. Our efforts aim to provide a solid foundation on how GCS works so that readers can form an objective opinion on the subject. In other words, INPLUGS-CO2's mission is not to promote GCS, but to inform the public about it using facts and data, in the hope that this will help society to be more aware and develop a critical mind in the face of the intense flow of often unverified information to which it is exposed."
     },
     "team": {
-      "title": "L'équipe",
+      "title": "The team",
       "member": {
         "Eleni": {
           "name": "Eleni Stavropoulou",
@@ -286,7 +370,7 @@
           "role": "Managed the delivery of the website"
         },
         "Hugo": {
-          "name": "Hugo Louis Solleder",
+          "name": "Hugo Solleder",
           "status": "Research Software Engineer",
           "organisation": "ENAC-IT4Research, EPFL",
           "role": "Co-managed the delivery of the website"
