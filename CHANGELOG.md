@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/EPFL-ENAC/INPLUGS-CO2/compare/v1.0.2...v1.0.3) (2026-11-24)
+
+
+### Bug Fixes
+
+* **docker:** move nginx to the stable-alpine tag ([#35](https://github.com/EPFL-ENAC/INPLUGS-CO2/issues/35)) ([526c150](https://github.com/EPFL-ENAC/INPLUGS-CO2/commit/526c1508c65c6b3cf938f2a3797bd357db86bca8))
+
 ## [1.0.1](https://github.com/EPFL-ENAC/INPLUGS-CO2/compare/v1.0.0...v1.0.1) (2025-11-12)
 
 
